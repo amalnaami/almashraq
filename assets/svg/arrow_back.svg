@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <g id="Group_10029" data-name="Group 10029" transform="translate(-307 -65.904)">
+    <g id="Group_10028" data-name="Group 10028" transform="translate(-32 4)">
+      <g id="Group_9692" data-name="Group 9692">
+        <g id="Icon_sorting" transform="translate(341 64)">
+          <g id="Icon_sorting-2" data-name="Icon_sorting">
+            <path id="Path" d="M18,1.5A1.5,1.5,0,0,0,16.5,0H1.5a1.5,1.5,0,0,0,0,3h15A1.5,1.5,0,0,0,18,1.5Z" fill="#fff"/>
+            <path id="Path-2" data-name="Path" d="M18,1.5A1.5,1.5,0,0,0,16.5,0H1.5a1.5,1.5,0,0,0,0,3h15A1.5,1.5,0,0,0,18,1.5Z" transform="translate(0 12)" fill="#fff"/>
+            <path id="Path-3" data-name="Path" d="M14,1.5A1.5,1.5,0,0,0,12.5,0H1.5a1.5,1.5,0,0,0,0,3h11A1.5,1.5,0,0,0,14,1.5Z" transform="translate(4 6)" fill="#fff"/>
+          </g>
+        </g>
+      </g>
+      <g id="Iconly_Light-outline_Arrow_-_Right_2" data-name="Iconly/Light-outline/Arrow - Right 2" transform="translate(339 61.904)">
+        <g id="Arrow_-_Right_2" data-name="Arrow - Right 2" transform="translate(6.25 3.333)">
+          <path id="Arrow_-_Right_2-2" data-name="Arrow - Right 2" d="M.2,13.132a.679.679,0,0,1-.061-.9l.063-.07L6.31,6.181a.7.7,0,0,1,.986,0,.677.677,0,0,1,.061.9l-.063.07L1.189,13.132a.705.705,0,0,1-.986,0ZM4.331,5.2,4.26,5.143.205,1.172A.678.678,0,0,1,.2.2.706.706,0,0,1,1.118.139L1.189.2,5.244,4.171a.677.677,0,0,1,0,.97.707.707,0,0,1-.915.064Z" transform="translate(0 0)" fill="#f36621"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

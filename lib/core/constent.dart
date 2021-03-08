@@ -1,0 +1,9 @@
+const String BaseUrl = "";
+const String APP_LANGUAGE = "App_language";
+const String TOKEN = "token";
+const String IS_LOGIN = "is_login";
+const String EMAIL = "email";
+const String NAME = "name";
+const String ID = "id";
+const String MOBILE = "mobile";
+const String IMAGE = "image";
