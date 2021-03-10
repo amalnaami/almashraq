@@ -9,10 +9,12 @@ class CustomFeild2 extends StatelessWidget {
   final String headIcon;
   final int lines;
   final String title;
+  final TextEditingController controller;
 
   const CustomFeild2(
       {Key key,
       this.hintText,
+        this.controller,
       this.iconPath,
       this.visab,
       this.lines,
@@ -52,6 +54,7 @@ class CustomFeild2 extends StatelessWidget {
         Container(
           padding: EdgeInsets.symmetric(vertical: 10),
           child: TextFormField(
+            controller: controller,
             maxLines: lines ?? 1,
             decoration: InputDecoration(
               fillColor: Color(0xFFFBFBFB),

@@ -148,5 +148,15 @@
   "confirm": "confirm",
   "page number:": "page number: ",
   "number:": "number: ",
-  "Release:": "Release: "
+  "Release:": "Release: ",
+  "new password can not be empty": "new password can not be empty",
+  "confirm password can not be empty": "confirm password can not be empty",
+  "password and confirm password dose not match": "password and confirm password dose not match",
+  "check your email inbox to rest the password": "check your email inbox to rest the password",
+  "email can not be empty": "email can not be empty",
+  "username can not be empty": "username can not be empty",
+  "password can not be empty": "password can not be empty",
+  "password changed successfully": "password changed successfully",
+  "can not add more than 5": "can not add more than 5",
+  "choose at least one category": "choose at least one category"
 }
