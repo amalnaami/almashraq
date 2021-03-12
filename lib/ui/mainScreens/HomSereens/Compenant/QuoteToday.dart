@@ -8,7 +8,7 @@ import 'QuoteCard.dart';
 
 class QuoteToday extends StatefulWidget {
   final Quote quote;
-  QuoteToday(this.quote);
+  const QuoteToday(this.quote);
   @override
   _QuoteTodayState createState() => _QuoteTodayState();
 }
@@ -16,6 +16,7 @@ class QuoteToday extends StatefulWidget {
 class _QuoteTodayState extends State<QuoteToday> {
   @override
   Widget build(BuildContext context) {
+    print(widget.quote);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -36,6 +37,7 @@ class _QuoteTodayState extends State<QuoteToday> {
             ],
           ),
         ),
+        if(widget.quote != null)
         QuoteCard(quote: widget.quote,),
       ],
     );

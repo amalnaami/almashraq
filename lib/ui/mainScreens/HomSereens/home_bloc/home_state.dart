@@ -20,7 +20,9 @@ abstract class HomeState implements Built<HomeState, HomeStateBuilder> {
   BuiltList<Book> get allBooks;
   BuiltList<Author> get authors;
   BuiltList<Category> get categories;
+  @nullable
   Quote get todayQuote;
+  @nullable
   Review get todayReview;
 
 

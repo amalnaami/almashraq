@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:maktabeh_app/model/book/book.dart';
 import 'package:maktabeh_app/model/language/language.dart';
 import 'package:maktabeh_app/model/serializer/serializer.dart';
 import 'package:maktabeh_app/model/translations/translations.dart';
@@ -20,6 +21,8 @@ abstract class Quote implements Built<Quote, QuoteBuilder> {
   Translations get translations;
   @nullable
   String get image;
+  @nullable
+  Book get book;
 
   Quote._();
 
@@ -37,9 +40,9 @@ abstract class Quote implements Built<Quote, QuoteBuilder> {
   static Serializer<Quote> get serializer => _$quoteSerializer;
 
   String getBookName(String languageCode) {
-    return languageCode == 'ar' ? translations.ar.book_name : translations.en.book_name;
+    return languageCode == 'ar' ? translations?.ar?.book_name : translations?.en?.book_name;
   }
   String getAuthorName(String languageCode) {
-    return languageCode == 'ar' ? translations.ar.author_name : translations.en.author_name;
+    return languageCode == 'ar' ? translations?.ar?.author_name : translations?.en?.author_name;
   }
 }

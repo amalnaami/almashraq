@@ -44,6 +44,7 @@ dependencies:
   smooth_star_rating: ^1.1.1
   dots_indicator: ^1.2.0
   esys_flutter_share: any
+  url_launcher: 5.7.10
   # ^1.0.2
 
 

@@ -141,7 +141,7 @@ Widget quoteCard() {
                     ),
                   ],
                 ),
-                SoshialBar()
+                SoshialBar('')
               ],
             ),
           )

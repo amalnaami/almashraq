@@ -78,7 +78,7 @@ class _ReviewCardState extends State<ReviewCard> {
                 ),
               ),
             ),
-            SoshialBar(),
+            SoshialBar(''),
             Expanded(
               flex: 5,
               child: Padding(

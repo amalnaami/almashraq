@@ -44,7 +44,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                     style: regStyle.copyWith(
                         color: Colors.black, fontWeight: FontWeight.w500),
                   ),
-                  rateStars(SizeConfig.screenWidth * 0.08),
+                  rateStars(SizeConfig.screenWidth * 0.08, 5),
                 ],
               ),
               CustomFeild2(

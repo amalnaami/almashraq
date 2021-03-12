@@ -80,7 +80,7 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Category` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `categoryId` INTEGER)');
+            'CREATE TABLE IF NOT EXISTS `CategoryDB` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `categoryId` INTEGER)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -97,9 +97,9 @@ class _$AppDatabase extends AppDatabase {
 class _$CategoryDao extends CategoryDao {
   _$CategoryDao(this.database, this.changeListener)
       : _queryAdapter = QueryAdapter(database),
-        _categoryInsertionAdapter = InsertionAdapter(
+        _categoryDBInsertionAdapter = InsertionAdapter(
             database,
-            'Category',
+            'CategoryDB',
             (CategoryDB item) => <String, dynamic>{
                   'id': item.id,
                   'categoryId': item.categoryId
@@ -111,19 +111,20 @@ class _$CategoryDao extends CategoryDao {
 
   final QueryAdapter _queryAdapter;
 
-  static final _categoryMapper = (Map<String, dynamic> row) =>
+  static final _categoryDBMapper = (Map<String, dynamic> row) =>
       CategoryDB(id: row['id'] as int, categoryId: row['categoryId'] as int);
 
-  final InsertionAdapter<CategoryDB> _categoryInsertionAdapter;
+  final InsertionAdapter<CategoryDB> _categoryDBInsertionAdapter;
 
   @override
   Future<List<CategoryDB>> getCategories() async {
     return _queryAdapter.queryList('SELECT * FROM Cart',
-        mapper: _categoryMapper);
+        mapper: _categoryDBMapper);
   }
 
   @override
   Future<void> insertCategory(CategoryDB category) async {
-    await _categoryInsertionAdapter.insert(category, OnConflictStrategy.abort);
+    await _categoryDBInsertionAdapter.insert(
+        category, OnConflictStrategy.abort);
   }
 }

@@ -4,6 +4,7 @@ import 'package:maktabeh_app/core/config/navigatorHelper.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
 import 'package:maktabeh_app/model/review/review.dart';
 import 'package:maktabeh_app/ui/common_widget/rate_stars.dart';
+import 'package:maktabeh_app/ui/widgets/widgets.dart';
 
 import '../../allReviewsPage.dart';
 
@@ -83,8 +84,8 @@ class _ReviewTodayState extends State<ReviewToday> {
                       width: 70,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(1000),
-                        child: Image.asset(
-                          "assets/image/3.jpg",
+                        child: Image.network(
+                          widget.review.user_image,
                           //height: double.infinity,
                           fit: BoxFit.cover,
                           //width: double.infinity,
@@ -108,16 +109,22 @@ class _ReviewTodayState extends State<ReviewToday> {
                                 style: boldStyle.copyWith(fontSize: 12),
                               ),
                               Spacer(),
-                              rateStars(16, 5),
+                              rateStars(16, int.parse(widget.review.rating)),
                               SizedBox(width: 8),
                             ],
                           ),
-                          Text(
+                          ReadMoreText(
                             "${widget.review.review_text}",
+                           trimLines: 2,
+                           textDirection:
+                              AppLocalizations.of(context).locale.languageCode == 'ar'
+                              ? TextDirection.ltr
+                              : TextDirection.rtl,
                             style: lightStyle.copyWith(fontSize: 12),
                           ),
                           Row(
                             children: [
+                              Spacer(),
                               ImageIcon(
                                 AssetImage("assets/icons/book.png"),
                                 color: primaryColor,
@@ -126,11 +133,9 @@ class _ReviewTodayState extends State<ReviewToday> {
                               SizedBox(
                                 width: 5,
                               ),
-                              Expanded(
-                                child: Text(
-                                  "${widget.review.getBookName(AppLocalizations.of(context).locale.languageCode)}",
-                                  style: lightStyle.copyWith(fontSize: 10),
-                                ),
+                              Text(
+                                "${widget.review.getBookName(AppLocalizations.of(context).locale.languageCode)}",
+                                style: lightStyle.copyWith(fontSize: 10),
                               ),
                               SizedBox(
                                 width: 20,
@@ -143,11 +148,9 @@ class _ReviewTodayState extends State<ReviewToday> {
                               SizedBox(
                                 width: 5,
                               ),
-                              Expanded(
-                                child: Text(
-                                  "${widget.review.getAuthorName(AppLocalizations.of(context).locale.languageCode)}",
-                                  style: lightStyle.copyWith(fontSize: 10),
-                                ),
+                              Text(
+                                "${widget.review.getAuthorName(AppLocalizations.of(context).locale.languageCode)}",
+                                style: lightStyle.copyWith(fontSize: 10),
                               ),
                               SizedBox(
                                 width: 20,

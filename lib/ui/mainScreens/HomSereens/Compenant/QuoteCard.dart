@@ -15,7 +15,8 @@ class QuoteCard extends StatelessWidget {
   const QuoteCard({Key key, this.title, this.quote}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Card(
+    print('quote is $quote');
+    return quote == null ? Container() : Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
@@ -35,8 +36,8 @@ class QuoteCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.asset(
-                "assets/image/4.jpg",
+              child: Image.network(
+                quote.book.image,
                 height: MediaQuery.of(context).size.height * 0.15,
                 fit: BoxFit.fill,
                 width: MediaQuery.of(context).size.height * 0.15,
@@ -62,7 +63,7 @@ class QuoteCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      SvgPicture.asset(
+                      SvgPicture.network(
                         "assets/svg/book.svg",
                         height: 15,
                       ),
@@ -96,7 +97,7 @@ class QuoteCard extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 4),
-                  SoshialBar(),
+                  SoshialBar(quote.quotation_text),
                   SizedBox(height: 4),
                   if (title == "الاقتباسات" || title == 'quotes')
                     Text(

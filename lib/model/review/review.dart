@@ -19,7 +19,7 @@ abstract class Review implements Built<Review, ReviewBuilder> {
   @nullable
   Translations get translations;
   @nullable
-  String get image;
+  String get user_image;
   @nullable
   String get rating;
   @nullable

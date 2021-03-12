@@ -67,12 +67,6 @@ class _$HomeState extends HomeState {
     if (categories == null) {
       throw new BuiltValueNullFieldError('HomeState', 'categories');
     }
-    if (todayQuote == null) {
-      throw new BuiltValueNullFieldError('HomeState', 'todayQuote');
-    }
-    if (todayReview == null) {
-      throw new BuiltValueNullFieldError('HomeState', 'todayReview');
-    }
   }
 
   @override
@@ -237,8 +231,8 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
               allBooks: allBooks.build(),
               authors: authors.build(),
               categories: categories.build(),
-              todayQuote: todayQuote.build(),
-              todayReview: todayReview.build());
+              todayQuote: _todayQuote?.build(),
+              todayReview: _todayReview?.build());
     } catch (_) {
       String _$failedField;
       try {
@@ -255,9 +249,9 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
         _$failedField = 'categories';
         categories.build();
         _$failedField = 'todayQuote';
-        todayQuote.build();
+        _todayQuote?.build();
         _$failedField = 'todayReview';
-        todayReview.build();
+        _todayReview?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'HomeState', _$failedField, e.toString());

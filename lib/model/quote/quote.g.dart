@@ -42,6 +42,12 @@ class _$QuoteSerializer implements StructuredSerializer<Quote> {
         ..add(serializers.serialize(object.image,
             specifiedType: const FullType(String)));
     }
+    if (object.book != null) {
+      result
+        ..add('book')
+        ..add(serializers.serialize(object.book,
+            specifiedType: const FullType(Book)));
+    }
     return result;
   }
 
@@ -72,6 +78,10 @@ class _$QuoteSerializer implements StructuredSerializer<Quote> {
           result.image = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'book':
+          result.book.replace(serializers.deserialize(value,
+              specifiedType: const FullType(Book)) as Book);
+          break;
       }
     }
 
@@ -88,11 +98,14 @@ class _$Quote extends Quote {
   final Translations translations;
   @override
   final String image;
+  @override
+  final Book book;
 
   factory _$Quote([void Function(QuoteBuilder) updates]) =>
       (new QuoteBuilder()..update(updates)).build();
 
-  _$Quote._({this.id, this.quotation_text, this.translations, this.image})
+  _$Quote._(
+      {this.id, this.quotation_text, this.translations, this.image, this.book})
       : super._();
 
   @override
@@ -109,15 +122,18 @@ class _$Quote extends Quote {
         id == other.id &&
         quotation_text == other.quotation_text &&
         translations == other.translations &&
-        image == other.image;
+        image == other.image &&
+        book == other.book;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, id.hashCode), quotation_text.hashCode),
-            translations.hashCode),
-        image.hashCode));
+        $jc(
+            $jc($jc($jc(0, id.hashCode), quotation_text.hashCode),
+                translations.hashCode),
+            image.hashCode),
+        book.hashCode));
   }
 
   @override
@@ -126,7 +142,8 @@ class _$Quote extends Quote {
           ..add('id', id)
           ..add('quotation_text', quotation_text)
           ..add('translations', translations)
-          ..add('image', image))
+          ..add('image', image)
+          ..add('book', book))
         .toString();
   }
 }
@@ -153,6 +170,10 @@ class QuoteBuilder implements Builder<Quote, QuoteBuilder> {
   String get image => _$this._image;
   set image(String image) => _$this._image = image;
 
+  BookBuilder _book;
+  BookBuilder get book => _$this._book ??= new BookBuilder();
+  set book(BookBuilder book) => _$this._book = book;
+
   QuoteBuilder();
 
   QuoteBuilder get _$this {
@@ -161,6 +182,7 @@ class QuoteBuilder implements Builder<Quote, QuoteBuilder> {
       _quotation_text = _$v.quotation_text;
       _translations = _$v.translations?.toBuilder();
       _image = _$v.image;
+      _book = _$v.book?.toBuilder();
       _$v = null;
     }
     return this;
@@ -188,12 +210,16 @@ class QuoteBuilder implements Builder<Quote, QuoteBuilder> {
               id: id,
               quotation_text: quotation_text,
               translations: _translations?.build(),
-              image: image);
+              image: image,
+              book: _book?.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'translations';
         _translations?.build();
+
+        _$failedField = 'book';
+        _book?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'Quote', _$failedField, e.toString());

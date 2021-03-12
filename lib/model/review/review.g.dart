@@ -36,10 +36,10 @@ class _$ReviewSerializer implements StructuredSerializer<Review> {
         ..add(serializers.serialize(object.translations,
             specifiedType: const FullType(Translations)));
     }
-    if (object.image != null) {
+    if (object.user_image != null) {
       result
-        ..add('image')
-        ..add(serializers.serialize(object.image,
+        ..add('user_image')
+        ..add(serializers.serialize(object.user_image,
             specifiedType: const FullType(String)));
     }
     if (object.rating != null) {
@@ -80,8 +80,8 @@ class _$ReviewSerializer implements StructuredSerializer<Review> {
           result.translations.replace(serializers.deserialize(value,
               specifiedType: const FullType(Translations)) as Translations);
           break;
-        case 'image':
-          result.image = serializers.deserialize(value,
+        case 'user_image':
+          result.user_image = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
         case 'rating':
@@ -107,7 +107,7 @@ class _$Review extends Review {
   @override
   final Translations translations;
   @override
-  final String image;
+  final String user_image;
   @override
   final String rating;
   @override
@@ -120,7 +120,7 @@ class _$Review extends Review {
       {this.id,
       this.review_text,
       this.translations,
-      this.image,
+      this.user_image,
       this.rating,
       this.user_name})
       : super._();
@@ -139,7 +139,7 @@ class _$Review extends Review {
         id == other.id &&
         review_text == other.review_text &&
         translations == other.translations &&
-        image == other.image &&
+        user_image == other.user_image &&
         rating == other.rating &&
         user_name == other.user_name;
   }
@@ -151,7 +151,7 @@ class _$Review extends Review {
             $jc(
                 $jc($jc($jc(0, id.hashCode), review_text.hashCode),
                     translations.hashCode),
-                image.hashCode),
+                user_image.hashCode),
             rating.hashCode),
         user_name.hashCode));
   }
@@ -162,7 +162,7 @@ class _$Review extends Review {
           ..add('id', id)
           ..add('review_text', review_text)
           ..add('translations', translations)
-          ..add('image', image)
+          ..add('user_image', user_image)
           ..add('rating', rating)
           ..add('user_name', user_name))
         .toString();
@@ -186,9 +186,9 @@ class ReviewBuilder implements Builder<Review, ReviewBuilder> {
   set translations(TranslationsBuilder translations) =>
       _$this._translations = translations;
 
-  String _image;
-  String get image => _$this._image;
-  set image(String image) => _$this._image = image;
+  String _user_image;
+  String get user_image => _$this._user_image;
+  set user_image(String user_image) => _$this._user_image = user_image;
 
   String _rating;
   String get rating => _$this._rating;
@@ -205,7 +205,7 @@ class ReviewBuilder implements Builder<Review, ReviewBuilder> {
       _id = _$v.id;
       _review_text = _$v.review_text;
       _translations = _$v.translations?.toBuilder();
-      _image = _$v.image;
+      _user_image = _$v.user_image;
       _rating = _$v.rating;
       _user_name = _$v.user_name;
       _$v = null;
@@ -235,7 +235,7 @@ class ReviewBuilder implements Builder<Review, ReviewBuilder> {
               id: id,
               review_text: review_text,
               translations: _translations?.build(),
-              image: image,
+              user_image: user_image,
               rating: rating,
               user_name: user_name);
     } catch (_) {

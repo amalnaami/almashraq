@@ -27,8 +27,8 @@ class _BookCardState extends State<BookCard> {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
-                'assets/image/2.jpg',
+              child: Image.network(
+                widget.book.image,
                 fit: BoxFit.fill,
                 height: MediaQuery.of(context).size.height * 0.18,
               ),
@@ -69,7 +69,7 @@ class _BookCardState extends State<BookCard> {
                 ),
               ],
             ),
-            rateStars(15, 5),
+            rateStars(15, widget.book.rate),
             //rateStars(widget.book.rate.toDouble()),
           ],
         ),
