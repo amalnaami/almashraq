@@ -3,6 +3,13 @@ library serializer;
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
+import 'package:maktabeh_app/model/all_books_model/author_data.dart';
+import 'package:maktabeh_app/model/all_books_model/author_language.dart';
+import 'package:maktabeh_app/model/all_books_model/author_translation.dart';
+import 'package:maktabeh_app/model/all_books_model/books_data.dart';
+import 'package:maktabeh_app/model/all_books_model/books_details.dart';
+import 'package:maktabeh_app/model/all_books_model/books_translation.dart';
+import 'package:maktabeh_app/model/all_books_model/section_data.dart';
 import 'package:maktabeh_app/model/category/category.dart';
 import 'package:maktabeh_app/model/country_model/country_language.dart';
 import 'package:maktabeh_app/model/country_model/country_model.dart';
@@ -28,7 +35,18 @@ part 'serializer.g.dart';
   CountryLanguage,
   CountryTranslations,
   UserModel,
-  UserData
+  UserData,
+  BooksDetails,
+  BooksTranslation,
+  SectionData,
+  AuthorData,
+  BooksData,
+  AuthorTranslation,
+  AuthorLanguage
+
+
+
+
 ])
 final Serializers serializers =
     (_$serializers.toBuilder()
@@ -66,4 +84,12 @@ final Serializers serializers =
             ],
           )),
               () => ListBuilder<UserData>())
+      ..addBuilderFactory(
+          (FullType(
+            BuiltList,
+            [
+              const FullType(BooksDetails),
+            ],
+          )),
+              () => ListBuilder<BooksDetails>())
     ).build();

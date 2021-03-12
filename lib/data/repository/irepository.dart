@@ -1,3 +1,4 @@
+import 'package:maktabeh_app/model/all_books_model/books_details.dart';
 import 'package:maktabeh_app/model/category/category.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:maktabeh_app/model/country_model/country_model.dart';
@@ -10,6 +11,7 @@ abstract class IRepository {
   Future<void> setAppLanguage(int value);
   Future<BuiltList<Category>> getCategories();
   Future<BuiltList<CountryModel>> getCountries();
+  Future<BuiltList<BooksDetails>> getAllBooks();
   Future<bool> login(String userName, String password);
   Future<bool> forgetPassword(String email);
   Future<bool> updatePassword(String password);

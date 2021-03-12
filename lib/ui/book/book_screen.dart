@@ -16,8 +16,13 @@ import 'package:maktabeh_app/ui/common_widget/local_image.dart';
 import 'package:maktabeh_app/ui/common_widget/rate_stars.dart';
 import 'package:maktabeh_app/ui/mainScreens/moreBooksPage.dart';
 import 'package:maktabeh_app/ui/review/review_screen.dart';
+import 'package:built_collection/built_collection.dart';
+import 'package:maktabeh_app/model/all_books_model/books_details.dart';
 
 class BookScreen extends StatefulWidget {
+  final BooksDetails singleBook;
+
+  BookScreen({this.singleBook,});
   @override
   _BookScreenState createState() => _BookScreenState();
 }
@@ -108,14 +113,16 @@ class _BookScreenState extends State<BookScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset(
-                  'assets/image/book_image.png',
+                Image.network(
+                  widget.singleBook.image,
+                //  'assets/image/book_image.png',
                 ),
                 SizedBox(height: SizeConfig.blockSizeVertical),
                 Column(
                   children: [
                     Text(
-                      'الأوابد',
+                      widget.singleBook.getName(AppLocalizations.of(context).locale.languageCode)!=null?widget.singleBook.getName(AppLocalizations.of(context).locale.languageCode):'No Name',
+                      // 'الأوابد',
                       style: boldStyle.copyWith(fontSize: 18),
                     ),
                     Padding(
@@ -132,14 +139,15 @@ class _BookScreenState extends State<BookScreen> {
                           ),
                           SizedBox(width: 4),
                           Text(
-                            'عبدالوهاب عزام',
+                              widget.singleBook.editor!=null?widget.singleBook.editor:'No Name',
+                            // 'عبدالوهاب عزام',
                             style: lightStyle.copyWith(
                                 color: Color(0xFFABABAB), fontSize: 12),
                           )
                         ],
                       ),
                     ),
-                    rateStars(20),
+                    rateStars(widget.singleBook.rate*1.0),
                     Divider(
                       thickness: 1,
                       color: Color(0xFFE5E5E5),
@@ -163,7 +171,103 @@ class _BookScreenState extends State<BookScreen> {
                         show: showAnswer1,
                         icon: 'assets/svg/book.svg',
                         arrow: 'assets/svg/arrow_down.svg',
-                        widget: bookInfo(context), onTab: () {
+                        widget: Column(
+                          children: [
+                            Divider(
+                              thickness: 1,
+                              color: Color(0xFFE5E5E5),
+                            ),
+                            Container(
+                              color: Colors.white,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      RichText(
+                                        text: TextSpan(
+                                            text: AppLocalizations.of(context).translate('section:'),
+                                            style: boldStyle.copyWith(
+                                              color: primaryColor,
+                                            ),
+                                            children: [
+                                              TextSpan(
+                                                  text: widget.singleBook.section.getName(AppLocalizations.of(context).locale.languageCode),
+                                                  style: regStyle.copyWith(color: Colors.black))
+                                            ]),
+                                      ),
+                                      RichText(
+                                        text: TextSpan(
+                                            text: AppLocalizations.of(context)
+                                                .translate('page number:'),
+                                            style: boldStyle.copyWith(
+                                              color: primaryColor,
+                                            ),
+                                            children: [
+                                              TextSpan(
+                                                  text: widget.singleBook.pages_count,
+                                                  style: regStyle.copyWith(color: Colors.black))
+                                            ]),
+                                      ),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding:
+                                    EdgeInsets.symmetric(vertical: SizeConfig.blockSizeVertical),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        RichText(
+                                          text: TextSpan(
+                                              text:
+                                              AppLocalizations.of(context).translate('Release:'),
+                                              style: boldStyle.copyWith(
+                                                color: primaryColor,
+                                              ),
+                                              children: [
+                                                TextSpan(
+                                                    text: widget.singleBook.publish_year,
+                                                    //AppLocalizations.of(context).translate('Arabic novels'),
+                                                    style: regStyle.copyWith(color: Colors.black))
+                                              ]),
+                                        ),
+                                        RichText(
+                                          text: TextSpan(
+                                              text: AppLocalizations.of(context).translate('number:'),
+                                              style: boldStyle.copyWith(
+                                                color: primaryColor,
+                                              ),
+                                              children: [
+                                                TextSpan(
+                                                    text:widget.singleBook.isbn,
+                                                    //AppLocalizations.of(context).translate('Arabic novels'),
+                                                    style: regStyle.copyWith(color: Colors.black))
+                                              ]),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Text(
+                                    AppLocalizations.of(context).translate('Definition'),
+                                    style: boldStyle.copyWith(color: Colors.black),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.all(10),
+                                    width: SizeConfig.screenWidth,
+                                    child: Text(
+                                      widget.singleBook.getDescription(AppLocalizations.of(context).locale.languageCode),
+                                      // 'قبل أيام من اندلاع حرب السادس من أكتوبر لعام 1973 ميلادية، يتم تكليف أربعة من جنود وضباط من الصاعقة المصرية بنسف محطة الرصد والتقصي الإسرائيلية (عاين) والتي تقع في أعماق سيناء المحتلة. كانت تلك العملية غاية في الخطورة وقد يتوقف عليها نجاح أو فشل الضربة الجوية الأولى',
+                                      style: lightStyle.copyWith(fontSize: 12, height: 1.8),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ), onTab: () {
                       setState(() {
                         showAnswer1 = !showAnswer1;
                       });
@@ -219,7 +323,50 @@ class _BookScreenState extends State<BookScreen> {
                         show: showAnswer2,
                         icon: 'assets/svg/person.svg',
                         arrow: 'assets/svg/arrow_down.svg',
-                        widget: aboutWriter(context), onTab: () {
+                        widget: Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Divider(
+                                thickness: 1,
+                                color: Color(0xFFE5E5E5),
+                              ),
+                              Text(
+                                AppLocalizations.of(context).translate('Definition'),
+                                style: boldStyle.copyWith(color: Colors.black),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text(
+                                        widget.singleBook.author.getBrief(AppLocalizations.of(context).locale.languageCode),
+                                        // 'عبد الوهاب عزام: رائد الدراسات الفارسية، الأديب والدبلوماسي والباحث والمفكر الذي قدَّم للميادين البحثية طائفةً متنوِّعةً من الأبحاث في الأدب والتاريخ والتصوف. وقد اتسم بعُمق الثقافة العربية والإسلامية والأدبية؛ فقد وقف على أدب ',
+                                        style: regStyle.copyWith(fontSize: 12, height: 1.8),
+                                      ),
+                                    ),
+                                  ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.network(
+                                    widget.singleBook.author.image,
+                                      fit: BoxFit.fill,
+                                      height: SizeConfig.screenHeight * 0.25,
+                                      width: SizeConfig.screenHeight * 0.15,
+                                    ),
+                                  )
+                                ],
+                              ),
+                             //  Text('',
+                             // //   widget.singleBook.getDescription(AppLocalizations.of(context).locale.languageCode),
+                             //    // 'قبل أيام من اندلاع حرب السادس من أكتوبر لعام 1973 ميلادية، يتم تكليف أربعة من جنود وضباط من الصاعقة المصرية بنسف محطة الرصد والتقصي الإسرائيلية (عاين) والتي تقع في أعماق سيناء المحتلة. كانت تلك العملية غاية في الخطورة وقد يتوقف عليها نجاح أو فشل الضربة الجوية الأولى',
+                             //    style: regStyle.copyWith(fontSize: 12, height: 1.8),
+                             //  ),
+                            ],
+                          ),
+                        ), onTab: () {
                       setState(() {
                         showAnswer2 = !showAnswer2;
                       });

@@ -2,6 +2,7 @@
 import 'package:maktabeh_app/data/db_helper/idp_helper.dart';
 import 'package:maktabeh_app/data/http_helper/ihttpe_helper.dart';
 import 'package:maktabeh_app/data/prefs_helper/iprefs_helper.dart';
+import 'package:maktabeh_app/model/all_books_model/books_details.dart';
 import 'package:maktabeh_app/model/category/category.dart';
 import 'package:maktabeh_app/model/country_model/country_model.dart';
 import 'package:maktabeh_app/model/login_model/login_model.dart';
@@ -65,6 +66,18 @@ class Repository implements IRepository {
       language = 'ar';
     }
     return await _ihttpHelper.getCountries(language);
+  }
+  @override
+  Future<BuiltList<BooksDetails>> getAllBooks()async {
+    // TODO ==> change language to dynamic
+    var language;
+    final app_language = await _iprefHelper.getAppLanguage();
+    if (app_language == 1) {
+      language = 'en';
+    } else {
+      language = 'ar';
+    }
+    return await _ihttpHelper.getAllBooks(language);
   }
 
   @override

@@ -5,6 +5,71 @@ import 'package:maktabeh_app/core/size_config.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
 import 'package:maktabeh_app/ui/book/book_screen.dart';
 import 'package:maktabeh_app/ui/common_widget/rate_stars.dart';
+class AllBookCard extends StatelessWidget {
+  String name;
+  String author;
+  String image;
+  Function action;
+  double rate;
+  AllBookCard({this.name,this.author,this.image,this.action,this.rate});
+  @override
+  Widget build(BuildContext context) {
+    return  InkWell(
+      onTap:action,
+      child: Container(
+        margin: EdgeInsets.all(5),
+        width: MediaQuery.of(context).size.width / 3.7,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.network(
+                image,
+                // 'assets/image/2.jpg',
+                fit: BoxFit.fill,
+                height: MediaQuery.of(context).size.height * 0.18,
+              ),
+            ),
+            // Expanded(
+            //   child: ClipRRect(
+            //     borderRadius: BorderRadius.circular(8),
+            //     child: Image.asset(
+            //       "assets/image/2.jpg",
+            //       fit: BoxFit.fill,
+            //       // height: double.infinity,
+            //       // width: double.infinity,
+            //     ),
+            //   ),
+            // ),
+            Text(
+              name,
+              // AppLocalizations.of(context).translate('novel name'),
+              style: regStyle,
+            ),
+            Row(
+              children: [
+                ImageIcon(
+                  AssetImage("assets/icons/Profile.png"),
+                  color: Colors.blue,
+                  size: 12,
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  author,
+                  style: lightStyle.copyWith(color: Colors.blue),
+                ),
+              ],
+            ),
+            rateStars(rate),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 class BookCard extends StatefulWidget {
   @override
@@ -42,7 +107,8 @@ class _BookCardState extends State<BookCard> {
             //   ),
             // ),
             Text(
-              AppLocalizations.of(context).translate('novel name'),
+
+               AppLocalizations.of(context).translate('novel name'),
               style: regStyle,
             ),
             Row(
@@ -56,7 +122,7 @@ class _BookCardState extends State<BookCard> {
                   width: 5,
                 ),
                 Text(
-                  "text",
+                  'author',
                   style: lightStyle.copyWith(color: Colors.blue),
                 ),
               ],

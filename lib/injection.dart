@@ -8,6 +8,7 @@ import 'package:maktabeh_app/ui/auth/resetPass/confirm_email_bloc/confirm_email_
 import 'package:maktabeh_app/ui/guide/category_bloc/category_bloc.dart';
 import 'package:maktabeh_app/ui/language_page/bloc/language_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/SettingBloc/setting_bloc.dart';
+import 'package:maktabeh_app/ui/mainScreens/bloc/main_screen_bloc.dart';
 import 'package:maktabeh_app/ui/user/editProfile.dart/edit_password_bloc/edit_password_bloc.dart';
 
 import 'app/bloc/app_bloc.dart';
@@ -47,4 +48,5 @@ Future iniGetIt() async {
   sl.registerFactory(() => CategoryBloc(sl()));
   sl.registerFactory(() => ConfirmEmailBloc(sl()));
   sl.registerFactory(() => SignUpBloc(sl()));
+  sl.registerFactory(() => MainScreenBloc(sl()));
 }

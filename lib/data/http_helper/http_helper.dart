@@ -5,6 +5,7 @@ import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:maktabeh_app/core/error.dart';
+import 'package:maktabeh_app/model/all_books_model/books_details.dart';
 
 import 'package:maktabeh_app/model/category/category.dart';
 import 'package:maktabeh_app/model/country_model/country_model.dart';
@@ -182,5 +183,30 @@ class HttpHelper implements IHttpHelper {
       throw NetworkException();
     }
   }
+  @override
+  Future<BuiltList<BooksDetails>> getAllBooks(String language) async {
+    try {
+      final response = await _dio.get('books',  options: Options(headers: {"Accept-Language":language}));
+      print('getAllBooks Response StatusCode ${response.statusCode}');
+      if (response.statusCode == 200) {
+        print('getAllBooks Response body  ${response.data}');
+
+        final ret = serializers.deserialize(json.decode(response.data)['data'],
+            specifiedType: FullType(
+              BuiltList,
+              [
+                const FullType(BooksDetails),
+              ],
+            ));
+        return ret;
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException();
+    }
+  }
+
 
 }
