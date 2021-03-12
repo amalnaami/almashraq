@@ -3,9 +3,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:maktabeh_app/core/app_localizations.dart';
 import 'package:maktabeh_app/core/config/navigatorHelper.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
+import 'package:maktabeh_app/model/author/author.dart';
 import 'package:maktabeh_app/ui/book/about_writer.dart';
 
 class OuthorCard extends StatefulWidget {
+  final Author author;
+
+  const OuthorCard({Key key, this.author}) : super(key: key);
+
   @override
   _OuthorCardState createState() => _OuthorCardState();
 }
@@ -25,8 +30,8 @@ class _OuthorCardState extends State<OuthorCard> {
             Expanded(
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.asset(
-                  "assets/image/1.jpg",
+                child: Image.network(
+                  widget.author.image,
                   height: double.infinity,
                   fit: BoxFit.fill,
                   width: double.infinity,
@@ -37,24 +42,24 @@ class _OuthorCardState extends State<OuthorCard> {
               height: 5,
             ),
             Text(
-              AppLocalizations.of(context).translate('Taha husien'),
+              '${widget.author.getAuthorName(AppLocalizations.of(context).locale.languageCode)}',
               style: regStyle,
             ),
             SizedBox(
               height: 5,
             ),
-            Text(
-              AppLocalizations.of(context).translate('Arabic history'),
-              style: lightStyle.copyWith(color: Colors.blue, fontSize: 10),
-            ),
-            SizedBox(
-              height: 5,
-            ),
+            // Text(
+            //   AppLocalizations.of(context).translate('Arabic history'),
+            //   style: lightStyle.copyWith(color: Colors.blue, fontSize: 10),
+            // ),
+            // SizedBox(
+            //   height: 5,
+            // ),
             Row(
               children: [
                 SvgPicture.asset("assets/svg/book.svg"),
                 Text(
-                  " 10 ",
+                  " ${widget.author.books_count} ",
                   style: TextStyle(fontSize: 12),
                 ),
               ],

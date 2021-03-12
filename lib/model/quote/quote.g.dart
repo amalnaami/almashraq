@@ -1,21 +1,21 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of category;
+part of quote;
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<Category> _$categorySerializer = new _$CategorySerializer();
+Serializer<Quote> _$quoteSerializer = new _$QuoteSerializer();
 
-class _$CategorySerializer implements StructuredSerializer<Category> {
+class _$QuoteSerializer implements StructuredSerializer<Quote> {
   @override
-  final Iterable<Type> types = const [Category, _$Category];
+  final Iterable<Type> types = const [Quote, _$Quote];
   @override
-  final String wireName = 'Category';
+  final String wireName = 'Quote';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, Category object,
+  Iterable<Object> serialize(Serializers serializers, Quote object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
     if (object.id != null) {
@@ -24,17 +24,17 @@ class _$CategorySerializer implements StructuredSerializer<Category> {
         ..add(serializers.serialize(object.id,
             specifiedType: const FullType(int)));
     }
+    if (object.quotation_text != null) {
+      result
+        ..add('quotation_text')
+        ..add(serializers.serialize(object.quotation_text,
+            specifiedType: const FullType(String)));
+    }
     if (object.translations != null) {
       result
         ..add('translations')
         ..add(serializers.serialize(object.translations,
             specifiedType: const FullType(Translations)));
-    }
-    if (object.books_count != null) {
-      result
-        ..add('books_count')
-        ..add(serializers.serialize(object.books_count,
-            specifiedType: const FullType(int)));
     }
     if (object.image != null) {
       result
@@ -46,9 +46,9 @@ class _$CategorySerializer implements StructuredSerializer<Category> {
   }
 
   @override
-  Category deserialize(Serializers serializers, Iterable<Object> serialized,
+  Quote deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new CategoryBuilder();
+    final result = new QuoteBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -60,13 +60,13 @@ class _$CategorySerializer implements StructuredSerializer<Category> {
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
+        case 'quotation_text':
+          result.quotation_text = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
         case 'translations':
           result.translations.replace(serializers.deserialize(value,
               specifiedType: const FullType(Translations)) as Translations);
-          break;
-        case 'books_count':
-          result.books_count = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
           break;
         case 'image':
           result.image = serializers.deserialize(value,
@@ -79,64 +79,69 @@ class _$CategorySerializer implements StructuredSerializer<Category> {
   }
 }
 
-class _$Category extends Category {
+class _$Quote extends Quote {
   @override
   final int id;
   @override
-  final Translations translations;
+  final String quotation_text;
   @override
-  final int books_count;
+  final Translations translations;
   @override
   final String image;
 
-  factory _$Category([void Function(CategoryBuilder) updates]) =>
-      (new CategoryBuilder()..update(updates)).build();
+  factory _$Quote([void Function(QuoteBuilder) updates]) =>
+      (new QuoteBuilder()..update(updates)).build();
 
-  _$Category._({this.id, this.translations, this.books_count, this.image})
+  _$Quote._({this.id, this.quotation_text, this.translations, this.image})
       : super._();
 
   @override
-  Category rebuild(void Function(CategoryBuilder) updates) =>
+  Quote rebuild(void Function(QuoteBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  CategoryBuilder toBuilder() => new CategoryBuilder()..replace(this);
+  QuoteBuilder toBuilder() => new QuoteBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Category &&
+    return other is Quote &&
         id == other.id &&
+        quotation_text == other.quotation_text &&
         translations == other.translations &&
-        books_count == other.books_count &&
         image == other.image;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, id.hashCode), translations.hashCode),
-            books_count.hashCode),
+        $jc($jc($jc(0, id.hashCode), quotation_text.hashCode),
+            translations.hashCode),
         image.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('Category')
+    return (newBuiltValueToStringHelper('Quote')
           ..add('id', id)
+          ..add('quotation_text', quotation_text)
           ..add('translations', translations)
-          ..add('books_count', books_count)
           ..add('image', image))
         .toString();
   }
 }
 
-class CategoryBuilder implements Builder<Category, CategoryBuilder> {
-  _$Category _$v;
+class QuoteBuilder implements Builder<Quote, QuoteBuilder> {
+  _$Quote _$v;
 
   int _id;
   int get id => _$this._id;
   set id(int id) => _$this._id = id;
+
+  String _quotation_text;
+  String get quotation_text => _$this._quotation_text;
+  set quotation_text(String quotation_text) =>
+      _$this._quotation_text = quotation_text;
 
   TranslationsBuilder _translations;
   TranslationsBuilder get translations =>
@@ -144,21 +149,17 @@ class CategoryBuilder implements Builder<Category, CategoryBuilder> {
   set translations(TranslationsBuilder translations) =>
       _$this._translations = translations;
 
-  int _books_count;
-  int get books_count => _$this._books_count;
-  set books_count(int books_count) => _$this._books_count = books_count;
-
   String _image;
   String get image => _$this._image;
   set image(String image) => _$this._image = image;
 
-  CategoryBuilder();
+  QuoteBuilder();
 
-  CategoryBuilder get _$this {
+  QuoteBuilder get _$this {
     if (_$v != null) {
       _id = _$v.id;
+      _quotation_text = _$v.quotation_text;
       _translations = _$v.translations?.toBuilder();
-      _books_count = _$v.books_count;
       _image = _$v.image;
       _$v = null;
     }
@@ -166,27 +167,27 @@ class CategoryBuilder implements Builder<Category, CategoryBuilder> {
   }
 
   @override
-  void replace(Category other) {
+  void replace(Quote other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$Category;
+    _$v = other as _$Quote;
   }
 
   @override
-  void update(void Function(CategoryBuilder) updates) {
+  void update(void Function(QuoteBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$Category build() {
-    _$Category _$result;
+  _$Quote build() {
+    _$Quote _$result;
     try {
       _$result = _$v ??
-          new _$Category._(
+          new _$Quote._(
               id: id,
+              quotation_text: quotation_text,
               translations: _translations?.build(),
-              books_count: books_count,
               image: image);
     } catch (_) {
       String _$failedField;
@@ -195,7 +196,7 @@ class CategoryBuilder implements Builder<Category, CategoryBuilder> {
         _translations?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'Category', _$failedField, e.toString());
+            'Quote', _$failedField, e.toString());
       }
       rethrow;
     }

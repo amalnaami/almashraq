@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:maktabeh_app/core/app_localizations.dart';
 import 'package:maktabeh_app/core/config/navigatorHelper.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
+import 'package:maktabeh_app/model/book/book.dart';
 import 'package:maktabeh_app/ui/common_widget/BookCard.dart';
+import 'package:built_collection/built_collection.dart';
 
 import '../../moreBooksPage.dart';
 
 class MainList extends StatefulWidget {
   final String title;
-
-  const MainList({Key key, this.title}) : super(key: key);
+  final BuiltList<Book> books;
+  const MainList({Key key, this.title, this.books}) : super(key: key);
   @override
   _MainListState createState() => _MainListState();
 }
@@ -21,7 +23,7 @@ class _MainListState extends State<MainList> {
     var w = MediaQuery.of(context).size.width;
     return Container(
       padding: EdgeInsets.only(top: 10),
-      height: h * 0.338,
+      height: h * 0.35,
       width: w,
       child: Column(
         children: [
@@ -55,11 +57,11 @@ class _MainListState extends State<MainList> {
             ),
           ),
           Expanded(
-              child: ListView.builder(
-            itemCount: 5,
+              child: widget.books == null ? Container() : ListView.builder(
+            itemCount: widget.books.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
-              return BookCard();
+              return BookCard(book:widget.books[index]);
             },
           ))
         ],

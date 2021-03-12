@@ -58,9 +58,7 @@ class _GuideScreenState extends State<GuideScreen> {
       cubit: _bloc,
       builder: (BuildContext context, CategoryState state) {
         error(state.error);
-        if(state.successAdding) {
-          WidgetsBinding.instance.addPostFrameCallback((timeStamp) {push(context, StartScreen());});
-        }
+
         return Scaffold(
           body: Stack(
             children: [
@@ -170,7 +168,7 @@ class _GuideScreenState extends State<GuideScreen> {
                                                 fontSize: 16.0);
                                             return;
                                           }
-                                        _bloc.add(InsertCategories((b) => b..selectedCategories = selectedCategories));
+                                          push(context, StartScreen());
                                         }
                                       }),
                                 ),

@@ -16,6 +16,10 @@ abstract class Category implements Built<Category, CategoryBuilder> {
   int get id;
   @nullable
   Translations get translations;
+  @nullable
+  int get books_count;
+  @nullable
+  String get image;
 
   Category._();
 

@@ -3,10 +3,13 @@ import 'package:maktabeh_app/core/app_localizations.dart';
 import 'package:maktabeh_app/core/config/navigatorHelper.dart';
 import 'package:maktabeh_app/core/size_config.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
+import 'package:maktabeh_app/model/book/book.dart';
 import 'package:maktabeh_app/ui/book/book_screen.dart';
 import 'package:maktabeh_app/ui/common_widget/rate_stars.dart';
 
 class BookCard extends StatefulWidget {
+  final Book book;
+  const BookCard({this.book});
   @override
   _BookCardState createState() => _BookCardState();
 }
@@ -18,7 +21,7 @@ class _BookCardState extends State<BookCard> {
       onTap: () => push(context, BookScreen()),
       child: Container(
         margin: EdgeInsets.all(5),
-        width: MediaQuery.of(context).size.width / 3.7,
+        width: MediaQuery.of(context).size.width / 3.2,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -42,8 +45,10 @@ class _BookCardState extends State<BookCard> {
             //   ),
             // ),
             Text(
-              AppLocalizations.of(context).translate('novel name'),
+              //AppLocalizations.of(context).translate('novel name'),
+              widget.book.getBookName(AppLocalizations.of(context).locale.languageCode),
               style: regStyle,
+              overflow: TextOverflow.ellipsis,
             ),
             Row(
               children: [
@@ -55,13 +60,17 @@ class _BookCardState extends State<BookCard> {
                 SizedBox(
                   width: 5,
                 ),
-                Text(
-                  "text",
-                  style: lightStyle.copyWith(color: Colors.blue),
+                Expanded(
+                  child: Text(
+                    "${widget.book.getPublishName(AppLocalizations.of(context).locale.languageCode)}",
+                    style: lightStyle.copyWith(color: Colors.blue),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ],
             ),
-            rateStars(15),
+            rateStars(15, 5),
+            //rateStars(widget.book.rate.toDouble()),
           ],
         ),
       ),

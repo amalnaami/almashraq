@@ -2,9 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:maktabeh_app/core/app_localizations.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
+import 'package:maktabeh_app/model/author/author.dart';
 import 'package:maktabeh_app/ui/common_widget/outhorCard.dart';
+import 'package:built_collection/built_collection.dart';
 
 class SupremeWriterPage extends StatefulWidget {
+  final BuiltList<Author> authors;
+  const SupremeWriterPage(this.authors);
   @override
   _SupremeWriterPageState createState() => _SupremeWriterPageState();
 }
@@ -52,8 +56,8 @@ class _SupremeWriterPageState extends State<SupremeWriterPage> {
               padding: EdgeInsets.only(right: 5, left: 5),
               childAspectRatio: (1 / 1.8),
               crossAxisCount: 3,
-              children: List.generate(6, (index) {
-                return OuthorCard();
+              children: List.generate(widget.authors.length, (index) {
+                return OuthorCard(author: widget.authors[index]);
               }),
             ),
           ),

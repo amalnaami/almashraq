@@ -1,9 +1,15 @@
+
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:maktabeh_app/core/app_localizations.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
+import 'package:maktabeh_app/model/category/category.dart';
 import 'package:maktabeh_app/ui/common_widget/CategorisCard.dart';
 
 class HomeCategoris extends StatefulWidget {
+  final BuiltList<Category> categories;
+
+  const HomeCategoris({Key key, this.categories}) : super(key: key);
   @override
   _HomeCategorisState createState() => _HomeCategorisState();
 }
@@ -44,10 +50,10 @@ class _HomeCategorisState extends State<HomeCategoris> {
           Expanded(
               child: ListView.builder(
             padding: EdgeInsetsDirectional.only(start: 10),
-            itemCount: 4,
+            itemCount: widget.categories.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
-              return CategorisCard();
+              return CategorisCard(category: widget.categories[index]);
             },
           ))
         ],

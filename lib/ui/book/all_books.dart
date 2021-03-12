@@ -136,7 +136,7 @@ class _AllBooksScreenState extends State<AllBooksScreen> {
                                   ),
                                   SizedBox(
                                       height: SizeConfig.devicePixelRatio),
-                                  rateStars(15),
+                                  rateStars(15, 5),
                                 ],
                               ))
                         ],

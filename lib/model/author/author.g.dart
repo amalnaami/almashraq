@@ -1,21 +1,21 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of category;
+part of author;
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<Category> _$categorySerializer = new _$CategorySerializer();
+Serializer<Author> _$authorSerializer = new _$AuthorSerializer();
 
-class _$CategorySerializer implements StructuredSerializer<Category> {
+class _$AuthorSerializer implements StructuredSerializer<Author> {
   @override
-  final Iterable<Type> types = const [Category, _$Category];
+  final Iterable<Type> types = const [Author, _$Author];
   @override
-  final String wireName = 'Category';
+  final String wireName = 'Author';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, Category object,
+  Iterable<Object> serialize(Serializers serializers, Author object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
     if (object.id != null) {
@@ -24,11 +24,29 @@ class _$CategorySerializer implements StructuredSerializer<Category> {
         ..add(serializers.serialize(object.id,
             specifiedType: const FullType(int)));
     }
+    if (object.image != null) {
+      result
+        ..add('image')
+        ..add(serializers.serialize(object.image,
+            specifiedType: const FullType(String)));
+    }
     if (object.translations != null) {
       result
         ..add('translations')
         ..add(serializers.serialize(object.translations,
             specifiedType: const FullType(Translations)));
+    }
+    if (object.reviews_count != null) {
+      result
+        ..add('reviews_count')
+        ..add(serializers.serialize(object.reviews_count,
+            specifiedType: const FullType(String)));
+    }
+    if (object.quotation_count != null) {
+      result
+        ..add('quotation_count')
+        ..add(serializers.serialize(object.quotation_count,
+            specifiedType: const FullType(String)));
     }
     if (object.books_count != null) {
       result
@@ -36,19 +54,13 @@ class _$CategorySerializer implements StructuredSerializer<Category> {
         ..add(serializers.serialize(object.books_count,
             specifiedType: const FullType(int)));
     }
-    if (object.image != null) {
-      result
-        ..add('image')
-        ..add(serializers.serialize(object.image,
-            specifiedType: const FullType(String)));
-    }
     return result;
   }
 
   @override
-  Category deserialize(Serializers serializers, Iterable<Object> serialized,
+  Author deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new CategoryBuilder();
+    final result = new AuthorBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -60,17 +72,25 @@ class _$CategorySerializer implements StructuredSerializer<Category> {
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
+        case 'image':
+          result.image = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
         case 'translations':
           result.translations.replace(serializers.deserialize(value,
               specifiedType: const FullType(Translations)) as Translations);
           break;
+        case 'reviews_count':
+          result.reviews_count = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'quotation_count':
+          result.quotation_count = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
         case 'books_count':
           result.books_count = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
-          break;
-        case 'image':
-          result.image = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
           break;
       }
     }
@@ -79,64 +99,86 @@ class _$CategorySerializer implements StructuredSerializer<Category> {
   }
 }
 
-class _$Category extends Category {
+class _$Author extends Author {
   @override
   final int id;
   @override
+  final String image;
+  @override
   final Translations translations;
   @override
-  final int books_count;
+  final String reviews_count;
   @override
-  final String image;
+  final String quotation_count;
+  @override
+  final int books_count;
 
-  factory _$Category([void Function(CategoryBuilder) updates]) =>
-      (new CategoryBuilder()..update(updates)).build();
+  factory _$Author([void Function(AuthorBuilder) updates]) =>
+      (new AuthorBuilder()..update(updates)).build();
 
-  _$Category._({this.id, this.translations, this.books_count, this.image})
+  _$Author._(
+      {this.id,
+      this.image,
+      this.translations,
+      this.reviews_count,
+      this.quotation_count,
+      this.books_count})
       : super._();
 
   @override
-  Category rebuild(void Function(CategoryBuilder) updates) =>
+  Author rebuild(void Function(AuthorBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  CategoryBuilder toBuilder() => new CategoryBuilder()..replace(this);
+  AuthorBuilder toBuilder() => new AuthorBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Category &&
+    return other is Author &&
         id == other.id &&
+        image == other.image &&
         translations == other.translations &&
-        books_count == other.books_count &&
-        image == other.image;
+        reviews_count == other.reviews_count &&
+        quotation_count == other.quotation_count &&
+        books_count == other.books_count;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, id.hashCode), translations.hashCode),
-            books_count.hashCode),
-        image.hashCode));
+        $jc(
+            $jc(
+                $jc($jc($jc(0, id.hashCode), image.hashCode),
+                    translations.hashCode),
+                reviews_count.hashCode),
+            quotation_count.hashCode),
+        books_count.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('Category')
+    return (newBuiltValueToStringHelper('Author')
           ..add('id', id)
+          ..add('image', image)
           ..add('translations', translations)
-          ..add('books_count', books_count)
-          ..add('image', image))
+          ..add('reviews_count', reviews_count)
+          ..add('quotation_count', quotation_count)
+          ..add('books_count', books_count))
         .toString();
   }
 }
 
-class CategoryBuilder implements Builder<Category, CategoryBuilder> {
-  _$Category _$v;
+class AuthorBuilder implements Builder<Author, AuthorBuilder> {
+  _$Author _$v;
 
   int _id;
   int get id => _$this._id;
   set id(int id) => _$this._id = id;
+
+  String _image;
+  String get image => _$this._image;
+  set image(String image) => _$this._image = image;
 
   TranslationsBuilder _translations;
   TranslationsBuilder get translations =>
@@ -144,50 +186,60 @@ class CategoryBuilder implements Builder<Category, CategoryBuilder> {
   set translations(TranslationsBuilder translations) =>
       _$this._translations = translations;
 
+  String _reviews_count;
+  String get reviews_count => _$this._reviews_count;
+  set reviews_count(String reviews_count) =>
+      _$this._reviews_count = reviews_count;
+
+  String _quotation_count;
+  String get quotation_count => _$this._quotation_count;
+  set quotation_count(String quotation_count) =>
+      _$this._quotation_count = quotation_count;
+
   int _books_count;
   int get books_count => _$this._books_count;
   set books_count(int books_count) => _$this._books_count = books_count;
 
-  String _image;
-  String get image => _$this._image;
-  set image(String image) => _$this._image = image;
+  AuthorBuilder();
 
-  CategoryBuilder();
-
-  CategoryBuilder get _$this {
+  AuthorBuilder get _$this {
     if (_$v != null) {
       _id = _$v.id;
-      _translations = _$v.translations?.toBuilder();
-      _books_count = _$v.books_count;
       _image = _$v.image;
+      _translations = _$v.translations?.toBuilder();
+      _reviews_count = _$v.reviews_count;
+      _quotation_count = _$v.quotation_count;
+      _books_count = _$v.books_count;
       _$v = null;
     }
     return this;
   }
 
   @override
-  void replace(Category other) {
+  void replace(Author other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$Category;
+    _$v = other as _$Author;
   }
 
   @override
-  void update(void Function(CategoryBuilder) updates) {
+  void update(void Function(AuthorBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$Category build() {
-    _$Category _$result;
+  _$Author build() {
+    _$Author _$result;
     try {
       _$result = _$v ??
-          new _$Category._(
+          new _$Author._(
               id: id,
+              image: image,
               translations: _translations?.build(),
-              books_count: books_count,
-              image: image);
+              reviews_count: reviews_count,
+              quotation_count: quotation_count,
+              books_count: books_count);
     } catch (_) {
       String _$failedField;
       try {
@@ -195,7 +247,7 @@ class CategoryBuilder implements Builder<Category, CategoryBuilder> {
         _translations?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'Category', _$failedField, e.toString());
+            'Author', _$failedField, e.toString());
       }
       rethrow;
     }

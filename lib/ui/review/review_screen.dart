@@ -113,7 +113,7 @@ Widget reviewCard() {
                     ),
                     Row(
                       children: [
-                        rateStars(16),
+                        rateStars(16, 5),
                         SizedBox(width: 8),
                         Icon(
                           Icons.share,

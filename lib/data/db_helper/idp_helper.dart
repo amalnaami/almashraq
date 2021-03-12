@@ -6,6 +6,6 @@ abstract class IDbHelper {
 
   Future<void> insertCategory(List<int> categories);
 
-  Future<List<Category>> getCategories();
+  Future<List<CategoryDB>> getCategories();
 
 }

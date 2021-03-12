@@ -100,7 +100,7 @@ class _$CategoryDao extends CategoryDao {
         _categoryInsertionAdapter = InsertionAdapter(
             database,
             'Category',
-            (Category item) => <String, dynamic>{
+            (CategoryDB item) => <String, dynamic>{
                   'id': item.id,
                   'categoryId': item.categoryId
                 });
@@ -112,18 +112,18 @@ class _$CategoryDao extends CategoryDao {
   final QueryAdapter _queryAdapter;
 
   static final _categoryMapper = (Map<String, dynamic> row) =>
-      Category(id: row['id'] as int, categoryId: row['categoryId'] as int);
+      CategoryDB(id: row['id'] as int, categoryId: row['categoryId'] as int);
 
-  final InsertionAdapter<Category> _categoryInsertionAdapter;
+  final InsertionAdapter<CategoryDB> _categoryInsertionAdapter;
 
   @override
-  Future<List<Category>> getCategories() async {
+  Future<List<CategoryDB>> getCategories() async {
     return _queryAdapter.queryList('SELECT * FROM Cart',
         mapper: _categoryMapper);
   }
 
   @override
-  Future<void> insertCategory(Category category) async {
+  Future<void> insertCategory(CategoryDB category) async {
     await _categoryInsertionAdapter.insert(category, OnConflictStrategy.abort);
   }
 }

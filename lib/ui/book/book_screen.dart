@@ -139,7 +139,7 @@ class _BookScreenState extends State<BookScreen> {
                         ],
                       ),
                     ),
-                    rateStars(20),
+                    rateStars(20, 5),
                     Divider(
                       thickness: 1,
                       color: Color(0xFFE5E5E5),

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:maktabeh_app/core/app_localizations.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
+import 'package:maktabeh_app/model/quote/quote.dart';
 import 'package:maktabeh_app/ui/common_widget/networkImage.dart';
 
 import 'QuoteCard.dart';
 
 class QuoteToday extends StatefulWidget {
+  final Quote quote;
+  QuoteToday(this.quote);
   @override
   _QuoteTodayState createState() => _QuoteTodayState();
 }
@@ -33,7 +36,7 @@ class _QuoteTodayState extends State<QuoteToday> {
             ],
           ),
         ),
-        QuoteCard(),
+        QuoteCard(quote: widget.quote,),
       ],
     );
   }

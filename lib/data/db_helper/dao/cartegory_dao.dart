@@ -4,8 +4,8 @@ import 'package:maktabeh_app/data/db_helper/entites/category.dart';
 @dao
 abstract class CategoryDao {
   @insert
-  Future<void> insertCategory(Category category);
+  Future<void> insertCategory(CategoryDB category);
 
   @Query('SELECT * FROM Cart ')
-  Future<List<Category>> getCategories();
+  Future<List<CategoryDB>> getCategories();
 }

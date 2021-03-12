@@ -11,6 +11,18 @@ abstract class Language implements Built<Language, LanguageBuilder> {
 
   @nullable
   String get name;
+  @nullable
+  String get book_name;
+  @nullable
+  String get author_name;
+  @nullable
+  String get description;
+  @nullable
+  String get publish;
+  @nullable
+  String get sub_name;
+  @nullable
+  String get brief;
 
   Language._();
 

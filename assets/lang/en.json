@@ -158,5 +158,7 @@
   "password can not be empty": "password can not be empty",
   "password changed successfully": "password changed successfully",
   "can not add more than 5": "can not add more than 5",
-  "choose at least one category": "choose at least one category"
+  "choose at least one category": "choose at least one category",
+  "read more...": " read more...",
+  " read less": " read less"
 }

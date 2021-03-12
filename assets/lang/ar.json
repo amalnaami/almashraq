@@ -158,5 +158,7 @@
   "password can not be empty": "الرجاء ادخال كلمة السر",
   "password changed successfully": "تم تغير كلمة السر بنجاح",
   "can not add more than 5": "لا يمكن اضافة اكثر من 5 اقسام",
-  "choose at least one category": "اختر فئة واحدة على الأقل"
+  "choose at least one category": "اختر فئة واحدة على الأقل",
+  "read more...": " قراءة المزيد...",
+  " read less": " قراءة اقل"
 }

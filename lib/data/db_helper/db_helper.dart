@@ -9,7 +9,7 @@ class DbHelper implements IDbHelper {
     return await $FloorAppDatabase.databaseBuilder('almashreqDB.db').build();
   }
   @override
-  Future<List<Category>> getCategories() async {
+  Future<List<CategoryDB>> getCategories() async {
     try {
       return await (await _getInstDB()).categoryDao.getCategories();
     } catch (e) {
@@ -22,7 +22,7 @@ class DbHelper implements IDbHelper {
   Future<void> insertCategory(List<int> categories) async {
     try {
       for(int id in categories) {
-        await (await _getInstDB()).categoryDao.insertCategory(Category(categoryId: id));
+        await (await _getInstDB()).categoryDao.insertCategory(CategoryDB(categoryId: id));
       }
     } catch (e) {
     print('insertCategory db e is $e');

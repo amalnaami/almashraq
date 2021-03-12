@@ -52,7 +52,7 @@ class _ReviewCardState extends State<ReviewCard> {
                                 ),
                                 Row(
                                   children: [
-                                    rateStars(16),
+                                    rateStars(16, 5),
                                     SizedBox(width: 8),
                                     // Icon(
                                     //   Icons.share,

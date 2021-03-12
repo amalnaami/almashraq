@@ -1,14 +1,16 @@
 import 'dart:convert';
-
-import 'package:built_collection/src/list.dart';
+import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
-import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:maktabeh_app/core/error.dart';
+import 'package:maktabeh_app/model/author/author.dart';
+import 'package:maktabeh_app/model/book/book.dart';
 
 import 'package:maktabeh_app/model/category/category.dart';
 
 import 'package:maktabeh_app/model/login_model/login_model.dart';
+import 'package:maktabeh_app/model/quote/quote.dart';
+import 'package:maktabeh_app/model/review/review.dart';
 import 'package:maktabeh_app/model/serializer/serializer.dart';
 import 'package:maktabeh_app/model/user/user.dart';
 
@@ -96,7 +98,8 @@ class HttpHelper implements IHttpHelper {
         'password': password,
         'password_confirmation': password
       };
-      final response = await _dio.post('password/update',data: formData,
+      final response = await _dio.post('password/update',
+          data: formData,
           options: Options(headers: {"Authorization": 'Bearer $token'}));
       print('updatePassword Response StatusCode ${response.statusCode}');
       if (response.statusCode == 201) {
@@ -104,6 +107,140 @@ class HttpHelper implements IHttpHelper {
         final ret = serializers.deserialize(json.decode(response.data)['data'],
             specifiedType: FullType(User));
         return true;
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException();
+    }
+  }
+
+  @override
+  Future<Quote> getTodayQuotes() async {
+    try {
+      final response = await _dio.get('quotes/quote-today');
+      print('getTodayQuotes Response StatusCode ${response.statusCode}');
+      if (response.statusCode == 200) {
+        print('getTodayQuotes Response body  ${response.data}');
+        final ret = serializers.deserialize(json.decode(response.data)['data'],
+            specifiedType: FullType(Quote));
+        return ret;
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException();
+    }
+  }
+
+  @override
+  Future<Review> getTodayReview() async {
+    try {
+      final response = await _dio.get('reviews/review-today');
+      print('getTodayReview Response StatusCode ${response.statusCode}');
+      if (response.statusCode == 200) {
+        print('getTodayReview Response body  ${response.data}');
+        final ret = serializers.deserialize(json.decode(response.data)['data'],
+            specifiedType: FullType(Review));
+        return ret;
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException();
+    }
+  }
+
+  @override
+  Future<BuiltList<Author>> getFamousAuthors() async {
+    try {
+      final response = await _dio.get('authors/most-notable');
+      print('getFamousAuthor Response StatusCode ${response.statusCode}');
+      if (response.statusCode == 200) {
+        print('getFamousAuthor Response body  ${response.data}');
+        final ret = serializers.deserialize(json.decode(response.data)['data'],
+            specifiedType: FullType(BuiltList, [const FullType(Author)]));
+        return ret;
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException();
+    }
+  }
+
+  @override
+  Future<BuiltList<Book>> getAllBooks() async {
+    try {
+      final response = await _dio.get('books');
+      print('getAllBooks Response StatusCode ${response.statusCode}');
+      if (response.statusCode == 200) {
+        print('getAllBooks Response body  ${response.data}');
+        final ret = serializers.deserialize(json.decode(response.data)['data'],
+            specifiedType: FullType(BuiltList, [const FullType(Book)]));
+        return ret;
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException();
+    }
+  }
+
+  @override
+  Future<BuiltList<Book>> getLatestBooks() async {
+    try {
+      final response = await _dio.get('books/latest');
+      print('getLatestBooks Response StatusCode ${response.statusCode}');
+      if (response.statusCode == 200) {
+        print('getLatestBooks Response body  ${response.data}');
+        final ret = serializers.deserialize(json.decode(response.data)['data'],
+            specifiedType: FullType(BuiltList, [const FullType(Book)]));
+        return ret;
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException();
+    }
+  }
+
+  @override
+  Future<BuiltList<Book>> getMostReviewedBooks() async {
+    try {
+      final response = await _dio.get('books/most-reviewed');
+      print('getMostReviewedBooks Response StatusCode ${response.statusCode}');
+      if (response.statusCode == 200) {
+        print('getMostReviewedBooks Response body  ${response.data}');
+        final ret = serializers.deserialize(json.decode(response.data)['data'],
+            specifiedType: FullType(BuiltList, [const FullType(Book)]));
+        return ret;
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException();
+    }
+  }
+
+  @override
+  Future<BuiltList<Book>> getFeaturedBooks(String token) async {
+    try {
+      final response = await _dio.get('books/featured',
+          options: Options(headers: {'Authorization': 'Bearer $token'}));
+      print('getFeaturedBooks Response StatusCode ${response.statusCode}');
+      if (response.statusCode == 200) {
+        print('getFeaturedBooks Response body  ${response.data}');
+        final ret = serializers.deserialize(json.decode(response.data)['data'],
+            specifiedType: FullType(BuiltList, [const FullType(Book)]));
+        return ret;
       } else {
         throw NetworkException();
       }

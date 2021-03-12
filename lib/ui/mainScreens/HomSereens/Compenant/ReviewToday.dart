@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:maktabeh_app/core/app_localizations.dart';
 import 'package:maktabeh_app/core/config/navigatorHelper.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
+import 'package:maktabeh_app/model/review/review.dart';
 import 'package:maktabeh_app/ui/common_widget/rate_stars.dart';
 
 import '../../allReviewsPage.dart';
 
 class ReviewToday extends StatefulWidget {
+  final Review review;
+
+  const ReviewToday(this.review);
+
   @override
   _ReviewTodayState createState() => _ReviewTodayState();
 }
@@ -18,7 +23,7 @@ class _ReviewTodayState extends State<ReviewToday> {
     var w = MediaQuery.of(context).size.width;
 
     return Container(
-      height: h * 0.22,
+      height: h * 0.3,
       width: w,
       child: Column(
         children: [
@@ -80,9 +85,9 @@ class _ReviewTodayState extends State<ReviewToday> {
                         borderRadius: BorderRadius.circular(1000),
                         child: Image.asset(
                           "assets/image/3.jpg",
-                          height: double.infinity,
+                          //height: double.infinity,
                           fit: BoxFit.cover,
-                          width: double.infinity,
+                          //width: double.infinity,
                         ),
                       ),
                     ),
@@ -98,66 +103,51 @@ class _ReviewTodayState extends State<ReviewToday> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                AppLocalizations.of(context).translate('example name'),
+                                '${widget.review.user_name}',
+                                //AppLocalizations.of(context).translate('example name'),
                                 style: boldStyle.copyWith(fontSize: 12),
                               ),
-                              Row(
-                                children: [
-                                  rateStars(16),
-                                  SizedBox(width: 8),
-                                  // Icon(
-                                  //   Icons.share,
-                                  //   size: 18,
-                                  //   color: seconderyColor,
-                                  // ),
-                                ],
-                              ),
+                              Spacer(),
+                              rateStars(16, 5),
+                              SizedBox(width: 8),
                             ],
                           ),
                           Text(
-                            "كتاب جيد ورائع",
+                            "${widget.review.review_text}",
                             style: lightStyle.copyWith(fontSize: 12),
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  ImageIcon(
-                                    AssetImage("assets/icons/book.png"),
-                                    color: primaryColor,
-                                    size: 15,
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    "text",
-                                    style: lightStyle.copyWith(fontSize: 10),
-                                  ),
-                                ],
+                              ImageIcon(
+                                AssetImage("assets/icons/book.png"),
+                                color: primaryColor,
+                                size: 15,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  "${widget.review.getBookName(AppLocalizations.of(context).locale.languageCode)}",
+                                  style: lightStyle.copyWith(fontSize: 10),
+                                ),
                               ),
                               SizedBox(
                                 width: 20,
                               ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  ImageIcon(
-                                    AssetImage("assets/icons/Profile.png"),
-                                    color: primaryColor,
-                                    size: 15,
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    "text",
-                                    style: lightStyle.copyWith(fontSize: 10),
-                                  ),
-                                ],
+                              ImageIcon(
+                                AssetImage("assets/icons/Profile.png"),
+                                color: primaryColor,
+                                size: 15,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  "${widget.review.getAuthorName(AppLocalizations.of(context).locale.languageCode)}",
+                                  style: lightStyle.copyWith(fontSize: 10),
+                                ),
                               ),
                               SizedBox(
                                 width: 20,
