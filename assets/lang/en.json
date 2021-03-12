@@ -155,8 +155,12 @@
   "check your email inbox to rest the password": "check your email inbox to rest the password",
   "email can not be empty": "email can not be empty",
   "username can not be empty": "username can not be empty",
+  "fullname can not be empty": "fullname can not be empty",
   "password can not be empty": "password can not be empty",
   "password changed successfully": "password changed successfully",
   "can not add more than 5": "can not add more than 5",
-  "choose at least one category": "choose at least one category"
+  "choose at least one category": "choose at least one category",
+  "country can not be empty": "country can not be empty",
+  "The password must be at least 8 characters": "The password must be at least 8 characters",
+  "gender can not be empty": "gender can not be empty"
 }

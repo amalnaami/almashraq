@@ -30,6 +30,12 @@ class _$UserSerializer implements StructuredSerializer<User> {
         ..add(serializers.serialize(object.username,
             specifiedType: const FullType(String)));
     }
+    if (object.name != null) {
+      result
+        ..add('name')
+        ..add(serializers.serialize(object.name,
+            specifiedType: const FullType(String)));
+    }
     if (object.email != null) {
       result
         ..add('email')
@@ -82,6 +88,10 @@ class _$UserSerializer implements StructuredSerializer<User> {
           result.username = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
         case 'email':
           result.email = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
@@ -115,6 +125,8 @@ class _$User extends User {
   @override
   final String username;
   @override
+  final String name;
+  @override
   final String email;
   @override
   final String mobile;
@@ -131,6 +143,7 @@ class _$User extends User {
   _$User._(
       {this.id,
       this.username,
+      this.name,
       this.email,
       this.mobile,
       this.gender,
@@ -151,6 +164,7 @@ class _$User extends User {
     return other is User &&
         id == other.id &&
         username == other.username &&
+        name == other.name &&
         email == other.email &&
         mobile == other.mobile &&
         gender == other.gender &&
@@ -164,7 +178,9 @@ class _$User extends User {
         $jc(
             $jc(
                 $jc(
-                    $jc($jc($jc(0, id.hashCode), username.hashCode),
+                    $jc(
+                        $jc($jc($jc(0, id.hashCode), username.hashCode),
+                            name.hashCode),
                         email.hashCode),
                     mobile.hashCode),
                 gender.hashCode),
@@ -177,6 +193,7 @@ class _$User extends User {
     return (newBuiltValueToStringHelper('User')
           ..add('id', id)
           ..add('username', username)
+          ..add('name', name)
           ..add('email', email)
           ..add('mobile', mobile)
           ..add('gender', gender)
@@ -196,6 +213,10 @@ class UserBuilder implements Builder<User, UserBuilder> {
   String _username;
   String get username => _$this._username;
   set username(String username) => _$this._username = username;
+
+  String _name;
+  String get name => _$this._name;
+  set name(String name) => _$this._name = name;
 
   String _email;
   String get email => _$this._email;
@@ -223,6 +244,7 @@ class UserBuilder implements Builder<User, UserBuilder> {
     if (_$v != null) {
       _id = _$v.id;
       _username = _$v.username;
+      _name = _$v.name;
       _email = _$v.email;
       _mobile = _$v.mobile;
       _gender = _$v.gender;
@@ -252,6 +274,7 @@ class UserBuilder implements Builder<User, UserBuilder> {
         new _$User._(
             id: id,
             username: username,
+            name: name,
             email: email,
             mobile: mobile,
             gender: gender,

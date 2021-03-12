@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:maktabeh_app/data/prefs_helper/iprefs_helper.dart';
 import 'package:maktabeh_app/data/prefs_helper/prefs_helper.dart';
+import 'package:maktabeh_app/ui/auth/SignUpScreen/sign_up_bloc/sign_up_bloc.dart';
 import 'package:maktabeh_app/ui/auth/login_bloc/login_bloc.dart';
 import 'package:maktabeh_app/ui/auth/resetPass/confirm_email_bloc/confirm_email_bloc.dart';
 import 'package:maktabeh_app/ui/guide/category_bloc/category_bloc.dart';
@@ -45,4 +46,5 @@ Future iniGetIt() async {
   sl.registerFactory(() => EditPasswordBloc(sl()));
   sl.registerFactory(() => CategoryBloc(sl()));
   sl.registerFactory(() => ConfirmEmailBloc(sl()));
+  sl.registerFactory(() => SignUpBloc(sl()));
 }
