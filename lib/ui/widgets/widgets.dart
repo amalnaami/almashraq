@@ -81,7 +81,7 @@ class ReadMoreTextState extends State<ReadMoreText> {
               text:
                   isExpanded ? widget.text : widget.text.substring(0, endIndex),
               style: widget.style,
-              children: <TextSpan>[readMore],
+              children: [readMore,],
             ),
           );
         } else {
