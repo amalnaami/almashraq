@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SoshialBar extends StatelessWidget {
@@ -13,6 +14,7 @@ class SoshialBar extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+
         InkWell(
           onTap: () async {
             String url =
@@ -48,17 +50,17 @@ class SoshialBar extends StatelessWidget {
         SizedBox(
           width: 5,
         ),
-        InkWell(
-          onTap: () async {
-            },
-          child: SvgPicture.asset(
-            "assets/svg/instagram.svg",
-            width: 30,
-          ),
-        ),
-        SizedBox(
-          width: 5,
-        ),
+        // InkWell(
+        //   onTap: () async {
+        //   },
+        //   child: SvgPicture.asset(
+        //     "assets/svg/instagram.svg",
+        //     width: 30,
+        //   ),
+        // ),
+        // SizedBox(
+        //   width: 5,
+        // ),
         InkWell(
           onTap: () async {
             String url = "https://t.me/share/url?url=${quote.replaceAll(RegExp(' '), '%20')}";
@@ -88,6 +90,17 @@ class SoshialBar extends StatelessWidget {
           child: SvgPicture.asset(
             "assets/svg/whatsup.svg",
             width: 30,
+          ),
+        ),
+        SizedBox(
+          width: 5,
+        ),
+        InkWell(
+          onTap: () async {
+            await Share.share(quote);
+          },
+          child: Icon(Icons.share,
+            size: 30,
           ),
         ),
       ],

@@ -104,6 +104,8 @@ class _EditPassScreenState extends State<EditPassScreen> {
                       } else if(confirmPasswordController.value.text != passwordController.value.text) {
                         error(AppLocalizations.of(context).translate('password and confirm password dose not match'));
                         return;
+                      } else if(passwordController.value.text.length < 8) {
+                        error(AppLocalizations.of(context).translate('The password must be at least 8 characters'));
                       } else {
                         _bloc.add(SubmitRequest((b) => b..newPassword = passwordController.value.text));
                       }
