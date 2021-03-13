@@ -63,15 +63,11 @@ class QuoteCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      SvgPicture.network(
-                        "assets/svg/book.svg",
-                        height: 15,
+                      ImageIcon(
+                        AssetImage("assets/icons/book.png"),
+                        color: primaryColor,
+                        size: 12,
                       ),
-                      // ImageIcon(
-                      //   AssetImage("assets/icons/book.png"),
-                      //   color: primaryColor,
-                      //   size: 12,
-                      // ),
                       SizedBox(
                         width: 5,
                       ),

@@ -26,7 +26,7 @@ class ReadMoreText extends StatefulWidget {
 }
 
 class ReadMoreTextState extends State<ReadMoreText> {
-  bool isExpanded = true;
+  bool isExpanded = false;
 
   void _onTapLink() {
     setState(() => isExpanded = !isExpanded);

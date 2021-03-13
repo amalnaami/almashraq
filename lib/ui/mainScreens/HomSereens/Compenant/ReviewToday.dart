@@ -113,18 +113,12 @@ class _ReviewTodayState extends State<ReviewToday> {
                               SizedBox(width: 8),
                             ],
                           ),
-                          ReadMoreText(
+                          Text(
                             "${widget.review.review_text}",
-                           trimLines: 2,
-                           textDirection:
-                              AppLocalizations.of(context).locale.languageCode == 'ar'
-                              ? TextDirection.ltr
-                              : TextDirection.rtl,
                             style: lightStyle.copyWith(fontSize: 12),
                           ),
                           Row(
                             children: [
-                              Spacer(),
                               ImageIcon(
                                 AssetImage("assets/icons/book.png"),
                                 color: primaryColor,
@@ -133,9 +127,11 @@ class _ReviewTodayState extends State<ReviewToday> {
                               SizedBox(
                                 width: 5,
                               ),
-                              Text(
-                                "${widget.review.getBookName(AppLocalizations.of(context).locale.languageCode)}",
-                                style: lightStyle.copyWith(fontSize: 10),
+                              Expanded(
+                                child: Text(
+                                  "${widget.review.getBookName(AppLocalizations.of(context).locale.languageCode)}",
+                                  style: lightStyle.copyWith(fontSize: 10),
+                                ),
                               ),
                               SizedBox(
                                 width: 20,
@@ -148,9 +144,11 @@ class _ReviewTodayState extends State<ReviewToday> {
                               SizedBox(
                                 width: 5,
                               ),
-                              Text(
-                                "${widget.review.getAuthorName(AppLocalizations.of(context).locale.languageCode)}",
-                                style: lightStyle.copyWith(fontSize: 10),
+                              Expanded(
+                                child: Text(
+                                  "${widget.review.getAuthorName(AppLocalizations.of(context).locale.languageCode)}",
+                                  style: lightStyle.copyWith(fontSize: 10),
+                                ),
                               ),
                               SizedBox(
                                 width: 20,
