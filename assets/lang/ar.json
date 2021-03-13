@@ -155,10 +155,14 @@
   "check your email inbox to rest the password": "يرجى التحقق من صندوق البريد الالكتروني المدخل",
   "email can not be empty": "الرجاء ادخال البريد الالكتروني",
   "username can not be empty": "الرجاء ادخال اسم المستخدم",
+  "fullname can not be empty": "الرجاء ادخال اسم المستخدم",
   "password can not be empty": "الرجاء ادخال كلمة السر",
   "password changed successfully": "تم تغير كلمة السر بنجاح",
   "can not add more than 5": "لا يمكن اضافة اكثر من 5 اقسام",
   "choose at least one category": "اختر فئة واحدة على الأقل",
+  "country can not be empty": "الرجاء اختيار دولة",
+  "The password must be at least 8 characters": "كلمة المرور يجب ان لا تقل عن 8",
+  "gender can not be empty": "الرجاء اختيار الجنس",
   "read more...": " قراءة المزيد...",
   " read less": " قراءة اقل"
 }

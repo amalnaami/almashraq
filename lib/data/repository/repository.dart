@@ -5,10 +5,11 @@ import 'package:maktabeh_app/data/prefs_helper/iprefs_helper.dart';
 import 'package:maktabeh_app/model/author/author.dart';
 import 'package:maktabeh_app/model/book/book.dart';
 import 'package:maktabeh_app/model/category/category.dart';
-import 'package:maktabeh_app/model/login_model/login_model.dart';
+import 'package:maktabeh_app/model/country_model/country_model.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:maktabeh_app/model/quote/quote.dart';
 import 'package:maktabeh_app/model/review/review.dart';
+import 'package:maktabeh_app/model/user/user_model.dart';
 import 'irepository.dart';
 
 class Repository implements IRepository {
@@ -89,5 +90,37 @@ class Repository implements IRepository {
   @override
   Future<BuiltList<Book>> getMostReviewedBooks() async {
     return await _ihttpHelper.getMostReviewedBooks();
+  }
+
+  @override
+  Future<BuiltList<CountryModel>> getCountries()async {
+    // TODO ==> change language to dynamic
+    var language;
+    final app_language = await _iprefHelper.getAppLanguage();
+    if (app_language == 1) {
+      language = 'en';
+    } else {
+      language = 'ar';
+    }
+    return await _ihttpHelper.getCountries(language);
+  }
+  // @override
+  // Future<BuiltList<BooksDetails>> getAllBooks()async {
+  //   // TODO ==> change language to dynamic
+  //   var language;
+  //   final app_language = await _iprefHelper.getAppLanguage();
+  //   if (app_language == 1) {
+  //     language = 'en';
+  //   } else {
+  //     language = 'ar';
+  //   }
+  //   return await _ihttpHelper.getAllBooks(language);
+  // }
+
+  @override
+  Future<UserModel> register(String name,String username, String email, String password,String tele,String gender,String countryCode)async {
+    final user = await _ihttpHelper.register(name, username, email, password, tele, gender, countryCode);
+    // final save = await _iprefHelper.saveUser(user.data, user.token,false);
+    return user;
   }
 }

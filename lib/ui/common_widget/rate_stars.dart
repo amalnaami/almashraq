@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 Widget rateStars(double size, int count) {
-  print(double.parse('$count'));
   return SmoothStarRating(
       allowHalfRating: false,
       onRated: (v) {},

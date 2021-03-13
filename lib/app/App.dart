@@ -5,6 +5,8 @@ import 'package:maktabeh_app/app/bloc/app_event.dart';
 import 'package:maktabeh_app/core/app_language.dart';
 import 'package:maktabeh_app/core/app_localizations.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
+import 'package:maktabeh_app/ui/auth/LoginScreen.dart';
+import 'package:maktabeh_app/ui/mainScreens/HomSereens/HomeScreen.dart';
 
 import 'package:maktabeh_app/ui/splash_screen/splash_screen.dart';
 
@@ -94,7 +96,7 @@ class _AppState extends State<App> {
           builder: (context, snapshot) {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
-              home: SplashScreen(),
+              home: LoginScreen(),
               locale: snapshot.data == AppLanguageKeys.AR
                   ? Locale('ar', '')
                   : Locale('en', ''),
