@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maktabeh_app/core/app_localizations.dart';
 import 'package:maktabeh_app/core/size_config.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
 import 'package:maktabeh_app/ui/common_widget/app_bar.dart';
@@ -10,7 +11,7 @@ class AboutUsScreen extends StatelessWidget {
 
     return SafeArea(
         child: Scaffold(
-      appBar: app_bar('عن مكتبة المشرق', context),
+      appBar: app_bar(AppLocalizations.of(context).translate('about almashreq library'), context),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(16.0),

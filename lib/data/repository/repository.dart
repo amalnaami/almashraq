@@ -3,7 +3,9 @@ import 'package:maktabeh_app/data/db_helper/idp_helper.dart';
 import 'package:maktabeh_app/data/http_helper/ihttpe_helper.dart';
 import 'package:maktabeh_app/data/prefs_helper/iprefs_helper.dart';
 import 'package:maktabeh_app/model/author/author.dart';
+import 'package:maktabeh_app/model/book/base_book.dart';
 import 'package:maktabeh_app/model/book/book.dart';
+import 'package:maktabeh_app/model/book_by_category/book_by_category.dart';
 import 'package:maktabeh_app/model/category/category.dart';
 import 'package:maktabeh_app/model/country_model/country_model.dart';
 import 'package:built_collection/built_collection.dart';
@@ -42,8 +44,7 @@ class Repository implements IRepository {
   @override
   Future<bool> login(String userName, String password) async {
     final res = await _ihttpHelper.login(userName, password);
-    print(res.user);
-    await _iprefHelper.saveUser(res);
+    await _iprefHelper.saveUser(res.data);
     return true;
   }
 
@@ -53,8 +54,9 @@ class Repository implements IRepository {
   }
 
   @override
-  Future<void> insertCategories(List<int> categories) async {
-    await _iDbHelper.insertCategory(categories);
+  Future<bool> insertCategories(List<int> categories) async {
+    await _ihttpHelper.insertCategories(categories, await _iprefHelper.getToken());
+    //await _iDbHelper.insertCategory(categories);
   }
 
   @override
@@ -108,6 +110,17 @@ class Repository implements IRepository {
   Future<UserModel> register(String name,String username, String email, String password,String tele,String gender,String countryCode)async {
     final user = await _ihttpHelper.register(name, username, email, password, tele, gender, countryCode);
     // final save = await _iprefHelper.saveUser(user.data, user.token,false);
+    await _iprefHelper.saveUser(user.data);
     return user;
+  }
+
+  @override
+  Future<BaseBook> getAllBookNextPage(int page) async {
+    return await _ihttpHelper.getAllBookNextPage(page);
+  }
+
+  @override
+  Future<BookByCategoryModel> getBooksByCategory(int page, int categoryId) async {
+    return await _ihttpHelper.getBooksByCategory(page, categoryId);
   }
 }

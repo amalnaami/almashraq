@@ -164,5 +164,8 @@
   " read less": " read less",
   "country can not be empty": "country can not be empty",
   "The password must be at least 8 characters": "The password must be at least 8 characters",
-  "gender can not be empty": "gender can not be empty"
+  "gender can not be empty": "gender can not be empty",
+  "All categories": "All categories",
+  "about almashreq library": "about almashreq library",
+  "books": "books"
 }

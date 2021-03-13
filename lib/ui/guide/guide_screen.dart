@@ -15,6 +15,8 @@ import 'package:maktabeh_app/ui/guide/category_bloc/category_bloc.dart';
 import 'package:maktabeh_app/ui/guide/category_bloc/category_event.dart';
 import 'package:maktabeh_app/ui/guide/category_bloc/category_state.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:maktabeh_app/ui/mainScreens/HomSereens/HomeScreen.dart';
+import 'package:maktabeh_app/ui/mainScreens/main_screen.dart';
 
 import 'package:maktabeh_app/ui/start_screen/start_screen.dart';
 
@@ -58,7 +60,12 @@ class _GuideScreenState extends State<GuideScreen> {
       cubit: _bloc,
       builder: (BuildContext context, CategoryState state) {
         error(state.error);
-
+        if (state.successAdding) {
+          WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+              push(context, MainPage());
+          });
+          _bloc.add(ClearState());
+        }
         return Scaffold(
           body: Stack(
             children: [
@@ -103,7 +110,8 @@ class _GuideScreenState extends State<GuideScreen> {
                                   firstScreen(context),
                                   secondScreen(context),
                                   thirdScreen(context),
-                                  optionScreen(context, state.categories, addOrRemove, canAdd),
+                                  optionScreen(context, state.categories,
+                                      addOrRemove, canAdd),
                                 ],
                               ),
                             ),
@@ -157,9 +165,12 @@ class _GuideScreenState extends State<GuideScreen> {
                                             curve: Curves.easeInCirc);
                                         print(pageIndex);
                                         if (pageIndex == 3) {
-                                          if(selectedCategories.isEmpty) {
+                                          if (selectedCategories.isEmpty) {
                                             Fluttertoast.showToast(
-                                                msg: AppLocalizations.of(context).translate('choose at least one category'),
+                                                msg: AppLocalizations.of(
+                                                        context)
+                                                    .translate(
+                                                        'choose at least one category'),
                                                 toastLength: Toast.LENGTH_SHORT,
                                                 gravity: ToastGravity.BOTTOM,
                                                 // timeInSecForIosWeb: 1,
@@ -168,13 +179,14 @@ class _GuideScreenState extends State<GuideScreen> {
                                                 fontSize: 16.0);
                                             return;
                                           }
-                                          push(context, StartScreen());
+                                          _bloc.add(InsertCategories((b) => b..selectedCategories = selectedCategories));
                                         }
                                       }),
                                 ),
                                 pageIndex == 0 || pageIndex == 3
                                     ? Container()
                                     : InkWell(
+                                  onTap: () => setState(() => pageIndex = 3),
                                         child: Text(
                                           AppLocalizations.of(context)
                                               .translate('skip'),
@@ -198,9 +210,12 @@ class _GuideScreenState extends State<GuideScreen> {
       },
     );
   }
+
   void addOrRemove(int id) {
-    if(selectedCategories.contains(id)) selectedCategories.remove(id);
-    else selectedCategories.add(id);
+    if (selectedCategories.contains(id))
+      selectedCategories.remove(id);
+    else
+      selectedCategories.add(id);
     print(selectedCategories);
   }
 
@@ -221,6 +236,7 @@ class _GuideScreenState extends State<GuideScreen> {
     }
   }
 }
+
 Widget firstScreen(BuildContext context) {
   return Padding(
     padding: EdgeInsets.only(top: SizeConfig.blockSizeVertical * 10),
@@ -311,7 +327,8 @@ Widget thirdScreen(BuildContext context) {
   );
 }
 
-Widget optionScreen(BuildContext context, BuiltList<Category> categories, Function(int) addOrRemove, Function canAdd) {
+Widget optionScreen(BuildContext context, BuiltList<Category> categories,
+    Function(int) addOrRemove, Function canAdd) {
   return Column(
     children: [
       Padding(
@@ -351,6 +368,7 @@ class Item extends StatefulWidget {
   final Category category;
   final Function(int) callback;
   final Function canAdd;
+
   Item(this.category, this.callback, this.canAdd);
 
   @override
@@ -365,19 +383,19 @@ class _ItemState extends State<Item> {
     return InkWell(
       radius: 1,
       onTap: () {
-        if(!isSelected && widget.canAdd.call()) {
+        if (!isSelected && widget.canAdd.call()) {
           setState(() {
             isSelected = !isSelected;
             widget.callback.call(widget.category.id);
           });
-        } else if(isSelected) {
+        } else if (isSelected) {
           setState(() {
             isSelected = !isSelected;
             widget.callback.call(widget.category.id);
           });
         } else {
-          error(AppLocalizations.of(context).translate('can not add more than 5'));
-
+          error(AppLocalizations.of(context)
+              .translate('can not add more than 5'));
         }
       },
       child: Container(
@@ -437,6 +455,7 @@ class _ItemState extends State<Item> {
       ),
     );
   }
+
   void error(String errorCode) {
     if (errorCode.isNotEmpty) {
       Fluttertoast.showToast(

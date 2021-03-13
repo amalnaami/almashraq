@@ -24,6 +24,12 @@ class _$UserDataSerializer implements StructuredSerializer<UserData> {
         ..add(serializers.serialize(object.user,
             specifiedType: const FullType(User)));
     }
+    if (object.access_token != null) {
+      result
+        ..add('access_token')
+        ..add(serializers.serialize(object.access_token,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -42,6 +48,10 @@ class _$UserDataSerializer implements StructuredSerializer<UserData> {
           result.user.replace(serializers.deserialize(value,
               specifiedType: const FullType(User)) as User);
           break;
+        case 'access_token':
+          result.access_token = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
       }
     }
 
@@ -52,11 +62,13 @@ class _$UserDataSerializer implements StructuredSerializer<UserData> {
 class _$UserData extends UserData {
   @override
   final User user;
+  @override
+  final String access_token;
 
   factory _$UserData([void Function(UserDataBuilder) updates]) =>
       (new UserDataBuilder()..update(updates)).build();
 
-  _$UserData._({this.user}) : super._();
+  _$UserData._({this.user, this.access_token}) : super._();
 
   @override
   UserData rebuild(void Function(UserDataBuilder) updates) =>
@@ -68,17 +80,21 @@ class _$UserData extends UserData {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is UserData && user == other.user;
+    return other is UserData &&
+        user == other.user &&
+        access_token == other.access_token;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(0, user.hashCode));
+    return $jf($jc($jc(0, user.hashCode), access_token.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('UserData')..add('user', user))
+    return (newBuiltValueToStringHelper('UserData')
+          ..add('user', user)
+          ..add('access_token', access_token))
         .toString();
   }
 }
@@ -90,11 +106,16 @@ class UserDataBuilder implements Builder<UserData, UserDataBuilder> {
   UserBuilder get user => _$this._user ??= new UserBuilder();
   set user(UserBuilder user) => _$this._user = user;
 
+  String _access_token;
+  String get access_token => _$this._access_token;
+  set access_token(String access_token) => _$this._access_token = access_token;
+
   UserDataBuilder();
 
   UserDataBuilder get _$this {
     if (_$v != null) {
       _user = _$v.user?.toBuilder();
+      _access_token = _$v.access_token;
       _$v = null;
     }
     return this;
@@ -117,7 +138,8 @@ class UserDataBuilder implements Builder<UserData, UserDataBuilder> {
   _$UserData build() {
     _$UserData _$result;
     try {
-      _$result = _$v ?? new _$UserData._(user: _user?.build());
+      _$result = _$v ??
+          new _$UserData._(user: _user?.build(), access_token: access_token);
     } catch (_) {
       String _$failedField;
       try {

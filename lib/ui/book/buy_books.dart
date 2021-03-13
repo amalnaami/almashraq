@@ -16,7 +16,7 @@ class _BuyBooksScreenState extends State<BuyBooksScreen> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: app_bar(('buy the book'), context),
+        appBar: app_bar(AppLocalizations.of(context).translate('buy the book'), context),
         body: SingleChildScrollView(
             child: Column(
           children: [

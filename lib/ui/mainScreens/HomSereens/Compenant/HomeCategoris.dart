@@ -2,9 +2,13 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:maktabeh_app/core/app_localizations.dart';
+import 'package:maktabeh_app/core/config/navigatorHelper.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
 import 'package:maktabeh_app/model/category/category.dart';
+import 'package:maktabeh_app/ui/all_categories/all_categories.dart';
 import 'package:maktabeh_app/ui/common_widget/CategorisCard.dart';
+
+import '../../categorisScreen.dart';
 
 class HomeCategoris extends StatefulWidget {
   final BuiltList<Category> categories;
@@ -40,9 +44,14 @@ class _HomeCategorisState extends State<HomeCategoris> {
                     ),
                   ],
                 ),
-                Text(
-                  AppLocalizations.of(context).translate('see all'),
-                  style: lightStyle.copyWith(fontSize: 10),
+                InkWell(
+                    onTap: () {
+                      push(context, AllCategories(categories: widget.categories,));
+                    },
+                  child: Text(
+                    AppLocalizations.of(context).translate('see all'),
+                    style: lightStyle.copyWith(fontSize: 10),
+                  ),
                 ),
               ],
             ),

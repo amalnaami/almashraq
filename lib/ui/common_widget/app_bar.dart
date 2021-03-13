@@ -7,7 +7,7 @@ import 'local_image.dart';
 Widget app_bar(String text, BuildContext context) {
   return AppBar(
     title: Text(
-      AppLocalizations.of(context).translate(text),
+    '$text',
       style: regStyle.copyWith(
           color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
     ),

@@ -20,7 +20,7 @@ class _QuotesScreenState extends State<QuotesScreen> {
     SizeConfig.init(context);
     return SafeArea(
       child: Scaffold(
-        appBar: app_bar('quotes', context),
+        appBar: app_bar(AppLocalizations.of(context).translate('quotes'), context),
         body: Padding(
           padding: EdgeInsets.symmetric(
               horizontal: SizeConfig.blockSizeHorizontal * 4),

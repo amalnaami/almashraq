@@ -3,6 +3,7 @@ import 'package:maktabeh_app/core/app_localizations.dart';
 import 'package:maktabeh_app/core/config/navigatorHelper.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
 import 'package:maktabeh_app/model/book/book.dart';
+import 'package:maktabeh_app/ui/book/all_books.dart';
 import 'package:maktabeh_app/ui/common_widget/BookCard.dart';
 import 'package:built_collection/built_collection.dart';
 
@@ -47,7 +48,7 @@ class _MainListState extends State<MainList> {
                   ],
                 ),
                 InkWell(
-                  onTap: () => push(context, MoreBookPage(title: widget.title)),
+                  onTap: () => push(context, AllBooksScreen()),
                   child: Text(
                     AppLocalizations.of(context).translate('see more'),
                     style: lightStyle.copyWith(fontSize: 10),

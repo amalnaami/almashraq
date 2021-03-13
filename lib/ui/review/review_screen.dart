@@ -19,7 +19,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
     SizeConfig.init(context);
     return SafeArea(
       child: Scaffold(
-        appBar: app_bar('reviews', context),
+        appBar: app_bar(AppLocalizations.of(context).translate('reviews'), context),
         body: Padding(
           padding: EdgeInsets.symmetric(
               horizontal: SizeConfig.blockSizeHorizontal * 4),

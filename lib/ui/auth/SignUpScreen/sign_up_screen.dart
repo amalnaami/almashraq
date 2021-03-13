@@ -13,6 +13,7 @@ import 'package:maktabeh_app/ui/auth/SignUpScreen/sign_up_bloc/sign_up_bloc.dart
 import 'package:maktabeh_app/ui/auth/SignUpScreen/sign_up_bloc/sign_up_state.dart';
 import 'package:maktabeh_app/ui/auth/SignUpScreen/sign_up_bloc/sign_up_event.dart';
 import 'package:maktabeh_app/ui/common_widget/app_button.dart';
+import 'package:maktabeh_app/ui/guide/guide_screen.dart';
 import '../compnent/CustomField2.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -53,7 +54,7 @@ class _SignupScreenState extends State<SignupScreen> {
         builder: (BuildContext context, SignUpState state) {
       error(state.error);
       if(state.successSignup) {
-        WidgetsBinding.instance.addPostFrameCallback((timeStamp) { push(context, LoginScreen());});
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) { push(context, GuideScreen());});
         _bloc.add(ClearState());
       }
       return Scaffold(

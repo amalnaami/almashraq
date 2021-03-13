@@ -96,7 +96,7 @@ class _AppState extends State<App> {
           builder: (context, snapshot) {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
-              home: LoginScreen(),
+              home: SplashScreen(),
               locale: snapshot.data == AppLanguageKeys.AR
                   ? Locale('ar', '')
                   : Locale('en', ''),

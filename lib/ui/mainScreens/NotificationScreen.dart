@@ -14,7 +14,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Scaffold(
-        appBar: app_bar('notifications', context),
+        appBar: app_bar(AppLocalizations.of(context).translate('notifications'), context),
         body: ListView.builder(
           itemCount: 3,
           padding: EdgeInsets.all(8.0),

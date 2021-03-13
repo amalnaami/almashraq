@@ -1,5 +1,7 @@
 import 'package:maktabeh_app/model/login_model/login_model.dart';
+import 'package:maktabeh_app/model/user/token.dart';
 import 'package:maktabeh_app/model/user/user.dart';
+import 'package:maktabeh_app/model/user/user_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class IPrefsHelper {
@@ -7,6 +9,7 @@ abstract class IPrefsHelper {
   Future<int> getAppLanguage();
 
   Future<void> setAppLanguage(int value);
-  Future<void> saveUser(LoginModel user);
+  Future<void> saveUser(UserData user);
+  //Future<void> saveRegisterUser(UserData user);
   Future<String> getToken();
 }

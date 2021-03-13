@@ -10,6 +10,7 @@ import 'package:maktabeh_app/ui/guide/guide_screen.dart';
 import 'package:maktabeh_app/ui/language_page/bloc/language_bloc.dart';
 import 'package:maktabeh_app/ui/language_page/bloc/language_event.dart';
 import 'package:maktabeh_app/ui/language_page/bloc/language_event.dart';
+import 'package:maktabeh_app/ui/start_screen/start_screen.dart';
 import 'package:maktabeh_app/ui/widgets/widgets.dart';
 
 import 'bloc/language_state.dart';
@@ -185,7 +186,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                                     textColor: Colors.white,
                                     onTap: () => Navigator.of(context)
                                         .push(MaterialPageRoute(
-                                      builder: (context) => GuideScreen(),
+                                      builder: (context) => StartScreen(),
                                     )),
                                   ),
                                 ],

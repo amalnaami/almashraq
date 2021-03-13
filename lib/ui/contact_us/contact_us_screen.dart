@@ -18,7 +18,7 @@ class _ContactUsState extends State<ContactUs> {
 
     return SafeArea(
         child: Scaffold(
-      appBar: app_bar('contact us', context),
+      appBar: app_bar(AppLocalizations.of(context).translate('contact us'), context),
       body: Column(
         children: [
           Container(

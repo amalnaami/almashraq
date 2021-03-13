@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:maktabeh_app/model/serializer/serializer.dart';
+import 'package:maktabeh_app/model/user/token.dart';
 import 'package:maktabeh_app/model/user/user.dart';
 
 
@@ -15,6 +16,8 @@ abstract class UserData implements Built<UserData,UserDataBuilder> {
 
   @nullable
   User get user;
+  @nullable
+  String get access_token;
 
   UserData._();
 

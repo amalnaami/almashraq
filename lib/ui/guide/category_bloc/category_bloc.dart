@@ -36,7 +36,9 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     } else if(event is InsertCategories) {
       try {
         yield state.rebuild((b) => b..isLoading = true ..error = '');
-        await _repository.insertCategories(event.selectedCategories);
+        final res = await _repository.insertCategories(event.selectedCategories);
+        print(res);
+        print('DONE');
         yield state.rebuild((b) => b
           ..isLoading = false
           ..successAdding = true);

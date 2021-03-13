@@ -164,5 +164,8 @@
   "The password must be at least 8 characters": "كلمة المرور يجب ان لا تقل عن 8",
   "gender can not be empty": "الرجاء اختيار الجنس",
   "read more...": " قراءة المزيد...",
-  " read less": " قراءة اقل"
+  " read less": " قراءة اقل",
+  "All categories": "كل الاقسام",
+  "about almashreq library": "عن مكتبة المشرق",
+  "books": "كتب"
 }

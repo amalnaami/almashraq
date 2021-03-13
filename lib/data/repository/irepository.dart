@@ -1,5 +1,7 @@
 import 'package:maktabeh_app/model/author/author.dart';
+import 'package:maktabeh_app/model/book/base_book.dart';
 import 'package:maktabeh_app/model/book/book.dart';
+import 'package:maktabeh_app/model/book_by_category/book_by_category.dart';
 import 'package:maktabeh_app/model/category/category.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:maktabeh_app/model/country_model/country_model.dart';
@@ -16,7 +18,7 @@ abstract class IRepository {
   Future<bool> login(String userName, String password);
   Future<bool> forgetPassword(String email);
   Future<bool> updatePassword(String password);
-  Future<void> insertCategories(List<int> categories);
+  Future<bool> insertCategories(List<int> categories);
   Future<Quote> getTodayQuotes();
   Future<Review> getTodayReview();
   Future<BuiltList<Author>> getFamousAuthors();
@@ -25,5 +27,7 @@ abstract class IRepository {
   Future<BuiltList<Book>> getMostReviewedBooks();
   Future<BuiltList<Book>> getFeaturedBooks();
   Future<UserModel> register(String name,String username, String email, String password,String tele,String gender,String country_code);
+  Future<BaseBook> getAllBookNextPage(int page);
+  Future<BookByCategoryModel> getBooksByCategory(int page, int categoryId);
 
 }

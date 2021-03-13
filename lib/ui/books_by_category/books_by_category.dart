@@ -7,35 +7,36 @@ import 'package:maktabeh_app/core/loaderApp.dart';
 import 'package:maktabeh_app/core/size_config.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
 import 'package:maktabeh_app/injection.dart';
-import 'package:maktabeh_app/ui/book/all_books_screen_bloc/all_books_bloc.dart';
-import 'package:maktabeh_app/ui/book/all_books_screen_bloc/all_books_event.dart';
-import 'package:maktabeh_app/ui/book/book_screen.dart';
+import 'package:maktabeh_app/model/category/category.dart';
 import 'package:maktabeh_app/ui/common_widget/BookCard.dart';
 import 'package:maktabeh_app/ui/common_widget/CustomAlert.dart';
 import 'package:maktabeh_app/ui/common_widget/app_bar.dart';
-import 'package:maktabeh_app/ui/common_widget/app_button.dart';
 import 'package:maktabeh_app/ui/common_widget/local_image.dart';
-import 'package:maktabeh_app/ui/common_widget/rate_stars.dart';
 
-import 'all_books_screen_bloc/all_books_state.dart';
+import 'books_by_category_bloc/books_by_category_bloc.dart';
+import 'books_by_category_bloc/books_by_category_event.dart';
+import 'books_by_category_bloc/books_by_category_state.dart';
 
-class AllBooksScreen extends StatefulWidget {
+
+class BooksByCategory extends StatefulWidget {
+  final Category category;
+  const BooksByCategory(this.category);
   @override
-  _AllBooksScreenState createState() => _AllBooksScreenState();
+  _BooksByCategoryState createState() => _BooksByCategoryState();
 }
 
-class _AllBooksScreenState extends State<AllBooksScreen> {
-  final _bloc = sl<AllBooksBloc>();
+class _BooksByCategoryState extends State<BooksByCategory> {
+  final _bloc = sl<BooksByCategoryBloc>();
   ScrollController controller = ScrollController();
   @override
   void initState() {
-    _bloc.add(GetNextPage());
+    _bloc.add(GetNextPage((b) => b..categoryId = widget.category.id));
     controller.addListener(() {
       if (controller.position.atEdge) {
         if (controller.position.pixels ==
             controller.position.maxScrollExtent) {
           print('Geting next');
-          _bloc.add(GetNextPage());
+          _bloc.add(GetNextPage((b) => b..categoryId = widget.category.id));
         }
       }
     });
@@ -52,15 +53,16 @@ class _AllBooksScreenState extends State<AllBooksScreen> {
 
     return BlocBuilder(
       cubit: _bloc,
-      builder: (BuildContext context, AllBooksState state) {
+      builder: (BuildContext context, BooksByCategoryState state) {
         error(state.error);
+        print('SIZE IS ${state.allBooks.length}');
         return SafeArea(
           child: Scaffold(
-            appBar: app_bar(AppLocalizations.of(context).translate('all books'), context),
+            appBar: app_bar(widget.category.getName(AppLocalizations.of(context).locale.languageCode), context),
             body: Stack(
               children: [
                 SingleChildScrollView(
-                  controller: controller,
+                    controller: controller,
                     child: Column(
                       children: [
                         Padding(
@@ -78,7 +80,8 @@ class _AllBooksScreenState extends State<AllBooksScreen> {
                                 margin: const EdgeInsets.symmetric(horizontal: 5),
                               ),
                               Text(
-                                AppLocalizations.of(context).translate('all books'),
+                                AppLocalizations.of(context).locale.languageCode == 'en' ?
+                                '${widget.category.getName(AppLocalizations.of(context).locale.languageCode)} ${AppLocalizations.of(context).translate('books')}' : '${AppLocalizations.of(context).translate('books')} ${widget.category.getName(AppLocalizations.of(context).locale.languageCode)}',
                                 style: boldStyle.copyWith(color: Colors.black),
                               ),
                               Spacer(),

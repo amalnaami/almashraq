@@ -37,7 +37,7 @@ class _SearchScreenState extends State<SearchScreen> {
     }
     SizeConfig.init(context);
     return Scaffold(
-      appBar: app_bar('Search', context),
+      appBar: app_bar(AppLocalizations.of(context).translate('Search'), context),
       body: Stack(
         children: [
           ListView(
