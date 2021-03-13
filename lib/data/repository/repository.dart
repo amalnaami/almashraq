@@ -104,19 +104,6 @@ class Repository implements IRepository {
     }
     return await _ihttpHelper.getCountries(language);
   }
-  // @override
-  // Future<BuiltList<BooksDetails>> getAllBooks()async {
-  //   // TODO ==> change language to dynamic
-  //   var language;
-  //   final app_language = await _iprefHelper.getAppLanguage();
-  //   if (app_language == 1) {
-  //     language = 'en';
-  //   } else {
-  //     language = 'ar';
-  //   }
-  //   return await _ihttpHelper.getAllBooks(language);
-  // }
-
   @override
   Future<UserModel> register(String name,String username, String email, String password,String tele,String gender,String countryCode)async {
     final user = await _ihttpHelper.register(name, username, email, password, tele, gender, countryCode);

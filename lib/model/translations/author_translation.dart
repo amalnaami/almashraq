@@ -4,10 +4,9 @@ library author_translation;
 import 'dart:convert';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:built_collection/built_collection.dart';
-import 'package:maktabeh_app/model/all_books_model/author_language.dart';
-import 'package:maktabeh_app/model/language/language.dart';
 import 'package:maktabeh_app/model/serializer/serializer.dart';
+
+import 'author_language.dart';
 
 part 'author_translation.g.dart';
 

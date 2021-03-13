@@ -8,7 +8,7 @@ import 'package:maktabeh_app/core/app_localizations.dart';
 import 'package:maktabeh_app/core/config/navigatorHelper.dart';
 import 'package:maktabeh_app/core/size_config.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
-import 'package:maktabeh_app/model/all_books_model/books_details.dart';
+import 'package:maktabeh_app/model/book/book.dart';
 import 'package:maktabeh_app/ui/book/about_writer.dart';
 import 'package:maktabeh_app/ui/book/buy_books.dart';
 import 'package:maktabeh_app/ui/book/quotes_screen.dart';
@@ -19,7 +19,7 @@ import 'package:maktabeh_app/ui/mainScreens/moreBooksPage.dart';
 import 'package:maktabeh_app/ui/review/review_screen.dart';
 
 class BookScreen extends StatefulWidget {
-  final BooksDetails singleBook;
+  final Book singleBook;
 
   BookScreen({this.singleBook,});
   @override

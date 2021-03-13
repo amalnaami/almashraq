@@ -34,7 +34,7 @@ class _$AuthorSerializer implements StructuredSerializer<Author> {
       result
         ..add('translations')
         ..add(serializers.serialize(object.translations,
-            specifiedType: const FullType(Translations)));
+            specifiedType: const FullType(AuthorTranslation)));
     }
     if (object.reviews_count != null) {
       result
@@ -78,7 +78,8 @@ class _$AuthorSerializer implements StructuredSerializer<Author> {
           break;
         case 'translations':
           result.translations.replace(serializers.deserialize(value,
-              specifiedType: const FullType(Translations)) as Translations);
+                  specifiedType: const FullType(AuthorTranslation))
+              as AuthorTranslation);
           break;
         case 'reviews_count':
           result.reviews_count = serializers.deserialize(value,
@@ -105,7 +106,7 @@ class _$Author extends Author {
   @override
   final String image;
   @override
-  final Translations translations;
+  final AuthorTranslation translations;
   @override
   final String reviews_count;
   @override
@@ -180,10 +181,10 @@ class AuthorBuilder implements Builder<Author, AuthorBuilder> {
   String get image => _$this._image;
   set image(String image) => _$this._image = image;
 
-  TranslationsBuilder _translations;
-  TranslationsBuilder get translations =>
-      _$this._translations ??= new TranslationsBuilder();
-  set translations(TranslationsBuilder translations) =>
+  AuthorTranslationBuilder _translations;
+  AuthorTranslationBuilder get translations =>
+      _$this._translations ??= new AuthorTranslationBuilder();
+  set translations(AuthorTranslationBuilder translations) =>
       _$this._translations = translations;
 
   String _reviews_count;

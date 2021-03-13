@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:maktabeh_app/model/serializer/serializer.dart';
-import 'package:maktabeh_app/model/translations/translations.dart';
+import 'package:maktabeh_app/model/translations/author_translation.dart';
 
 part 'author.g.dart';
 
@@ -15,7 +15,7 @@ abstract class Author implements Built<Author, AuthorBuilder> {
   @nullable
   String get image;
   @nullable
-  Translations get translations;
+  AuthorTranslation get translations;
   @nullable
   String get reviews_count;
   @nullable
@@ -23,8 +23,11 @@ abstract class Author implements Built<Author, AuthorBuilder> {
   @nullable
   int get books_count;
 
-  String getAuthorName(String languageCode) {
+  String getName(String languageCode) {
     return languageCode == 'ar' ? translations.ar.name : translations.en.name;
+  }
+  String getBrief(String languageCode) {
+    return languageCode == 'ar' ? translations.ar.brief : translations.en.brief;
   }
 
   Author._();

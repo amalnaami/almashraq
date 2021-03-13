@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:built_collection/src/list.dart';
+import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 import 'package:maktabeh_app/core/error.dart';
@@ -320,30 +320,30 @@ class HttpHelper implements IHttpHelper {
       throw NetworkException();
     }
   }
-  @override
-  Future<BuiltList<BooksDetails>> getAllBooks(String language) async {
-    try {
-      final response = await _dio.get('books',  options: Options(headers: {"Accept-Language":language}));
-      print('getAllBooks Response StatusCode ${response.statusCode}');
-      if (response.statusCode == 200) {
-        print('getAllBooks Response body  ${response.data}');
-
-        final ret = serializers.deserialize(json.decode(response.data)['data'],
-            specifiedType: FullType(
-              BuiltList,
-              [
-                const FullType(BooksDetails),
-              ],
-            ));
-        return ret;
-      } else {
-        throw NetworkException();
-      }
-    } catch (e) {
-      print(e.toString());
-      throw NetworkException();
-    }
-  }
+  // @override
+  // Future<BuiltList<BooksDetails>> getAllBooks(String language) async {
+  //   try {
+  //     final response = await _dio.get('books',  options: Options(headers: {"Accept-Language":language}));
+  //     print('getAllBooks Response StatusCode ${response.statusCode}');
+  //     if (response.statusCode == 200) {
+  //       print('getAllBooks Response body  ${response.data}');
+  //
+  //       final ret = serializers.deserialize(json.decode(response.data)['data'],
+  //           specifiedType: FullType(
+  //             BuiltList,
+  //             [
+  //               const FullType(BooksDetails),
+  //             ],
+  //           ));
+  //       return ret;
+  //     } else {
+  //       throw NetworkException();
+  //     }
+  //   } catch (e) {
+  //     print(e.toString());
+  //     throw NetworkException();
+  //   }
+  // }
 
 
 }

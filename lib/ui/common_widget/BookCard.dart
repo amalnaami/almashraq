@@ -17,7 +17,7 @@ class _BookCardState extends State<BookCard> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => push(context, BookScreen()),
+      onTap: () => push(context, BookScreen(singleBook: widget.book,)),
       child: Container(
         margin: EdgeInsets.all(5),
         width: MediaQuery.of(context).size.width / 3.2,
@@ -45,7 +45,7 @@ class _BookCardState extends State<BookCard> {
             // ),
             Text(
               //AppLocalizations.of(context).translate('novel name'),
-              widget.book.getBookName(AppLocalizations.of(context).locale.languageCode),
+              widget.book.getName(AppLocalizations.of(context).locale.languageCode),
               style: regStyle,
               overflow: TextOverflow.ellipsis,
             ),
@@ -61,7 +61,7 @@ class _BookCardState extends State<BookCard> {
                 ),
                 Expanded(
                   child: Text(
-                    "${widget.book.getPublishName(AppLocalizations.of(context).locale.languageCode)}",
+                    "${widget.book.getPublish(AppLocalizations.of(context).locale.languageCode)}",
                     style: lightStyle.copyWith(color: Colors.blue),
                     overflow: TextOverflow.ellipsis,
                   ),

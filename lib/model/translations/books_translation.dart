@@ -5,8 +5,9 @@ library books_translation;
 import 'dart:convert';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:maktabeh_app/model/all_books_model/books_data.dart';
 import 'package:maktabeh_app/model/serializer/serializer.dart';
+
+import 'books_data.dart';
 
 part 'books_translation.g.dart';
 

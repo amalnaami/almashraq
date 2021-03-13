@@ -42,7 +42,7 @@ class _OuthorCardState extends State<OuthorCard> {
               height: 5,
             ),
             Text(
-              '${widget.author.getAuthorName(AppLocalizations.of(context).locale.languageCode)}',
+              '${widget.author.getName(AppLocalizations.of(context).locale.languageCode)}',
               style: regStyle,
             ),
             SizedBox(

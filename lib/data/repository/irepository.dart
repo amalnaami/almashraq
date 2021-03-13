@@ -13,7 +13,6 @@ abstract class IRepository {
   Future<void> setAppLanguage(int value);
   Future<BuiltList<Category>> getCategories();
   Future<BuiltList<CountryModel>> getCountries();
-  //Future<BuiltList<BooksDetails>> getAllBooks();
   Future<bool> login(String userName, String password);
   Future<bool> forgetPassword(String email);
   Future<bool> updatePassword(String password);

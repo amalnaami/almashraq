@@ -5,7 +5,7 @@ import 'package:maktabeh_app/core/size_config.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
 import 'package:maktabeh_app/model/country_model/country_model.dart';
 import 'package:maktabeh_app/ui/auth/LoginScreen.dart';
-import 'file:///C:/Users/AMEL/IdeaProjects/almashreq/lib/ui/auth/SignUpScreen/sign_up_screen.dart';
+import 'package:maktabeh_app/ui/auth/SignUpScreen/sign_up_screen.dart';
 import 'package:maktabeh_app/ui/common_widget/app_button.dart';
 import 'package:maktabeh_app/ui/mainScreens/HomSereens/HomeScreen.dart';
 import 'package:maktabeh_app/ui/mainScreens/main_screen.dart';
