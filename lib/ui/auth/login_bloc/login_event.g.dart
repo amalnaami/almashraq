@@ -153,4 +153,60 @@ class ClearStateBuilder implements Builder<ClearState, ClearStateBuilder> {
   }
 }
 
+class _$GetIsLogin extends GetIsLogin {
+  factory _$GetIsLogin([void Function(GetIsLoginBuilder) updates]) =>
+      (new GetIsLoginBuilder()..update(updates)).build();
+
+  _$GetIsLogin._() : super._();
+
+  @override
+  GetIsLogin rebuild(void Function(GetIsLoginBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GetIsLoginBuilder toBuilder() => new GetIsLoginBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GetIsLogin;
+  }
+
+  @override
+  int get hashCode {
+    return 118379423;
+  }
+
+  @override
+  String toString() {
+    return newBuiltValueToStringHelper('GetIsLogin').toString();
+  }
+}
+
+class GetIsLoginBuilder implements Builder<GetIsLogin, GetIsLoginBuilder> {
+  _$GetIsLogin _$v;
+
+  GetIsLoginBuilder();
+
+  @override
+  void replace(GetIsLogin other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$GetIsLogin;
+  }
+
+  @override
+  void update(void Function(GetIsLoginBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$GetIsLogin build() {
+    final _$result = _$v ?? new _$GetIsLogin._();
+    replace(_$result);
+    return _$result;
+  }
+}
+
 // ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

@@ -9,7 +9,10 @@ abstract class IPrefsHelper {
   Future<int> getAppLanguage();
 
   Future<void> setAppLanguage(int value);
-  Future<void> saveUser(UserData user);
+  Future<void> saveUser(UserData user, bool active);
   //Future<void> saveRegisterUser(UserData user);
   Future<String> getToken();
+  Future<bool> getIsLogin();
+
+  Future<void> setIsLogin();
 }

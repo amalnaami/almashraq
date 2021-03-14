@@ -21,3 +21,13 @@ abstract class ClearState extends LoginEvent
 
   factory ClearState([updates(ClearStateBuilder b)]) = _$ClearState;
 }
+
+abstract class GetIsLogin extends LoginEvent implements Built<GetIsLogin,GetIsLoginBuilder> {
+  // fields go here
+
+
+
+  GetIsLogin._();
+
+  factory GetIsLogin([updates(GetIsLoginBuilder b)]) = _$GetIsLogin;
+}

@@ -39,3 +39,12 @@ abstract class SetAppLanguage extends SettingEvent
 
   factory SetAppLanguage([updates(SetAppLanguageBuilder b)]) = _$SetAppLanguage;
 }
+
+abstract class GetIsLogin extends SettingEvent
+    implements Built<GetIsLogin, GetIsLoginBuilder> {
+  // fields go here
+
+  GetIsLogin._();
+
+  factory GetIsLogin([updates(GetIsLoginBuilder b)]) = _$GetIsLogin;
+}

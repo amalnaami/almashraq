@@ -9,6 +9,8 @@ import 'package:maktabeh_app/ui/common_widget/rate_stars.dart';
 import 'package:maktabeh_app/ui/review/add_review_screen.dart';
 
 class ReviewScreen extends StatefulWidget {
+  bool isLogin;
+  ReviewScreen({this.isLogin});
   @override
   _ReviewScreenState createState() => _ReviewScreenState();
 }
@@ -27,7 +29,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
+                (widget.isLogin)?    Padding(
                   padding: EdgeInsets.symmetric(
                       vertical: SizeConfig.blockSizeVertical * 2),
                   child: appButton(
@@ -37,7 +39,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                     )),
                     text: AppLocalizations.of(context).translate('add review'),
                   ),
-                ),
+                ):Container(),
                 Divider(
                   thickness: 1,
                   color: Color(0xFFE5E5E5),

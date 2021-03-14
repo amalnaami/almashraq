@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/foundation.dart';
@@ -17,7 +18,10 @@ import 'package:maktabeh_app/ui/common_widget/local_image.dart';
 import 'package:maktabeh_app/ui/common_widget/rate_stars.dart';
 import 'package:maktabeh_app/ui/mainScreens/moreBooksPage.dart';
 import 'package:maktabeh_app/ui/review/review_screen.dart';
-
+import 'package:maktabeh_app/ui/mainScreens/HomSereens/home_bloc/home_bloc.dart';
+import 'package:maktabeh_app/ui/mainScreens/HomSereens/home_bloc/home_event.dart';
+import 'package:maktabeh_app/ui/mainScreens/HomSereens/home_bloc/home_state.dart';
+import 'package:maktabeh_app/injection.dart';
 class BookScreen extends StatefulWidget {
   final Book singleBook;
 
@@ -27,6 +31,16 @@ class BookScreen extends StatefulWidget {
 }
 
 class _BookScreenState extends State<BookScreen> {
+  final _bloc = sl<HomeBloc>();
+  @override
+  void initState() {
+
+    super.initState();
+
+    _bloc.add(GetIsLogin());
+
+
+  }
   bool showAnswer1 = false;
   bool showAnswer2 = false;
   bool showAnswer3 = false;
@@ -36,7 +50,10 @@ class _BookScreenState extends State<BookScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    return SafeArea(
+    return  BlocBuilder(
+        cubit: _bloc,
+        builder: (BuildContext context, HomeState state){
+      return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -154,7 +171,7 @@ class _BookScreenState extends State<BookScreen> {
                     appButton(
                       context: context,
                       onTap: () {
-                        showDialog(
+                      if  (state.isLogin==false)    showDialog(
                             context: context,
                             builder: (BuildContext ctx) {
                               return alertDialog(ctx);
@@ -281,10 +298,10 @@ class _BookScreenState extends State<BookScreen> {
                         show: showAnswer3,
                         icon: 'assets/svg/star.svg',
                         widget: Container(),
-                        onTab: () =>
+                        onTab: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => ReviewScreen(),
-                            )),
+                              builder: (context) => ReviewScreen(isLogin: state.isLogin,),
+                            ));},
                         text:
                             AppLocalizations.of(context).translate('reviews')),
                     Divider(
@@ -295,10 +312,10 @@ class _BookScreenState extends State<BookScreen> {
                         show: showAnswer3,
                         icon: 'assets/svg/buy.svg',
                         widget: Container(),
-                        onTab: () =>
-                            Navigator.of(context).push(MaterialPageRoute(
+                        onTab: () {
+                          if  (state.isLogin==true)    Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => BuyBooksScreen(),
-                            )),
+                            ));},
                         text: AppLocalizations.of(context)
                             .translate('buy the book')),
                     Divider(
@@ -311,7 +328,7 @@ class _BookScreenState extends State<BookScreen> {
                         widget: Container(),
                         onTab: () =>
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => QuotesScreen(),
+                              builder: (context) => QuotesScreen(isLogin:state.isLogin),
                             )),
                         text: AppLocalizations.of(context).translate('quotes')),
                     Divider(
@@ -414,6 +431,8 @@ class _BookScreenState extends State<BookScreen> {
           ),
         ),
       ),
+    );
+        },
     );
   }
 }

@@ -10,7 +10,7 @@ abstract class LoginState implements Built<LoginState, LoginStateBuilder> {
   String get error;
 
   bool get successLogin;
-
+  bool get isLogin;
   LoginState._();
 
   //put $ here
@@ -20,6 +20,7 @@ abstract class LoginState implements Built<LoginState, LoginStateBuilder> {
     return LoginState((b) => b
       ..isLoading = false
       ..error = ''
-      ..successLogin = false);
+      ..successLogin = false
+      ..isLogin=false);
   }
 }
