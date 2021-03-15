@@ -72,10 +72,10 @@ class _AppState extends State<App> {
   final _bloc = sl<AppBloc>();
 
   @override
-  void initState() async {
+  void initState() {
     super.initState();
     _bloc.add(IniEvent());
-    await PushNotificationsManager().init();
+    PushNotificationsManager().init();
   }
 
   @override
