@@ -18,6 +18,8 @@ abstract class HomeState implements Built<HomeState, HomeStateBuilder> {
   BuiltList<Book> get mostReviewedBooks;
   BuiltList<Book> get featuredBooks;
   BuiltList<Book> get allBooks;
+  BuiltList<Quote> get allQuote;
+  BuiltList<Review> get allReview;
   BuiltList<Author> get authors;
   BuiltList<Category> get categories;
   @nullable
@@ -40,6 +42,8 @@ abstract class HomeState implements Built<HomeState, HomeStateBuilder> {
       ..mostReviewedBooks.replace([])
       ..featuredBooks.replace([])
       ..allBooks.replace([])
+      ..allQuote.replace([])
+      ..allReview.replace([])
       ..authors.replace([])
       ..todayQuote = null
       ..todayReview = null

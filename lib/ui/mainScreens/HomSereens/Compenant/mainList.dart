@@ -62,7 +62,7 @@ class _MainListState extends State<MainList> {
             itemCount: widget.books.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
-              return BookCard(book:widget.books[index]);
+              return BookCard(book:widget.books[index],singleBookId: index,);
             },
           ))
         ],

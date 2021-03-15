@@ -24,8 +24,8 @@ import 'package:maktabeh_app/ui/mainScreens/HomSereens/home_bloc/home_state.dart
 import 'package:maktabeh_app/injection.dart';
 class BookScreen extends StatefulWidget {
   final Book singleBook;
-
-  BookScreen({this.singleBook,});
+final bookId;
+  BookScreen({this.singleBook,this.bookId});
   @override
   _BookScreenState createState() => _BookScreenState();
 }
@@ -300,7 +300,7 @@ class _BookScreenState extends State<BookScreen> {
                         widget: Container(),
                         onTab: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => ReviewScreen(isLogin: state.isLogin,),
+                              builder: (context) => ReviewScreen(isLogin: state.isLogin,bookid: widget.bookId,),
                             ));},
                         text:
                             AppLocalizations.of(context).translate('reviews')),
@@ -328,7 +328,7 @@ class _BookScreenState extends State<BookScreen> {
                         widget: Container(),
                         onTab: () =>
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => QuotesScreen(isLogin:state.isLogin),
+                              builder: (context) => QuotesScreen(isLogin:state.isLogin,bookid: widget.bookId,),
                             )),
                         text: AppLocalizations.of(context).translate('quotes')),
                     Divider(

@@ -17,7 +17,9 @@ abstract class IHttpHelper {
   Future<bool> forgetPassword(String email);
   Future<bool> updatePassword(String password, String token);
   Future<Quote> getTodayQuotes();
+  Future<BuiltList<Quote>> getQuotesByBook(int bookId,String language);
   Future<Review> getTodayReview();
+  Future<BuiltList<Review>> getReviewByBook(int bookId,String language);
   Future<BuiltList<Author>> getFamousAuthors();
   Future<BuiltList<Book>> getAllBooks();
   Future<BuiltList<Book>> getLatestBooks();

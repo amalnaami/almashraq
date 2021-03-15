@@ -104,4 +104,21 @@ final Serializers serializers = (_$serializers.toBuilder()
             ],
           )),
               () => ListBuilder<UserData>())
+
+  ..addBuilderFactory(
+      (FullType(
+        BuiltList,
+        [
+          const FullType(Review),
+        ],
+      )),
+          () => ListBuilder<Review>())
+  ..addBuilderFactory(
+      (FullType(
+        BuiltList,
+        [
+          const FullType(Quote),
+        ],
+      )),
+          () => ListBuilder<Quote>())
     ).build();

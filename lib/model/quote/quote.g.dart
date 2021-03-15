@@ -48,6 +48,18 @@ class _$QuoteSerializer implements StructuredSerializer<Quote> {
         ..add(serializers.serialize(object.book,
             specifiedType: const FullType(Book)));
     }
+    if (object.user_name != null) {
+      result
+        ..add('user_name')
+        ..add(serializers.serialize(object.user_name,
+            specifiedType: const FullType(String)));
+    }
+    if (object.user_image != null) {
+      result
+        ..add('user_image')
+        ..add(serializers.serialize(object.user_image,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -82,6 +94,14 @@ class _$QuoteSerializer implements StructuredSerializer<Quote> {
           result.book.replace(serializers.deserialize(value,
               specifiedType: const FullType(Book)) as Book);
           break;
+        case 'user_name':
+          result.user_name = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'user_image':
+          result.user_image = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
       }
     }
 
@@ -100,12 +120,22 @@ class _$Quote extends Quote {
   final String image;
   @override
   final Book book;
+  @override
+  final String user_name;
+  @override
+  final String user_image;
 
   factory _$Quote([void Function(QuoteBuilder) updates]) =>
       (new QuoteBuilder()..update(updates)).build();
 
   _$Quote._(
-      {this.id, this.quotation_text, this.translations, this.image, this.book})
+      {this.id,
+      this.quotation_text,
+      this.translations,
+      this.image,
+      this.book,
+      this.user_name,
+      this.user_image})
       : super._();
 
   @override
@@ -123,17 +153,23 @@ class _$Quote extends Quote {
         quotation_text == other.quotation_text &&
         translations == other.translations &&
         image == other.image &&
-        book == other.book;
+        book == other.book &&
+        user_name == other.user_name &&
+        user_image == other.user_image;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
         $jc(
-            $jc($jc($jc(0, id.hashCode), quotation_text.hashCode),
-                translations.hashCode),
-            image.hashCode),
-        book.hashCode));
+            $jc(
+                $jc(
+                    $jc($jc($jc(0, id.hashCode), quotation_text.hashCode),
+                        translations.hashCode),
+                    image.hashCode),
+                book.hashCode),
+            user_name.hashCode),
+        user_image.hashCode));
   }
 
   @override
@@ -143,7 +179,9 @@ class _$Quote extends Quote {
           ..add('quotation_text', quotation_text)
           ..add('translations', translations)
           ..add('image', image)
-          ..add('book', book))
+          ..add('book', book)
+          ..add('user_name', user_name)
+          ..add('user_image', user_image))
         .toString();
   }
 }
@@ -174,6 +212,14 @@ class QuoteBuilder implements Builder<Quote, QuoteBuilder> {
   BookBuilder get book => _$this._book ??= new BookBuilder();
   set book(BookBuilder book) => _$this._book = book;
 
+  String _user_name;
+  String get user_name => _$this._user_name;
+  set user_name(String user_name) => _$this._user_name = user_name;
+
+  String _user_image;
+  String get user_image => _$this._user_image;
+  set user_image(String user_image) => _$this._user_image = user_image;
+
   QuoteBuilder();
 
   QuoteBuilder get _$this {
@@ -183,6 +229,8 @@ class QuoteBuilder implements Builder<Quote, QuoteBuilder> {
       _translations = _$v.translations?.toBuilder();
       _image = _$v.image;
       _book = _$v.book?.toBuilder();
+      _user_name = _$v.user_name;
+      _user_image = _$v.user_image;
       _$v = null;
     }
     return this;
@@ -211,7 +259,9 @@ class QuoteBuilder implements Builder<Quote, QuoteBuilder> {
               quotation_text: quotation_text,
               translations: _translations?.build(),
               image: image,
-              book: _book?.build());
+              book: _book?.build(),
+              user_name: user_name,
+              user_image: user_image);
     } catch (_) {
       String _$failedField;
       try {

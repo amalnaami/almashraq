@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:maktabeh_app/core/app_localizations.dart';
+import 'package:maktabeh_app/core/loaderApp.dart';
 import 'package:maktabeh_app/core/size_config.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
 import 'package:maktabeh_app/ui/book/add_quote.dart';
@@ -8,72 +11,109 @@ import 'package:maktabeh_app/ui/common_widget/app_button.dart';
 
 import 'package:maktabeh_app/ui/common_widget/soshialBar.dart';
 import 'package:maktabeh_app/ui/mainScreens/HomSereens/Compenant/QuoteCard.dart';
+import 'package:maktabeh_app/ui/mainScreens/HomSereens/home_bloc/home_bloc.dart';
+import 'package:maktabeh_app/ui/mainScreens/HomSereens/home_bloc/home_event.dart';
+import 'package:maktabeh_app/ui/mainScreens/HomSereens/home_bloc/home_state.dart';
+
+import '../../injection.dart';
 
 class QuotesScreen extends StatefulWidget {
   bool isLogin;
-  QuotesScreen({this.isLogin});
+  int bookid;
+  QuotesScreen({this.isLogin,this.bookid});
   @override
   _QuotesScreenState createState() => _QuotesScreenState();
 }
 
 class _QuotesScreenState extends State<QuotesScreen> {
+  final _bloc = sl<HomeBloc>();
+  @override
+  void initState() {
+    super.initState();
+    _bloc.add(GetQuotesByBookId((b) => b..bookId = widget.bookid));
+  }
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    return SafeArea(
+    return BlocBuilder(
+        cubit: _bloc,
+        builder: (BuildContext context, HomeState state) {
+      error(state.error);
+      return SafeArea(
       child: Scaffold(
         appBar: app_bar(AppLocalizations.of(context).translate('quotes'), context),
         body: Padding(
           padding: EdgeInsets.symmetric(
               horizontal: SizeConfig.blockSizeHorizontal * 4),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                (widget.isLogin)?      Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: SizeConfig.blockSizeVertical * 2),
-                  child: appButton(
-                    context: context,
-                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => AddQuoteScreen(),
-                    )),
-                    text: AppLocalizations.of(context).translate('add quote'),
-                  ),
-                ):Container(),
-                Divider(
-                  thickness: 1,
-                  color: Color(0xFFE5E5E5),
+          child: Stack(
+            children: [
+              SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    (widget.isLogin)?      Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: SizeConfig.blockSizeVertical * 2),
+                      child: appButton(
+                        context: context,
+                        onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => AddQuoteScreen(),
+                        )),
+                        text: AppLocalizations.of(context).translate('add quote'),
+                      ),
+                    ):Container(),
+                    Divider(
+                      thickness: 1,
+                      color: Color(0xFFE5E5E5),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: SizeConfig.blockSizeVertical * 2),
+                      child: Text(
+                        AppLocalizations.of(context).translate('All quotes'),
+                        style: boldStyle.copyWith(color: Colors.black),
+                      ),
+                    ),
+                    Divider(
+                      thickness: 1,
+                      color: Color(0xFFE5E5E5),
+                    ),
+                    (state.allQuote.length!=0)?       ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: state.allQuote.length,
+                        itemBuilder: (context, index) {
+                          return quoteCard(state.allQuote[index].getBookName(AppLocalizations.of(context).locale.languageCode),state.allQuote[index].quotation_text,state.allQuote[index].user_image!=null?state.allQuote[index].user_image:'https://th.bing.com/th/id/OIP.xo-BCC1ZKFpLL65D93eHcgHaGe?pid=ImgDet&rs=1',state.allQuote[index].getAuthorName(AppLocalizations.of(context).locale.languageCode));
+                        }):Center(child: Text('No Quote'),)
+                  ],
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: SizeConfig.blockSizeVertical * 2),
-                  child: Text(
-                    AppLocalizations.of(context).translate('All quotes'),
-                    style: boldStyle.copyWith(color: Colors.black),
-                  ),
-                ),
-                Divider(
-                  thickness: 1,
-                  color: Color(0xFFE5E5E5),
-                ),
-                ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: 10,
-                    itemBuilder: (context, index) {
-                      return QuoteCard();
-                    })
-              ],
-            ),
+              ),
+              if(state.isLoading)
+                loaderApp,
+            ],
           ),
         ),
       ),
     );
+        },
+    );
+  }
+  void error(String errorCode) {
+    if (errorCode.isNotEmpty) {
+      Fluttertoast.showToast(
+          msg: (errorCode),
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          // timeInSecForIosWeb: 1,
+          backgroundColor: primaryColor,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      _bloc.add(ClearState());
+    }
   }
 }
 
-Widget quoteCard() {
+Widget quoteCard(String nameBook,String quotes,String image,String author) {
   return Card(
     margin: EdgeInsets.all(10),
     child: Container(
@@ -86,8 +126,8 @@ Widget quoteCard() {
             flex: 3,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.asset(
-                "assets/image/2.jpg",
+              child: Image.network(
+                image,
                 height: double.infinity,
                 fit: BoxFit.fill,
                 width: double.infinity,
@@ -100,7 +140,8 @@ Widget quoteCard() {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  "ما العمر الا لحظات",
+                  quotes,
+                 // "ما العمر الا لحظات",
                   style: regStyle.copyWith(
                       color: Colors.black, fontWeight: FontWeight.w500),
                 ),
@@ -118,7 +159,8 @@ Widget quoteCard() {
                           width: 5,
                         ),
                         Text(
-                          "الأوابد",
+                          nameBook,
+                         // "الأوابد",
                           style: lightStyle.copyWith(
                               color: Colors.black, fontSize: 10),
                         ),
@@ -135,7 +177,8 @@ Widget quoteCard() {
                           width: 5,
                         ),
                         Text(
-                          "عبدالوهاب عزام",
+                          author,
+                          //"عبدالوهاب عزام",
                           style: lightStyle.copyWith(
                               color: Colors.black, fontSize: 10),
                         ),

@@ -20,6 +20,10 @@ class _$HomeState extends HomeState {
   @override
   final BuiltList<Book> allBooks;
   @override
+  final BuiltList<Quote> allQuote;
+  @override
+  final BuiltList<Review> allReview;
+  @override
   final BuiltList<Author> authors;
   @override
   final BuiltList<Category> categories;
@@ -40,6 +44,8 @@ class _$HomeState extends HomeState {
       this.mostReviewedBooks,
       this.featuredBooks,
       this.allBooks,
+      this.allQuote,
+      this.allReview,
       this.authors,
       this.categories,
       this.todayQuote,
@@ -63,6 +69,12 @@ class _$HomeState extends HomeState {
     }
     if (allBooks == null) {
       throw new BuiltValueNullFieldError('HomeState', 'allBooks');
+    }
+    if (allQuote == null) {
+      throw new BuiltValueNullFieldError('HomeState', 'allQuote');
+    }
+    if (allReview == null) {
+      throw new BuiltValueNullFieldError('HomeState', 'allReview');
     }
     if (authors == null) {
       throw new BuiltValueNullFieldError('HomeState', 'authors');
@@ -92,6 +104,8 @@ class _$HomeState extends HomeState {
         mostReviewedBooks == other.mostReviewedBooks &&
         featuredBooks == other.featuredBooks &&
         allBooks == other.allBooks &&
+        allQuote == other.allQuote &&
+        allReview == other.allReview &&
         authors == other.authors &&
         categories == other.categories &&
         todayQuote == other.todayQuote &&
@@ -110,12 +124,16 @@ class _$HomeState extends HomeState {
                             $jc(
                                 $jc(
                                     $jc(
-                                        $jc($jc(0, isLoading.hashCode),
-                                            error.hashCode),
-                                        latestBooks.hashCode),
-                                    mostReviewedBooks.hashCode),
-                                featuredBooks.hashCode),
-                            allBooks.hashCode),
+                                        $jc(
+                                            $jc(
+                                                $jc($jc(0, isLoading.hashCode),
+                                                    error.hashCode),
+                                                latestBooks.hashCode),
+                                            mostReviewedBooks.hashCode),
+                                        featuredBooks.hashCode),
+                                    allBooks.hashCode),
+                                allQuote.hashCode),
+                            allReview.hashCode),
                         authors.hashCode),
                     categories.hashCode),
                 todayQuote.hashCode),
@@ -132,6 +150,8 @@ class _$HomeState extends HomeState {
           ..add('mostReviewedBooks', mostReviewedBooks)
           ..add('featuredBooks', featuredBooks)
           ..add('allBooks', allBooks)
+          ..add('allQuote', allQuote)
+          ..add('allReview', allReview)
           ..add('authors', authors)
           ..add('categories', categories)
           ..add('todayQuote', todayQuote)
@@ -175,6 +195,16 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
       _$this._allBooks ??= new ListBuilder<Book>();
   set allBooks(ListBuilder<Book> allBooks) => _$this._allBooks = allBooks;
 
+  ListBuilder<Quote> _allQuote;
+  ListBuilder<Quote> get allQuote =>
+      _$this._allQuote ??= new ListBuilder<Quote>();
+  set allQuote(ListBuilder<Quote> allQuote) => _$this._allQuote = allQuote;
+
+  ListBuilder<Review> _allReview;
+  ListBuilder<Review> get allReview =>
+      _$this._allReview ??= new ListBuilder<Review>();
+  set allReview(ListBuilder<Review> allReview) => _$this._allReview = allReview;
+
   ListBuilder<Author> _authors;
   ListBuilder<Author> get authors =>
       _$this._authors ??= new ListBuilder<Author>();
@@ -209,6 +239,8 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
       _mostReviewedBooks = _$v.mostReviewedBooks?.toBuilder();
       _featuredBooks = _$v.featuredBooks?.toBuilder();
       _allBooks = _$v.allBooks?.toBuilder();
+      _allQuote = _$v.allQuote?.toBuilder();
+      _allReview = _$v.allReview?.toBuilder();
       _authors = _$v.authors?.toBuilder();
       _categories = _$v.categories?.toBuilder();
       _todayQuote = _$v.todayQuote?.toBuilder();
@@ -244,6 +276,8 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
               mostReviewedBooks: mostReviewedBooks.build(),
               featuredBooks: featuredBooks.build(),
               allBooks: allBooks.build(),
+              allQuote: allQuote.build(),
+              allReview: allReview.build(),
               authors: authors.build(),
               categories: categories.build(),
               todayQuote: _todayQuote?.build(),
@@ -260,6 +294,10 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
         featuredBooks.build();
         _$failedField = 'allBooks';
         allBooks.build();
+        _$failedField = 'allQuote';
+        allQuote.build();
+        _$failedField = 'allReview';
+        allReview.build();
         _$failedField = 'authors';
         authors.build();
         _$failedField = 'categories';

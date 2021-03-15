@@ -21,7 +21,9 @@ abstract class IRepository {
   Future<bool> updatePassword(String password);
   Future<bool> insertCategories(List<int> categories);
   Future<Quote> getTodayQuotes();
+  Future<BuiltList<Quote>> getQuotesByBook(int bookId);
   Future<Review> getTodayReview();
+  Future<BuiltList<Review>> getReviewByBook(int bookId);
   Future<BuiltList<Author>> getFamousAuthors();
   Future<BuiltList<Book>> getAllBooks();
   Future<BuiltList<Book>> getLatestBooks();

@@ -168,5 +168,38 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         yield state.rebuild((b) => b..error = "");
       }
     }
+    else if (event is GetReviewByBookId) {
+      try {
+        yield state.rebuild((b) => b
+          ..isLoading = true
+          ..allReview.replace([]));
+        final res = await _repository.getReviewByBook(event.bookId);
+        print(res[0]);
+        yield state.rebuild((b) => b
+          ..isLoading = false
+          ..allReview.replace(res));
+      } catch (e) {
+        yield state.rebuild((b) => b
+          ..error = ''
+          ..isLoading = false
+          ..allReview.replace([]));
+      }
+    }else if (event is GetQuotesByBookId) {
+      try {
+        yield state.rebuild((b) => b
+          ..isLoading = true
+          ..allQuote.replace([]));
+        final res = await _repository.getQuotesByBook(event.bookId);
+        print(res[0]);
+        yield state.rebuild((b) => b
+          ..isLoading = false
+          ..allQuote.replace(res));
+      } catch (e) {
+        yield state.rebuild((b) => b
+          ..error = ''
+          ..isLoading = false
+          ..allQuote.replace([]));
+      }
+    }
   }
 }

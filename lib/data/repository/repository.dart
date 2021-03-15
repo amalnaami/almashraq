@@ -135,4 +135,27 @@ class Repository implements IRepository {
   Future<void> saveUser(UserData user) async {
     await _iprefHelper.saveUser(user,true);
   }
+
+  @override
+  Future<BuiltList<Quote>> getQuotesByBook(int bookId)async {
+    var language;
+    final app_language = await _iprefHelper.getAppLanguage();
+    if (app_language == 1) {
+      language = 'en';
+    } else {
+      language = 'ar';
+    }
+    return await _ihttpHelper.getQuotesByBook(bookId, language);
+  }
+  @override
+  Future<BuiltList<Review>> getReviewByBook(int bookId)async {
+    var language;
+    final app_language = await _iprefHelper.getAppLanguage();
+    if (app_language == 1) {
+      language = 'en';
+    } else {
+      language = 'ar';
+    }
+    return await _ihttpHelper.getReviewByBook(bookId, language);
+  }
 }
