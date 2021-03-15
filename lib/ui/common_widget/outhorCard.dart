@@ -19,7 +19,7 @@ class _OuthorCardState extends State<OuthorCard> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => push(context, AboutWriterScreen()),
+      onTap: () => push(context, AboutWriterScreen(widget.author)),
       child: Container(
         margin: EdgeInsets.all(5),
         height: double.infinity,

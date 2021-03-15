@@ -158,4 +158,14 @@ class Repository implements IRepository {
     }
     return await _ihttpHelper.getReviewByBook(bookId, language);
   }
+
+  @override
+  Future<BuiltList<Author>> getAllAuthor() async {
+    return await _ihttpHelper.getAllAuthor(await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
+  }
+
+  @override
+  Future<BuiltList<Book>> getBooksForAuthor(int id) async {
+    return await _ihttpHelper.getBooksForAuthor(id);
+  }
 }

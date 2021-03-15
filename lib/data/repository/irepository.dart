@@ -25,7 +25,9 @@ abstract class IRepository {
   Future<Review> getTodayReview();
   Future<BuiltList<Review>> getReviewByBook(int bookId);
   Future<BuiltList<Author>> getFamousAuthors();
+  Future<BuiltList<Author>> getAllAuthor();
   Future<BuiltList<Book>> getAllBooks();
+  Future<BuiltList<Book>> getBooksForAuthor(int id);
   Future<BuiltList<Book>> getLatestBooks();
   Future<BuiltList<Book>> getMostReviewedBooks();
   Future<BuiltList<Book>> getFeaturedBooks();

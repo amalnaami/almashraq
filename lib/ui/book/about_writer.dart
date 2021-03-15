@@ -5,12 +5,19 @@ import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:maktabeh_app/core/app_localizations.dart';
+import 'package:maktabeh_app/core/config/navigatorHelper.dart';
 import 'package:maktabeh_app/core/size_config.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
+import 'package:maktabeh_app/model/author/author.dart';
 import 'package:maktabeh_app/ui/common_widget/app_button.dart';
 import 'package:maktabeh_app/ui/common_widget/local_image.dart';
+import 'package:maktabeh_app/ui/mainScreens/moreBooksPage.dart';
 
 class AboutWriterScreen extends StatefulWidget {
+  final Author author;
+
+  const AboutWriterScreen(this.author);
+
   @override
   _AboutWriterScreenState createState() => _AboutWriterScreenState();
 }
@@ -37,10 +44,11 @@ class _AboutWriterScreenState extends State<AboutWriterScreen> {
               padding: EdgeInsets.all(5),
               child: InkWell(
                   onTap: () => Navigator.pop(context),
-                  child: buildLocalImage(AppLocalizations.of(context).locale.toLanguageTag() == 'ar'
-                      ? 'assets/svg/arrow_back_white.svg'
-                      : 'assets/svg/arrow_forward.svg',
-                    color:Colors.deepOrange,
+                  child: buildLocalImage(
+                    AppLocalizations.of(context).locale.toLanguageTag() == 'ar'
+                        ? 'assets/svg/arrow_back_white.svg'
+                        : 'assets/svg/arrow_forward.svg',
+                    color: Colors.deepOrange,
                   )),
             ),
           ),
@@ -131,8 +139,8 @@ class _AboutWriterScreenState extends State<AboutWriterScreen> {
                               border:
                                   Border.all(color: Colors.white, width: 2)),
                           child: Center(
-                              child: Image.asset(
-                            'assets/image/writer.png',
+                              child: Image.network(
+                            widget.author.image,
                             height: SizeConfig.screenHeight * 0.25,
                             width: SizeConfig.screenWidth * 0.35,
                             fit: BoxFit.fill,
@@ -142,7 +150,7 @@ class _AboutWriterScreenState extends State<AboutWriterScreen> {
                           padding: EdgeInsets.symmetric(
                               vertical: SizeConfig.blockSizeVertical * 2),
                           child: Text(
-                            'عبدالوهاب عزام',
+                            '${widget.author.getName(AppLocalizations.of(context).locale.languageCode)}',
                             style: boldStyle.copyWith(
                                 fontSize: 18, color: Colors.white),
                           ),
@@ -159,8 +167,17 @@ class _AboutWriterScreenState extends State<AboutWriterScreen> {
                             )
                           ], borderRadius: BorderRadius.circular(10)),
                           child: appButton(
-                              text: AppLocalizations.of(context).translate('see the authors books'),
-                              onTap: () {},
+                              text: AppLocalizations.of(context)
+                                  .translate('see the authors books'),
+                              onTap: () => push(
+                                  context,
+                                  MoreBookPage(
+                                    title: AppLocalizations.of(context)
+                                        .translate('books for the same author'),
+                                    bookNum: true,
+                                    authorId: widget.author.id,
+                                    booksCount: widget.author.books_count,
+                                  )),
                               context: context,
                               buttonColor: Colors.white,
                               textColor: primaryColor),
@@ -180,11 +197,10 @@ class _AboutWriterScreenState extends State<AboutWriterScreen> {
                       style: boldStyle.copyWith(color: Colors.black),
                     ),
                     Container(
-                      margin:
-                          EdgeInsets.only(top: SizeConfig.devicePixelRatio),
+                      margin: EdgeInsets.only(top: SizeConfig.devicePixelRatio),
                       width: SizeConfig.screenWidth,
                       child: Text(
-                        'هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق. هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق.هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق.هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق.هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق.',
+                        '${widget.author.getBrief(AppLocalizations.of(context).locale.languageCode)}',
                         style: regStyle.copyWith(fontSize: 12, height: 1.5),
                       ),
                     )

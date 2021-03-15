@@ -342,10 +342,13 @@ class HttpHelper implements IHttpHelper {
       throw NetworkException();
     }
   }
+
   @override
   Future<BaseBook> getAllBookNextPage(int page) async {
     try {
-      final response = await _dio.get('books?page=$page',);
+      final response = await _dio.get(
+        'books?page=$page',
+      );
       print('getAllBookNextPage Response StatusCode ${response.statusCode}');
       if (response.statusCode == 200) {
         print('getAllBookNextPage Response body  ${response.data}');
@@ -362,13 +365,17 @@ class HttpHelper implements IHttpHelper {
   }
 
   @override
-  Future<BookByCategoryModel> getBooksByCategory(int page, int categoryId) async {
+  Future<BookByCategoryModel> getBooksByCategory(
+      int page, int categoryId) async {
     try {
-      final response = await _dio.get('sections/$categoryId?with_books=1&page=$page',);
+      final response = await _dio.get(
+        'sections/$categoryId?with_books=1&page=$page',
+      );
       print('getBooksByCategory Response StatusCode ${response.statusCode}');
       if (response.statusCode == 200) {
         print('getBooksByCategory Response body  ${response.data}');
-        final books = serializers.deserialize(json.decode(response.data)['data'],
+        final books = serializers.deserialize(
+            json.decode(response.data)['data'],
             specifiedType: FullType(BookByCategoryModel));
         print(books);
         return books;
@@ -380,6 +387,7 @@ class HttpHelper implements IHttpHelper {
       throw NetworkException();
     }
   }
+
 // @override
 // Future<BuiltList<BooksDetails>> getAllBooks(String language) async {
 //   try {
@@ -406,7 +414,7 @@ class HttpHelper implements IHttpHelper {
 // }
 
   @override
-  Future<BuiltList<Review>> getReviewByBook(int bookId,String language) async {
+  Future<BuiltList<Review>> getReviewByBook(int bookId, String language) async {
     try {
       final response = await _dio.get('reviews/by_book/$bookId',
           options: Options(headers: {"Accept-Language": language}));
@@ -432,7 +440,7 @@ class HttpHelper implements IHttpHelper {
   }
 
   @override
-  Future<BuiltList<Quote>> getQuotesByBook(int bookId,String language) async {
+  Future<BuiltList<Quote>> getQuotesByBook(int bookId, String language) async {
     try {
       final response = await _dio.get('quotes/by_book/$bookId',
           options: Options(headers: {"Accept-Language": language}));
@@ -457,4 +465,54 @@ class HttpHelper implements IHttpHelper {
     }
   }
 
+  @override
+  Future<BuiltList<Author>> getAllAuthor(String language) async {
+    try {
+      final response = await _dio.get('authors',
+          options: Options(headers: {"Accept-Language": language}));
+      print('getAllAuthor Response StatusCode ${response.statusCode}');
+      if (response.statusCode == 200) {
+        print('getAllAuthor Response body  ${response.data}');
+
+        final ret = serializers.deserialize(json.decode(response.data)['data'],
+            specifiedType: FullType(
+              BuiltList,
+              [
+                const FullType(Author),
+              ],
+            ));
+        return ret;
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException();
+    }
+  }
+
+  @override
+  Future<BuiltList<Book>> getBooksForAuthor(int id) async {
+    try {
+      final response = await _dio.get('books/author/$id',);
+      print('getBooksForAuthor Response StatusCode ${response.statusCode}');
+      if (response.statusCode == 200) {
+        print('getBooksForAuthor Response body  ${response.data}');
+
+        final ret = serializers.deserialize(json.decode(response.data)['data'],
+            specifiedType: FullType(
+              BuiltList,
+              [
+                const FullType(Book),
+              ],
+            ));
+        return ret;
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException();
+    }
+  }
 }

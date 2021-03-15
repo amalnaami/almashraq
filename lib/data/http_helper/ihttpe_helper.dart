@@ -29,4 +29,6 @@ abstract class IHttpHelper {
   Future<bool> insertCategories(List<int> categories, String token);
   Future<BaseBook> getAllBookNextPage(int page);
   Future<BookByCategoryModel> getBooksByCategory(int page, int categoryId);
+  Future<BuiltList<Author>> getAllAuthor(String language);
+  Future<BuiltList<Book>> getBooksForAuthor(int id);
 }

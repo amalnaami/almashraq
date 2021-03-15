@@ -9,6 +9,7 @@ import 'package:maktabeh_app/core/app_localizations.dart';
 import 'package:maktabeh_app/core/config/navigatorHelper.dart';
 import 'package:maktabeh_app/core/size_config.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
+import 'package:maktabeh_app/model/author/author.dart';
 import 'package:maktabeh_app/model/book/book.dart';
 import 'package:maktabeh_app/ui/book/about_writer.dart';
 import 'package:maktabeh_app/ui/book/buy_books.dart';
@@ -24,8 +25,9 @@ import 'package:maktabeh_app/ui/mainScreens/HomSereens/home_bloc/home_state.dart
 import 'package:maktabeh_app/injection.dart';
 class BookScreen extends StatefulWidget {
   final Book singleBook;
+  final Author author;
 final bookId;
-  BookScreen({this.singleBook,this.bookId});
+  BookScreen({this.singleBook,this.bookId, this.author});
   @override
   _BookScreenState createState() => _BookScreenState();
 }
@@ -36,7 +38,7 @@ class _BookScreenState extends State<BookScreen> {
   void initState() {
 
     super.initState();
-
+    print(widget.singleBook);
     _bloc.add(GetIsLogin());
 
 
@@ -211,7 +213,7 @@ class _BookScreenState extends State<BookScreen> {
                                             ),
                                             children: [
                                               TextSpan(
-                                                  text: widget.singleBook.section.getName(AppLocalizations.of(context).locale.languageCode),
+                                                  text: '${widget.singleBook.section?.getName(AppLocalizations.of(context).locale.languageCode)}',
                                                   style: regStyle.copyWith(color: Colors.black))
                                             ]),
                                       ),
@@ -399,7 +401,8 @@ class _BookScreenState extends State<BookScreen> {
                         widget: Container(),
                         onTab: () => push(
                             context,
-                            MoreBookPage(
+                            MoreBookPage(authorId: widget.author.id,
+                                booksCount: widget.author.books_count,
                               title: AppLocalizations.of(context)
                                   .translate('books for the same author'),
                               bookNum: true,
@@ -416,7 +419,7 @@ class _BookScreenState extends State<BookScreen> {
                         widget: Container(),
                         onTab: () =>
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => AboutWriterScreen(),
+                              builder: (context) => AboutWriterScreen(widget.author),
                             )),
                         text: AppLocalizations.of(context)
                             .translate('books for the same section')),

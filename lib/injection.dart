@@ -12,6 +12,8 @@ import 'package:maktabeh_app/ui/guide/category_bloc/category_bloc.dart';
 import 'package:maktabeh_app/ui/language_page/bloc/language_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/HomSereens/home_bloc/home_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/SettingBloc/setting_bloc.dart';
+import 'package:maktabeh_app/ui/mainScreens/author_bloc/author_bloc.dart';
+import 'package:maktabeh_app/ui/mainScreens/author_books_bloc/author_books_bloc.dart';
 import 'package:maktabeh_app/ui/user/editProfile.dart/edit_password_bloc/edit_password_bloc.dart';
 
 import 'app/bloc/app_bloc.dart';
@@ -54,4 +56,6 @@ Future iniGetIt() async {
   sl.registerFactory(() => AllBooksBloc(sl()));
   sl.registerFactory(() => BooksByCategoryBloc(sl()));
   sl.registerFactory(() => SignUpBloc(sl()));
+  sl.registerLazySingleton(() => AuthorBloc(sl()));
+  sl.registerLazySingleton(() => AuthorBooksBloc(sl()));
 }
