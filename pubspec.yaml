@@ -47,6 +47,7 @@ dependencies:
   url_launcher: 5.7.10
   social_share: ^1.0.8
   share: any
+  firebase_messaging: ^7.0.3
   # ^1.0.2
 
 
