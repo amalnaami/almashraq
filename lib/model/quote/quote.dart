@@ -23,6 +23,10 @@ abstract class Quote implements Built<Quote, QuoteBuilder> {
   String get image;
   @nullable
   Book get book;
+  @nullable
+  String get user_name;
+  @nullable
+  String get user_image;
 
   Quote._();
 

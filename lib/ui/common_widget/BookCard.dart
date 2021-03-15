@@ -8,7 +8,8 @@ import 'package:maktabeh_app/ui/common_widget/rate_stars.dart';
 
 class BookCard extends StatefulWidget {
   final Book book;
-  const BookCard({this.book});
+  final int singleBookId;
+  const BookCard({this.book,this.singleBookId});
   @override
   _BookCardState createState() => _BookCardState();
 }
@@ -18,7 +19,7 @@ class _BookCardState extends State<BookCard> {
   Widget build(BuildContext context) {
     return InkWell(
       ///TO DO
-      onTap: () => push(context, BookScreen(singleBook: widget.book,)),
+      onTap: () => push(context, BookScreen(singleBook: widget.book,bookId: widget.singleBookId,)),
       child: Container(
         margin: EdgeInsets.all(5),
         width: MediaQuery.of(context).size.width / 3.2,

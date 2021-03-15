@@ -11,6 +11,7 @@ abstract class LoginState implements Built<LoginState, LoginStateBuilder> {
 
   bool get successLogin;
   bool get isLogin;
+
   LoginState._();
 
   //put $ here

@@ -637,4 +637,164 @@ class GetIsLoginBuilder implements Builder<GetIsLogin, GetIsLoginBuilder> {
   }
 }
 
+class _$GetReviewByBookId extends GetReviewByBookId {
+  @override
+  final int bookId;
+
+  factory _$GetReviewByBookId(
+          [void Function(GetReviewByBookIdBuilder) updates]) =>
+      (new GetReviewByBookIdBuilder()..update(updates)).build();
+
+  _$GetReviewByBookId._({this.bookId}) : super._() {
+    if (bookId == null) {
+      throw new BuiltValueNullFieldError('GetReviewByBookId', 'bookId');
+    }
+  }
+
+  @override
+  GetReviewByBookId rebuild(void Function(GetReviewByBookIdBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GetReviewByBookIdBuilder toBuilder() =>
+      new GetReviewByBookIdBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GetReviewByBookId && bookId == other.bookId;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc(0, bookId.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('GetReviewByBookId')
+          ..add('bookId', bookId))
+        .toString();
+  }
+}
+
+class GetReviewByBookIdBuilder
+    implements Builder<GetReviewByBookId, GetReviewByBookIdBuilder> {
+  _$GetReviewByBookId _$v;
+
+  int _bookId;
+  int get bookId => _$this._bookId;
+  set bookId(int bookId) => _$this._bookId = bookId;
+
+  GetReviewByBookIdBuilder();
+
+  GetReviewByBookIdBuilder get _$this {
+    if (_$v != null) {
+      _bookId = _$v.bookId;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GetReviewByBookId other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$GetReviewByBookId;
+  }
+
+  @override
+  void update(void Function(GetReviewByBookIdBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$GetReviewByBookId build() {
+    final _$result = _$v ?? new _$GetReviewByBookId._(bookId: bookId);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GetQuotesByBookId extends GetQuotesByBookId {
+  @override
+  final int bookId;
+
+  factory _$GetQuotesByBookId(
+          [void Function(GetQuotesByBookIdBuilder) updates]) =>
+      (new GetQuotesByBookIdBuilder()..update(updates)).build();
+
+  _$GetQuotesByBookId._({this.bookId}) : super._() {
+    if (bookId == null) {
+      throw new BuiltValueNullFieldError('GetQuotesByBookId', 'bookId');
+    }
+  }
+
+  @override
+  GetQuotesByBookId rebuild(void Function(GetQuotesByBookIdBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GetQuotesByBookIdBuilder toBuilder() =>
+      new GetQuotesByBookIdBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GetQuotesByBookId && bookId == other.bookId;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc(0, bookId.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('GetQuotesByBookId')
+          ..add('bookId', bookId))
+        .toString();
+  }
+}
+
+class GetQuotesByBookIdBuilder
+    implements Builder<GetQuotesByBookId, GetQuotesByBookIdBuilder> {
+  _$GetQuotesByBookId _$v;
+
+  int _bookId;
+  int get bookId => _$this._bookId;
+  set bookId(int bookId) => _$this._bookId = bookId;
+
+  GetQuotesByBookIdBuilder();
+
+  GetQuotesByBookIdBuilder get _$this {
+    if (_$v != null) {
+      _bookId = _$v.bookId;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GetQuotesByBookId other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$GetQuotesByBookId;
+  }
+
+  @override
+  void update(void Function(GetQuotesByBookIdBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$GetQuotesByBookId build() {
+    final _$result = _$v ?? new _$GetQuotesByBookId._(bookId: bookId);
+    replace(_$result);
+    return _$result;
+  }
+}
+
 // ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

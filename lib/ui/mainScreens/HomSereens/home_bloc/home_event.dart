@@ -68,3 +68,20 @@ abstract class GetIsLogin extends HomeEvent
 
   factory GetIsLogin([updates(GetIsLoginBuilder b)]) = _$GetIsLogin;
 }
+
+
+abstract class GetReviewByBookId extends HomeEvent
+    implements Built<GetReviewByBookId, GetReviewByBookIdBuilder> {
+  int get bookId;
+  GetReviewByBookId._();
+
+  factory GetReviewByBookId([updates(GetReviewByBookIdBuilder b)]) = _$GetReviewByBookId;
+}
+
+abstract class GetQuotesByBookId extends HomeEvent
+    implements Built<GetQuotesByBookId, GetQuotesByBookIdBuilder> {
+  int get bookId;
+  GetQuotesByBookId._();
+
+  factory GetQuotesByBookId([updates(GetQuotesByBookIdBuilder b)]) = _$GetQuotesByBookId;
+}

@@ -405,4 +405,56 @@ class HttpHelper implements IHttpHelper {
 //   }
 // }
 
+  @override
+  Future<BuiltList<Review>> getReviewByBook(int bookId,String language) async {
+    try {
+      final response = await _dio.get('reviews/by_book/$bookId',
+          options: Options(headers: {"Accept-Language": language}));
+      print('getReviewByBook Response StatusCode ${response.statusCode}');
+      if (response.statusCode == 200) {
+        print('getCountries Response body  ${response.data}');
+
+        final ret = serializers.deserialize(json.decode(response.data)['data'],
+            specifiedType: FullType(
+              BuiltList,
+              [
+                const FullType(Review),
+              ],
+            ));
+        return ret;
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException();
+    }
+  }
+
+  @override
+  Future<BuiltList<Quote>> getQuotesByBook(int bookId,String language) async {
+    try {
+      final response = await _dio.get('quotes/by_book/$bookId',
+          options: Options(headers: {"Accept-Language": language}));
+      print('getReviewByBook Response StatusCode ${response.statusCode}');
+      if (response.statusCode == 200) {
+        print('getCountries Response body  ${response.data}');
+
+        final ret = serializers.deserialize(json.decode(response.data)['data'],
+            specifiedType: FullType(
+              BuiltList,
+              [
+                const FullType(Quote),
+              ],
+            ));
+        return ret;
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException();
+    }
+  }
+
 }
