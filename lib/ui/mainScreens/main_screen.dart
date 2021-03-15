@@ -65,7 +65,7 @@ class _MainPageState extends State<MainPage>
           ),
         ),
         actions: [
-          IconButton(
+            IconButton(
               icon: ImageIcon(
                 AssetImage("assets/icons/Search.png"),
                 color: Colors.white,

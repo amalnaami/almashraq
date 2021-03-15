@@ -59,3 +59,12 @@ abstract class GetCategories extends HomeEvent implements Built<GetCategories, G
 
   factory GetCategories([updates(GetCategoriesBuilder b)]) = _$GetCategories;
 }
+
+abstract class GetIsLogin extends HomeEvent
+    implements Built<GetIsLogin, GetIsLoginBuilder> {
+  // fields go here
+
+  GetIsLogin._();
+
+  factory GetIsLogin([updates(GetIsLoginBuilder b)]) = _$GetIsLogin;
+}

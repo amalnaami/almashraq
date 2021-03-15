@@ -137,7 +137,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           ..featuredBooks.replace(res));
       } catch (e) {
         yield state.rebuild((b) => b
-          ..error = 'something went wrong'
+          ..error = ''
           ..isLoading = false
           ..featuredBooks.replace([]));
       }
@@ -158,6 +158,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       }
     } else if (event is ClearState) {
       yield state.rebuild((b) => b..error = '');
+    }
+    if (event is GetIsLogin) {
+      try {
+        final result = await _repository.getIsLogin();
+        yield state.rebuild((b) => b..isLogin = result);
+      } catch (e) {
+        print(' Error $e');
+        yield state.rebuild((b) => b..error = "");
+      }
     }
   }
 }

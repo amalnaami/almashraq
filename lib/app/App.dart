@@ -7,6 +7,7 @@ import 'package:maktabeh_app/core/app_localizations.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
 import 'package:maktabeh_app/ui/auth/LoginScreen.dart';
 import 'package:maktabeh_app/ui/mainScreens/HomSereens/HomeScreen.dart';
+import 'package:maktabeh_app/ui/mainScreens/main_screen.dart';
 
 import 'package:maktabeh_app/ui/splash_screen/splash_screen.dart';
 
@@ -88,6 +89,8 @@ class _AppState extends State<App> {
     return BlocBuilder(
       cubit: _bloc,
       builder: (BuildContext context, AppState state) {
+        print('LoginState App : ${state.loginState}');
+
         return StreamBuilder(
           stream: localeSubjectAppLanguage.stream.distinct(),
           initialData: state.appLanguage == AppLanguageKeys.AR
@@ -96,7 +99,7 @@ class _AppState extends State<App> {
           builder: (context, snapshot) {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
-              home: SplashScreen(),
+              home:  state.loginState ?MainPage(): SplashScreen(),
               locale: snapshot.data == AppLanguageKeys.AR
                   ? Locale('ar', '')
                   : Locale('en', ''),

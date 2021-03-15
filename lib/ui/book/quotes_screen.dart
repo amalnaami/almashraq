@@ -10,6 +10,8 @@ import 'package:maktabeh_app/ui/common_widget/soshialBar.dart';
 import 'package:maktabeh_app/ui/mainScreens/HomSereens/Compenant/QuoteCard.dart';
 
 class QuotesScreen extends StatefulWidget {
+  bool isLogin;
+  QuotesScreen({this.isLogin});
   @override
   _QuotesScreenState createState() => _QuotesScreenState();
 }
@@ -28,7 +30,7 @@ class _QuotesScreenState extends State<QuotesScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
+                (widget.isLogin)?      Padding(
                   padding: EdgeInsets.symmetric(
                       vertical: SizeConfig.blockSizeVertical * 2),
                   child: appButton(
@@ -38,7 +40,7 @@ class _QuotesScreenState extends State<QuotesScreen> {
                     )),
                     text: AppLocalizations.of(context).translate('add quote'),
                   ),
-                ),
+                ):Container(),
                 Divider(
                   thickness: 1,
                   color: Color(0xFFE5E5E5),

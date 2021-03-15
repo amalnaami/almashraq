@@ -11,6 +11,7 @@ import 'package:maktabeh_app/model/country_model/country_model.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:maktabeh_app/model/quote/quote.dart';
 import 'package:maktabeh_app/model/review/review.dart';
+import 'package:maktabeh_app/model/user/user_data.dart';
 import 'package:maktabeh_app/model/user/user_model.dart';
 import 'irepository.dart';
 
@@ -44,7 +45,7 @@ class Repository implements IRepository {
   @override
   Future<bool> login(String userName, String password) async {
     final res = await _ihttpHelper.login(userName, password);
-    await _iprefHelper.saveUser(res.data);
+    await _iprefHelper.saveUser(res.data,true);
     return true;
   }
 
@@ -110,7 +111,7 @@ class Repository implements IRepository {
   Future<UserModel> register(String name,String username, String email, String password,String tele,String gender,String countryCode)async {
     final user = await _ihttpHelper.register(name, username, email, password, tele, gender, countryCode);
     // final save = await _iprefHelper.saveUser(user.data, user.token,false);
-    await _iprefHelper.saveUser(user.data);
+    await _iprefHelper.saveUser(user.data,true);
     return user;
   }
 
@@ -122,5 +123,16 @@ class Repository implements IRepository {
   @override
   Future<BookByCategoryModel> getBooksByCategory(int page, int categoryId) async {
     return await _ihttpHelper.getBooksByCategory(page, categoryId);
+  }
+
+
+
+  @override
+  Future<bool> getIsLogin() async {
+    return await _iprefHelper.getIsLogin();
+  }
+  @override
+  Future<void> saveUser(UserData user) async {
+    await _iprefHelper.saveUser(user,true);
   }
 }

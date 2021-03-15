@@ -28,8 +28,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
   final _bloc = sl<SettingBloc>();
   @override
   void initState() {
+
     super.initState();
     _bloc.add(GetAppLanguage());
+
+    _bloc.add(GetIsLogin());
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _radioValue =
       AppLocalizations.of(context).locale.toLanguageTag() == 'en' ? 1 : 0;
@@ -57,7 +60,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   borderRadius: BorderRadius.circular(15),
                 ),
                 padding: EdgeInsets.all(10),
-                child: Row(
+                child:state.isLogin ? Row(
                   children: [
                     Container(
                       height: 80,
@@ -113,12 +116,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     )
                   ],
-                ),
+                ):Center(child: Text('NO DATA FOR YOU'),),
               ),
               SizedBox(
                 height: 10,
               ),
-              Row(
+              (state.isLogin)?   Row(
                 children: [
                   optionSetting(
                     onTap: () => push(context, SubscriptionScreen()),
@@ -132,9 +135,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             context,
                             MyQuote(
                                 fromHome: false,
-                                title: AppLocalizations.of(context).translate(
+                                title:
                                   'my quotes',
-                                ))),
+                                )),
                     pathIcon: "assets/icons/Iconly-Broken-Chat.png",
                     title: AppLocalizations.of(context).translate('my quotes'),
                   ),
@@ -144,7 +147,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     title: AppLocalizations.of(context).translate('my reviews'),
                   ),
                 ],
-              ),
+              ):Container(),
               SizedBox(
                 height: 20,
               ),
@@ -201,10 +204,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             ),
                           ],
                         ),
-                        SizedBox(
-                          width: SizeConfig.screenWidth *
-                              0.1,
-                        ),
+                        // SizedBox(
+                        //   width: SizeConfig.screenWidth * 0.1,
+                        // ),
                         Row(
                           children: [
                             Text(
@@ -286,7 +288,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 width: double.infinity,
                 color: Colors.grey,
               ),
-              ListTile(
+              state.isLogin ?   ListTile(
                   title: Text(
                     AppLocalizations.of(context).translate('sign out'),
                     style: regStyle.copyWith(color: Colors.black),
@@ -313,7 +315,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     size: 50,
                     color: Color(0xFF28ABE3),
                   ),)
-              ),
+              ):Container(),
               Container(
                 height: 0.5,
                 width: double.infinity,

@@ -7,6 +7,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:maktabeh_app/model/country_model/country_model.dart';
 import 'package:maktabeh_app/model/quote/quote.dart';
 import 'package:maktabeh_app/model/review/review.dart';
+import 'package:maktabeh_app/model/user/user_data.dart';
 import 'package:maktabeh_app/model/user/user_model.dart';
 
 abstract class IRepository {
@@ -29,5 +30,6 @@ abstract class IRepository {
   Future<UserModel> register(String name,String username, String email, String password,String tele,String gender,String country_code);
   Future<BaseBook> getAllBookNextPage(int page);
   Future<BookByCategoryModel> getBooksByCategory(int page, int categoryId);
-
+  Future<bool> getIsLogin();
+  Future<void> saveUser(UserData user);
 }

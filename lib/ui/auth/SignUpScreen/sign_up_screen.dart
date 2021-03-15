@@ -327,6 +327,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           }  else if (genderType ==
                               null ||
                               genderType.isEmpty) {
+                            print('genderTypegenderType $genderType');
                             error(AppLocalizations.of(context)
                                 .translate('gender can not be empty'));
                             return;

@@ -36,5 +36,18 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         ..error = ''
         ..successLogin = false);
     }
+    if (event is GetIsLogin) {
+      try {
+        final result = await _repository.getIsLogin();
+        yield state.rebuild((b) => b..isLogin = result);
+
+      } catch (e) {
+        print(' Error $e');
+        yield state.rebuild((b) => b
+          ..error = ""
+        )
+        ;
+      }
+    }
   }
 }

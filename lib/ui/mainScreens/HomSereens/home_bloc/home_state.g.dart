@@ -27,6 +27,8 @@ class _$HomeState extends HomeState {
   final Quote todayQuote;
   @override
   final Review todayReview;
+  @override
+  final bool isLogin;
 
   factory _$HomeState([void Function(HomeStateBuilder) updates]) =>
       (new HomeStateBuilder()..update(updates)).build();
@@ -41,7 +43,8 @@ class _$HomeState extends HomeState {
       this.authors,
       this.categories,
       this.todayQuote,
-      this.todayReview})
+      this.todayReview,
+      this.isLogin})
       : super._() {
     if (isLoading == null) {
       throw new BuiltValueNullFieldError('HomeState', 'isLoading');
@@ -67,6 +70,9 @@ class _$HomeState extends HomeState {
     if (categories == null) {
       throw new BuiltValueNullFieldError('HomeState', 'categories');
     }
+    if (isLogin == null) {
+      throw new BuiltValueNullFieldError('HomeState', 'isLogin');
+    }
   }
 
   @override
@@ -89,7 +95,8 @@ class _$HomeState extends HomeState {
         authors == other.authors &&
         categories == other.categories &&
         todayQuote == other.todayQuote &&
-        todayReview == other.todayReview;
+        todayReview == other.todayReview &&
+        isLogin == other.isLogin;
   }
 
   @override
@@ -102,16 +109,18 @@ class _$HomeState extends HomeState {
                         $jc(
                             $jc(
                                 $jc(
-                                    $jc($jc(0, isLoading.hashCode),
-                                        error.hashCode),
-                                    latestBooks.hashCode),
-                                mostReviewedBooks.hashCode),
-                            featuredBooks.hashCode),
-                        allBooks.hashCode),
-                    authors.hashCode),
-                categories.hashCode),
-            todayQuote.hashCode),
-        todayReview.hashCode));
+                                    $jc(
+                                        $jc($jc(0, isLoading.hashCode),
+                                            error.hashCode),
+                                        latestBooks.hashCode),
+                                    mostReviewedBooks.hashCode),
+                                featuredBooks.hashCode),
+                            allBooks.hashCode),
+                        authors.hashCode),
+                    categories.hashCode),
+                todayQuote.hashCode),
+            todayReview.hashCode),
+        isLogin.hashCode));
   }
 
   @override
@@ -126,7 +135,8 @@ class _$HomeState extends HomeState {
           ..add('authors', authors)
           ..add('categories', categories)
           ..add('todayQuote', todayQuote)
-          ..add('todayReview', todayReview))
+          ..add('todayReview', todayReview)
+          ..add('isLogin', isLogin))
         .toString();
   }
 }
@@ -185,6 +195,10 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
   set todayReview(ReviewBuilder todayReview) =>
       _$this._todayReview = todayReview;
 
+  bool _isLogin;
+  bool get isLogin => _$this._isLogin;
+  set isLogin(bool isLogin) => _$this._isLogin = isLogin;
+
   HomeStateBuilder();
 
   HomeStateBuilder get _$this {
@@ -199,6 +213,7 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
       _categories = _$v.categories?.toBuilder();
       _todayQuote = _$v.todayQuote?.toBuilder();
       _todayReview = _$v.todayReview?.toBuilder();
+      _isLogin = _$v.isLogin;
       _$v = null;
     }
     return this;
@@ -232,7 +247,8 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
               authors: authors.build(),
               categories: categories.build(),
               todayQuote: _todayQuote?.build(),
-              todayReview: _todayReview?.build());
+              todayReview: _todayReview?.build(),
+              isLogin: isLogin);
     } catch (_) {
       String _$failedField;
       try {

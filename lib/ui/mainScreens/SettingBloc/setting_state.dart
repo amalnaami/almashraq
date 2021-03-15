@@ -8,6 +8,8 @@ abstract class SettingState implements Built<SettingState, SettingStateBuilder> 
   
   bool get isLoading;
   int get lang;
+  bool get isLogin;
+  String get error;
   SettingState._();
 
   //put $ here
@@ -17,6 +19,8 @@ abstract class SettingState implements Built<SettingState, SettingStateBuilder> 
     return SettingState((b) => b
       ..isLoading = false
       ..lang = 1
+      ..isLogin = false
+      ..error = ""
     );
   }
 }

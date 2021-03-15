@@ -27,12 +27,15 @@ class PrefsHelper implements IPrefsHelper {
   }
 
   @override
-  Future<void> saveUser(UserData user) async {
+  Future<void> saveUser(UserData user,bool active) async {
     (await getPrefs()).setString(TOKEN, user.access_token);
     (await getPrefs()).setString(IMAGE, user.user.image);
     (await getPrefs()).setString(EMAIL, user.user.email);
     (await getPrefs()).setString(USERNAME, user.user.username);
     (await getPrefs()).setInt(ID, user.user.id);
+    if(active){
+      (await getPrefs()).setBool(IS_LOGIN, true);
+    }
   }
 
   // @override
@@ -44,5 +47,16 @@ class PrefsHelper implements IPrefsHelper {
   //   (await getPrefs()).setInt(ID, user.user.id);
   // }
 
+
+  @override
+  Future<bool> getIsLogin() async {
+    return (await getPrefs()).getBool(IS_LOGIN) ?? false;
+  }
+
+
+  @override
+  Future<void> setIsLogin() async{
+    (await getPrefs()).setBool(IS_LOGIN, true);
+  }
 
 }

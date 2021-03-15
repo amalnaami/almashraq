@@ -28,5 +28,15 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     if (event is SetAppLanguage) {
       final result = await _repository.setAppLanguage(event.language);
     }
+    if (event is GetIsLogin) {
+      try {
+        final result = await _repository.getIsLogin();
+        yield state.rebuild((b) => b..isLogin = result);
+      } catch (e) {
+        print(' Error $e');
+        yield state.rebuild((b) => b..error = "");
+      }
+    }
+
   }
 }

@@ -24,6 +24,7 @@ abstract class HomeState implements Built<HomeState, HomeStateBuilder> {
   Quote get todayQuote;
   @nullable
   Review get todayReview;
+  bool get isLogin;
 
 
   HomeState._();
@@ -42,6 +43,7 @@ abstract class HomeState implements Built<HomeState, HomeStateBuilder> {
       ..authors.replace([])
       ..todayQuote = null
       ..todayReview = null
+      ..isLogin = false
     );
   }
 }

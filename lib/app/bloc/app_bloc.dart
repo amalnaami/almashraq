@@ -16,9 +16,12 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   ) async* {
     if (event is ClearError) {}
     else if(event is IniEvent) {
+      final result = await _repository.getIsLogin();
+      yield state.rebuild((b) => b..loginState = result);
       final lang = await _repository.getAppLanguage();
       yield state.rebuild((b) => b..appLanguage = lang);
       changeAppLanguage(state.appLanguage);
+
     }
   }
 }
