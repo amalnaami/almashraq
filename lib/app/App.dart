@@ -4,9 +4,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:maktabeh_app/app/bloc/app_event.dart';
 import 'package:maktabeh_app/core/app_language.dart';
 import 'package:maktabeh_app/core/app_localizations.dart';
+import 'package:maktabeh_app/core/config/firebase_notifications.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
-import 'package:maktabeh_app/ui/auth/LoginScreen.dart';
-import 'package:maktabeh_app/ui/mainScreens/HomSereens/HomeScreen.dart';
 import 'package:maktabeh_app/ui/mainScreens/main_screen.dart';
 
 import 'package:maktabeh_app/ui/splash_screen/splash_screen.dart';
@@ -73,9 +72,10 @@ class _AppState extends State<App> {
   final _bloc = sl<AppBloc>();
 
   @override
-  void initState() {
+  void initState() async {
     super.initState();
     _bloc.add(IniEvent());
+    await PushNotificationsManager().init();
   }
 
   @override
