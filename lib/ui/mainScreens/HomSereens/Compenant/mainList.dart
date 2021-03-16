@@ -24,9 +24,10 @@ class _MainListState extends State<MainList> {
     var w = MediaQuery.of(context).size.width;
     return Container(
       padding: EdgeInsets.only(top: 10),
-      height: h * 0.35,
+      height: h * 0.4,
       width: w,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
             padding: EdgeInsets.only(right: 8, left: 8, bottom: 8),
