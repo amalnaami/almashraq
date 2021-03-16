@@ -85,3 +85,34 @@ abstract class GetQuotesByBookId extends HomeEvent
 
   factory GetQuotesByBookId([updates(GetQuotesByBookIdBuilder b)]) = _$GetQuotesByBookId;
 }
+
+
+abstract class GetSectionByBook extends HomeEvent
+    implements Built<GetSectionByBook, GetSectionByBookBuilder> {
+  int get sectionId;
+  int get bookId;
+  GetSectionByBook._();
+
+  factory GetSectionByBook([updates(GetSectionByBookBuilder b)]) = _$GetSectionByBook;
+}
+
+
+abstract class AddNewReview extends HomeEvent
+    implements Built<AddNewReview, AddNewReviewBuilder> {
+  String get text;
+  int get rating;
+  int get bookId;
+  AddNewReview._();
+
+  factory AddNewReview([updates(AddNewReviewBuilder b)]) = _$AddNewReview;
+}
+
+
+abstract class AddQuote extends HomeEvent
+    implements Built<AddQuote, AddQuoteBuilder> {
+  String get text;
+  int get bookId;
+  AddQuote._();
+
+  factory AddQuote([updates(AddQuoteBuilder b)]) = _$AddQuote;
+}

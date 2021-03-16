@@ -11,24 +11,27 @@ import 'package:maktabeh_app/model/review/review.dart';
 import 'package:maktabeh_app/model/user/user_model.dart';
 
 abstract class IHttpHelper {
-  Future<BuiltList<Category>> getCategories();
+  Future<BuiltList<Category>> getCategories(String language);
   Future<BuiltList<CountryModel>> getCountries(String language);
   Future<UserModel> login(String userName, String password);
   Future<bool> forgetPassword(String email);
   Future<bool> updatePassword(String password, String token);
-  Future<Quote> getTodayQuotes();
+  Future<Quote> getTodayQuotes(String language);
   Future<BuiltList<Quote>> getQuotesByBook(int bookId,String language);
-  Future<Review> getTodayReview();
+  Future<Review> getTodayReview(String language);
   Future<BuiltList<Review>> getReviewByBook(int bookId,String language);
-  Future<BuiltList<Author>> getFamousAuthors();
-  Future<BuiltList<Book>> getAllBooks();
-  Future<BuiltList<Book>> getLatestBooks();
-  Future<BuiltList<Book>> getMostReviewedBooks();
-  Future<BuiltList<Book>> getFeaturedBooks(String token);
+  Future<BuiltList<Author>> getFamousAuthors(String language);
+  Future<BuiltList<Book>> getAllBooks(String language);
+  Future<BuiltList<Book>> getLatestBooks(String language);
+  Future<BuiltList<Book>> getMostReviewedBooks(String language);
+  Future<BuiltList<Book>> getFeaturedBooks(String token,String language);
   Future<UserModel> register(String name,String username, String email, String password,String tele,String gender,String countryCode);
   Future<bool> insertCategories(List<int> categories, String token);
-  Future<BaseBook> getAllBookNextPage(int page);
-  Future<BookByCategoryModel> getBooksByCategory(int page, int categoryId);
+  Future<BaseBook> getAllBookNextPage(int page,String language);
+  Future<BookByCategoryModel> getBooksByCategory(int page, int categoryId,String language);
+  Future<BookByCategoryModel> getSectionByBook(int withBooks, int sectionId,String language);
   Future<BuiltList<Author>> getAllAuthor(String language);
-  Future<BuiltList<Book>> getBooksForAuthor(int id);
+  Future<BuiltList<Book>> getBooksForAuthor(int id,String language);
+  Future<bool> addReview(String text,int rating,int bookId,String token);
+  Future<bool> addQuote(String text,int bookId,String token);
 }

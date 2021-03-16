@@ -33,6 +33,12 @@ class _$HomeState extends HomeState {
   final Review todayReview;
   @override
   final bool isLogin;
+  @override
+  final BookByCategoryModel sectionBook;
+  @override
+  final bool success;
+  @override
+  final bool successAddQuote;
 
   factory _$HomeState([void Function(HomeStateBuilder) updates]) =>
       (new HomeStateBuilder()..update(updates)).build();
@@ -50,7 +56,10 @@ class _$HomeState extends HomeState {
       this.categories,
       this.todayQuote,
       this.todayReview,
-      this.isLogin})
+      this.isLogin,
+      this.sectionBook,
+      this.success,
+      this.successAddQuote})
       : super._() {
     if (isLoading == null) {
       throw new BuiltValueNullFieldError('HomeState', 'isLoading');
@@ -85,6 +94,15 @@ class _$HomeState extends HomeState {
     if (isLogin == null) {
       throw new BuiltValueNullFieldError('HomeState', 'isLogin');
     }
+    if (sectionBook == null) {
+      throw new BuiltValueNullFieldError('HomeState', 'sectionBook');
+    }
+    if (success == null) {
+      throw new BuiltValueNullFieldError('HomeState', 'success');
+    }
+    if (successAddQuote == null) {
+      throw new BuiltValueNullFieldError('HomeState', 'successAddQuote');
+    }
   }
 
   @override
@@ -110,7 +128,10 @@ class _$HomeState extends HomeState {
         categories == other.categories &&
         todayQuote == other.todayQuote &&
         todayReview == other.todayReview &&
-        isLogin == other.isLogin;
+        isLogin == other.isLogin &&
+        sectionBook == other.sectionBook &&
+        success == other.success &&
+        successAddQuote == other.successAddQuote;
   }
 
   @override
@@ -126,19 +147,31 @@ class _$HomeState extends HomeState {
                                     $jc(
                                         $jc(
                                             $jc(
-                                                $jc($jc(0, isLoading.hashCode),
-                                                    error.hashCode),
-                                                latestBooks.hashCode),
-                                            mostReviewedBooks.hashCode),
-                                        featuredBooks.hashCode),
-                                    allBooks.hashCode),
-                                allQuote.hashCode),
-                            allReview.hashCode),
-                        authors.hashCode),
-                    categories.hashCode),
-                todayQuote.hashCode),
-            todayReview.hashCode),
-        isLogin.hashCode));
+                                                $jc(
+                                                    $jc(
+                                                        $jc(
+                                                            $jc(
+                                                                $jc(
+                                                                    0,
+                                                                    isLoading
+                                                                        .hashCode),
+                                                                error.hashCode),
+                                                            latestBooks
+                                                                .hashCode),
+                                                        mostReviewedBooks
+                                                            .hashCode),
+                                                    featuredBooks.hashCode),
+                                                allBooks.hashCode),
+                                            allQuote.hashCode),
+                                        allReview.hashCode),
+                                    authors.hashCode),
+                                categories.hashCode),
+                            todayQuote.hashCode),
+                        todayReview.hashCode),
+                    isLogin.hashCode),
+                sectionBook.hashCode),
+            success.hashCode),
+        successAddQuote.hashCode));
   }
 
   @override
@@ -156,7 +189,10 @@ class _$HomeState extends HomeState {
           ..add('categories', categories)
           ..add('todayQuote', todayQuote)
           ..add('todayReview', todayReview)
-          ..add('isLogin', isLogin))
+          ..add('isLogin', isLogin)
+          ..add('sectionBook', sectionBook)
+          ..add('success', success)
+          ..add('successAddQuote', successAddQuote))
         .toString();
   }
 }
@@ -229,6 +265,21 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
   bool get isLogin => _$this._isLogin;
   set isLogin(bool isLogin) => _$this._isLogin = isLogin;
 
+  BookByCategoryModelBuilder _sectionBook;
+  BookByCategoryModelBuilder get sectionBook =>
+      _$this._sectionBook ??= new BookByCategoryModelBuilder();
+  set sectionBook(BookByCategoryModelBuilder sectionBook) =>
+      _$this._sectionBook = sectionBook;
+
+  bool _success;
+  bool get success => _$this._success;
+  set success(bool success) => _$this._success = success;
+
+  bool _successAddQuote;
+  bool get successAddQuote => _$this._successAddQuote;
+  set successAddQuote(bool successAddQuote) =>
+      _$this._successAddQuote = successAddQuote;
+
   HomeStateBuilder();
 
   HomeStateBuilder get _$this {
@@ -246,6 +297,9 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
       _todayQuote = _$v.todayQuote?.toBuilder();
       _todayReview = _$v.todayReview?.toBuilder();
       _isLogin = _$v.isLogin;
+      _sectionBook = _$v.sectionBook?.toBuilder();
+      _success = _$v.success;
+      _successAddQuote = _$v.successAddQuote;
       _$v = null;
     }
     return this;
@@ -282,7 +336,10 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
               categories: categories.build(),
               todayQuote: _todayQuote?.build(),
               todayReview: _todayReview?.build(),
-              isLogin: isLogin);
+              isLogin: isLogin,
+              sectionBook: sectionBook.build(),
+              success: success,
+              successAddQuote: successAddQuote);
     } catch (_) {
       String _$failedField;
       try {
@@ -306,6 +363,9 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
         _todayQuote?.build();
         _$failedField = 'todayReview';
         _todayReview?.build();
+
+        _$failedField = 'sectionBook';
+        sectionBook.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'HomeState', _$failedField, e.toString());

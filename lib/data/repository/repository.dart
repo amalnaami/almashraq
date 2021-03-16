@@ -39,7 +39,14 @@ class Repository implements IRepository {
 
   @override
   Future<BuiltList<Category>> getCategories() async {
-    return await _ihttpHelper.getCategories();
+    var language;
+    final app_language = await _iprefHelper.getAppLanguage();
+    if (app_language == 1) {
+      language = 'en';
+    } else {
+      language = 'ar';
+    }
+    return await _ihttpHelper.getCategories(language);
   }
 
   @override
@@ -62,37 +69,86 @@ class Repository implements IRepository {
 
   @override
   Future<Quote> getTodayQuotes() async {
-   return await _ihttpHelper.getTodayQuotes();
+    var language;
+    final app_language = await _iprefHelper.getAppLanguage();
+    if (app_language == 1) {
+      language = 'en';
+    } else {
+      language = 'ar';
+    }
+   return await _ihttpHelper.getTodayQuotes(language);
   }
 
   @override
   Future<Review> getTodayReview() async {
-    return await _ihttpHelper.getTodayReview();
+    var language;
+    final app_language = await _iprefHelper.getAppLanguage();
+    if (app_language == 1) {
+      language = 'en';
+    } else {
+      language = 'ar';
+    }
+    return await _ihttpHelper.getTodayReview(language);
   }
 
   @override
   Future<BuiltList<Author>> getFamousAuthors() async {
-    return await _ihttpHelper.getFamousAuthors();
+    var language;
+    final app_language = await _iprefHelper.getAppLanguage();
+    if (app_language == 1) {
+      language = 'en';
+    } else {
+      language = 'ar';
+    }
+    return await _ihttpHelper.getFamousAuthors(language);
   }
 
   @override
   Future<BuiltList<Book>> getAllBooks() async{
-    return await _ihttpHelper.getAllBooks();
+    var language;
+    final app_language = await _iprefHelper.getAppLanguage();
+    if (app_language == 1) {
+      language = 'en';
+    } else {
+      language = 'ar';
+    }
+    return await _ihttpHelper.getAllBooks(language);
   }
 
   @override
   Future<BuiltList<Book>> getFeaturedBooks() async {
-    return await _ihttpHelper.getFeaturedBooks(await _iprefHelper.getToken());
+    var language;
+    final app_language = await _iprefHelper.getAppLanguage();
+    if (app_language == 1) {
+      language = 'en';
+    } else {
+      language = 'ar';
+    }
+    return await _ihttpHelper.getFeaturedBooks(await _iprefHelper.getToken(),language);
   }
 
   @override
   Future<BuiltList<Book>> getLatestBooks() async {
-    return await _ihttpHelper.getLatestBooks();
+    var language;
+    final app_language = await _iprefHelper.getAppLanguage();
+    if (app_language == 1) {
+      language = 'en';
+    } else {
+      language = 'ar';
+    }
+    return await _ihttpHelper.getLatestBooks(language);
   }
 
   @override
   Future<BuiltList<Book>> getMostReviewedBooks() async {
-    return await _ihttpHelper.getMostReviewedBooks();
+    var language;
+    final app_language = await _iprefHelper.getAppLanguage();
+    if (app_language == 1) {
+      language = 'en';
+    } else {
+      language = 'ar';
+    }
+    return await _ihttpHelper.getMostReviewedBooks(language);
   }
 
   @override
@@ -117,12 +173,39 @@ class Repository implements IRepository {
 
   @override
   Future<BaseBook> getAllBookNextPage(int page) async {
-    return await _ihttpHelper.getAllBookNextPage(page);
+    var language;
+    final app_language = await _iprefHelper.getAppLanguage();
+    if (app_language == 1) {
+      language = 'en';
+    } else {
+      language = 'ar';
+    }
+    return await _ihttpHelper.getAllBookNextPage(page,language);
   }
 
   @override
   Future<BookByCategoryModel> getBooksByCategory(int page, int categoryId) async {
-    return await _ihttpHelper.getBooksByCategory(page, categoryId);
+    var language;
+    final app_language = await _iprefHelper.getAppLanguage();
+    if (app_language == 1) {
+      language = 'en';
+    } else {
+      language = 'ar';
+    }
+    return await _ihttpHelper.getBooksByCategory(page, categoryId,language);
+  }
+
+
+  @override
+  Future<BookByCategoryModel> getSectionByBook(int withBooks, int sectionId) async {
+    var language;
+    final app_language = await _iprefHelper.getAppLanguage();
+    if (app_language == 1) {
+      language = 'en';
+    } else {
+      language = 'ar';
+    }
+    return await _ihttpHelper.getSectionByBook(withBooks, sectionId,language);
   }
 
 
@@ -166,6 +249,27 @@ class Repository implements IRepository {
 
   @override
   Future<BuiltList<Book>> getBooksForAuthor(int id) async {
-    return await _ihttpHelper.getBooksForAuthor(id);
+    var language;
+    final app_language = await _iprefHelper.getAppLanguage();
+    if (app_language == 1) {
+      language = 'en';
+    } else {
+      language = 'ar';
+    }
+    return await _ihttpHelper.getBooksForAuthor(id,language);
   }
+
+
+  @override
+  Future<bool> addQuote(String text,int bookId) async {
+
+    final token = await _iprefHelper.getToken();
+    return await _ihttpHelper.addQuote(text, bookId,token);
+  }
+  @override
+  Future<bool> addReview(String text,int rating,int bookId) async {
+    final token = await _iprefHelper.getToken();
+    return await _ihttpHelper.addReview(text, rating, bookId,token);
+  }
+
 }

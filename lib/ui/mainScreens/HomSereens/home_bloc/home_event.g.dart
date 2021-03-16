@@ -797,4 +797,291 @@ class GetQuotesByBookIdBuilder
   }
 }
 
+class _$GetSectionByBook extends GetSectionByBook {
+  @override
+  final int sectionId;
+  @override
+  final int bookId;
+
+  factory _$GetSectionByBook(
+          [void Function(GetSectionByBookBuilder) updates]) =>
+      (new GetSectionByBookBuilder()..update(updates)).build();
+
+  _$GetSectionByBook._({this.sectionId, this.bookId}) : super._() {
+    if (sectionId == null) {
+      throw new BuiltValueNullFieldError('GetSectionByBook', 'sectionId');
+    }
+    if (bookId == null) {
+      throw new BuiltValueNullFieldError('GetSectionByBook', 'bookId');
+    }
+  }
+
+  @override
+  GetSectionByBook rebuild(void Function(GetSectionByBookBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GetSectionByBookBuilder toBuilder() =>
+      new GetSectionByBookBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GetSectionByBook &&
+        sectionId == other.sectionId &&
+        bookId == other.bookId;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc($jc(0, sectionId.hashCode), bookId.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('GetSectionByBook')
+          ..add('sectionId', sectionId)
+          ..add('bookId', bookId))
+        .toString();
+  }
+}
+
+class GetSectionByBookBuilder
+    implements Builder<GetSectionByBook, GetSectionByBookBuilder> {
+  _$GetSectionByBook _$v;
+
+  int _sectionId;
+  int get sectionId => _$this._sectionId;
+  set sectionId(int sectionId) => _$this._sectionId = sectionId;
+
+  int _bookId;
+  int get bookId => _$this._bookId;
+  set bookId(int bookId) => _$this._bookId = bookId;
+
+  GetSectionByBookBuilder();
+
+  GetSectionByBookBuilder get _$this {
+    if (_$v != null) {
+      _sectionId = _$v.sectionId;
+      _bookId = _$v.bookId;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GetSectionByBook other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$GetSectionByBook;
+  }
+
+  @override
+  void update(void Function(GetSectionByBookBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$GetSectionByBook build() {
+    final _$result =
+        _$v ?? new _$GetSectionByBook._(sectionId: sectionId, bookId: bookId);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$AddNewReview extends AddNewReview {
+  @override
+  final String text;
+  @override
+  final int rating;
+  @override
+  final int bookId;
+
+  factory _$AddNewReview([void Function(AddNewReviewBuilder) updates]) =>
+      (new AddNewReviewBuilder()..update(updates)).build();
+
+  _$AddNewReview._({this.text, this.rating, this.bookId}) : super._() {
+    if (text == null) {
+      throw new BuiltValueNullFieldError('AddNewReview', 'text');
+    }
+    if (rating == null) {
+      throw new BuiltValueNullFieldError('AddNewReview', 'rating');
+    }
+    if (bookId == null) {
+      throw new BuiltValueNullFieldError('AddNewReview', 'bookId');
+    }
+  }
+
+  @override
+  AddNewReview rebuild(void Function(AddNewReviewBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  AddNewReviewBuilder toBuilder() => new AddNewReviewBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is AddNewReview &&
+        text == other.text &&
+        rating == other.rating &&
+        bookId == other.bookId;
+  }
+
+  @override
+  int get hashCode {
+    return $jf(
+        $jc($jc($jc(0, text.hashCode), rating.hashCode), bookId.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('AddNewReview')
+          ..add('text', text)
+          ..add('rating', rating)
+          ..add('bookId', bookId))
+        .toString();
+  }
+}
+
+class AddNewReviewBuilder
+    implements Builder<AddNewReview, AddNewReviewBuilder> {
+  _$AddNewReview _$v;
+
+  String _text;
+  String get text => _$this._text;
+  set text(String text) => _$this._text = text;
+
+  int _rating;
+  int get rating => _$this._rating;
+  set rating(int rating) => _$this._rating = rating;
+
+  int _bookId;
+  int get bookId => _$this._bookId;
+  set bookId(int bookId) => _$this._bookId = bookId;
+
+  AddNewReviewBuilder();
+
+  AddNewReviewBuilder get _$this {
+    if (_$v != null) {
+      _text = _$v.text;
+      _rating = _$v.rating;
+      _bookId = _$v.bookId;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(AddNewReview other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$AddNewReview;
+  }
+
+  @override
+  void update(void Function(AddNewReviewBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$AddNewReview build() {
+    final _$result =
+        _$v ?? new _$AddNewReview._(text: text, rating: rating, bookId: bookId);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$AddQuote extends AddQuote {
+  @override
+  final String text;
+  @override
+  final int bookId;
+
+  factory _$AddQuote([void Function(AddQuoteBuilder) updates]) =>
+      (new AddQuoteBuilder()..update(updates)).build();
+
+  _$AddQuote._({this.text, this.bookId}) : super._() {
+    if (text == null) {
+      throw new BuiltValueNullFieldError('AddQuote', 'text');
+    }
+    if (bookId == null) {
+      throw new BuiltValueNullFieldError('AddQuote', 'bookId');
+    }
+  }
+
+  @override
+  AddQuote rebuild(void Function(AddQuoteBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  AddQuoteBuilder toBuilder() => new AddQuoteBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is AddQuote && text == other.text && bookId == other.bookId;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc($jc(0, text.hashCode), bookId.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('AddQuote')
+          ..add('text', text)
+          ..add('bookId', bookId))
+        .toString();
+  }
+}
+
+class AddQuoteBuilder implements Builder<AddQuote, AddQuoteBuilder> {
+  _$AddQuote _$v;
+
+  String _text;
+  String get text => _$this._text;
+  set text(String text) => _$this._text = text;
+
+  int _bookId;
+  int get bookId => _$this._bookId;
+  set bookId(int bookId) => _$this._bookId = bookId;
+
+  AddQuoteBuilder();
+
+  AddQuoteBuilder get _$this {
+    if (_$v != null) {
+      _text = _$v.text;
+      _bookId = _$v.bookId;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(AddQuote other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$AddQuote;
+  }
+
+  @override
+  void update(void Function(AddQuoteBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$AddQuote build() {
+    final _$result = _$v ?? new _$AddQuote._(text: text, bookId: bookId);
+    replace(_$result);
+    return _$result;
+  }
+}
+
 // ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

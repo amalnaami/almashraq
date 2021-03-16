@@ -57,7 +57,7 @@ class _QuotesScreenState extends State<QuotesScreen> {
                       child: appButton(
                         context: context,
                         onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => AddQuoteScreen(),
+                          builder: (context) => AddQuoteScreen(bookid: widget.bookid,),
                         )),
                         text: AppLocalizations.of(context).translate('add quote'),
                       ),

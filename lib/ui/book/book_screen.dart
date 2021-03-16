@@ -11,12 +11,15 @@ import 'package:maktabeh_app/core/size_config.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
 import 'package:maktabeh_app/model/author/author.dart';
 import 'package:maktabeh_app/model/book/book.dart';
-import 'package:maktabeh_app/ui/book/about_writer.dart';
+import 'package:maktabeh_app/ui/all_categories/all_categories.dart';
+import 'package:maktabeh_app/ui/book/book_same_section.dart';
 import 'package:maktabeh_app/ui/book/buy_books.dart';
 import 'package:maktabeh_app/ui/book/quotes_screen.dart';
+import 'package:maktabeh_app/ui/common_widget/CategorisCard.dart';
 import 'package:maktabeh_app/ui/common_widget/app_button.dart';
 import 'package:maktabeh_app/ui/common_widget/local_image.dart';
 import 'package:maktabeh_app/ui/common_widget/rate_stars.dart';
+import 'package:maktabeh_app/ui/mainScreens/HomSereens/Compenant/HomeCategoris.dart';
 import 'package:maktabeh_app/ui/mainScreens/moreBooksPage.dart';
 import 'package:maktabeh_app/ui/review/review_screen.dart';
 import 'package:maktabeh_app/ui/mainScreens/HomSereens/home_bloc/home_bloc.dart';
@@ -55,6 +58,8 @@ class _BookScreenState extends State<BookScreen> {
     return  BlocBuilder(
         cubit: _bloc,
         builder: (BuildContext context, HomeState state){
+          print('HomeStateHomeState ${widget.singleBook.id}');
+          print('HomeStateHomeState ${widget.singleBook.section.id}');
       return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -419,7 +424,9 @@ class _BookScreenState extends State<BookScreen> {
                         widget: Container(),
                         onTab: () =>
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => AboutWriterScreen(widget.author),
+                              builder: (context) => BookSameSection(sectionId: widget.singleBook.section.id,bookId: widget.singleBook.id,),
+                            //     Navigator.of(context).push(MaterialPageRoute(
+                            //   builder: (context) => AboutWriterScreen(widget.author),
                             )),
                         text: AppLocalizations.of(context)
                             .translate('books for the same section')),

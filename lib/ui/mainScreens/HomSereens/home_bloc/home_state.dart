@@ -4,6 +4,7 @@ import 'package:built_value/built_value.dart';
 import 'package:maktabeh_app/model/author/author.dart';
 import 'package:maktabeh_app/model/book/book.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:maktabeh_app/model/book_by_category/book_by_category.dart';
 import 'package:maktabeh_app/model/category/category.dart';
 import 'package:maktabeh_app/model/quote/quote.dart';
 import 'package:maktabeh_app/model/review/review.dart';
@@ -27,8 +28,10 @@ abstract class HomeState implements Built<HomeState, HomeStateBuilder> {
   @nullable
   Review get todayReview;
   bool get isLogin;
+  BookByCategoryModel get sectionBook;
 
-
+  bool get success;
+  bool get successAddQuote;
   HomeState._();
 
   //put $ here
@@ -47,7 +50,10 @@ abstract class HomeState implements Built<HomeState, HomeStateBuilder> {
       ..authors.replace([])
       ..todayQuote = null
       ..todayReview = null
+      ..sectionBook = null
       ..isLogin = false
+      ..success = false
+      ..successAddQuote = false
     );
   }
 }
