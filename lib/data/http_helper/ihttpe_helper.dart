@@ -34,4 +34,6 @@ abstract class IHttpHelper {
   Future<BuiltList<Book>> getBooksForAuthor(int id,String language);
   Future<bool> addReview(String text,int rating,int bookId,String token);
   Future<bool> addQuote(String text,int bookId,String token);
+  Future<BuiltList<Review>> getAllReviews(String language);
+  Future<BuiltList<Quote>> getAllQuotes(String language);
 }

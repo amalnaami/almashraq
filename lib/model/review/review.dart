@@ -3,6 +3,7 @@ library review;
 import 'dart:convert';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
+import 'package:maktabeh_app/model/book/book.dart';
 import 'package:maktabeh_app/model/serializer/serializer.dart';
 import 'package:maktabeh_app/model/translations/translations.dart';
 
@@ -22,6 +23,10 @@ abstract class Review implements Built<Review, ReviewBuilder> {
   String get rating;
   @nullable
   String get user_name;
+  @nullable
+  Book get book;
+  @nullable
+  String get date;
 
   Review._();
 

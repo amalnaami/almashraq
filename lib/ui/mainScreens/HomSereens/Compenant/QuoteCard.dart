@@ -95,12 +95,12 @@ class QuoteCard extends StatelessWidget {
                   SizedBox(height: 4),
                   SoshialBar(quote.quotation_text),
                   SizedBox(height: 4),
-                  if (title == "الاقتباسات" || title == 'quotes')
-                    Text(
-                      AppLocalizations.of(context)
-                          .translate('quotes for the same author'),
-                      style: regStyle.copyWith(color: Colors.grey),
-                    )
+                  // if (title == "الاقتباسات" || title == 'quotes')
+                  //   Text(
+                  //     AppLocalizations.of(context)
+                  //         .translate('quotes for the same author'),
+                  //     style: regStyle.copyWith(color: Colors.grey),
+                  //   )
                 ],
               ),
             )

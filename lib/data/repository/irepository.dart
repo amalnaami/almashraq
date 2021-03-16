@@ -39,5 +39,7 @@ abstract class IRepository {
   Future<void> saveUser(UserData user);
   Future<bool> addReview(String text,int rating,int bookId);
   Future<bool> addQuote(String text,int bookId);
+  Future<BuiltList<Review>> getAllReviews();
+  Future<BuiltList<Quote>> getAllQuotes();
 
 }

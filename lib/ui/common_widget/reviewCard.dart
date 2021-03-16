@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:maktabeh_app/core/app_localizations.dart';
+import 'package:maktabeh_app/core/config/navigatorHelper.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
+import 'package:maktabeh_app/model/review/review.dart';
 import 'package:maktabeh_app/ui/common_widget/rate_stars.dart';
 import 'package:maktabeh_app/ui/common_widget/soshialBar.dart';
+import 'package:maktabeh_app/ui/review/review_screen.dart';
+import 'package:maktabeh_app/ui/widgets/widgets.dart';
 
 class ReviewCard extends StatefulWidget {
+  final Review review;
+  final bool isLogin;
+  const ReviewCard({this.review, this.isLogin});
   @override
   _ReviewCardState createState() => _ReviewCardState();
 }
@@ -30,8 +37,8 @@ class _ReviewCardState extends State<ReviewCard> {
                       flex: 1,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(2000),
-                        child: Image.asset(
-                          "assets/image/3.jpg",
+                        child: widget.review.user_image == null ? Container() : Image.network(
+                          widget.review.user_image,
                         ),
                       ),
                     ),
@@ -47,7 +54,7 @@ class _ReviewCardState extends State<ReviewCard> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  AppLocalizations.of(context).translate('example name'),
+                                  '${widget.review.user_name}',
                                   style: boldStyle,
                                 ),
                                 Row(
@@ -66,10 +73,19 @@ class _ReviewCardState extends State<ReviewCard> {
                             SizedBox(
                               height: 5,
                             ),
-                            Text(
-                              "كتاب رائع جدا ولقد نال اعجابي وواو",
-                              style: regStyle,
+                            ReadMoreText(
+                              '${widget.review.review_text}',
+                              trimLines: 1,
+                              textDirection:
+                              AppLocalizations.of(context).locale.languageCode == 'ar'
+                                  ? TextDirection.ltr
+                                  : TextDirection.rtl,
+                              style: regStyle.copyWith(color: Colors.black),
                             ),
+                            // Text(
+                            //   "كتاب رائع جدا ولقد نال اعجابي وواو",
+                            //   style: regStyle,
+                            // ),
                           ],
                         ),
                       ),
@@ -78,7 +94,7 @@ class _ReviewCardState extends State<ReviewCard> {
                 ),
               ),
             ),
-            SoshialBar(''),
+            SoshialBar('${widget.review.review_text}'),
             Expanded(
               flex: 5,
               child: Padding(
@@ -94,8 +110,8 @@ class _ReviewCardState extends State<ReviewCard> {
                                 horizontal: 15, vertical: 8),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
-                              child: Image.asset(
-                                "assets/image/4.jpg",
+                              child: Image.network(
+                                widget.review.book.image,
                                 height: double.infinity,
                                 fit: BoxFit.fill,
                                 width: double.infinity,
@@ -123,7 +139,7 @@ class _ReviewCardState extends State<ReviewCard> {
                                   ],
                                 ),
                                 Text(
-                                  "لحظات",
+                                  '${widget.review.book.getName(AppLocalizations.of(context).locale.languageCode)}',
                                   style: boldStyle,
                                 ),
                                 Row(
@@ -139,7 +155,7 @@ class _ReviewCardState extends State<ReviewCard> {
                                   ],
                                 ),
                                 Text(
-                                  AppLocalizations.of(context).translate('Taha husien'),
+                                  '${widget.review.getAuthorName(AppLocalizations.of(context).locale.languageCode)}',
                                   style: boldStyle,
                                 ),
                               ],
@@ -158,10 +174,15 @@ class _ReviewCardState extends State<ReviewCard> {
                       ),
                       padding: EdgeInsets.all(20),
                       alignment: Alignment.center,
-                      child: Text(
-                        AppLocalizations.of(context).translate('watch reviews for the same book'),
-                        textAlign: TextAlign.center,
-                        style: regStyle.copyWith(color: Colors.white),
+                      child: InkWell(
+                        onTap: () {
+                          push(context, ReviewScreen(isLogin: widget.isLogin, bookid: widget.review.book.id,));
+                        },
+                        child: Text(
+                          AppLocalizations.of(context).translate('watch reviews for the same book'),
+                          textAlign: TextAlign.center,
+                          style: regStyle.copyWith(color: Colors.white),
+                        ),
                       ),
                     )),
                   ],

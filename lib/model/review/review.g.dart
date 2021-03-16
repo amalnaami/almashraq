@@ -54,6 +54,18 @@ class _$ReviewSerializer implements StructuredSerializer<Review> {
         ..add(serializers.serialize(object.user_name,
             specifiedType: const FullType(String)));
     }
+    if (object.book != null) {
+      result
+        ..add('book')
+        ..add(serializers.serialize(object.book,
+            specifiedType: const FullType(Book)));
+    }
+    if (object.date != null) {
+      result
+        ..add('date')
+        ..add(serializers.serialize(object.date,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -92,6 +104,14 @@ class _$ReviewSerializer implements StructuredSerializer<Review> {
           result.user_name = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'book':
+          result.book.replace(serializers.deserialize(value,
+              specifiedType: const FullType(Book)) as Book);
+          break;
+        case 'date':
+          result.date = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
       }
     }
 
@@ -112,6 +132,10 @@ class _$Review extends Review {
   final String rating;
   @override
   final String user_name;
+  @override
+  final Book book;
+  @override
+  final String date;
 
   factory _$Review([void Function(ReviewBuilder) updates]) =>
       (new ReviewBuilder()..update(updates)).build();
@@ -122,7 +146,9 @@ class _$Review extends Review {
       this.translations,
       this.user_image,
       this.rating,
-      this.user_name})
+      this.user_name,
+      this.book,
+      this.date})
       : super._();
 
   @override
@@ -141,7 +167,9 @@ class _$Review extends Review {
         translations == other.translations &&
         user_image == other.user_image &&
         rating == other.rating &&
-        user_name == other.user_name;
+        user_name == other.user_name &&
+        book == other.book &&
+        date == other.date;
   }
 
   @override
@@ -149,11 +177,15 @@ class _$Review extends Review {
     return $jf($jc(
         $jc(
             $jc(
-                $jc($jc($jc(0, id.hashCode), review_text.hashCode),
-                    translations.hashCode),
-                user_image.hashCode),
-            rating.hashCode),
-        user_name.hashCode));
+                $jc(
+                    $jc(
+                        $jc($jc($jc(0, id.hashCode), review_text.hashCode),
+                            translations.hashCode),
+                        user_image.hashCode),
+                    rating.hashCode),
+                user_name.hashCode),
+            book.hashCode),
+        date.hashCode));
   }
 
   @override
@@ -164,7 +196,9 @@ class _$Review extends Review {
           ..add('translations', translations)
           ..add('user_image', user_image)
           ..add('rating', rating)
-          ..add('user_name', user_name))
+          ..add('user_name', user_name)
+          ..add('book', book)
+          ..add('date', date))
         .toString();
   }
 }
@@ -198,6 +232,14 @@ class ReviewBuilder implements Builder<Review, ReviewBuilder> {
   String get user_name => _$this._user_name;
   set user_name(String user_name) => _$this._user_name = user_name;
 
+  BookBuilder _book;
+  BookBuilder get book => _$this._book ??= new BookBuilder();
+  set book(BookBuilder book) => _$this._book = book;
+
+  String _date;
+  String get date => _$this._date;
+  set date(String date) => _$this._date = date;
+
   ReviewBuilder();
 
   ReviewBuilder get _$this {
@@ -208,6 +250,8 @@ class ReviewBuilder implements Builder<Review, ReviewBuilder> {
       _user_image = _$v.user_image;
       _rating = _$v.rating;
       _user_name = _$v.user_name;
+      _book = _$v.book?.toBuilder();
+      _date = _$v.date;
       _$v = null;
     }
     return this;
@@ -237,12 +281,17 @@ class ReviewBuilder implements Builder<Review, ReviewBuilder> {
               translations: _translations?.build(),
               user_image: user_image,
               rating: rating,
-              user_name: user_name);
+              user_name: user_name,
+              book: _book?.build(),
+              date: date);
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'translations';
         _translations?.build();
+
+        _$failedField = 'book';
+        _book?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'Review', _$failedField, e.toString());

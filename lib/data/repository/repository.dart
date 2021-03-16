@@ -272,4 +272,14 @@ class Repository implements IRepository {
     return await _ihttpHelper.addReview(text, rating, bookId,token);
   }
 
+  @override
+  Future<BuiltList<Review>> getAllReviews() async {
+    return await _ihttpHelper.getAllReviews(await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
+  }
+
+  @override
+  Future<BuiltList<Quote>> getAllQuotes() async {
+    return await _ihttpHelper.getAllQuotes(await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
+  }
+
 }

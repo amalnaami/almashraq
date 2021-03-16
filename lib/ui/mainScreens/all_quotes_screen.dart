@@ -6,36 +6,33 @@ import 'package:maktabeh_app/core/loaderApp.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
 import 'package:maktabeh_app/injection.dart';
 import 'package:maktabeh_app/ui/common_widget/customAppBar.dart';
-import 'package:maktabeh_app/ui/common_widget/reviewCard.dart';
-import 'package:maktabeh_app/ui/mainScreens/all_review_bloc/all_review_bloc.dart';
-import 'package:maktabeh_app/ui/mainScreens/all_review_bloc/all_review_event.dart';
+import 'package:maktabeh_app/ui/mainScreens/HomSereens/Compenant/QuoteCard.dart';
+import 'package:maktabeh_app/ui/mainScreens/all_quote_bloc/all_quote_bloc.dart';
+import 'package:maktabeh_app/ui/mainScreens/all_quote_bloc/all_quote_event.dart';
 
-import 'all_review_bloc/all_review_state.dart';
+import 'all_quote_bloc/all_quote_state.dart';
 
-class AllReviewsPage extends StatefulWidget {
+class AllQuote extends StatefulWidget {
   @override
-  _AllReviewsPageState createState() => _AllReviewsPageState();
+  _AllQuoteState createState() => _AllQuoteState();
 }
 
-class _AllReviewsPageState extends State<AllReviewsPage> {
-  final _bloc = sl<AllReviewBloc>();
-
+class _AllQuoteState extends State<AllQuote> {
+  final _bloc = sl<AllQuoteBloc>();
   @override
   void initState() {
     super.initState();
-    _bloc.add(GetReviews());
+    _bloc.add(GetQuotes());
     _bloc.add(GetIsLogin());
   }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder(
       cubit: _bloc,
-      builder: (BuildContext context, AllReviewState state) {
+      builder: (BuildContext context, AllQuoteState state) {
         error(state.error);
         return Scaffold(
-          appBar: customAppBar(
-              context, AppLocalizations.of(context).translate("reviews")),
+          appBar: customAppBar(context, AppLocalizations.of(context).translate('All quotes')),
           body: Stack(
             children: [
               Column(
@@ -43,35 +40,27 @@ class _AllReviewsPageState extends State<AllReviewsPage> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(15.0),
-                    child: Text(
-                      AppLocalizations.of(context).translate('All reviews'),
-                      style: boldStyle,
-                    ),
+                    child: Text(AppLocalizations.of(context).translate('All quotes'), style: boldStyle),
                   ),
                   Expanded(
                     child: ListView.builder(
-                      itemCount: state.reviews.length,
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      itemCount: state.quotes.length,
                       itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: ReviewCard(
-                            review: state.reviews[index],
-                            isLogin: state.isLogin,
-                          ),
-                        );
+                        return QuoteCard(title: 'quotes', quote: state.quotes[index],);
                       },
                     ),
-                  )
+                  ),
                 ],
               ),
-              if (state.isLoading) loaderApp
+              if(state.isLoading)
+                loaderApp
             ],
           ),
         );
       },
     );
   }
-
   void error(String errorCode) {
     if (errorCode.isNotEmpty) {
       Fluttertoast.showToast(

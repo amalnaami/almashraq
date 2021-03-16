@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:maktabeh_app/core/app_localizations.dart';
+import 'package:maktabeh_app/core/config/navigatorHelper.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
 import 'package:maktabeh_app/model/author/author.dart';
 import 'package:maktabeh_app/ui/common_widget/outhorCard.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:maktabeh_app/ui/mainScreens/HomSereens/all_auther_screen.dart';
+
+import '../../OuthorsScreen.dart';
 
 class SupremeWriterPage extends StatefulWidget {
   final BuiltList<Author> authors;
@@ -39,7 +43,7 @@ class _SupremeWriterPageState extends State<SupremeWriterPage> {
                   ],
                 ),
                 InkWell(
-                  // onTap: () => push(context, AllReviewsPage()),
+                   onTap: () => push(context, AllAuthorScreen()),
                   child: Text(
                     AppLocalizations.of(context).translate('see more'),
                     style: lightStyle.copyWith(fontSize: 10),

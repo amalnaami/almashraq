@@ -51,7 +51,7 @@ part 'serializer.g.dart';
   Paginator,
   BaseBook,
   BookByCategoryModel,
-  Token
+  Token,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..addPlugin(StandardJsonPlugin())

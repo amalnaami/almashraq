@@ -30,7 +30,7 @@ class _OuthorCardState extends State<OuthorCard> {
             Expanded(
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.network(
+                child: widget.author.image == null ? Container() : Image.network(
                   widget.author.image,
                   height: double.infinity,
                   fit: BoxFit.fill,

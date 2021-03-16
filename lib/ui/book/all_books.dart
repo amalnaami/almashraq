@@ -66,8 +66,8 @@ class _AllBooksScreenState extends State<AllBooksScreen> {
                         Padding(
                           padding: EdgeInsets.only(
                               top: SizeConfig.blockSizeVertical * 3,
-                              left: SizeConfig.blockSizeVertical * 3,
-                              right: SizeConfig.blockSizeVertical * 3),
+                              left: SizeConfig.blockSizeVertical * 2,
+                              right: SizeConfig.blockSizeVertical * 2),
                           child: Row(
                             //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
