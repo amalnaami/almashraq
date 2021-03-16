@@ -55,7 +55,7 @@ class HttpHelper implements IHttpHelper {
   @override
   Future<BuiltList<Category>> getCategories(String language) async {
     try {
-      final response = await _dio.get('sections?with_books=0', options: Options(headers: {"Accept-Language": language}));
+      final response = await _dio.get('sections?with_books=0',options: Options(headers: {"Accept-Language": language}));
       print('getCategories Response StatusCode ${response.statusCode}');
       if (response.statusCode == 200) {
         print('getCategories Response body  ${response.data}');
@@ -123,7 +123,7 @@ class HttpHelper implements IHttpHelper {
   }
 
   @override
-  Future<Quote> getTodayQuote(String language) async {
+  Future<Quote> getTodayQuotes(String language) async {
     try {
       final response = await _dio.get('quotes/quote-today',options: Options(headers: {"Accept-Language": language}));
       print('getTodayQuotes Response StatusCode ${response.statusCode}');
@@ -220,7 +220,8 @@ class HttpHelper implements IHttpHelper {
   @override
   Future<BuiltList<Book>> getMostReviewedBooks(String language) async {
     try {
-      final response = await _dio.get('books/most-reviewed',options: Options(headers: {"Accept-Language": language}));
+      final response = await _dio.get('books/most-reviewed',
+          options: Options(headers: {"Accept-Language": language}));
       print('getMostReviewedBooks Response StatusCode ${response.statusCode}');
       if (response.statusCode == 200) {
         print('getMostReviewedBooks Response body  ${response.data}');
@@ -237,10 +238,10 @@ class HttpHelper implements IHttpHelper {
   }
 
   @override
-  Future<BuiltList<Book>> getFeaturedBooks(String token, String language) async {
+  Future<BuiltList<Book>> getFeaturedBooks(String token,String language) async {
     try {
       final response = await _dio.get('books/featured',
-          options: Options(headers: {'Authorization': 'Bearer $token', "Accept-Language": language}));
+          options: Options(headers: {'Authorization': 'Bearer $token',"Accept-Language": language}));
       print('getFeaturedBooks Response StatusCode ${response.statusCode}');
       if (response.statusCode == 200) {
         print('getFeaturedBooks Response body  ${response.data}');
@@ -332,6 +333,7 @@ class HttpHelper implements IHttpHelper {
           options: Options(headers: {'Authorization': 'Bearer $token'}));
       print('insertCategories Response StatusCode ${response.statusCode}');
       if (response.statusCode == 201) {
+        // response.data['status']
         print('insertCategories Response body  ${response.data}');
         return true;
       } else {
@@ -344,10 +346,11 @@ class HttpHelper implements IHttpHelper {
   }
 
   @override
-  Future<BaseBook> getAllBookNextPage(int page, String language) async {
+  Future<BaseBook> getAllBookNextPage(int page,String language) async {
     try {
       final response = await _dio.get(
-        'books?page=$page',options: Options(headers: {"Accept-Language": language})
+        'books?page=$page',
+          options: Options(headers: {"Accept-Language": language})
       );
       print('getAllBookNextPage Response StatusCode ${response.statusCode}');
       if (response.statusCode == 200) {
@@ -366,10 +369,35 @@ class HttpHelper implements IHttpHelper {
 
   @override
   Future<BookByCategoryModel> getBooksByCategory(
-      int page, int categoryId, String language) async {
+      int page, int categoryId,String language) async {
     try {
       final response = await _dio.get(
-        'sections/$categoryId?with_books=1&page=$page',options: Options(headers: {"Accept-Language": language})
+        'sections/$categoryId?with_books=1&page=$page',
+          options: Options(headers: {"Accept-Language": language})
+      );
+      print('getBooksByCategory Response StatusCode ${response.statusCode}');
+      if (response.statusCode == 200) {
+        print('getBooksByCategory Response body  ${response.data}');
+        final books = serializers.deserialize(
+            json.decode(response.data)['data'],
+            specifiedType: FullType(BookByCategoryModel));
+        print(books);
+        return books;
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException();
+    }
+  }
+
+  @override
+  Future<BookByCategoryModel> getSectionByBook(int withBooks, int sectionId,String language)async {
+    try {
+      final response = await _dio.get(
+        'sections/$sectionId?with_books=$withBooks',
+          options: Options(headers: {"Accept-Language": language})
       );
       print('getBooksByCategory Response StatusCode ${response.statusCode}');
       if (response.statusCode == 200) {
@@ -492,9 +520,9 @@ class HttpHelper implements IHttpHelper {
   }
 
   @override
-  Future<BuiltList<Book>> getBooksForAuthor(int id, String language) async {
+  Future<BuiltList<Book>> getBooksForAuthor(int id,String language) async {
     try {
-      final response = await _dio.get('books/author/$id',options: Options(headers: {"Accept-Language": language}));
+      final response = await _dio.get('books/author/$id', options: Options(headers: {"Accept-Language": language}));
       print('getBooksForAuthor Response StatusCode ${response.statusCode}');
       if (response.statusCode == 200) {
         print('getBooksForAuthor Response body  ${response.data}');
@@ -515,4 +543,52 @@ class HttpHelper implements IHttpHelper {
       throw NetworkException();
     }
   }
+
+  @override
+  Future<bool> addQuote(String text,int bookId,String token) async {
+    try {
+      final formData =
+          {'quote':{'text':text}};
+      // data: json.encode(formData)
+      final response = await _dio.post('books/$bookId/quote', data: formData, options: Options(headers: {"Authorization": token}));
+      print('addQuote Response StatusCode ${response.statusCode}');
+      if (response.statusCode == 200) {
+        final baseResponse = json.decode(response.data)['status'];
+        if (baseResponse) {
+          return true;
+        } else {
+          throw NetworkException();
+        }
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException();
+    }
+  }
+
+  @override
+  Future<bool> addReview(String text,int rating,int bookId,String token) async {
+    try {
+      final formData = {'review':{'text':text,'rating':rating}};
+      final response = await _dio.post('books/$bookId/review', data:formData,
+          options: Options(headers: {"Authorization": token}));
+      print('forgetPassword Response StatusCode ${response.statusCode}');
+      if (response.statusCode == 200) {
+        final baseResponse = json.decode(response.data)['status'];
+        if (baseResponse) {
+          return true;
+        } else {
+          throw NetworkException();
+        }
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException();
+    }
+  }
+
 }

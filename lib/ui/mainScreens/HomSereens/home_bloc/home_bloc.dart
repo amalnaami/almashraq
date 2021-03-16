@@ -6,7 +6,8 @@ import 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   IRepository _repository;
-
+  int currentPage = 1;
+  int lastPage = 1;
   HomeBloc(this._repository) : super(HomeState.init());
 
   @override
@@ -199,6 +200,57 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           ..error = ''
           ..isLoading = false
           ..allQuote.replace([]));
+      }
+    }
+    else if (event is GetSectionByBook) {
+      try {
+        yield state.rebuild((b) => b
+          ..isLoading = true
+          ..sectionBook = null);
+        final res = await _repository.getSectionByBook( event.bookId,event.sectionId,);
+
+        yield state.rebuild((b) => b
+          ..isLoading = false
+          ..sectionBook.replace(res));
+      } catch (e) {
+        yield state.rebuild((b) => b
+          ..error = 'something went wrong'
+          ..isLoading = false
+          ..sectionBook = null);
+      }
+    }
+    if (event is AddNewReview) {
+      try {
+        yield state.rebuild((b) => b ..success = false..isLoading = true ..error = '');
+        final data = await _repository.addReview(event.text, event.rating,event.bookId);
+        print('SubmitEmail $data');
+        yield state.rebuild((b) => b
+          ..isLoading = false
+          ..error = ''
+          ..success = true);
+      } catch (e) {
+        print('SOMETHING WENT WRONG $e');
+        yield state.rebuild((b) => b
+          ..success = false
+          ..isLoading = false
+          ..error = 'Something went wrong');
+      }
+    }
+    if (event is AddQuote) {
+      try {
+        yield state.rebuild((b) => b..successAddQuote = false..isLoading = true ..error = '');
+        final data = await _repository.addQuote(event.text,event.bookId);
+        print('SubmitEmail $data');
+        yield state.rebuild((b) => b
+          ..isLoading = false
+          ..error = ''
+          ..successAddQuote = true);
+      } catch (e) {
+        print('SOMETHING WENT WRONG');
+        yield state.rebuild((b) => b
+          ..successAddQuote = false
+          ..isLoading = false
+          ..error = 'Something went wrong');
       }
     }
   }

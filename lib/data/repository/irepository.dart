@@ -34,6 +34,10 @@ abstract class IRepository {
   Future<UserModel> register(String name,String username, String email, String password,String tele,String gender,String country_code);
   Future<BaseBook> getAllBookNextPage(int page);
   Future<BookByCategoryModel> getBooksByCategory(int page, int categoryId);
+  Future<BookByCategoryModel> getSectionByBook(int withBooks, int sectionId,);
   Future<bool> getIsLogin();
   Future<void> saveUser(UserData user);
+  Future<bool> addReview(String text,int rating,int bookId);
+  Future<bool> addQuote(String text,int bookId);
+
 }

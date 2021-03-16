@@ -16,7 +16,7 @@ abstract class IHttpHelper {
   Future<UserModel> login(String userName, String password);
   Future<bool> forgetPassword(String email);
   Future<bool> updatePassword(String password, String token);
-  Future<Quote> getTodayQuote(String language);
+  Future<Quote> getTodayQuotes(String language);
   Future<BuiltList<Quote>> getQuotesByBook(int bookId,String language);
   Future<Review> getTodayReview(String language);
   Future<BuiltList<Review>> getReviewByBook(int bookId,String language);
@@ -24,11 +24,14 @@ abstract class IHttpHelper {
   Future<BuiltList<Book>> getAllBooks(String language);
   Future<BuiltList<Book>> getLatestBooks(String language);
   Future<BuiltList<Book>> getMostReviewedBooks(String language);
-  Future<BuiltList<Book>> getFeaturedBooks(String token, String language);
+  Future<BuiltList<Book>> getFeaturedBooks(String token,String language);
   Future<UserModel> register(String name,String username, String email, String password,String tele,String gender,String countryCode);
   Future<bool> insertCategories(List<int> categories, String token);
-  Future<BaseBook> getAllBookNextPage(int page, String language);
-  Future<BookByCategoryModel> getBooksByCategory(int page, int categoryId, String language);
+  Future<BaseBook> getAllBookNextPage(int page,String language);
+  Future<BookByCategoryModel> getBooksByCategory(int page, int categoryId,String language);
+  Future<BookByCategoryModel> getSectionByBook(int withBooks, int sectionId,String language);
   Future<BuiltList<Author>> getAllAuthor(String language);
-  Future<BuiltList<Book>> getBooksForAuthor(int id, String language);
+  Future<BuiltList<Book>> getBooksForAuthor(int id,String language);
+  Future<bool> addReview(String text,int rating,int bookId,String token);
+  Future<bool> addQuote(String text,int bookId,String token);
 }

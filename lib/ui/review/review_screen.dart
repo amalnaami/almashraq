@@ -57,7 +57,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                       child: appButton(
                         context: context,
                         onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => AddReviewScreen(),
+                          builder: (context) => AddReviewScreen(bookid: widget.bookid,),
                         )),
                         text: AppLocalizations.of(context).translate('add review'),
                       ),
