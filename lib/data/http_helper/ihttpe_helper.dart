@@ -41,5 +41,7 @@ abstract class IHttpHelper {
   Future<ProfileModel> getUserProfile(String token,String language);
   Future<ReviewQuoteUserModel> getUserReviews(String token,String language);
   Future<ReviewQuoteUserModel> getUserQuote(String token,String language);
+  Future<bool> addToFavorite(String token, int bookId);
+  Future<bool> removeFromFavorite(String token, int bookId);
 
 }

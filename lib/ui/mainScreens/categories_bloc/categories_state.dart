@@ -1,12 +1,8 @@
 library categories_state;
 
 import 'package:built_value/built_value.dart';
-import 'package:maktabeh_app/model/author/author.dart';
-import 'package:maktabeh_app/model/book/book.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:maktabeh_app/model/category/category.dart';
-import 'package:maktabeh_app/model/quote/quote.dart';
-import 'package:maktabeh_app/model/review/review.dart';
 
 part 'categories_state.g.dart';
 

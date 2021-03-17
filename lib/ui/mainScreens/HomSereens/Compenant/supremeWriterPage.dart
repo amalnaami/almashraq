@@ -8,7 +8,6 @@ import 'package:maktabeh_app/ui/common_widget/outhorCard.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:maktabeh_app/ui/mainScreens/HomSereens/all_auther_screen.dart';
 
-import '../../OuthorsScreen.dart';
 
 class SupremeWriterPage extends StatefulWidget {
   final BuiltList<Author> authors;

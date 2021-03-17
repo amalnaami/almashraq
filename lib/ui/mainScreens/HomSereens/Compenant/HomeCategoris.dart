@@ -8,7 +8,6 @@ import 'package:maktabeh_app/model/category/category.dart';
 import 'package:maktabeh_app/ui/all_categories/all_categories.dart';
 import 'package:maktabeh_app/ui/common_widget/CategorisCard.dart';
 
-import '../../categorisScreen.dart';
 
 class HomeCategoris extends StatefulWidget {
   final BuiltList<Category> categories;

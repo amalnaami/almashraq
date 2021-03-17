@@ -30,7 +30,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       } catch (e) {
         yield state.rebuild((b) => b
           ..isLoading = false
-          ..error = 'Something went wrong');
+          ..error = '${e.toString()}');
       }
     }
     if (event is SignUp) {

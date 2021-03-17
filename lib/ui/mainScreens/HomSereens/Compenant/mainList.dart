@@ -7,7 +7,6 @@ import 'package:maktabeh_app/ui/book/all_books.dart';
 import 'package:maktabeh_app/ui/common_widget/BookCard.dart';
 import 'package:built_collection/built_collection.dart';
 
-import '../../moreBooksPage.dart';
 
 class MainList extends StatefulWidget {
   final String title;

@@ -3,7 +3,6 @@ library books_by_category_state;
 import 'package:built_value/built_value.dart';
 import 'package:maktabeh_app/model/book/book.dart';
 import 'package:built_collection/built_collection.dart';
-import 'package:maktabeh_app/model/book_by_category/book_by_category.dart';
 
 part 'books_by_category_state.g.dart';
 

@@ -7,7 +7,6 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:maktabeh_app/model/serializer/serializer.dart';
 import 'package:maktabeh_app/model/user/user.dart';
-import 'package:maktabeh_app/model/user/user_data.dart';
 part 'profile_model.g.dart';
 
 

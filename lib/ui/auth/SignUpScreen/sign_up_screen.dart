@@ -7,14 +7,13 @@ import 'package:maktabeh_app/core/config/navigatorHelper.dart';
 import 'package:maktabeh_app/core/loaderApp.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
 import 'package:maktabeh_app/injection.dart';
-import 'package:maktabeh_app/model/country_model/country_model.dart';
-import 'package:maktabeh_app/ui/auth/LoginScreen.dart';
 import 'package:maktabeh_app/ui/auth/SignUpScreen/sign_up_bloc/sign_up_bloc.dart';
 import 'package:maktabeh_app/ui/auth/SignUpScreen/sign_up_bloc/sign_up_state.dart';
 import 'package:maktabeh_app/ui/auth/SignUpScreen/sign_up_bloc/sign_up_event.dart';
 import 'package:maktabeh_app/ui/common_widget/app_button.dart';
 import 'package:maktabeh_app/ui/guide/guide_screen.dart';
-import '../compnent/CustomField2.dart';
+import 'package:maktabeh_app/ui/auth/compnent/CustomField2.dart';
+
 
 class SignupScreen extends StatefulWidget {
   // final CountryModel countryModel;

@@ -1,4 +1,5 @@
 class NetworkException implements Exception{
   String error;
-  NetworkException({this.error = "Something Went Wrong"});
+  int code;
+  NetworkException({this.error = "Something Went Wrong", this.code});
 }

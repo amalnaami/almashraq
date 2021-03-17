@@ -90,11 +90,11 @@ class HttpHelper implements IHttpHelper {
             specifiedType: FullType(UserModel));
         return ret;
       } else {
-        throw NetworkException();
+        throw NetworkException(code: response.statusCode);
       }
     } catch (e) {
       print(e.toString());
-      throw NetworkException();
+      throw NetworkException(error: e.toString());
     }
   }
 
@@ -740,5 +740,17 @@ class HttpHelper implements IHttpHelper {
       print('Error: ${e.toString()} \n');
       throw NetworkException();
     }
+  }
+
+  @override
+  Future<bool> addToFavorite(String token, int bookId) {
+    // TODO: implement addToFavorite
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> removeFromFavorite(String token, int bookId) {
+    // TODO: implement removeFromFavorite
+    throw UnimplementedError();
   }
 }
