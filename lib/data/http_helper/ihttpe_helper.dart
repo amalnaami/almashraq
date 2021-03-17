@@ -8,6 +8,8 @@ import 'package:maktabeh_app/model/login_model/login_model.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:maktabeh_app/model/quote/quote.dart';
 import 'package:maktabeh_app/model/review/review.dart';
+import 'package:maktabeh_app/model/review_quote_user_model/review_quote_user_model.dart';
+import 'package:maktabeh_app/model/user/profile_model.dart';
 import 'package:maktabeh_app/model/user/user_model.dart';
 
 abstract class IHttpHelper {
@@ -36,4 +38,8 @@ abstract class IHttpHelper {
   Future<bool> addQuote(String text,int bookId,String token);
   Future<BuiltList<Review>> getAllReviews(String language);
   Future<BuiltList<Quote>> getAllQuotes(String language);
+  Future<ProfileModel> getUserProfile(String token,String language);
+  Future<ReviewQuoteUserModel> getUserReviews(String token,String language);
+  Future<ReviewQuoteUserModel> getUserQuote(String token,String language);
+
 }

@@ -7,6 +7,8 @@ import 'package:built_collection/built_collection.dart';
 import 'package:maktabeh_app/model/country_model/country_model.dart';
 import 'package:maktabeh_app/model/quote/quote.dart';
 import 'package:maktabeh_app/model/review/review.dart';
+import 'package:maktabeh_app/model/review_quote_user_model/review_quote_user_model.dart';
+import 'package:maktabeh_app/model/user/profile_model.dart';
 import 'package:maktabeh_app/model/user/user_data.dart';
 import 'package:maktabeh_app/model/user/user_model.dart';
 
@@ -41,5 +43,7 @@ abstract class IRepository {
   Future<bool> addQuote(String text,int bookId);
   Future<BuiltList<Review>> getAllReviews();
   Future<BuiltList<Quote>> getAllQuotes();
-
+  Future<ProfileModel> getUserProfile();
+  Future<ReviewQuoteUserModel> getUserReviews();
+  Future<ReviewQuoteUserModel> getUserQuote();
 }

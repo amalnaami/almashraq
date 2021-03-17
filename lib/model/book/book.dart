@@ -7,6 +7,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:maktabeh_app/model/author/author.dart';
 import 'package:maktabeh_app/model/category/category.dart';
 import 'package:maktabeh_app/model/language/language.dart';
+import 'package:maktabeh_app/model/review_quote_user_model/link_data.dart';
 import 'package:maktabeh_app/model/serializer/serializer.dart';
 import 'package:maktabeh_app/model/translations/books_translation.dart';
 
@@ -52,6 +53,8 @@ abstract class Book implements Built<Book, BookBuilder> {
   String get created_at;
   @nullable
   String get updated_at;
+  @nullable
+  BuiltList<LinkData> get links;
 
   String getName(String languageCode) {
     return languageCode == 'ar' ? translations.ar.name : translations.en.name;

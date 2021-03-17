@@ -306,6 +306,7 @@ class _BookScreenState extends State<BookScreen> {
                         icon: 'assets/svg/star.svg',
                         widget: Container(),
                         onTab: () {
+                      print('widget.bookIdwidget.bookIdwidget.bookId ${widget.bookId}');
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => ReviewScreen(isLogin: state.isLogin,bookid: widget.bookId,),
                             ));},

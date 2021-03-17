@@ -37,6 +37,68 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
         yield state.rebuild((b) => b..error = "");
       }
     }
+    if (event is GetProfileData) {
+      try {
+        yield state.rebuild((b) => b
+          ..isLoading = true
+          ..error = ""
+          ..profileUser = null);
 
+        final date = await _repository.getUserProfile();
+        print('GetProfile Success data ${date}');
+        yield state.rebuild((b) => b
+          ..isLoading = false
+          ..error = ""
+          ..profileUser.replace(date));
+      } catch (e) {
+        print('GetProfile Error $e');
+        yield state.rebuild((b) => b
+          ..isLoading = false
+          ..error = "Something went wrong"
+          ..profileUser = null);
+      }
+    }
+    if (event is GetUserQuote) {
+      try {
+        yield state.rebuild((b) => b
+          ..isLoading = true
+          ..error = ""
+          ..quoteUser = null);
+
+        final date = await _repository.getUserQuote();
+        print('GetProfile Success data ${date}');
+        yield state.rebuild((b) => b
+          ..isLoading = false
+          ..error = ""
+          ..quoteUser.replace(date));
+      } catch (e) {
+        print('GetProfile Error $e');
+        yield state.rebuild((b) => b
+          ..isLoading = false
+          ..error = "Something went wrong"
+          ..quoteUser = null);
+      }
+    }
+    if (event is GetUserReview) {
+      try {
+        yield state.rebuild((b) => b
+          ..isLoading = true
+          ..error = ""
+          ..reviewUser = null);
+
+        final date = await _repository.getUserReviews();
+        print('GetProfile Success data ${date}');
+        yield state.rebuild((b) => b
+          ..isLoading = false
+          ..error = ""
+          ..reviewUser.replace(date));
+      } catch (e) {
+        print('GetProfile Error $e');
+        yield state.rebuild((b) => b
+          ..isLoading = false
+          ..error = "Something went wrong"
+          ..reviewUser = null);
+      }
+    }
   }
 }

@@ -15,11 +15,24 @@ class _$SettingState extends SettingState {
   final bool isLogin;
   @override
   final String error;
+  @override
+  final ProfileModel profileUser;
+  @override
+  final ReviewQuoteUserModel quoteUser;
+  @override
+  final ReviewQuoteUserModel reviewUser;
 
   factory _$SettingState([void Function(SettingStateBuilder) updates]) =>
       (new SettingStateBuilder()..update(updates)).build();
 
-  _$SettingState._({this.isLoading, this.lang, this.isLogin, this.error})
+  _$SettingState._(
+      {this.isLoading,
+      this.lang,
+      this.isLogin,
+      this.error,
+      this.profileUser,
+      this.quoteUser,
+      this.reviewUser})
       : super._() {
     if (isLoading == null) {
       throw new BuiltValueNullFieldError('SettingState', 'isLoading');
@@ -32,6 +45,15 @@ class _$SettingState extends SettingState {
     }
     if (error == null) {
       throw new BuiltValueNullFieldError('SettingState', 'error');
+    }
+    if (profileUser == null) {
+      throw new BuiltValueNullFieldError('SettingState', 'profileUser');
+    }
+    if (quoteUser == null) {
+      throw new BuiltValueNullFieldError('SettingState', 'quoteUser');
+    }
+    if (reviewUser == null) {
+      throw new BuiltValueNullFieldError('SettingState', 'reviewUser');
     }
   }
 
@@ -49,14 +71,24 @@ class _$SettingState extends SettingState {
         isLoading == other.isLoading &&
         lang == other.lang &&
         isLogin == other.isLogin &&
-        error == other.error;
+        error == other.error &&
+        profileUser == other.profileUser &&
+        quoteUser == other.quoteUser &&
+        reviewUser == other.reviewUser;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, isLoading.hashCode), lang.hashCode), isLogin.hashCode),
-        error.hashCode));
+        $jc(
+            $jc(
+                $jc(
+                    $jc($jc($jc(0, isLoading.hashCode), lang.hashCode),
+                        isLogin.hashCode),
+                    error.hashCode),
+                profileUser.hashCode),
+            quoteUser.hashCode),
+        reviewUser.hashCode));
   }
 
   @override
@@ -65,7 +97,10 @@ class _$SettingState extends SettingState {
           ..add('isLoading', isLoading)
           ..add('lang', lang)
           ..add('isLogin', isLogin)
-          ..add('error', error))
+          ..add('error', error)
+          ..add('profileUser', profileUser)
+          ..add('quoteUser', quoteUser)
+          ..add('reviewUser', reviewUser))
         .toString();
   }
 }
@@ -90,6 +125,24 @@ class SettingStateBuilder
   String get error => _$this._error;
   set error(String error) => _$this._error = error;
 
+  ProfileModelBuilder _profileUser;
+  ProfileModelBuilder get profileUser =>
+      _$this._profileUser ??= new ProfileModelBuilder();
+  set profileUser(ProfileModelBuilder profileUser) =>
+      _$this._profileUser = profileUser;
+
+  ReviewQuoteUserModelBuilder _quoteUser;
+  ReviewQuoteUserModelBuilder get quoteUser =>
+      _$this._quoteUser ??= new ReviewQuoteUserModelBuilder();
+  set quoteUser(ReviewQuoteUserModelBuilder quoteUser) =>
+      _$this._quoteUser = quoteUser;
+
+  ReviewQuoteUserModelBuilder _reviewUser;
+  ReviewQuoteUserModelBuilder get reviewUser =>
+      _$this._reviewUser ??= new ReviewQuoteUserModelBuilder();
+  set reviewUser(ReviewQuoteUserModelBuilder reviewUser) =>
+      _$this._reviewUser = reviewUser;
+
   SettingStateBuilder();
 
   SettingStateBuilder get _$this {
@@ -98,6 +151,9 @@ class SettingStateBuilder
       _lang = _$v.lang;
       _isLogin = _$v.isLogin;
       _error = _$v.error;
+      _profileUser = _$v.profileUser?.toBuilder();
+      _quoteUser = _$v.quoteUser?.toBuilder();
+      _reviewUser = _$v.reviewUser?.toBuilder();
       _$v = null;
     }
     return this;
@@ -118,9 +174,32 @@ class SettingStateBuilder
 
   @override
   _$SettingState build() {
-    final _$result = _$v ??
-        new _$SettingState._(
-            isLoading: isLoading, lang: lang, isLogin: isLogin, error: error);
+    _$SettingState _$result;
+    try {
+      _$result = _$v ??
+          new _$SettingState._(
+              isLoading: isLoading,
+              lang: lang,
+              isLogin: isLogin,
+              error: error,
+              profileUser: profileUser.build(),
+              quoteUser: quoteUser.build(),
+              reviewUser: reviewUser.build());
+    } catch (_) {
+      String _$failedField;
+      try {
+        _$failedField = 'profileUser';
+        profileUser.build();
+        _$failedField = 'quoteUser';
+        quoteUser.build();
+        _$failedField = 'reviewUser';
+        reviewUser.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'SettingState', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

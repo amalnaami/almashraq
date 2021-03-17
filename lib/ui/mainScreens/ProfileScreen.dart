@@ -31,6 +31,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     super.initState();
     _bloc.add(GetAppLanguage());
+    // _bloc.add(GetUserQuote());
+    // _bloc.add(GetUserReview());
+    _bloc.add(GetProfileData());
 
     _bloc.add(GetIsLogin());
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -60,15 +63,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   borderRadius: BorderRadius.circular(15),
                 ),
                 padding: EdgeInsets.all(10),
-                child:state.isLogin ? Row(
+                child:state.isLogin ?(state.profileUser!=null&&state.profileUser.data!=null)? Row(
                   children: [
                     Container(
                       height: 80,
                       width: 80,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(1000),
-                        child: Image.asset(
-                          "assets/image/3.jpg",
+                        child: Image.network(
+                          state.profileUser.data.image!=null?state.profileUser.data.image:"https://th.bing.com/th/id/OIP.BJLPreahM4_L0rTTUQAasQAAAA?pid=ImgDet&w=350&h=350&rs=1",
                           fit: BoxFit.fill,
                           height: double.infinity,
                           width: double.infinity,
@@ -84,11 +87,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
-                            AppLocalizations.of(context).translate('example name'),
+                            state.profileUser.data.username!=null?state.profileUser.data.username:"No Name",
                             style: regStyle,
                           ),
                           Text(
-                            "ao25332@gmail.com",
+                            state.profileUser.data.email!=null?state.profileUser.data.email:"No Email",
                             style: regStyle,
                           ),
                           Row(
@@ -100,7 +103,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 size: 18,
                               ),
                               Text(
-                                AppLocalizations.of(context).translate('Egypt'),
+                                state.profileUser.data.country!=null?state.profileUser.data.country:"No Country",
                                 style: regStyle.copyWith(
                                     color: Colors.grey, fontSize: 12),
                               ),
@@ -116,7 +119,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     )
                   ],
-                ):Center(child: Text('NO DATA FOR YOU'),),
+                ):Container():Center(child: Text('NO DATA FOR YOU'),),
               ),
               SizedBox(
                 height: 10,

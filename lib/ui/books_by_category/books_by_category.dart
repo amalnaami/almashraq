@@ -124,7 +124,7 @@ class _BooksByCategoryState extends State<BooksByCategory> {
                               childAspectRatio: 0.55,
                             ),
                             itemBuilder: (context, index) {
-                              return BookCard(book: state.allBooks[index],);
+                              return BookCard(book: state.allBooks[index],singleBookId: state.allBooks[index].id,);
                             }),
                       ],
                     )),

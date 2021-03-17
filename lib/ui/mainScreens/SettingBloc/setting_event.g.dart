@@ -334,4 +334,176 @@ class GetIsLoginBuilder implements Builder<GetIsLogin, GetIsLoginBuilder> {
   }
 }
 
+class _$GetProfileData extends GetProfileData {
+  factory _$GetProfileData([void Function(GetProfileDataBuilder) updates]) =>
+      (new GetProfileDataBuilder()..update(updates)).build();
+
+  _$GetProfileData._() : super._();
+
+  @override
+  GetProfileData rebuild(void Function(GetProfileDataBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GetProfileDataBuilder toBuilder() =>
+      new GetProfileDataBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GetProfileData;
+  }
+
+  @override
+  int get hashCode {
+    return 1051246104;
+  }
+
+  @override
+  String toString() {
+    return newBuiltValueToStringHelper('GetProfileData').toString();
+  }
+}
+
+class GetProfileDataBuilder
+    implements Builder<GetProfileData, GetProfileDataBuilder> {
+  _$GetProfileData _$v;
+
+  GetProfileDataBuilder();
+
+  @override
+  void replace(GetProfileData other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$GetProfileData;
+  }
+
+  @override
+  void update(void Function(GetProfileDataBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$GetProfileData build() {
+    final _$result = _$v ?? new _$GetProfileData._();
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GetUserQuote extends GetUserQuote {
+  factory _$GetUserQuote([void Function(GetUserQuoteBuilder) updates]) =>
+      (new GetUserQuoteBuilder()..update(updates)).build();
+
+  _$GetUserQuote._() : super._();
+
+  @override
+  GetUserQuote rebuild(void Function(GetUserQuoteBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GetUserQuoteBuilder toBuilder() => new GetUserQuoteBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GetUserQuote;
+  }
+
+  @override
+  int get hashCode {
+    return 359434673;
+  }
+
+  @override
+  String toString() {
+    return newBuiltValueToStringHelper('GetUserQuote').toString();
+  }
+}
+
+class GetUserQuoteBuilder
+    implements Builder<GetUserQuote, GetUserQuoteBuilder> {
+  _$GetUserQuote _$v;
+
+  GetUserQuoteBuilder();
+
+  @override
+  void replace(GetUserQuote other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$GetUserQuote;
+  }
+
+  @override
+  void update(void Function(GetUserQuoteBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$GetUserQuote build() {
+    final _$result = _$v ?? new _$GetUserQuote._();
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GetUserReview extends GetUserReview {
+  factory _$GetUserReview([void Function(GetUserReviewBuilder) updates]) =>
+      (new GetUserReviewBuilder()..update(updates)).build();
+
+  _$GetUserReview._() : super._();
+
+  @override
+  GetUserReview rebuild(void Function(GetUserReviewBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GetUserReviewBuilder toBuilder() => new GetUserReviewBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GetUserReview;
+  }
+
+  @override
+  int get hashCode {
+    return 259684550;
+  }
+
+  @override
+  String toString() {
+    return newBuiltValueToStringHelper('GetUserReview').toString();
+  }
+}
+
+class GetUserReviewBuilder
+    implements Builder<GetUserReview, GetUserReviewBuilder> {
+  _$GetUserReview _$v;
+
+  GetUserReviewBuilder();
+
+  @override
+  void replace(GetUserReview other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$GetUserReview;
+  }
+
+  @override
+  void update(void Function(GetUserReviewBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$GetUserReview build() {
+    final _$result = _$v ?? new _$GetUserReview._();
+    replace(_$result);
+    return _$result;
+  }
+}
+
 // ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

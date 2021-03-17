@@ -132,6 +132,13 @@ class _$BookSerializer implements StructuredSerializer<Book> {
         ..add(serializers.serialize(object.updated_at,
             specifiedType: const FullType(String)));
     }
+    if (object.links != null) {
+      result
+        ..add('links')
+        ..add(serializers.serialize(object.links,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(LinkData)])));
+    }
     return result;
   }
 
@@ -223,6 +230,12 @@ class _$BookSerializer implements StructuredSerializer<Book> {
           result.updated_at = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'links':
+          result.links.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(LinkData)]))
+              as BuiltList<Object>);
+          break;
       }
     }
 
@@ -269,6 +282,8 @@ class _$Book extends Book {
   final String created_at;
   @override
   final String updated_at;
+  @override
+  final BuiltList<LinkData> links;
 
   factory _$Book([void Function(BookBuilder) updates]) =>
       (new BookBuilder()..update(updates)).build();
@@ -292,7 +307,8 @@ class _$Book extends Book {
       this.editor,
       this.painter,
       this.created_at,
-      this.updated_at})
+      this.updated_at,
+      this.links})
       : super._();
 
   @override
@@ -324,7 +340,8 @@ class _$Book extends Book {
         editor == other.editor &&
         painter == other.painter &&
         created_at == other.created_at &&
-        updated_at == other.updated_at;
+        updated_at == other.updated_at &&
+        links == other.links;
   }
 
   @override
@@ -347,33 +364,26 @@ class _$Book extends Book {
                                                                 $jc(
                                                                     $jc(
                                                                         $jc(
-                                                                            $jc(
-                                                                                0,
-                                                                                id
-                                                                                    .hashCode),
-                                                                            section
-                                                                                .hashCode),
-                                                                        author
-                                                                            .hashCode),
-                                                                    image
-                                                                        .hashCode),
-                                                                book_type
-                                                                    .hashCode),
-                                                            reviews_count
-                                                                .hashCode),
-                                                        rate.hashCode),
-                                                    translations.hashCode),
-                                                pages_count.hashCode),
-                                            publish_year.hashCode),
-                                        size.hashCode),
-                                    isbn.hashCode),
-                                quotations_count.hashCode),
-                            keywords.hashCode),
-                        sub_title.hashCode),
-                    editor.hashCode),
-                painter.hashCode),
-            created_at.hashCode),
-        updated_at.hashCode));
+                                                                            $jc($jc(0, id.hashCode),
+                                                                                section.hashCode),
+                                                                            author.hashCode),
+                                                                        image.hashCode),
+                                                                    book_type.hashCode),
+                                                                reviews_count.hashCode),
+                                                            rate.hashCode),
+                                                        translations.hashCode),
+                                                    pages_count.hashCode),
+                                                publish_year.hashCode),
+                                            size.hashCode),
+                                        isbn.hashCode),
+                                    quotations_count.hashCode),
+                                keywords.hashCode),
+                            sub_title.hashCode),
+                        editor.hashCode),
+                    painter.hashCode),
+                created_at.hashCode),
+            updated_at.hashCode),
+        links.hashCode));
   }
 
   @override
@@ -397,7 +407,8 @@ class _$Book extends Book {
           ..add('editor', editor)
           ..add('painter', painter)
           ..add('created_at', created_at)
-          ..add('updated_at', updated_at))
+          ..add('updated_at', updated_at)
+          ..add('links', links))
         .toString();
   }
 }
@@ -485,6 +496,11 @@ class BookBuilder implements Builder<Book, BookBuilder> {
   String get updated_at => _$this._updated_at;
   set updated_at(String updated_at) => _$this._updated_at = updated_at;
 
+  ListBuilder<LinkData> _links;
+  ListBuilder<LinkData> get links =>
+      _$this._links ??= new ListBuilder<LinkData>();
+  set links(ListBuilder<LinkData> links) => _$this._links = links;
+
   BookBuilder();
 
   BookBuilder get _$this {
@@ -508,6 +524,7 @@ class BookBuilder implements Builder<Book, BookBuilder> {
       _painter = _$v.painter;
       _created_at = _$v.created_at;
       _updated_at = _$v.updated_at;
+      _links = _$v.links?.toBuilder();
       _$v = null;
     }
     return this;
@@ -550,7 +567,8 @@ class BookBuilder implements Builder<Book, BookBuilder> {
               editor: editor,
               painter: painter,
               created_at: created_at,
-              updated_at: updated_at);
+              updated_at: updated_at,
+              links: _links?.build());
     } catch (_) {
       String _$failedField;
       try {
@@ -561,6 +579,9 @@ class BookBuilder implements Builder<Book, BookBuilder> {
 
         _$failedField = 'translations';
         _translations?.build();
+
+        _$failedField = 'links';
+        _links?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'Book', _$failedField, e.toString());

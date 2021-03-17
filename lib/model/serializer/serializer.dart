@@ -16,11 +16,14 @@ import 'package:maktabeh_app/model/login_model/login_model.dart';
 import 'package:maktabeh_app/model/paginator/paginator.dart';
 import 'package:maktabeh_app/model/quote/quote.dart';
 import 'package:maktabeh_app/model/review/review.dart';
+import 'package:maktabeh_app/model/review_quote_user_model/link_data.dart';
+import 'package:maktabeh_app/model/review_quote_user_model/review_quote_user_model.dart';
 import 'package:maktabeh_app/model/translations/author_language.dart';
 import 'package:maktabeh_app/model/translations/author_translation.dart';
 import 'package:maktabeh_app/model/translations/books_data.dart';
 import 'package:maktabeh_app/model/translations/books_translation.dart';
 import 'package:maktabeh_app/model/translations/translations.dart';
+import 'package:maktabeh_app/model/user/profile_model.dart';
 import 'package:maktabeh_app/model/user/token.dart';
 import 'package:maktabeh_app/model/user/user.dart';
 import 'package:maktabeh_app/model/user/user_data.dart';
@@ -52,6 +55,9 @@ part 'serializer.g.dart';
   BaseBook,
   BookByCategoryModel,
   Token,
+  ProfileModel,
+  ReviewQuoteUserModel,
+  LinkData
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..addPlugin(StandardJsonPlugin())
@@ -95,6 +101,22 @@ final Serializers serializers = (_$serializers.toBuilder()
             ],
           )),
               () => ListBuilder<UserModel>())
+      ..addBuilderFactory(
+          (FullType(
+            BuiltList,
+            [
+              const FullType(ProfileModel),
+            ],
+          )),
+              () => ListBuilder<ProfileModel>())
+      ..addBuilderFactory(
+          (FullType(
+            BuiltList,
+            [
+              const FullType(ReviewQuoteUserModel),
+            ],
+          )),
+              () => ListBuilder<ReviewQuoteUserModel>())
 
       ..addBuilderFactory(
           (FullType(

@@ -48,3 +48,33 @@ abstract class GetIsLogin extends SettingEvent
 
   factory GetIsLogin([updates(GetIsLoginBuilder b)]) = _$GetIsLogin;
 }
+
+abstract class GetProfileData extends SettingEvent
+    implements Built<GetProfileData, GetProfileDataBuilder> {
+  // fields go here
+
+  GetProfileData._();
+
+  factory GetProfileData([updates(GetProfileDataBuilder b)]) =
+  _$GetProfileData;
+}
+
+abstract class GetUserQuote extends SettingEvent
+    implements Built<GetUserQuote, GetUserQuoteBuilder> {
+  // fields go here
+
+  GetUserQuote._();
+
+  factory GetUserQuote([updates(GetUserQuoteBuilder b)]) =
+  _$GetUserQuote;
+}
+
+abstract class GetUserReview extends SettingEvent
+    implements Built<GetUserReview, GetUserReviewBuilder> {
+  // fields go here
+
+  GetUserReview._();
+
+  factory GetUserReview([updates(GetUserReviewBuilder b)]) =
+  _$GetUserReview;
+}

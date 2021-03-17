@@ -14,7 +14,9 @@ import 'package:maktabeh_app/model/country_model/country_model.dart';
 
 import 'package:maktabeh_app/model/quote/quote.dart';
 import 'package:maktabeh_app/model/review/review.dart';
+import 'package:maktabeh_app/model/review_quote_user_model/review_quote_user_model.dart';
 import 'package:maktabeh_app/model/serializer/serializer.dart';
+import 'package:maktabeh_app/model/user/profile_model.dart';
 import 'package:maktabeh_app/model/user/user.dart';
 import 'package:maktabeh_app/model/user/user_model.dart';
 
@@ -577,8 +579,7 @@ class HttpHelper implements IHttpHelper {
   }
 
   @override
-  Future<bool> addReview(
-      String text, int rating, int bookId, String token) async {
+  Future<bool> addReview(String text, int rating, int bookId, String token) async {
     try {
       final formData = {
         'review': {'text': text, 'rating': rating}
@@ -601,7 +602,6 @@ class HttpHelper implements IHttpHelper {
       throw NetworkException();
     }
   }
-
   @override
   Future<BuiltList<Review>> getAllReviews(String language) async {
     try {
@@ -626,7 +626,6 @@ class HttpHelper implements IHttpHelper {
       throw NetworkException();
     }
   }
-
   @override
   Future<BuiltList<Quote>> getAllQuotes(String language) async {
     try {
@@ -651,4 +650,77 @@ class HttpHelper implements IHttpHelper {
       throw NetworkException();
     }
   }
+  @override
+  Future<ProfileModel> getUserProfile(String token,String language) async {
+    try {
+      final response = await _dio.get('user',
+          options: Options(headers: {"Authorization": token,"Accept-Language": language}));
+
+      if (response.statusCode == 200) {
+        final baseResponse = serializers.deserialize(json.decode(response.data),
+            specifiedType: FullType(
+              ProfileModel,
+            ));
+        if (baseResponse != null) {
+          return baseResponse;
+        } else {
+          throw NetworkException();
+        }
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print('Error: ${e.toString()} \n');
+      throw NetworkException();
+    }
+  }
+  @override
+  Future<ReviewQuoteUserModel> getUserReviews(String token,String language) async {
+    try {
+      final response = await _dio.get('user/reviews',
+          options: Options(headers: {"Authorization": token,"Accept-Language": language}));
+
+      if (response.statusCode == 200) {
+        final baseResponse = serializers.deserialize(json.decode(response.data),
+            specifiedType: FullType(
+              ReviewQuoteUserModel,
+            ));
+        if (baseResponse != null) {
+          return baseResponse;
+        } else {
+          throw NetworkException();
+        }
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print('Error: ${e.toString()} \n');
+      throw NetworkException();
+    }
+  }
+  @override
+  Future<ReviewQuoteUserModel> getUserQuote(String token,String language) async {
+    try {
+      final response = await _dio.get('user/quotes',
+          options: Options(headers: {"Authorization": token,"Accept-Language": language}));
+
+      if (response.statusCode == 200) {
+        final baseResponse = serializers.deserialize(json.decode(response.data),
+            specifiedType: FullType(
+              ReviewQuoteUserModel,
+            ));
+        if (baseResponse != null) {
+          return baseResponse;
+        } else {
+          throw NetworkException();
+        }
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print('Error: ${e.toString()} \n');
+      throw NetworkException();
+    }
+  }
+
 }

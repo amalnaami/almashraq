@@ -11,6 +11,8 @@ import 'package:maktabeh_app/model/country_model/country_model.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:maktabeh_app/model/quote/quote.dart';
 import 'package:maktabeh_app/model/review/review.dart';
+import 'package:maktabeh_app/model/review_quote_user_model/review_quote_user_model.dart';
+import 'package:maktabeh_app/model/user/profile_model.dart';
 import 'package:maktabeh_app/model/user/user_data.dart';
 import 'package:maktabeh_app/model/user/user_model.dart';
 import 'irepository.dart';
@@ -264,12 +266,12 @@ class Repository implements IRepository {
   Future<bool> addQuote(String text,int bookId) async {
 
     final token = await _iprefHelper.getToken();
-    return await _ihttpHelper.addQuote(text, bookId,token);
+    return await _ihttpHelper.addQuote(text, bookId,(await _iprefHelper.getToken()));
   }
   @override
   Future<bool> addReview(String text,int rating,int bookId) async {
     final token = await _iprefHelper.getToken();
-    return await _ihttpHelper.addReview(text, rating, bookId,token);
+    return await _ihttpHelper.addReview(text, rating, bookId,(await _iprefHelper.getToken()));
   }
 
   @override
@@ -280,6 +282,47 @@ class Repository implements IRepository {
   @override
   Future<BuiltList<Quote>> getAllQuotes() async {
     return await _ihttpHelper.getAllQuotes(await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
+
+  }
+
+  @override
+  Future<ProfileModel> getUserProfile() async{
+    var language;
+    final app_language = await _iprefHelper.getAppLanguage();
+    if (app_language == 1) {
+      language = 'en';
+    } else {
+      language = 'ar';
+    }
+    final token = await _iprefHelper.getToken();
+    return await _ihttpHelper.getUserProfile((await _iprefHelper.getToken()), language);
+  }
+
+  @override
+  Future<ReviewQuoteUserModel> getUserQuote() async{
+    var language;
+    final app_language = await _iprefHelper.getAppLanguage();
+    if (app_language == 1) {
+      language = 'en';
+    } else {
+      language = 'ar';
+    }
+    final token = await _iprefHelper.getToken();
+    return await _ihttpHelper.getUserQuote((await _iprefHelper.getToken()), language);
+  }
+
+  @override
+  Future<ReviewQuoteUserModel> getUserReviews() async{
+    var language;
+    final app_language = await _iprefHelper.getAppLanguage();
+    if (app_language == 1) {
+      language = 'en';
+    } else {
+      language = 'ar';
+    }
+    final token = await _iprefHelper.getToken();
+    return await _ihttpHelper.getUserReviews((await _iprefHelper.getToken()), language);
+
   }
 
 }
