@@ -24,4 +24,6 @@ class PushNotificationsManager {
       _initialized = true;
     }
   }
+
+  Future<String> getToken() async => _firebaseMessaging.getToken();
 }

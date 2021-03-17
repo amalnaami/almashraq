@@ -79,9 +79,9 @@ class HttpHelper implements IHttpHelper {
   }
 
   @override
-  Future<UserModel> login(String userName, String password) async {
+  Future<UserModel> login(String userName, String password, String firebaseToken) async {
     try {
-      final formData = {"username": userName, "password": password};
+      final formData = {"username": userName, "password": password, "device_token": firebaseToken};
       final response = await _dio.post('login', data: formData);
       print('login Response StatusCode ${response.statusCode}');
 
@@ -294,8 +294,15 @@ class HttpHelper implements IHttpHelper {
   }
 
   @override
-  Future<UserModel> register(String name, String username, String email,
-      String password, String tele, String gender, String country_code) async {
+  Future<UserModel> register(
+      String name,
+      String username,
+      String email,
+      String password,
+      String tele,
+      String gender,
+      String country_code,
+      String firebaseToken) async {
     try {
       print('register Response body ');
       final formData = {
@@ -305,7 +312,8 @@ class HttpHelper implements IHttpHelper {
         "password": password,
         "tele": tele,
         "gender": gender,
-        "country_code": country_code
+        "country_code": country_code,
+        "device_token": firebaseToken
       };
 
       final response = await _dio.post(
@@ -579,7 +587,8 @@ class HttpHelper implements IHttpHelper {
   }
 
   @override
-  Future<bool> addReview(String text, int rating, int bookId, String token) async {
+  Future<bool> addReview(
+      String text, int rating, int bookId, String token) async {
     try {
       final formData = {
         'review': {'text': text, 'rating': rating}
@@ -602,6 +611,7 @@ class HttpHelper implements IHttpHelper {
       throw NetworkException();
     }
   }
+
   @override
   Future<BuiltList<Review>> getAllReviews(String language) async {
     try {
@@ -626,6 +636,7 @@ class HttpHelper implements IHttpHelper {
       throw NetworkException();
     }
   }
+
   @override
   Future<BuiltList<Quote>> getAllQuotes(String language) async {
     try {
@@ -650,11 +661,13 @@ class HttpHelper implements IHttpHelper {
       throw NetworkException();
     }
   }
+
   @override
-  Future<ProfileModel> getUserProfile(String token,String language) async {
+  Future<ProfileModel> getUserProfile(String token, String language) async {
     try {
       final response = await _dio.get('user',
-          options: Options(headers: {"Authorization": token,"Accept-Language": language}));
+          options: Options(
+              headers: {"Authorization": token, "Accept-Language": language}));
 
       if (response.statusCode == 200) {
         final baseResponse = serializers.deserialize(json.decode(response.data),
@@ -674,11 +687,14 @@ class HttpHelper implements IHttpHelper {
       throw NetworkException();
     }
   }
+
   @override
-  Future<ReviewQuoteUserModel> getUserReviews(String token,String language) async {
+  Future<ReviewQuoteUserModel> getUserReviews(
+      String token, String language) async {
     try {
       final response = await _dio.get('user/reviews',
-          options: Options(headers: {"Authorization": token,"Accept-Language": language}));
+          options: Options(
+              headers: {"Authorization": token, "Accept-Language": language}));
 
       if (response.statusCode == 200) {
         final baseResponse = serializers.deserialize(json.decode(response.data),
@@ -698,11 +714,14 @@ class HttpHelper implements IHttpHelper {
       throw NetworkException();
     }
   }
+
   @override
-  Future<ReviewQuoteUserModel> getUserQuote(String token,String language) async {
+  Future<ReviewQuoteUserModel> getUserQuote(
+      String token, String language) async {
     try {
       final response = await _dio.get('user/quotes',
-          options: Options(headers: {"Authorization": token,"Accept-Language": language}));
+          options: Options(
+              headers: {"Authorization": token, "Accept-Language": language}));
 
       if (response.statusCode == 200) {
         final baseResponse = serializers.deserialize(json.decode(response.data),
@@ -722,5 +741,4 @@ class HttpHelper implements IHttpHelper {
       throw NetworkException();
     }
   }
-
 }

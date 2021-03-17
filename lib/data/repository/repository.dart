@@ -1,4 +1,5 @@
 
+import 'package:maktabeh_app/core/config/firebase_notifications.dart';
 import 'package:maktabeh_app/data/db_helper/idp_helper.dart';
 import 'package:maktabeh_app/data/http_helper/ihttpe_helper.dart';
 import 'package:maktabeh_app/data/prefs_helper/iprefs_helper.dart';
@@ -53,7 +54,7 @@ class Repository implements IRepository {
 
   @override
   Future<bool> login(String userName, String password) async {
-    final res = await _ihttpHelper.login(userName, password);
+    final res = await _ihttpHelper.login(userName, password, await PushNotificationsManager().getToken());
     await _iprefHelper.saveUser(res.data,true);
     return true;
   }
@@ -167,7 +168,7 @@ class Repository implements IRepository {
   }
   @override
   Future<UserModel> register(String name,String username, String email, String password,String tele,String gender,String countryCode)async {
-    final user = await _ihttpHelper.register(name, username, email, password, tele, gender, countryCode);
+    final user = await _ihttpHelper.register(name, username, email, password, tele, gender, countryCode, await PushNotificationsManager().getToken());
     // final save = await _iprefHelper.saveUser(user.data, user.token,false);
     await _iprefHelper.saveUser(user.data,true);
     return user;
