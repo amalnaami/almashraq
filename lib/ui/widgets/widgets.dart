@@ -87,6 +87,7 @@ class ReadMoreTextState extends State<ReadMoreText> {
         } else {
           return Text(
             widget.text,
+            softWrap: true,
             style: widget.style,
           );
         }

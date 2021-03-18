@@ -11,7 +11,8 @@ import 'package:built_collection/built_collection.dart';
 class MainList extends StatefulWidget {
   final String title;
   final BuiltList<Book> books;
-  const MainList({Key key, this.title, this.books}) : super(key: key);
+  final Widget goto;
+  const MainList({Key key, this.title, this.books, this.goto}) : super(key: key);
   @override
   _MainListState createState() => _MainListState();
 }
@@ -48,7 +49,7 @@ class _MainListState extends State<MainList> {
                   ],
                 ),
                 InkWell(
-                  onTap: () => push(context, AllBooksScreen()),
+                  onTap: () => push(context, widget.goto),
                   child: Text(
                     AppLocalizations.of(context).translate('see more'),
                     style: lightStyle.copyWith(fontSize: 10),

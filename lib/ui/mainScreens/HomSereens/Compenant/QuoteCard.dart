@@ -22,15 +22,7 @@ class QuoteCard extends StatelessWidget {
       ),
       margin: EdgeInsets.all(8),
       child: Container(
-        //height: MediaQuery.of(context).size.height * 0.2,
-        width: 500,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(color: Colors.grey[300], blurRadius: 3, spreadRadius: 2),
-          ],
           color: Colors.white,
-        ),
         padding: EdgeInsets.all(10),
         child: Row(
           children: [
@@ -49,17 +41,21 @@ class QuoteCard extends StatelessWidget {
             Expanded(
               //flex: 8,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ReadMoreText(
-                    "\"${quote.quotation_text}\"",
-                    trimLines: 1,
-                    textDirection:
-                        AppLocalizations.of(context).locale.languageCode == 'ar'
-                            ? TextDirection.ltr
-                            : TextDirection.rtl,
-                    style: regStyle.copyWith(color: Colors.black),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: ReadMoreText(
+                      "\"${quote.quotation_text}\"",
+                      trimLines: 1,
+                      textDirection:
+                          AppLocalizations.of(context).locale.languageCode == 'ar'
+                              ? TextDirection.ltr
+                              : TextDirection.rtl,
+                      style: regStyle.copyWith(color: Colors.black),
+                    ),
                   ),
+                  SizedBox(height: 8,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -77,6 +73,7 @@ class QuoteCard extends StatelessWidget {
                           style: regStyle.copyWith(fontSize: 12),
                         ),
                       ),
+                      SizedBox(width: 8,),
                       SvgPicture.asset(
                         "assets/svg/Broken-Profile.svg",
                         height: 15,
@@ -92,9 +89,9 @@ class QuoteCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 4),
+                  SizedBox(height: 8),
                   SoshialBar(quote.quotation_text),
-                  SizedBox(height: 4),
+                  //SizedBox(height: 4),
                   // if (title == "الاقتباسات" || title == 'quotes')
                   //   Text(
                   //     AppLocalizations.of(context)

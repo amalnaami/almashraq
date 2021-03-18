@@ -124,6 +124,7 @@ class _ReviewTodayState extends State<ReviewToday> {
                             ? TextDirection.ltr
                             : TextDirection.rtl,
                       ),
+                      SizedBox(height: 4,),
                       Row(
                         children: [
                           ImageIcon(

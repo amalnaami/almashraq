@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:maktabeh_app/core/app_localizations.dart';
-import 'package:maktabeh_app/core/config/navigatorHelper.dart';
 import 'package:maktabeh_app/core/loaderApp.dart';
 import 'package:maktabeh_app/core/size_config.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
@@ -14,7 +13,6 @@ import 'package:maktabeh_app/ui/mainScreens/drawer/drawerPages/add_rate_screen.d
 import 'package:maktabeh_app/ui/mainScreens/drawer/rate_bloc/rate_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/drawer/rate_bloc/rate_event.dart';
 import 'package:maktabeh_app/ui/mainScreens/drawer/rate_bloc/rate_state.dart';
-import 'package:maktabeh_app/ui/review/add_review_screen.dart';
 
 class RateAppScreen extends StatefulWidget {
   @override

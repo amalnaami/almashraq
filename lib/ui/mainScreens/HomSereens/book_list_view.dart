@@ -2,67 +2,38 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:maktabeh_app/core/app_localizations.dart';
 import 'package:maktabeh_app/core/loaderApp.dart';
 import 'package:maktabeh_app/core/size_config.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
 import 'package:maktabeh_app/injection.dart';
+import 'package:maktabeh_app/model/book/book.dart';
 import 'package:maktabeh_app/ui/book/all_books_screen_bloc/all_books_bloc.dart';
 import 'package:maktabeh_app/ui/book/all_books_screen_bloc/all_books_event.dart';
-import 'package:maktabeh_app/ui/book/book_screen.dart';
 import 'package:maktabeh_app/ui/common_widget/BookCard.dart';
 import 'package:maktabeh_app/ui/common_widget/CustomAlert.dart';
 import 'package:maktabeh_app/ui/common_widget/app_bar.dart';
-import 'package:maktabeh_app/ui/common_widget/app_button.dart';
 import 'package:maktabeh_app/ui/common_widget/local_image.dart';
-import 'package:maktabeh_app/ui/common_widget/rate_stars.dart';
+import 'package:built_collection/built_collection.dart';
 
-import 'all_books_screen_bloc/all_books_state.dart';
-
-class AllBooksScreen extends StatefulWidget {
+class BookListView extends StatefulWidget {
   final String title;
-  const AllBooksScreen(this.title);
+  final BuiltList<Book> books;
+  const BookListView(this.title, this.books);
   @override
-  _AllBooksScreenState createState() => _AllBooksScreenState();
+  _BookListViewState createState() => _BookListViewState();
 }
 
-class _AllBooksScreenState extends State<AllBooksScreen> {
-  final _bloc = sl<AllBooksBloc>();
-  ScrollController controller = ScrollController();
-  @override
-  void initState() {
-    _bloc.add(GetNextPage());
-    controller.addListener(() {
-      if (controller.position.atEdge) {
-        if (controller.position.pixels ==
-            controller.position.maxScrollExtent) {
-          print('Geting next');
-          _bloc.add(GetNextPage());
-        }
-      }
-    });
-    super.initState();
-  }
-  @override
-  void dispose() {
-    super.dispose();
-    _bloc.close();
-  }
+class _BookListViewState extends State<BookListView>{
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
 
-    return BlocBuilder(
-      cubit: _bloc,
-      builder: (BuildContext context, AllBooksState state) {
-        error(state.error);
-        return SafeArea(
+    return SafeArea(
           child: Scaffold(
             appBar: app_bar(widget.title, context),
             body: Stack(
               children: [
                 SingleChildScrollView(
-                  controller: controller,
                     child: Column(
                       children: [
                         Padding(
@@ -116,36 +87,21 @@ class _AllBooksScreenState extends State<AllBooksScreen> {
                         GridView.builder(
                             physics: NeverScrollableScrollPhysics(),
                             padding: EdgeInsets.all(SizeConfig.blockSizeHorizontal * 4),
-                            itemCount: state.allBooks.length,
+                            itemCount: widget.books.length,
                             shrinkWrap: true,
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 3,
                               childAspectRatio: 0.55,
                             ),
                             itemBuilder: (context, index) {
-                              return BookCard(book: state.allBooks[index],);
+                              return BookCard(book: widget.books[index],);
                             }),
                       ],
                     )),
-                if(state.isLoading)
-                  loaderApp,
               ],
             ),
           ),
         );
-      },
-    );
-  }
-  void error(String errorCode) {
-    if (errorCode.isNotEmpty) {
-      Fluttertoast.showToast(
-          msg: (errorCode),
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          backgroundColor: primaryColor,
-          textColor: Colors.white,
-          fontSize: 16.0);
-      _bloc.add(ClearState());
-    }
+
   }
 }

@@ -71,12 +71,18 @@ class _FavPageState extends State<FavPage> {
                       childAspectRatio: 1 / 0.6,
                       children: List.generate(
                         state.books.length,
-                            (index) {
+                        (index) {
                           return InkWell(
-                            onTap: () =>
-                                push(context, BookScreen(
-                                  singleBook: state.books[index],
-                                  bookId: state.books[index].id,)),
+                            onTap: () async {
+                              await Navigator.of(context)
+                                  .push(MaterialPageRoute(
+                                      builder: (_) => BookScreen(
+                                            singleBook: state.books[index],
+                                            bookId: state.books[index].id,
+                                          )));
+                              _bloc.add(ClearState());
+                              _bloc.add(GetFavorites());
+                            },
                             child: Card(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
@@ -102,8 +108,8 @@ class _FavPageState extends State<FavPage> {
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: ClipRRect(
-                                              borderRadius: BorderRadius
-                                                  .circular(10),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
                                               child: Image.network(
                                                 state.books[index].image,
                                                 height: double.infinity,
@@ -116,18 +122,17 @@ class _FavPageState extends State<FavPage> {
                                         Expanded(
                                           flex: 4,
                                           child: Container(
-                                            margin:
-                                            EdgeInsets.symmetric(
+                                            margin: EdgeInsets.symmetric(
                                                 horizontal: 10),
                                             child: Column(
                                               mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                                  MainAxisAlignment.spaceEvenly,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Row(
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
+                                                      CrossAxisAlignment.end,
                                                   children: [
                                                     SvgPicture.asset(
                                                       "assets/svg/book.svg",
@@ -136,8 +141,8 @@ class _FavPageState extends State<FavPage> {
                                                     SizedBox(width: 5),
                                                     Text(
                                                       AppLocalizations.of(
-                                                          context).translate(
-                                                          "book"),
+                                                              context)
+                                                          .translate("book"),
                                                       style: regStyle.copyWith(
                                                           fontSize: 12),
                                                     ),
@@ -145,15 +150,15 @@ class _FavPageState extends State<FavPage> {
                                                 ),
                                                 Text(
                                                   state.books[index].getName(
-                                                      AppLocalizations
-                                                          .of(context)
+                                                      AppLocalizations.of(
+                                                              context)
                                                           .locale
                                                           .languageCode),
                                                   style: boldStyle,
                                                 ),
                                                 Row(
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
+                                                      CrossAxisAlignment.end,
                                                   children: [
                                                     ImageIcon(
                                                       AssetImage(
@@ -161,20 +166,23 @@ class _FavPageState extends State<FavPage> {
                                                       color: primaryColor,
                                                       size: 15,
                                                     ),
-                                                    Text(AppLocalizations.of(
-                                                        context).translate(
-                                                        'author'),
-                                                        style: regStyle
-                                                            .copyWith(
-                                                            fontSize: 12)),
+                                                    Text(
+                                                        AppLocalizations.of(
+                                                                context)
+                                                            .translate(
+                                                                'author'),
+                                                        style:
+                                                            regStyle.copyWith(
+                                                                fontSize: 12)),
                                                   ],
                                                 ),
                                                 Text(
                                                   state.books[index].author
-                                                      .getName(AppLocalizations
-                                                      .of(context)
-                                                      .locale
-                                                      .languageCode),
+                                                      .getName(
+                                                          AppLocalizations.of(
+                                                                  context)
+                                                              .locale
+                                                              .languageCode),
                                                   style: boldStyle,
                                                 ),
                                               ],
@@ -204,8 +212,7 @@ class _FavPageState extends State<FavPage> {
                   ),
                 ],
               ),
-              if(state.isLoading)
-                loaderApp
+              if (state.isLoading) loaderApp
             ],
           ),
         );

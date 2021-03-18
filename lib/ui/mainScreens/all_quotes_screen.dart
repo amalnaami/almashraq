@@ -44,7 +44,6 @@ class _AllQuoteState extends State<AllQuote> {
                   ),
                   Expanded(
                     child: ListView.builder(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
                       itemCount: state.quotes.length,
                       itemBuilder: (context, index) {
                         return QuoteCard(title: 'quotes', quote: state.quotes[index],);

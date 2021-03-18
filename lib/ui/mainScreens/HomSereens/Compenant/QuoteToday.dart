@@ -37,7 +37,7 @@ class _QuoteTodayState extends State<QuoteToday> {
                     margin: const EdgeInsets.symmetric(horizontal: 5),
                   ),
                   Text(
-                    AppLocalizations.of(context).translate('today review'),
+                    AppLocalizations.of(context).translate('today quotes'),
                     style: boldStyle,
                   ),
                 ],
