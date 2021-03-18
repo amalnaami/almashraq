@@ -3,6 +3,8 @@ library serializer;
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
+import 'package:maktabeh_app/model/about_us/about_us.dart';
+import 'package:maktabeh_app/model/app_rate/app_rate.dart';
 import 'package:maktabeh_app/model/author/author.dart';
 import 'package:maktabeh_app/model/book/base_book.dart';
 import 'package:maktabeh_app/model/book/book.dart';
@@ -15,9 +17,12 @@ import 'package:maktabeh_app/model/language/language.dart';
 import 'package:maktabeh_app/model/login_model/login_model.dart';
 import 'package:maktabeh_app/model/paginator/paginator.dart';
 import 'package:maktabeh_app/model/quote/quote.dart';
+import 'package:maktabeh_app/model/rate/rate.dart';
 import 'package:maktabeh_app/model/review/review.dart';
 import 'package:maktabeh_app/model/review_quote_user_model/link_data.dart';
 import 'package:maktabeh_app/model/review_quote_user_model/review_quote_user_model.dart';
+import 'package:maktabeh_app/model/translations/about_us_language.dart';
+import 'package:maktabeh_app/model/translations/about_us_translation.dart';
 import 'package:maktabeh_app/model/translations/author_language.dart';
 import 'package:maktabeh_app/model/translations/author_translation.dart';
 import 'package:maktabeh_app/model/translations/books_data.dart';
@@ -57,7 +62,12 @@ part 'serializer.g.dart';
   Token,
   ProfileModel,
   ReviewQuoteUserModel,
-  LinkData
+  LinkData,
+  AboutUs,
+  AboutUsLanguage,
+  AboutUsTranslation,
+  AppRate,
+  Rate
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..addPlugin(StandardJsonPlugin())
@@ -143,4 +153,12 @@ final Serializers serializers = (_$serializers.toBuilder()
         ],
       )),
           () => ListBuilder<Quote>())
+  ..addBuilderFactory(
+      (FullType(
+        BuiltList,
+        [
+          const FullType(Rate),
+        ],
+      )),
+          () => ListBuilder<Rate>())
     ).build();

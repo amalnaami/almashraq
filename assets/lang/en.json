@@ -169,6 +169,12 @@
   "about almashreq library": "about almashreq library",
   "books": "books",
   "adding successfully": "adding successfully",
-  "NO DATA FOR YOU": "NO DATA FOR YOU"
+  "NO DATA FOR YOU": "NO DATA FOR YOU",
+  "name can not be empty": "name can not be empty",
+  "message can not be empty": "message can not be empty",
+  "Thank you for your message": "Thank you for your message",
+  "ratting": "ratting",
+  "add rate": "add rate",
+  "All rates": "All rates"
 
 }

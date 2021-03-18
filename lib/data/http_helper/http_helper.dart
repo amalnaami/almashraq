@@ -4,6 +4,8 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 import 'package:maktabeh_app/core/error.dart';
+import 'package:maktabeh_app/model/about_us/about_us.dart';
+import 'package:maktabeh_app/model/app_rate/app_rate.dart';
 import 'package:maktabeh_app/model/author/author.dart';
 import 'package:maktabeh_app/model/book/base_book.dart';
 import 'package:maktabeh_app/model/book/book.dart';
@@ -79,9 +81,14 @@ class HttpHelper implements IHttpHelper {
   }
 
   @override
-  Future<UserModel> login(String userName, String password, String firebaseToken) async {
+  Future<UserModel> login(
+      String userName, String password, String firebaseToken) async {
     try {
-      final formData = {"username": userName, "password": password, "device_token": firebaseToken};
+      final formData = {
+        "username": userName,
+        "password": password,
+        "device_token": firebaseToken
+      };
       final response = await _dio.post('login', data: formData);
       print('login Response StatusCode ${response.statusCode}');
 
@@ -743,14 +750,167 @@ class HttpHelper implements IHttpHelper {
   }
 
   @override
-  Future<bool> addToFavorite(String token, int bookId) {
-    // TODO: implement addToFavorite
-    throw UnimplementedError();
+  Future<bool> addToFavorite(String token, int bookId, String language) async {
+    try {
+      final response = await _dio.post('user/books',
+          data: {'book_id': bookId},
+          options: Options(headers: {
+            "Authorization": 'Bearer $token',
+            "Accept-Language": language
+          }));
+
+      if (response.statusCode == 201) {
+        return true;
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print('Error: ${e.toString()} \n');
+      throw NetworkException();
+    }
   }
 
   @override
-  Future<bool> removeFromFavorite(String token, int bookId) {
-    // TODO: implement removeFromFavorite
-    throw UnimplementedError();
+  Future<bool> removeFromFavorite(
+      String token, int bookId, String language) async {
+    try {
+      final response = await _dio.delete('user/books/$bookId',
+          options: Options(headers: {
+            "Authorization": 'Bearer $token',
+            "Accept-Language": language
+          }));
+
+      if (response.statusCode == 204) {
+        return true;
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print('Error: ${e.toString()} \n');
+      throw NetworkException();
+    }
+  }
+
+  @override
+  Future<AboutUs> getAboutUs(String language) async {
+    try {
+      final response = await _dio.get('about',
+          options: Options(headers: {"Accept-Language": language}));
+
+      if (response.statusCode == 200) {
+        final baseResponse = serializers.deserialize(json.decode(response.data)['data'],
+            specifiedType: FullType(
+              AboutUs,
+            ));
+        print(baseResponse);
+        if (baseResponse != null) {
+          return baseResponse;
+        } else {
+          throw NetworkException();
+        }
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print('Error: ${e.toString()} \n');
+      throw NetworkException();
+    }
+  }
+
+  @override
+  Future<bool> contactUs(String name, String email, String message) async {
+    try {
+      final formData = {
+        'contact': {'name': name, 'email': email, 'message': message}
+      };
+      final response = await _dio.post('contact_us', data: formData);
+
+      if (response.statusCode == 201) {
+        return true;
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print('Error: ${e.toString()} \n');
+      throw NetworkException();
+    }
+  }
+
+  @override
+  Future<BuiltList<Book>> getFavorite(String token, String language) async {
+    try {
+      final response = await _dio.get('user/books',
+          options: Options(headers: {
+            "Authorization": 'Bearer $token',
+            "Accept-Language": language
+          }));
+      print('getFavorite Response StatusCode ${response.statusCode}');
+      if (response.statusCode == 200) {
+        print('getFavorite Response body  ${response.data}');
+
+        final ret = serializers.deserialize(json.decode(response.data)['data'],
+            specifiedType: FullType(
+              BuiltList,
+              [
+                const FullType(Book),
+              ],
+            ));
+        return ret;
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException();
+    }
+  }
+
+  @override
+  Future<AppRate> getAppRate() async {
+    try {
+      final response = await _dio.get('rate_app');
+      print('getAppRate Response StatusCode ${response.statusCode}');
+      if (response.statusCode == 200) {
+        print('getAppRate Response body  ${response.data}');
+
+        final ret = serializers.deserialize(json.decode(response.data)['data'],
+            specifiedType: FullType(
+              AppRate,
+              [
+                const FullType(AppRate),
+              ],
+            ));
+        return ret;
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException();
+    }
+  }
+
+  @override
+  Future<bool> rateTheApp(String token, int rate, String note) async {
+    try {
+      final formData = {
+        'app_rate': {
+          'rate': rate,
+          'note': note,
+        }
+      };
+      final response = await _dio.post('rate_app',
+          data: formData,
+          options: Options(headers: {"Authorization": 'Bearer $token'}));
+      print('rateTheApp Response StatusCode ${response.statusCode}');
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException();
+    }
   }
 }

@@ -1,3 +1,5 @@
+import 'package:maktabeh_app/model/about_us/about_us.dart';
+import 'package:maktabeh_app/model/app_rate/app_rate.dart';
 import 'package:maktabeh_app/model/author/author.dart';
 import 'package:maktabeh_app/model/book/base_book.dart';
 import 'package:maktabeh_app/model/book/book.dart';
@@ -16,34 +18,80 @@ abstract class IRepository {
   Future<int> getAppLanguage();
 
   Future<void> setAppLanguage(int value);
+
   Future<BuiltList<Category>> getCategories();
+
   Future<BuiltList<CountryModel>> getCountries();
+
   Future<bool> login(String userName, String password);
+
   Future<bool> forgetPassword(String email);
+
   Future<bool> updatePassword(String password);
+
   Future<bool> insertCategories(List<int> categories);
+
   Future<Quote> getTodayQuotes();
+
   Future<BuiltList<Quote>> getQuotesByBook(int bookId);
+
   Future<Review> getTodayReview();
+
   Future<BuiltList<Review>> getReviewByBook(int bookId);
+
   Future<BuiltList<Author>> getFamousAuthors();
+
   Future<BuiltList<Author>> getAllAuthor();
+
   Future<BuiltList<Book>> getAllBooks();
+
   Future<BuiltList<Book>> getBooksForAuthor(int id);
+
   Future<BuiltList<Book>> getLatestBooks();
+
   Future<BuiltList<Book>> getMostReviewedBooks();
+
   Future<BuiltList<Book>> getFeaturedBooks();
-  Future<UserModel> register(String name,String username, String email, String password,String tele,String gender,String country_code);
+
+  Future<UserModel> register(String name, String username, String email,
+      String password, String tele, String gender, String country_code);
+
   Future<BaseBook> getAllBookNextPage(int page);
+
   Future<BookByCategoryModel> getBooksByCategory(int page, int categoryId);
-  Future<BookByCategoryModel> getSectionByBook(int withBooks, int sectionId,);
+
+  Future<BookByCategoryModel> getSectionByBook(
+    int withBooks,
+    int sectionId,
+  );
+
   Future<bool> getIsLogin();
+
   Future<void> saveUser(UserData user);
-  Future<bool> addReview(String text,int rating,int bookId);
-  Future<bool> addQuote(String text,int bookId);
+
+  Future<bool> addReview(String text, int rating, int bookId);
+
+  Future<bool> addQuote(String text, int bookId);
+
   Future<BuiltList<Review>> getAllReviews();
+
   Future<BuiltList<Quote>> getAllQuotes();
+
   Future<ProfileModel> getUserProfile();
+
   Future<ReviewQuoteUserModel> getUserReviews();
+
   Future<ReviewQuoteUserModel> getUserQuote();
+
+  Future<bool> addToFavorite(int bookId);
+
+  Future<bool> removeFromFavorite(int bookId);
+
+  Future<AboutUs> getAboutUs();
+
+  Future<bool> contactUs(String name, String email, String message);
+
+  Future<BuiltList<Book>> getFavorite();
+  Future<AppRate> getAppRate();
+  Future<bool> rateTheApp(int rate, String note);
 }

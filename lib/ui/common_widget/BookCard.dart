@@ -19,7 +19,7 @@ class _BookCardState extends State<BookCard> {
   Widget build(BuildContext context) {
     return InkWell(
       ///TO DO
-      onTap: () => push(context, BookScreen(singleBook: widget.book,bookId: widget.singleBookId,author: widget.book.author,)),
+      onTap: () => push(context, BookScreen(singleBook: widget.book,bookId: widget.book.id,author: widget.book.author,)),
       child: Container(
         margin: EdgeInsets.all(5),
         width: MediaQuery.of(context).size.width / 3.2,

@@ -1,3 +1,5 @@
+import 'package:maktabeh_app/model/about_us/about_us.dart';
+import 'package:maktabeh_app/model/app_rate/app_rate.dart';
 import 'package:maktabeh_app/model/author/author.dart';
 import 'package:maktabeh_app/model/book/base_book.dart';
 import 'package:maktabeh_app/model/book/book.dart';
@@ -41,7 +43,12 @@ abstract class IHttpHelper {
   Future<ProfileModel> getUserProfile(String token,String language);
   Future<ReviewQuoteUserModel> getUserReviews(String token,String language);
   Future<ReviewQuoteUserModel> getUserQuote(String token,String language);
-  Future<bool> addToFavorite(String token, int bookId);
-  Future<bool> removeFromFavorite(String token, int bookId);
+  Future<bool> addToFavorite(String token, int bookId, String language);
+  Future<bool> removeFromFavorite(String token, int bookId, String language);
+  Future<AboutUs> getAboutUs(String language);
+  Future<bool> contactUs(String name, String email, String message);
+  Future<BuiltList<Book>> getFavorite(String token, String language);
+  Future<AppRate> getAppRate();
+  Future<bool> rateTheApp(String token, int rate, String note);
 
 }

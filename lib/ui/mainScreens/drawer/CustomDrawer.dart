@@ -2,31 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:maktabeh_app/core/app_localizations.dart';
 import 'package:maktabeh_app/core/config/navigatorHelper.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
-import 'package:maktabeh_app/ui/about_us/about_us_screen.dart';
 import 'package:maktabeh_app/ui/common_widget/listTileDrawer.dart';
 import 'package:maktabeh_app/ui/common_widget/local_image.dart';
-import 'package:maktabeh_app/ui/common_widget/networkImage.dart';
-import 'package:maktabeh_app/ui/contact_us/contact_us_screen.dart';
 import 'package:maktabeh_app/ui/mainScreens/allReviewsPage.dart';
 import 'package:maktabeh_app/ui/mainScreens/drawer/drawerPages/favPage.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:maktabeh_app/core/app_language.dart';
-import 'package:maktabeh_app/core/app_localizations.dart';
-import 'package:maktabeh_app/core/config/navigatorHelper.dart';
-import 'package:maktabeh_app/core/size_config.dart';
-import 'package:maktabeh_app/core/style/baseColors.dart';
 import 'package:maktabeh_app/injection.dart';
-import 'package:maktabeh_app/ui/common_widget/local_image.dart';
-import 'package:maktabeh_app/ui/user/MyQuote.dart';
-import 'package:maktabeh_app/ui/user/SubscriptionScreen/SubscriptionScreen.dart';
-import 'package:maktabeh_app/ui/user/editProfile.dart/editProfileScreen.dart';
-import 'package:maktabeh_app/ui/user/myReviews.dart';
 
 import 'package:maktabeh_app/ui/mainScreens/SettingBloc/setting_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/SettingBloc/setting_event.dart';
 import 'package:maktabeh_app/ui/mainScreens/SettingBloc/setting_state.dart';
+import 'package:maktabeh_app/ui/mainScreens/drawer/drawerPages/rate_page.dart';
 
 import 'drawerPages/aboutUsPage.dart';
 import 'drawerPages/contactusPage.dart';
@@ -171,7 +157,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         icon: buildLocalImage(
                           'assets/svg/rate.svg',
                         ),
-                        onTap: () {},
+                        onTap: () => push(context, RateAppScreen()),
                         title: AppLocalizations.of(context).translate(
                             "rate the app"),
                       ),

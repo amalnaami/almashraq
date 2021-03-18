@@ -4,7 +4,9 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 Widget rateStars(double size, int count) {
   return SmoothStarRating(
       allowHalfRating: false,
-      onRated: (v) {},
+      onRated: (v) {
+        print('SADS $v');
+      },
       starCount: 5,
       rating: double.parse('$count'),
       size: size,

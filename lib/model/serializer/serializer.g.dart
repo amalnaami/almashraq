@@ -7,6 +7,10 @@ part of serializer;
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
+      ..add(AboutUs.serializer)
+      ..add(AboutUsLanguage.serializer)
+      ..add(AboutUsTranslation.serializer)
+      ..add(AppRate.serializer)
       ..add(Author.serializer)
       ..add(AuthorLanguage.serializer)
       ..add(AuthorTranslation.serializer)
@@ -25,6 +29,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(Paginator.serializer)
       ..add(ProfileModel.serializer)
       ..add(Quote.serializer)
+      ..add(Rate.serializer)
       ..add(Review.serializer)
       ..add(ReviewQuoteUserModel.serializer)
       ..add(Token.serializer)
@@ -37,7 +42,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
           () => new ListBuilder<Book>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(LinkData)]),
-          () => new ListBuilder<LinkData>()))
+          () => new ListBuilder<LinkData>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(Rate)]),
+          () => new ListBuilder<Rate>()))
     .build();
 
 // ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
