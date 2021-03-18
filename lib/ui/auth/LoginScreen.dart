@@ -13,6 +13,7 @@ import 'package:maktabeh_app/ui/common_widget/app_button.dart';
 import 'package:maktabeh_app/ui/mainScreens/main_screen.dart';
 import 'login_bloc/login_event.dart';
 import 'resetPass/confairmEmailScreen.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -23,6 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _bloc = sl<LoginBloc>();
   TextEditingController userNameController;
   TextEditingController passwordController;
+  bool _showPassword = false;
 
   @override
   void initState() {
@@ -131,15 +133,73 @@ class _LoginScreenState extends State<LoginScreen> {
                             headIcon: "assets/icons/Profile.png",
                             // iconPath: "assets/svg/Profile.svg",
                           ),
-                          CustomFeild2(
-                            controller: passwordController,
-                            title: AppLocalizations.of(context)
-                                .translate('password'),
-                            hintText: "*********",
-                            headIcon: "assets/icons/Lock.png",
-                            // iconPath: "assets/svg/Lock.svg",
-                            visab: true,
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  ImageIcon(
+                                    AssetImage("assets/icons/Lock.png",),
+                                    size: 20,
+                                    color: primaryColor,
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                      AppLocalizations.of(context)
+                                          .translate('password'),
+                                    style: regStyle.copyWith(color: Colors.black),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                            ],
                           ),
+                          Container(
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            child: TextFormField(
+                              obscureText: !_showPassword,
+                              controller: passwordController,
+                              maxLines:1,
+                              decoration: InputDecoration(
+                                fillColor: Color(0xFFFBFBFB),
+                                filled: true,
+                                hintStyle: regStyle.copyWith(color: Color(0xFFC4C4C4)),
+                                hintText: '*********',
+                                suffixIcon: InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      _showPassword = !_showPassword;
+                                    });
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: SvgPicture.asset(
+                                      "assets/svg/Show.svg",
+                                    ),
+                                  ),
+                                ),
+
+                                contentPadding:
+                                EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(15.0),
+                                ),
+                              ),
+                            ),
+                          ),
+                          // CustomFeild2(
+                          //   controller: passwordController,
+                          //   title: AppLocalizations.of(context)
+                          //       .translate('password'),
+                          //   hintText: "*********",
+                          //   headIcon: "assets/icons/Lock.png",
+                          //   // iconPath: "assets/svg/Lock.svg",
+                          //   visab: true,
+                          // ),
                           SizedBox(
                             height: 5,
                           ),

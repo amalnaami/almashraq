@@ -48,6 +48,7 @@ class _AllMyReviewState extends State<AllMyReview> {
               itemCount: state.reviewUser.length,
               itemBuilder: (context, index) {
                 return Card(
+
                   elevation: 5,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
@@ -58,22 +59,18 @@ class _AllMyReviewState extends State<AllMyReview> {
                       children: [
                         Expanded(
                           child: Container(
-                            padding: EdgeInsets.all(8.0),
+                            padding: EdgeInsets.all(10.0),
                             child: Row(
                               children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(2000),
+                               ClipRRect(
+                                    borderRadius: BorderRadius.circular(150),
                                     child: Image.network(
                                       state.reviewUser[index].user_image!=null?state.reviewUser[index].user_name:'http://www.aristaphysicaltherapy.com/wp-content/uploads/2017/11/laksman.jpg',
                                     ),
                                   ),
-                                ),
                                 Expanded(
-                                  flex: 4,
                                   child: Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 10),
+                                    padding: EdgeInsets.symmetric(horizontal: 20),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       mainAxisAlignment: MainAxisAlignment.center,
@@ -125,7 +122,7 @@ class _AllMyReviewState extends State<AllMyReview> {
                         SoshialBar(state.reviewUser[index].review_text),
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
+                            padding: const EdgeInsets.only(top: 10.0),
                             child: Row(
                               children: [
                                 Expanded(
@@ -134,7 +131,7 @@ class _AllMyReviewState extends State<AllMyReview> {
                                         Expanded(
                                           child: Padding(
                                             padding: const EdgeInsets.symmetric(
-                                                horizontal: 15, vertical: 8),
+                                                horizontal: 10, vertical: 0),
                                             child: ClipRRect(
                                               borderRadius: BorderRadius.circular(10),
                                               child: Image.network(
@@ -167,7 +164,7 @@ class _AllMyReviewState extends State<AllMyReview> {
                                                 ),
                                                 Text(
                                                   state.reviewUser[index].getAuthorName(AppLocalizations.of(context).locale.languageCode)!=null? state.reviewUser[index].getAuthorName(AppLocalizations.of(context).locale.languageCode):"No Data",
-                                                  style: boldStyle,
+                                                  style: boldStyle.copyWith(fontSize: 12),
                                                 ),
                                                 Row(
                                                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -183,7 +180,7 @@ class _AllMyReviewState extends State<AllMyReview> {
                                                 ),
                                                 Text(
                                                   state.reviewUser[index].getAuthorName(AppLocalizations.of(context).locale.languageCode)!=null? state.reviewUser[index].getAuthorName(AppLocalizations.of(context).locale.languageCode):"No Data",
-                                                  style: boldStyle,
+                                                  style:  boldStyle.copyWith(fontSize: 12),
                                                 ),
                                               ],
                                             ),
@@ -192,6 +189,7 @@ class _AllMyReviewState extends State<AllMyReview> {
                                       ],
                                     )),
                                 Expanded(
+                                  flex: 1,
                                     child: Container(
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.only(

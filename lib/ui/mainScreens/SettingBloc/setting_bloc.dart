@@ -128,6 +128,7 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
           ..logout = false);
       }
     }
+
     if (event is TryEdit) {
       try {
         yield state.rebuild((b) => b

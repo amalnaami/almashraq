@@ -24,6 +24,7 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   final _bloc = sl<SignUpBloc>();
+  bool _showPassword = false;
 
   TextEditingController fullNameController;
   TextEditingController emailController;
@@ -145,11 +146,51 @@ class _SignupScreenState extends State<SignupScreen> {
                         iconPath: "assets/svg/mobile.svg",
                         controller: phoneController,
                       ),
-                      CustomFeild2(
-                        visab: true,
-                        hintText: AppLocalizations.of(context).translate('password'),
-                        iconPath: "assets/svg/Lock.svg",
-                        controller: passwordController,
+                      // CustomFeild2(
+                      //   visab: true,
+                      //   hintText: AppLocalizations.of(context).translate('password'),
+                      //   iconPath: "assets/svg/Lock.svg",
+                      //   controller: passwordController,
+                      // ),
+                      Container(
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        child: TextFormField(
+                          obscureText: !_showPassword,
+                          controller: passwordController,
+                          maxLines:1,
+                          decoration: InputDecoration(
+                            fillColor: Color(0xFFFBFBFB),
+                            filled: true,
+                            hintStyle: regStyle.copyWith(color: Color(0xFFC4C4C4)),
+                            hintText: AppLocalizations.of(context).translate('password'),
+                              prefixIcon:Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SvgPicture.asset(
+                                  "assets/svg/Lock.svg",
+                                ),
+                              ),
+                            suffixIcon: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  _showPassword = !_showPassword;
+                                });
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SvgPicture.asset(
+                                  "assets/svg/Show.svg",
+                                ),
+                              ),
+                            ),
+
+                            contentPadding:
+                            EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                          ),
+                        ),
                       ),
                       // CustomFeild2(
                       //   hintText: AppLocalizations.of(context).translate('gender'),

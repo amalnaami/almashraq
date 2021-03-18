@@ -15,6 +15,7 @@ import 'package:maktabeh_app/ui/start_screen/start_screen.dart';
 import 'package:maktabeh_app/ui/user/MyQuote.dart';
 import 'package:maktabeh_app/ui/user/SubscriptionScreen/SubscriptionScreen.dart';
 import 'package:maktabeh_app/ui/user/editProfile.dart/editProfileScreen.dart';
+import 'package:maktabeh_app/ui/language_page/language_screen.dart';
 
 import '../../core/loaderApp.dart';
 import 'SettingBloc/setting_bloc.dart';
@@ -285,8 +286,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                   InkWell(
                     onTap: (){
+                      print('state.isLogin ${state.isLogin}');
                       state.isLogin ?      _bloc.add(LogOut()): Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => GuideScreen()));
+                          MaterialPageRoute(builder: (context) => LanguageScreen()));
                     },
                     child: ListTile(
                         title: Text(
