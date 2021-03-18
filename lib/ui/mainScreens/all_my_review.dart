@@ -48,15 +48,15 @@ class _AllMyReviewState extends State<AllMyReview> {
               itemCount: state.reviewUser.length,
               itemBuilder: (context, index) {
                 return Card(
+                  elevation: 5,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(15.0),
                   ),
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.32,
+                    height: MediaQuery.of(context).size.height * 0.38,
                     child: Column(
                       children: [
                         Expanded(
-                          flex: 5,
                           child: Container(
                             padding: EdgeInsets.all(8.0),
                             child: Row(
@@ -124,7 +124,6 @@ class _AllMyReviewState extends State<AllMyReview> {
                         ),
                         SoshialBar(state.reviewUser[index].review_text),
                         Expanded(
-                          flex: 5,
                           child: Padding(
                             padding: const EdgeInsets.only(top: 8.0),
                             child: Row(

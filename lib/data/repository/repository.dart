@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:maktabeh_app/core/config/firebase_notifications.dart';
 import 'package:maktabeh_app/data/db_helper/idp_helper.dart';
 import 'package:maktabeh_app/data/http_helper/ihttpe_helper.dart';
@@ -352,5 +354,18 @@ class Repository implements IRepository {
   @override
   Future<bool> rateTheApp(int rate, String note) async {
     return await _ihttpHelper.rateTheApp(await _iprefHelper.getToken(), rate, note);
+  }
+
+
+  @override
+  Future<bool> logout() async {
+    final data = await _ihttpHelper.logout(await _iprefHelper.getToken());
+    return data;
+  }
+
+  @override
+  Future<UserModel> editUser(String name, String username, String email, String tele, String gender, String country_code, File image) async{
+    final data = await _ihttpHelper.editUser(name, username, email, tele, gender, country_code, image,  await _iprefHelper.getToken(), await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
+    return data;
   }
 }

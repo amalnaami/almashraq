@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:path/path.dart';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
@@ -23,6 +25,7 @@ import 'package:maktabeh_app/model/user/user.dart';
 import 'package:maktabeh_app/model/user/user_model.dart';
 
 import 'ihttpe_helper.dart';
+
 
 class HttpHelper implements IHttpHelper {
   final Dio _dio;
@@ -908,6 +911,58 @@ class HttpHelper implements IHttpHelper {
       print(e.toString());
       throw NetworkException();
     }
+  }
+
+  @override
+  Future<bool> logout(String token) async {
+    try {
+      final response = await _dio.post('logout',
+          options: Options(headers: {"Authorization": 'Bearer $token'}));
+      print('rateTheApp Response StatusCode ${response.statusCode}');
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException();
+    }
+  }
+  @override
+  Future<UserModel> editUser(String name, String username,String email,String tele,String gender,String country_code
+      ,File image, String token,String language) async {
+
+      try {
+        final formData = {
+          "name": name,
+          "username": username,
+          "email": email,
+          "tele": tele,
+          "gender": gender,
+          "country_code": country_code
+        };
+        // if (image != null && image.path.isNotEmpty) {
+        //   formData.file.add(MapEntry(
+        //     "image",
+        //     await MultipartFile.fromFile(image.path,
+        //         filename: basename(image.path)),
+        //   ));
+        // }
+        final response = await _dio.post('login', data: formData);
+        print('login Response StatusCode ${response.statusCode}');
+
+        if (response.statusCode == 200) {
+          final ret = serializers.deserialize(json.decode(response.data),
+              specifiedType: FullType(UserModel));
+          return ret;
+        } else {
+          throw NetworkException(code: response.statusCode);
+        }
+      } catch (e) {
+        print(e.toString());
+        throw NetworkException(error: e.toString());
+      }
   }
 
 }

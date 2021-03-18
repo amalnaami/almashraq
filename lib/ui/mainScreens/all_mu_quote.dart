@@ -52,17 +52,18 @@ class _AllMyQuoteState extends State<AllMyQuote> {
                 (state.quoteUser!=null&&state.quoteUser.length!=0)?   Container(
                   height: MediaQuery.of(context).size.height,
                   child: ListView.builder(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 15),
                     itemCount: state.quoteUser.length,
                     itemBuilder: (context, index) {
                       return  Card(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
+                          borderRadius: BorderRadius.circular(15.0),
                         ),
+                        elevation: 5,
                         margin: EdgeInsets.all(8),
                         child: Container(
                           //height: MediaQuery.of(context).size.height * 0.2,
-                          width: 500,
+                          width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             boxShadow: [
@@ -70,25 +71,26 @@ class _AllMyQuoteState extends State<AllMyQuote> {
                             ],
                             color: Colors.white,
                           ),
-                          padding: EdgeInsets.all(10),
                           child: Row(
                             children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Image.network(
-                                 state.quoteUser[index].book.image!=null?  state.quoteUser[index].book.image:'http://www.aristaphysicaltherapy.com/wp-content/uploads/2017/11/laksman.jpg',
-                                  height: MediaQuery.of(context).size.height * 0.15,
-                                  fit: BoxFit.fill,
-                                  width: MediaQuery.of(context).size.height * 0.15,
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.network(
+                                   state.quoteUser[index].book.image!=null?  state.quoteUser[index].book.image:'http://www.aristaphysicaltherapy.com/wp-content/uploads/2017/11/laksman.jpg',
+                                    height: MediaQuery.of(context).size.height * 0.15,
+                                    fit: BoxFit.fill,
+                                    width: MediaQuery.of(context).size.height * 0.15,
+                                  ),
                                 ),
                               ),
                               SizedBox(
-                                width: 8.0,
+                                width: 10.0,
                               ),
                               Expanded(
-                                //flex: 8,
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     ReadMoreText(
                                      state.quoteUser[index].quotation_text!=null?state.quoteUser[index].quotation_text:"No Data",
@@ -99,8 +101,12 @@ class _AllMyQuoteState extends State<AllMyQuote> {
                                           : TextDirection.rtl,
                                       style: regStyle.copyWith(color: Colors.black),
                                     ),
+                                    SizedBox(
+                                      width: 10.0,
+                                    ),
+
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         ImageIcon(
                                           AssetImage("assets/icons/book.png"),
@@ -133,9 +139,11 @@ class _AllMyQuoteState extends State<AllMyQuote> {
                                         ),
                                       ],
                                     ),
-                                    SizedBox(height: 4),
+                                    SizedBox(
+                                      width: 10.0,
+                                    ),
+
                                     SoshialBar(state.quoteUser[index].quotation_text),
-                                    SizedBox(height: 4),
                                     // if (title == "الاقتباسات" || title == 'quotes')
                                     //   Text(
                                     //     AppLocalizations.of(context)

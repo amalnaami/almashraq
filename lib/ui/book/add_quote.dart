@@ -42,8 +42,6 @@ class _AddQuoteScreenState extends State<AddQuoteScreen> {
       if(state.successAddQuote) {
         error(AppLocalizations.of(context).translate('adding successfully'));
         Timer(Duration(seconds: 1), () => Navigator.of(context).pop());
-      }else{
-        print('successAddQuotesuccessAddQuote1111 ${state.successAddQuote}');
       }
       return SafeArea(
         child: Scaffold(

@@ -100,5 +100,68 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
           ..reviewUser.replace([]));
       }
     }
+    if (event is ChangeStatus) {
+      yield state.rebuild((b) => b..logout = false);
+    }
+    if (event is LogOut) {
+      try {
+        yield state.rebuild((b) => b
+          ..isLoading = true
+          ..success = false
+          ..error = ""
+          ..logout = false);
+
+        final date = await _repository.logout();
+        print('Logout Success data ${date}');
+        yield state.rebuild((b) => b
+          ..isLoading = false
+          ..error = ""
+          ..logout = true
+          ..success = true
+        );
+      } catch (e) {
+        print('Logout Error $e');
+        yield state.rebuild((b) => b
+          ..isLoading = false
+          ..success = false
+          ..error = "Something went wrong"
+          ..logout = false);
+      }
+    }
+    if (event is TryEdit) {
+      try {
+        yield state.rebuild((b) => b
+          ..isLoading = true
+          ..error = ""
+          ..success = false);
+        final data = await _repository.editUser(event.name, event.username, event.email, event.tele, event.gender, event.country_code, event.image);
+        await _repository.saveUser(data.data);
+        yield state.rebuild((b) => b
+          ..isLoading = false
+          ..error = ""
+          ..success = true);
+      } catch (e) {
+        print('Error: ${e.toString()}\n');
+        yield state.rebuild((b) => b
+          ..isLoading = true
+          ..error = "something went wrong"
+          ..success = false);
+      }
+    }
+    if (event is GetCountry) {
+      try {
+        yield state.rebuild((b) => b..isLoading = true ..error = '');
+        final data = await _repository.getCountries();
+        print('GetCategories $data');
+        yield state.rebuild((b) => b
+          ..isLoading = false
+          ..error = ''
+          ..country.replace(data));
+      } catch (e) {
+        yield state.rebuild((b) => b
+          ..isLoading = false
+          ..error = '${e.toString()}');
+      }
+    }
   }
 }

@@ -8,12 +8,13 @@ import 'package:maktabeh_app/core/size_config.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
 import 'package:maktabeh_app/injection.dart';
 import 'package:maktabeh_app/ui/common_widget/local_image.dart';
+import 'package:maktabeh_app/ui/guide/guide_screen.dart';
 import 'package:maktabeh_app/ui/mainScreens/all_mu_quote.dart';
 import 'package:maktabeh_app/ui/mainScreens/all_my_review.dart';
+import 'package:maktabeh_app/ui/start_screen/start_screen.dart';
 import 'package:maktabeh_app/ui/user/MyQuote.dart';
 import 'package:maktabeh_app/ui/user/SubscriptionScreen/SubscriptionScreen.dart';
 import 'package:maktabeh_app/ui/user/editProfile.dart/editProfileScreen.dart';
-import 'package:maktabeh_app/ui/user/myReviews.dart';
 
 import '../../core/loaderApp.dart';
 import 'SettingBloc/setting_bloc.dart';
@@ -34,10 +35,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     super.initState();
     _bloc.add(GetAppLanguage());
-    // _bloc.add(GetUserQuote());
-    // _bloc.add(GetUserReview());
     _bloc.add(GetProfileData());
 
+    _bloc.add(GetIsLogin());
     _bloc.add(GetIsLogin());
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _radioValue =
@@ -51,6 +51,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return BlocBuilder(
       cubit: _bloc,
       builder: (BuildContext context, SettingState state){
+        if (state.success) {
+          WidgetsBinding.instance.addPostFrameCallback((_) =>
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => StartScreen())));
+        }
         return Scaffold(
           body: Stack(
             children: [
@@ -273,60 +278,45 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ],
                     ),
                   ),
-                  // ListTile(
-                  //   title: Row(
-                  //     children: [
-                  //       Text(
-                  //         AppLocalizations.of(context).translate('App language'),
-                  //         style: regStyle.copyWith(color: Colors.black),
-                  //       ),
-                  //       Expanded(child: SizedBox()),
-                  //       Text(
-                  //         "العربية",
-                  //         style: regStyle.copyWith(fontSize: 13),
-                  //       ),
-                  //     ],
-                  //   ),
-                  //   trailing: SvgPicture.asset("assets/svg/arrow_down.svg"),
-                  //   leading: ImageIcon(
-                  //     AssetImage("assets/icons/Chat.png"),
-                  //     size: 50,
-                  //     color: Color(0xFF28ABE3),
-                  //   ),
-                  // ),
                   Container(
                     height: 0.5,
                     width: double.infinity,
                     color: Colors.grey,
                   ),
-                  state.isLogin ?   ListTile(
-                      title: Text(
-                        AppLocalizations.of(context).translate('sign out'),
-                        style: regStyle.copyWith(color: Colors.black),
-                      ),
-                      trailing:   AppLocalizations
-                          .of(context)
-                          .locale
-                          .toLanguageTag() == 'ar'
-                          ?
-                      SvgPicture.asset(
-                          'assets/svg/arrow_forward.svg'
-                      ):
-                      RotatedBox(quarterTurns: 2,child:  SvgPicture.asset(
-                          'assets/svg/arrow_forward.svg'
-                      ),),
-                      leading:
-                      AppLocalizations.of(context).locale.toLanguageTag()=="ar"?
-                      ImageIcon(
-                        AssetImage("assets/icons/logout.png"),
-                        size: 50,
-                        color: Color(0xFF28ABE3),
-                      ):RotatedBox(quarterTurns: 2,child: ImageIcon(
-                        AssetImage("assets/icons/logout.png"),
-                        size: 50,
-                        color: Color(0xFF28ABE3),
-                      ),)
-                  ):Container(),
+                  InkWell(
+                    onTap: (){
+                      state.isLogin ?      _bloc.add(LogOut()): Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) => GuideScreen()));
+                    },
+                    child: ListTile(
+                        title: Text(
+                          AppLocalizations.of(context).translate('sign out'),
+                          style: regStyle.copyWith(color: Colors.black),
+                        ),
+                        trailing:   AppLocalizations
+                            .of(context)
+                            .locale
+                            .toLanguageTag() == 'ar'
+                            ?
+                        SvgPicture.asset(
+                            'assets/svg/arrow_forward.svg'
+                        ):
+                        RotatedBox(quarterTurns: 2,child:  SvgPicture.asset(
+                            'assets/svg/arrow_forward.svg'
+                        ),),
+                        leading:
+                        AppLocalizations.of(context).locale.toLanguageTag()=="ar"?
+                        ImageIcon(
+                          AssetImage("assets/icons/logout.png"),
+                          size: 50,
+                          color: Color(0xFF28ABE3),
+                        ):RotatedBox(quarterTurns: 2,child: ImageIcon(
+                          AssetImage("assets/icons/logout.png"),
+                          size: 50,
+                          color: Color(0xFF28ABE3),
+                        ),)
+                    ),
+                  ),
                   Container(
                     height: 0.5,
                     width: double.infinity,

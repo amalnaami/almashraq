@@ -7,6 +7,7 @@ class CustomFeild2 extends StatelessWidget {
   final String iconPath;
   final bool visab;
   final String headIcon;
+  final String initial;
   final int lines;
   final String title;
   final TextEditingController controller;
@@ -17,6 +18,7 @@ class CustomFeild2 extends StatelessWidget {
         this.controller,
       this.iconPath,
       this.visab,
+        this.initial,
       this.lines,
       this.title,
       this.headIcon})
@@ -54,6 +56,7 @@ class CustomFeild2 extends StatelessWidget {
         Container(
           padding: EdgeInsets.symmetric(vertical: 10),
           child: TextFormField(
+            initialValue: initial,
             controller: controller,
             maxLines: lines ?? 1,
             decoration: InputDecoration(

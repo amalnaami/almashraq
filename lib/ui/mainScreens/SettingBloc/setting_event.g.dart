@@ -506,4 +506,345 @@ class GetUserReviewBuilder
   }
 }
 
+class _$ChangeStatus extends ChangeStatus {
+  factory _$ChangeStatus([void Function(ChangeStatusBuilder) updates]) =>
+      (new ChangeStatusBuilder()..update(updates)).build();
+
+  _$ChangeStatus._() : super._();
+
+  @override
+  ChangeStatus rebuild(void Function(ChangeStatusBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  ChangeStatusBuilder toBuilder() => new ChangeStatusBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is ChangeStatus;
+  }
+
+  @override
+  int get hashCode {
+    return 20091075;
+  }
+
+  @override
+  String toString() {
+    return newBuiltValueToStringHelper('ChangeStatus').toString();
+  }
+}
+
+class ChangeStatusBuilder
+    implements Builder<ChangeStatus, ChangeStatusBuilder> {
+  _$ChangeStatus _$v;
+
+  ChangeStatusBuilder();
+
+  @override
+  void replace(ChangeStatus other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$ChangeStatus;
+  }
+
+  @override
+  void update(void Function(ChangeStatusBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$ChangeStatus build() {
+    final _$result = _$v ?? new _$ChangeStatus._();
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$LogOut extends LogOut {
+  factory _$LogOut([void Function(LogOutBuilder) updates]) =>
+      (new LogOutBuilder()..update(updates)).build();
+
+  _$LogOut._() : super._();
+
+  @override
+  LogOut rebuild(void Function(LogOutBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  LogOutBuilder toBuilder() => new LogOutBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is LogOut;
+  }
+
+  @override
+  int get hashCode {
+    return 704536295;
+  }
+
+  @override
+  String toString() {
+    return newBuiltValueToStringHelper('LogOut').toString();
+  }
+}
+
+class LogOutBuilder implements Builder<LogOut, LogOutBuilder> {
+  _$LogOut _$v;
+
+  LogOutBuilder();
+
+  @override
+  void replace(LogOut other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$LogOut;
+  }
+
+  @override
+  void update(void Function(LogOutBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$LogOut build() {
+    final _$result = _$v ?? new _$LogOut._();
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$TryEdit extends TryEdit {
+  @override
+  final String name;
+  @override
+  final String username;
+  @override
+  final String email;
+  @override
+  final String tele;
+  @override
+  final String gender;
+  @override
+  final String country_code;
+  @override
+  final File image;
+
+  factory _$TryEdit([void Function(TryEditBuilder) updates]) =>
+      (new TryEditBuilder()..update(updates)).build();
+
+  _$TryEdit._(
+      {this.name,
+      this.username,
+      this.email,
+      this.tele,
+      this.gender,
+      this.country_code,
+      this.image})
+      : super._() {
+    if (name == null) {
+      throw new BuiltValueNullFieldError('TryEdit', 'name');
+    }
+    if (username == null) {
+      throw new BuiltValueNullFieldError('TryEdit', 'username');
+    }
+    if (email == null) {
+      throw new BuiltValueNullFieldError('TryEdit', 'email');
+    }
+    if (tele == null) {
+      throw new BuiltValueNullFieldError('TryEdit', 'tele');
+    }
+    if (gender == null) {
+      throw new BuiltValueNullFieldError('TryEdit', 'gender');
+    }
+    if (country_code == null) {
+      throw new BuiltValueNullFieldError('TryEdit', 'country_code');
+    }
+  }
+
+  @override
+  TryEdit rebuild(void Function(TryEditBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  TryEditBuilder toBuilder() => new TryEditBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is TryEdit &&
+        name == other.name &&
+        username == other.username &&
+        email == other.email &&
+        tele == other.tele &&
+        gender == other.gender &&
+        country_code == other.country_code &&
+        image == other.image;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc(
+        $jc(
+            $jc(
+                $jc(
+                    $jc($jc($jc(0, name.hashCode), username.hashCode),
+                        email.hashCode),
+                    tele.hashCode),
+                gender.hashCode),
+            country_code.hashCode),
+        image.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('TryEdit')
+          ..add('name', name)
+          ..add('username', username)
+          ..add('email', email)
+          ..add('tele', tele)
+          ..add('gender', gender)
+          ..add('country_code', country_code)
+          ..add('image', image))
+        .toString();
+  }
+}
+
+class TryEditBuilder implements Builder<TryEdit, TryEditBuilder> {
+  _$TryEdit _$v;
+
+  String _name;
+  String get name => _$this._name;
+  set name(String name) => _$this._name = name;
+
+  String _username;
+  String get username => _$this._username;
+  set username(String username) => _$this._username = username;
+
+  String _email;
+  String get email => _$this._email;
+  set email(String email) => _$this._email = email;
+
+  String _tele;
+  String get tele => _$this._tele;
+  set tele(String tele) => _$this._tele = tele;
+
+  String _gender;
+  String get gender => _$this._gender;
+  set gender(String gender) => _$this._gender = gender;
+
+  String _country_code;
+  String get country_code => _$this._country_code;
+  set country_code(String country_code) => _$this._country_code = country_code;
+
+  File _image;
+  File get image => _$this._image;
+  set image(File image) => _$this._image = image;
+
+  TryEditBuilder();
+
+  TryEditBuilder get _$this {
+    if (_$v != null) {
+      _name = _$v.name;
+      _username = _$v.username;
+      _email = _$v.email;
+      _tele = _$v.tele;
+      _gender = _$v.gender;
+      _country_code = _$v.country_code;
+      _image = _$v.image;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(TryEdit other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$TryEdit;
+  }
+
+  @override
+  void update(void Function(TryEditBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$TryEdit build() {
+    final _$result = _$v ??
+        new _$TryEdit._(
+            name: name,
+            username: username,
+            email: email,
+            tele: tele,
+            gender: gender,
+            country_code: country_code,
+            image: image);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GetCountry extends GetCountry {
+  factory _$GetCountry([void Function(GetCountryBuilder) updates]) =>
+      (new GetCountryBuilder()..update(updates)).build();
+
+  _$GetCountry._() : super._();
+
+  @override
+  GetCountry rebuild(void Function(GetCountryBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GetCountryBuilder toBuilder() => new GetCountryBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GetCountry;
+  }
+
+  @override
+  int get hashCode {
+    return 858342468;
+  }
+
+  @override
+  String toString() {
+    return newBuiltValueToStringHelper('GetCountry').toString();
+  }
+}
+
+class GetCountryBuilder implements Builder<GetCountry, GetCountryBuilder> {
+  _$GetCountry _$v;
+
+  GetCountryBuilder();
+
+  @override
+  void replace(GetCountry other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$GetCountry;
+  }
+
+  @override
+  void update(void Function(GetCountryBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$GetCountry build() {
+    final _$result = _$v ?? new _$GetCountry._();
+    replace(_$result);
+    return _$result;
+  }
+}
+
 // ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

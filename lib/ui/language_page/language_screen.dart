@@ -186,7 +186,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                                     textColor: Colors.white,
                                     onTap: () => Navigator.of(context)
                                         .push(MaterialPageRoute(
-                                      builder: (context) => StartScreen(),
+                                      builder: (context) => GuideScreen(),
                                     )),
                                   ),
                                 ],

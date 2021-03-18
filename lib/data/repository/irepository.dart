@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:maktabeh_app/model/about_us/about_us.dart';
 import 'package:maktabeh_app/model/app_rate/app_rate.dart';
 import 'package:maktabeh_app/model/author/author.dart';
@@ -94,4 +96,7 @@ abstract class IRepository {
   Future<BuiltList<Book>> getFavorite();
   Future<AppRate> getAppRate();
   Future<bool> rateTheApp(int rate, String note);
+  Future<bool> logout();
+  Future<UserModel> editUser(String name, String username,String email,String tele,String gender,String country_code
+      ,File image);
 }

@@ -107,9 +107,9 @@ class _GuideScreenState extends State<GuideScreen> {
                                   });
                                 },
                                 children: [
-                                  firstScreen(context),
-                                  secondScreen(context),
                                   thirdScreen(context),
+                                  secondScreen(context),
+                                  firstScreen(context),
                                   optionScreen(context, state.categories,
                                       addOrRemove, canAdd),
                                 ],
@@ -153,7 +153,7 @@ class _GuideScreenState extends State<GuideScreen> {
                                       context: context,
                                       buttonColor: Colors.white,
                                       textColor: seconderyColor,
-                                      text: pageIndex == 0
+                                      text: pageIndex==2
                                           ? AppLocalizations.of(context)
                                               .translate('start')
                                           : AppLocalizations.of(context)
@@ -164,7 +164,10 @@ class _GuideScreenState extends State<GuideScreen> {
                                                 Duration(microseconds: 2000),
                                             curve: Curves.easeInCirc);
                                         print(pageIndex);
-                                        if (pageIndex == 3) {
+                                        if (pageIndex == 2){
+                                          push(context, StartScreen());
+                                        }
+                                          if (pageIndex == 3) {
                                           if (selectedCategories.isEmpty) {
                                             Fluttertoast.showToast(
                                                 msg: AppLocalizations.of(
@@ -183,7 +186,7 @@ class _GuideScreenState extends State<GuideScreen> {
                                         }
                                       }),
                                 ),
-                                pageIndex == 0 || pageIndex == 3
+                                pageIndex == 3
                                     ? Container()
                                     : InkWell(
                                   onTap: () => setState(() => pageIndex = 3),

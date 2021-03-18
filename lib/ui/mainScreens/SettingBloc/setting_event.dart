@@ -78,3 +78,43 @@ abstract class GetUserReview extends SettingEvent
   factory GetUserReview([updates(GetUserReviewBuilder b)]) =
   _$GetUserReview;
 }
+abstract class ChangeStatus extends SettingEvent
+    implements Built<ChangeStatus, ChangeStatusBuilder> {
+  // fields go here
+
+  ChangeStatus._();
+
+  factory ChangeStatus([updates(ChangeStatusBuilder b)]) = _$ChangeStatus;
+}
+
+abstract class LogOut extends SettingEvent
+    implements Built<LogOut, LogOutBuilder> {
+  // fields go here
+
+  LogOut._();
+
+  factory LogOut([updates(LogOutBuilder b)]) = _$LogOut;
+}
+abstract class TryEdit extends SettingEvent
+    implements Built<TryEdit, TryEditBuilder> {
+  // fields go here
+
+  String get name;
+  String get username;
+  String get email;
+  String get tele;
+  String get gender;
+  String get country_code;
+  @nullable
+  File get image;
+
+  TryEdit._();
+
+  factory TryEdit([updates(TryEditBuilder b)]) = _$TryEdit;
+}
+abstract class GetCountry extends SettingEvent
+    implements Built<GetCountry, GetCountryBuilder> {
+  GetCountry._();
+
+  factory GetCountry([updates(GetCountryBuilder b)]) = _$GetCountry;
+}
