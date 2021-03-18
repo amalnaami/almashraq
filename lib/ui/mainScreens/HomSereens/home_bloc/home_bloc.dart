@@ -221,37 +221,71 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }
     if (event is AddNewReview) {
       try {
-        yield state.rebuild((b) => b ..success = false..isLoading = true ..error = '');
-        final data = await _repository.addReview(event.text, event.rating,event.bookId);
-        print('SubmitEmail $data');
         yield state.rebuild((b) => b
-          ..isLoading = false
+          ..isLoading = true
           ..error = ''
-          ..success = true);
-      } catch (e) {
-        print('SOMETHING WENT WRONG $e');
+          ..success = false);
+        final res =
+        await _repository.addReview(event.text, event.rating,event.bookId);
         yield state.rebuild((b) => b
-          ..success = false
+          ..isLoading = false..success = res);
+      } catch (e) {
+        yield state.rebuild((b) => b
+          ..error = 'something went wrong'
           ..isLoading = false
-          ..error = 'Something went wrong');
+          ..success = false);
       }
     }
     if (event is AddQuote) {
       try {
-        yield state.rebuild((b) => b..successAddQuote = false..isLoading = true ..error = '');
-        final data = await _repository.addQuote(event.text,event.bookId);
-        print('SubmitEmail $data');
         yield state.rebuild((b) => b
-          ..isLoading = false
+          ..isLoading = true
           ..error = ''
-          ..successAddQuote = true);
-      } catch (e) {
-        print('SOMETHING WENT WRONG');
+          ..success = false);
+        final res =
+        await _repository.addQuote(event.text,event.bookId);
         yield state.rebuild((b) => b
-          ..successAddQuote = false
+          ..isLoading = false..success = res);
+      } catch (e) {
+        yield state.rebuild((b) => b
+          ..error = 'something went wrong'
           ..isLoading = false
-          ..error = 'Something went wrong');
+          ..success = false);
       }
     }
+    // if (event is AddNewReview) {
+    //   try {
+    //     yield state.rebuild((b) => b ..success = false..isLoading = true ..error = '');
+    //     final data = await _repository.addReview(event.text, event.rating,event.bookId);
+    //     print('SubmitEmail $data');
+    //     yield state.rebuild((b) => b
+    //       ..isLoading = false
+    //       ..error = ''
+    //       ..success = true);
+    //   } catch (e) {
+    //     print('SOMETHING WENT WRONG $e');
+    //     yield state.rebuild((b) => b
+    //       ..success = false
+    //       ..isLoading = false
+    //       ..error = 'Something went wrong');
+    //   }
+    // }
+    // if (event is AddQuote) {
+    //   try {
+    //     yield state.rebuild((b) => b..successAddQuote = false..isLoading = true ..error = '');
+    //     final data = await _repository.addQuote(event.text,event.bookId);
+    //     print('SubmitEmail $data');
+    //     yield state.rebuild((b) => b
+    //       ..isLoading = false
+    //       ..error = ''
+    //       ..successAddQuote = true);
+    //   } catch (e) {
+    //     print('SOMETHING WENT WRONG');
+    //     yield state.rebuild((b) => b
+    //       ..successAddQuote = false
+    //       ..isLoading = false
+    //       ..error = 'Something went wrong');
+    //   }
+    // }
   }
 }

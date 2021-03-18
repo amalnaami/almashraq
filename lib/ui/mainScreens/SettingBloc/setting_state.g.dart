@@ -18,9 +18,9 @@ class _$SettingState extends SettingState {
   @override
   final ProfileModel profileUser;
   @override
-  final ReviewQuoteUserModel quoteUser;
+  final BuiltList<ReviewQuoteUserModel> quoteUser;
   @override
-  final ReviewQuoteUserModel reviewUser;
+  final BuiltList<ReviewQuoteUserModel> reviewUser;
 
   factory _$SettingState([void Function(SettingStateBuilder) updates]) =>
       (new SettingStateBuilder()..update(updates)).build();
@@ -131,16 +131,16 @@ class SettingStateBuilder
   set profileUser(ProfileModelBuilder profileUser) =>
       _$this._profileUser = profileUser;
 
-  ReviewQuoteUserModelBuilder _quoteUser;
-  ReviewQuoteUserModelBuilder get quoteUser =>
-      _$this._quoteUser ??= new ReviewQuoteUserModelBuilder();
-  set quoteUser(ReviewQuoteUserModelBuilder quoteUser) =>
+  ListBuilder<ReviewQuoteUserModel> _quoteUser;
+  ListBuilder<ReviewQuoteUserModel> get quoteUser =>
+      _$this._quoteUser ??= new ListBuilder<ReviewQuoteUserModel>();
+  set quoteUser(ListBuilder<ReviewQuoteUserModel> quoteUser) =>
       _$this._quoteUser = quoteUser;
 
-  ReviewQuoteUserModelBuilder _reviewUser;
-  ReviewQuoteUserModelBuilder get reviewUser =>
-      _$this._reviewUser ??= new ReviewQuoteUserModelBuilder();
-  set reviewUser(ReviewQuoteUserModelBuilder reviewUser) =>
+  ListBuilder<ReviewQuoteUserModel> _reviewUser;
+  ListBuilder<ReviewQuoteUserModel> get reviewUser =>
+      _$this._reviewUser ??= new ListBuilder<ReviewQuoteUserModel>();
+  set reviewUser(ListBuilder<ReviewQuoteUserModel> reviewUser) =>
       _$this._reviewUser = reviewUser;
 
   SettingStateBuilder();

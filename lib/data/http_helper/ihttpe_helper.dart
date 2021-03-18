@@ -41,8 +41,8 @@ abstract class IHttpHelper {
   Future<BuiltList<Review>> getAllReviews(String language);
   Future<BuiltList<Quote>> getAllQuotes(String language);
   Future<ProfileModel> getUserProfile(String token,String language);
-  Future<ReviewQuoteUserModel> getUserReviews(String token,String language);
-  Future<ReviewQuoteUserModel> getUserQuote(String token,String language);
+  Future<BuiltList<ReviewQuoteUserModel>> getUserReviews(String token,String language);
+  Future<BuiltList<ReviewQuoteUserModel>> getUserQuote(String token,String language);
   Future<bool> addToFavorite(String token, int bookId, String language);
   Future<bool> removeFromFavorite(String token, int bookId, String language);
   Future<AboutUs> getAboutUs(String language);

@@ -14,6 +14,7 @@ import 'package:maktabeh_app/ui/common_widget/rate_stars.dart';
 import 'package:maktabeh_app/ui/mainScreens/HomSereens/home_bloc/home_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/HomSereens/home_bloc/home_event.dart';
 import 'package:maktabeh_app/ui/mainScreens/HomSereens/home_bloc/home_state.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 import '../../injection.dart';
 
@@ -75,7 +76,24 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                         style: regStyle.copyWith(
                             color: Colors.black, fontWeight: FontWeight.w500),
                       ),
-                      rateStars(SizeConfig.screenWidth * 0.08, rate),
+                      SmoothStarRating(
+                          allowHalfRating: false,
+                          onRated: (v) {
+                            setState(() {
+                              rate = v.toInt();
+                            });
+                            print('SADS $v');
+                          },
+                          starCount: 5,
+                          rating: double.parse('$rate'),
+                          size: SizeConfig.screenWidth * 0.08,
+                          defaultIconData: Icons.star_outline_rounded,
+                          filledIconData: Icons.star_rounded,
+                          isReadOnly: false,
+                          color: Color(0xFFFFE32A),
+                          borderColor: Color(0xFFD4D4D4),
+                          spacing: -3),
+                     // rateStars(SizeConfig.screenWidth * 0.08, rate),
                     ],
                   ),
                   CustomFeild2(

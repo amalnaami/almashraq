@@ -274,14 +274,13 @@ class Repository implements IRepository {
 
   @override
   Future<bool> addQuote(String text, int bookId) async {
-    final token = await _iprefHelper.getToken();
     return await _ihttpHelper.addQuote(
         text, bookId, (await _iprefHelper.getToken()));
+
   }
 
   @override
   Future<bool> addReview(String text, int rating, int bookId) async {
-    final token = await _iprefHelper.getToken();
     return await _ihttpHelper.addReview(
         text, rating, bookId, (await _iprefHelper.getToken()));
   }
@@ -300,44 +299,20 @@ class Repository implements IRepository {
 
   @override
   Future<ProfileModel> getUserProfile() async {
-    var language;
-    final app_language = await _iprefHelper.getAppLanguage();
-    if (app_language == 1) {
-      language = 'en';
-    } else {
-      language = 'ar';
-    }
-    final token = await _iprefHelper.getToken();
-    return await _ihttpHelper.getUserProfile(
-        (await _iprefHelper.getToken()), language);
+    return await _ihttpHelper
+        .getUserProfile(  await _iprefHelper.getToken(),await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
   }
 
   @override
-  Future<ReviewQuoteUserModel> getUserQuote() async {
-    var language;
-    final app_language = await _iprefHelper.getAppLanguage();
-    if (app_language == 1) {
-      language = 'en';
-    } else {
-      language = 'ar';
-    }
-    final token = await _iprefHelper.getToken();
+  Future<BuiltList<ReviewQuoteUserModel>> getUserQuote() async {
     return await _ihttpHelper.getUserQuote(
-        (await _iprefHelper.getToken()), language);
+        await _iprefHelper.getToken(), await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
   }
 
   @override
-  Future<ReviewQuoteUserModel> getUserReviews() async {
-    var language;
-    final app_language = await _iprefHelper.getAppLanguage();
-    if (app_language == 1) {
-      language = 'en';
-    } else {
-      language = 'ar';
-    }
-    final token = await _iprefHelper.getToken();
+  Future<BuiltList<ReviewQuoteUserModel>> getUserReviews() async {
     return await _ihttpHelper.getUserReviews(
-        (await _iprefHelper.getToken()), language);
+        await _iprefHelper.getToken(), await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
   }
 
   @override

@@ -79,9 +79,9 @@ abstract class IRepository {
 
   Future<ProfileModel> getUserProfile();
 
-  Future<ReviewQuoteUserModel> getUserReviews();
+  Future<BuiltList<ReviewQuoteUserModel>> getUserReviews();
 
-  Future<ReviewQuoteUserModel> getUserQuote();
+  Future<BuiltList<ReviewQuoteUserModel>> getUserQuote();
 
   Future<bool> addToFavorite(int bookId);
 

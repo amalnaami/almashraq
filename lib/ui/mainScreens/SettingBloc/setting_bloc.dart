@@ -63,7 +63,7 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
         yield state.rebuild((b) => b
           ..isLoading = true
           ..error = ""
-          ..quoteUser = null);
+          ..quoteUser.replace([]));
 
         final date = await _repository.getUserQuote();
         print('GetProfile Success data ${date}');
@@ -76,7 +76,7 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
         yield state.rebuild((b) => b
           ..isLoading = false
           ..error = "Something went wrong"
-          ..quoteUser = null);
+          ..quoteUser.replace([]));
       }
     }
     if (event is GetUserReview) {
@@ -84,7 +84,7 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
         yield state.rebuild((b) => b
           ..isLoading = true
           ..error = ""
-          ..reviewUser = null);
+          ..reviewUser.replace([]));
 
         final date = await _repository.getUserReviews();
         print('GetProfile Success data ${date}');
@@ -97,7 +97,7 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
         yield state.rebuild((b) => b
           ..isLoading = false
           ..error = "Something went wrong"
-          ..reviewUser = null);
+          ..reviewUser.replace([]));
       }
     }
   }
