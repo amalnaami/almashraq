@@ -30,7 +30,7 @@ class BookScreenBloc extends Bloc<BookScreenEvent, BookScreenState> {
       } catch (e) {
         yield state.rebuild((b) => b
           ..isLoading = false
-          ..error = 'Something went wrong');
+          ..error = state.isLogin ? 'Something went wrong' : '');
       }
     } else if (event is ClearState) {
       yield state.rebuild((b) => b..error = '');

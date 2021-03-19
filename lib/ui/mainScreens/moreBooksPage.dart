@@ -54,7 +54,7 @@ class _MoreBookPageState extends State<MoreBookPage> {
   @override
   void dispose() {
     super.dispose();
-    _bloc.add(CleatFilter());
+    //_bloc.add(CleatFilter());
   }
 
   @override

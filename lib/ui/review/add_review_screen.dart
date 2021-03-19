@@ -48,9 +48,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
         error(AppLocalizations.of(context).translate('adding successfully'));
         // Timer(Duration(seconds: 1), () => Navigator.of(context).pop());
         WidgetsBinding.instance.addPostFrameCallback((timeStamp){
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => ReviewScreen(bookid: widget.bookid,isLogin:widget.isLogin),
-          ));
+          Navigator.of(context).pop();
         });
 
       }

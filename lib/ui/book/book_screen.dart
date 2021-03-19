@@ -234,8 +234,7 @@ class _BookScreenState extends State<BookScreen> {
                                           Row(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
+
                                             children: [
                                               RichText(
                                                 text: TextSpan(
@@ -255,6 +254,7 @@ class _BookScreenState extends State<BookScreen> {
                                                                       .black))
                                                     ]),
                                               ),
+                                              Spacer(),
                                               RichText(
                                                 text: TextSpan(
                                                     text: AppLocalizations.of(
@@ -282,8 +282,7 @@ class _BookScreenState extends State<BookScreen> {
                                                 vertical: SizeConfig
                                                     .blockSizeVertical),
                                             child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 RichText(
                                                   text: TextSpan(
@@ -306,6 +305,7 @@ class _BookScreenState extends State<BookScreen> {
                                                                         .black))
                                                       ]),
                                                 ),
+                                                Spacer(),
                                                 RichText(
                                                   text: TextSpan(
                                                       text: AppLocalizations.of(

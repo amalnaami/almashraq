@@ -26,6 +26,7 @@ class _ReviewCardState extends State<ReviewCard> {
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: Container(
+        margin: EdgeInsets.all(15),
         width: double.infinity,
         //height: MediaQuery.of(context).size.height * 0.4,
         child: Column(
@@ -60,9 +61,11 @@ class _ReviewCardState extends State<ReviewCard> {
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              '${widget.review.user_name}',
-                              style: boldStyle,
+                            Expanded(
+                              child: Text(
+                                '${widget.review.user_name}',
+                                style: boldStyle,
+                              ),
                             ),
                             //Expanded(child: Container()),
                             Spacer(),
@@ -167,7 +170,7 @@ class _ReviewCardState extends State<ReviewCard> {
                       ],
                     ),
                   ),
-                  SizedBox(width: 4,),
+                  SizedBox(width: 8,),
                   Expanded(
                     flex: 1,
                     child: Container(
