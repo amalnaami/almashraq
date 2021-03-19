@@ -33,10 +33,6 @@ class _AppBottomBarState extends State<AppBottomBar> {
           });
           widget.onTap(index);
         },
-
-
-
-
         items: [
           BottomNavigationBarItem(
             label: AppLocalizations.of(context).translate('main'),

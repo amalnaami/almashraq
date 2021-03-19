@@ -263,7 +263,7 @@ class Repository implements IRepository {
   }
 
   @override
-  Future<BuiltList<Book>> getBooksForAuthor(int id) async {
+  Future<BaseBook> getBooksForAuthor(int page, int id) async {
     var language;
     final app_language = await _iprefHelper.getAppLanguage();
     if (app_language == 1) {
@@ -271,14 +271,13 @@ class Repository implements IRepository {
     } else {
       language = 'ar';
     }
-    return await _ihttpHelper.getBooksForAuthor(id, language);
+    return await _ihttpHelper.getBooksForAuthor(page, id, language);
   }
 
   @override
   Future<bool> addQuote(String text, int bookId) async {
     return await _ihttpHelper.addQuote(
         text, bookId, (await _iprefHelper.getToken()));
-
   }
 
   @override
@@ -301,26 +300,26 @@ class Repository implements IRepository {
 
   @override
   Future<ProfileModel> getUserProfile() async {
-    return await _ihttpHelper
-        .getUserProfile(  await _iprefHelper.getToken(),await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
+    return await _ihttpHelper.getUserProfile(await _iprefHelper.getToken(),
+        await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
   }
 
   @override
   Future<BuiltList<ReviewQuoteUserModel>> getUserQuote() async {
-    return await _ihttpHelper.getUserQuote(
-        await _iprefHelper.getToken(), await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
+    return await _ihttpHelper.getUserQuote(await _iprefHelper.getToken(),
+        await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
   }
 
   @override
   Future<BuiltList<ReviewQuoteUserModel>> getUserReviews() async {
-    return await _ihttpHelper.getUserReviews(
-        await _iprefHelper.getToken(), await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
+    return await _ihttpHelper.getUserReviews(await _iprefHelper.getToken(),
+        await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
   }
 
   @override
   Future<bool> addToFavorite(int bookId) async {
-    return await _ihttpHelper.addToFavorite(
-        await _iprefHelper.getToken(), bookId, await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
+    return await _ihttpHelper.addToFavorite(await _iprefHelper.getToken(),
+        bookId, await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
   }
 
   @override
@@ -336,14 +335,14 @@ class Repository implements IRepository {
 
   @override
   Future<bool> removeFromFavorite(int bookId) async {
-    return await _ihttpHelper.removeFromFavorite(
-        await _iprefHelper.getToken(), bookId, await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
+    return await _ihttpHelper.removeFromFavorite(await _iprefHelper.getToken(),
+        bookId, await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
   }
 
   @override
   Future<BuiltList<Book>> getFavorite() async {
-    return await _ihttpHelper.getFavorite(
-        await _iprefHelper.getToken(), await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
+    return await _ihttpHelper.getFavorite(await _iprefHelper.getToken(),
+        await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
   }
 
   @override
@@ -353,9 +352,9 @@ class Repository implements IRepository {
 
   @override
   Future<bool> rateTheApp(int rate, String note) async {
-    return await _ihttpHelper.rateTheApp(await _iprefHelper.getToken(), rate, note);
+    return await _ihttpHelper.rateTheApp(
+        await _iprefHelper.getToken(), rate, note);
   }
-
 
   @override
   Future<bool> logout() async {
@@ -364,8 +363,55 @@ class Repository implements IRepository {
   }
 
   @override
-  Future<UserModel> editUser(String name, String username, String email, String tele, String gender, String country_code, File image) async{
-    final data = await _ihttpHelper.editUser(name, username, email, tele, gender, country_code, image,  await _iprefHelper.getToken(), await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
+  Future<UserModel> editUser(String name, String username, String email,
+      String tele, String gender, String country_code, File image) async {
+    final data = await _ihttpHelper.editUser(
+        name,
+        username,
+        email,
+        tele,
+        gender,
+        country_code,
+        image,
+        await _iprefHelper.getToken(),
+        await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
     return data;
+  }
+
+  @override
+  Future<BaseBook> getFilteredBooks(
+      {int page,
+      String bookName,
+      String ISIN,
+      String releaseDate,
+      int authorId,
+      int sectionId,
+      String sortType}) async {
+    return await _ihttpHelper.getFilteredBooks(
+        bookName: bookName,
+        ISIN: ISIN,
+        releaseDate: releaseDate,
+        authorId: authorId,
+        sectionId: sectionId,
+        sortType: sortType,
+        language: await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar',
+        page: page);
+  }
+
+  @override
+  Future<BuiltList<Author>> getFilteredAuthors(
+      {int sectionId, String name}) async {
+    return await _ihttpHelper.getFilteredAuthors(
+        sectionId: sectionId,
+        name: name,
+        language: await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
+  }
+
+  @override
+  Future<Category> getCategoryById({int sectionId}) async {
+    return await _ihttpHelper.getCategoryById(
+      sectionId: sectionId,
+      language: await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar',
+    );
   }
 }

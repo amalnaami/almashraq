@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:path/path.dart';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
@@ -25,7 +24,6 @@ import 'package:maktabeh_app/model/user/user.dart';
 import 'package:maktabeh_app/model/user/user_model.dart';
 
 import 'ihttpe_helper.dart';
-
 
 class HttpHelper implements IHttpHelper {
   final Dio _dio;
@@ -545,21 +543,16 @@ class HttpHelper implements IHttpHelper {
   }
 
   @override
-  Future<BuiltList<Book>> getBooksForAuthor(int id, String language) async {
+  Future<BaseBook> getBooksForAuthor(int page, int id, String language) async {
     try {
-      final response = await _dio.get('books/author/$id',
+      final response = await _dio.get('books/author/$id?page=$page',
           options: Options(headers: {"Accept-Language": language}));
       print('getBooksForAuthor Response StatusCode ${response.statusCode}');
       if (response.statusCode == 200) {
         print('getBooksForAuthor Response body  ${response.data}');
 
-        final ret = serializers.deserialize(json.decode(response.data)['data'],
-            specifiedType: FullType(
-              BuiltList,
-              [
-                const FullType(Book),
-              ],
-            ));
+        final ret = serializers.deserialize(json.decode(response.data),
+            specifiedType: FullType(BaseBook));
         return ret;
       } else {
         throw NetworkException();
@@ -624,15 +617,15 @@ class HttpHelper implements IHttpHelper {
   Future<ProfileModel> getUserProfile(String token, String language) async {
     try {
       final response = await _dio.get('user',
-          options: Options(
-              headers: {"Authorization": 'Bearer $token',"Accept-Language": language}));
+          options: Options(headers: {
+            "Authorization": 'Bearer $token',
+            "Accept-Language": language
+          }));
 
       if (response.statusCode == 200) {
-
-        final baseResponse =serializers.deserialize(
-            json.decode(response.data),
+        final baseResponse = serializers.deserialize(json.decode(response.data),
             specifiedType: FullType(ProfileModel));
-       return baseResponse;
+        return baseResponse;
       } else {
         throw NetworkException();
       }
@@ -672,32 +665,33 @@ class HttpHelper implements IHttpHelper {
   }
 
   @override
-  Future<BuiltList<ReviewQuoteUserModel>> getUserReviews(String token, String language) async {
-          try {
-          final response = await _dio.get('user/reviews',
+  Future<BuiltList<ReviewQuoteUserModel>> getUserReviews(
+      String token, String language) async {
+    try {
+      final response = await _dio.get('user/reviews',
           options: Options(headers: {
             "Authorization": 'Bearer $token',
             "Accept-Language": language
           }));
-          print('getFavorite Response StatusCode ${response.statusCode}');
-          if (response.statusCode == 200) {
-            print('getFavorite Response body  ${response.data}');
+      print('getFavorite Response StatusCode ${response.statusCode}');
+      if (response.statusCode == 200) {
+        print('getFavorite Response body  ${response.data}');
 
-            final ret = serializers.deserialize(json.decode(response.data)['data'],
-                specifiedType: FullType(
-                  BuiltList,
-                  [
-                    const FullType(ReviewQuoteUserModel),
-                  ],
-                ));
-            return ret;
-          } else {
-            throw NetworkException();
-          }
-          } catch (e) {
-            print(e.toString());
-            throw NetworkException();
-          }
+        final ret = serializers.deserialize(json.decode(response.data)['data'],
+            specifiedType: FullType(
+              BuiltList,
+              [
+                const FullType(ReviewQuoteUserModel),
+              ],
+            ));
+        return ret;
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException();
+    }
   }
 
   @override
@@ -724,13 +718,11 @@ class HttpHelper implements IHttpHelper {
   }
 
   @override
-  Future<bool> addReview(String text, int rating, int bookId, String token) async {
+  Future<bool> addReview(
+      String text, int rating, int bookId, String token) async {
     try {
       final formData = {
-        'review': {
-          'text': text,
-          'rating': rating
-        }
+        'review': {'text': text, 'rating': rating}
       };
       final response = await _dio.post('books/$bookId/review',
           data: formData,
@@ -750,7 +742,8 @@ class HttpHelper implements IHttpHelper {
   }
 
   @override
-  Future<BuiltList<ReviewQuoteUserModel>> getUserQuote(String token, String language) async {
+  Future<BuiltList<ReviewQuoteUserModel>> getUserQuote(
+      String token, String language) async {
     try {
       final response = await _dio.get('user/quotes',
           options: Options(headers: {
@@ -800,7 +793,8 @@ class HttpHelper implements IHttpHelper {
   }
 
   @override
-  Future<bool> removeFromFavorite(String token, int bookId, String language) async {
+  Future<bool> removeFromFavorite(
+      String token, int bookId, String language) async {
     try {
       final response = await _dio.delete('user/books/$bookId',
           options: Options(headers: {
@@ -826,10 +820,11 @@ class HttpHelper implements IHttpHelper {
           options: Options(headers: {"Accept-Language": language}));
 
       if (response.statusCode == 200) {
-        final baseResponse = serializers.deserialize(json.decode(response.data)['data'],
-            specifiedType: FullType(
-              AboutUs,
-            ));
+        final baseResponse =
+            serializers.deserialize(json.decode(response.data)['data'],
+                specifiedType: FullType(
+                  AboutUs,
+                ));
         print(baseResponse);
         if (baseResponse != null) {
           return baseResponse;
@@ -929,40 +924,164 @@ class HttpHelper implements IHttpHelper {
       throw NetworkException();
     }
   }
+
   @override
-  Future<UserModel> editUser(String name, String username,String email,String tele,String gender,String country_code
-      ,File image, String token,String language) async {
+  Future<UserModel> editUser(
+      String name,
+      String username,
+      String email,
+      String tele,
+      String gender,
+      String country_code,
+      File image,
+      String token,
+      String language) async {
+    try {
+      final formData = {
+        "name": name,
+        "username": username,
+        "email": email,
+        "tele": tele,
+        "gender": gender,
+        "country_code": country_code
+      };
+      // if (image != null && image.path.isNotEmpty) {
+      //   formData.file.add(MapEntry(
+      //     "image",
+      //     await MultipartFile.fromFile(image.path,
+      //         filename: basename(image.path)),
+      //   ));
+      // }
+      final response = await _dio.post('login', data: formData);
+      print('login Response StatusCode ${response.statusCode}');
+
+      if (response.statusCode == 200) {
+        final ret = serializers.deserialize(json.decode(response.data),
+            specifiedType: FullType(UserModel));
+        return ret;
+      } else {
+        throw NetworkException(code: response.statusCode);
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException(error: e.toString());
+    }
+  }
+
+  @override
+  Future<BaseBook> getFilteredBooks(
+      {String bookName,
+      String ISIN,
+      String releaseDate,
+      int authorId,
+      int sectionId,
+      String sortType,
+      String language,
+      int page}) async {
+    try {
+      List<String> queries = [];
+      if (authorId != null && authorId != -1) {
+        queries.add('author_id=$authorId');
+      }
+      if (sectionId != null && sectionId != -1) {
+        queries.add('sections_ids=$sectionId');
+      }
+      if (bookName != null && bookName.isNotEmpty) {
+        queries.add('query=$bookName');
+      }
+      if (ISIN != null && ISIN.isNotEmpty) {
+        queries.add('isbn=$ISIN');
+      }
+      if (releaseDate != null && releaseDate.isNotEmpty) {
+        queries.add('publish_year=$releaseDate');
+      }
+      if (sortType != null && sortType.isNotEmpty) {
+        queries.add('sort_type=$sortType');
+      }
+      String finalQ = '';
+      for (int i = 0; i < queries.length; i++) {
+        finalQ += queries[i];
+        if (i < queries.length - 1) finalQ += '&';
+      }
+      final response = await _dio.get('books/filter?$finalQ&page=$page',
+          options: Options(headers: {"Accept-Language": language}));
+      print('getFilteredBooks Response StatusCode ${response.statusCode}');
+      if (response.statusCode == 200) {
+        print('getFilteredBooks Response body  ${response.data}');
+        final books = serializers.deserialize(
+          json.decode(response.data),
+          specifiedType: FullType(BaseBook),
+        );
+        print(books);
+        return books;
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException();
+    }
+  }
+
+  @override
+  Future<BuiltList<Author>> getFilteredAuthors({
+    int sectionId,
+    String name,
+    String language,
+  }) async {
+    try {
+      List<String> queries = [];
+      if (sectionId != null && sectionId != -1) {
+        queries.add('section_id=$sectionId');
+      }
+      if (name != null && name.isNotEmpty) {
+        queries.add('name=$name');
+      }
+      String finalQ = '';
+      for (int i = 0; i < queries.length; i++) {
+        finalQ += queries[i];
+        if (i < queries.length - 1) finalQ += '&';
+      }
+      final response = await _dio.get('authors?$finalQ',
+          options: Options(headers: {"Accept-Language": language}));
+      print('getFilteredAuthors Response StatusCode ${response.statusCode}');
+      if (response.statusCode == 200) {
+        print('getFilteredAuthors Response body  ${response.data}');
+        final authors = serializers.deserialize(
+          json.decode(response.data)['data'],
+          specifiedType: FullType(BuiltList, [const FullType(Author)]),
+        );
+        print(authors);
+        return authors;
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException();
+    }
+  }
+
+  @override
+  Future<Category> getCategoryById({int sectionId, String language}) async {
 
       try {
-        final formData = {
-          "name": name,
-          "username": username,
-          "email": email,
-          "tele": tele,
-          "gender": gender,
-          "country_code": country_code
-        };
-        // if (image != null && image.path.isNotEmpty) {
-        //   formData.file.add(MapEntry(
-        //     "image",
-        //     await MultipartFile.fromFile(image.path,
-        //         filename: basename(image.path)),
-        //   ));
-        // }
-        final response = await _dio.post('login', data: formData);
-        print('login Response StatusCode ${response.statusCode}');
-
+        final response = await _dio.get('sections/$sectionId?with_books=1',
+            options: Options(headers: {"Accept-Language": language}));
+        print('getCategoryById Response StatusCode ${response.statusCode}');
         if (response.statusCode == 200) {
-          final ret = serializers.deserialize(json.decode(response.data),
-              specifiedType: FullType(UserModel));
+          print('getCategoryById Response body  ${response.data}');
+
+          final ret = serializers.deserialize(
+              json.decode(response.data)['data'],
+              specifiedType: FullType(Category));
           return ret;
         } else {
-          throw NetworkException(code: response.statusCode);
+          throw NetworkException();
         }
       } catch (e) {
         print(e.toString());
-        throw NetworkException(error: e.toString());
+        throw NetworkException();
       }
-  }
-
+    }
 }

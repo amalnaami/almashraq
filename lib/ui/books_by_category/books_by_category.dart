@@ -27,7 +27,9 @@ class BooksByCategory extends StatefulWidget {
 
 class _BooksByCategoryState extends State<BooksByCategory> {
   final _bloc = sl<BooksByCategoryBloc>();
+  FilterData filterData = FilterData.empty();
   ScrollController controller = ScrollController();
+  String sortType = 'asc';
   @override
   void initState() {
     _bloc.add(GetNextPage((b) => b..categoryId = widget.category.id));
@@ -40,12 +42,12 @@ class _BooksByCategoryState extends State<BooksByCategory> {
         }
       }
     });
+    filterData.sectionId = widget.category.id;
     super.initState();
   }
   @override
   void dispose() {
     super.dispose();
-    _bloc.close();
   }
   @override
   Widget build(BuildContext context) {
@@ -88,12 +90,17 @@ class _BooksByCategoryState extends State<BooksByCategory> {
                               Row(
                                 children: [
                                   InkWell(
-                                    onTap: () {
-                                      showDialog(
+                                    onTap: () async {
+                                      FilterData data = await showDialog(
                                           context: context,
                                           builder: (BuildContext ctx) {
-                                            return filterDialog(ctx);
+                                            return FilterDialog(data: filterData, category: false);
                                           });
+                                      if(data == null)
+                                        filterData = FilterData.empty();
+                                      else filterData = data;
+                                      _bloc.add(AddFilter((b) => b..data = data));
+                                      _bloc.add(GetNextPage((b) => b..categoryId = widget.category.id));
                                     },
                                     child: buildLocalImage('assets/svg/filter.svg'),
                                   ),
@@ -101,16 +108,21 @@ class _BooksByCategoryState extends State<BooksByCategory> {
                                     width: 8,
                                   ),
                                   InkWell(
-                                      onTap: () {
-                                        showDialog(
+                                      onTap: () async {
+                                        String data = await showDialog(
                                             context: context,
                                             builder: (BuildContext ctx) {
-                                              return sortDialog(ctx);
+                                              return SortDialog(sortType == 'asc' ? 1 : 0);
                                             });
+                                        if(data != null)
+                                          sortType = data;
+                                        _bloc.add(AddSort((b) => b..sortType = data..id = widget.category.id));
+                                        _bloc.add(GetNextPage((b) => b..categoryId = widget.category.id));
+
                                       },
                                       child: buildLocalImage('assets/svg/sort.svg')),
                                 ],
-                              )
+                              ),
                             ],
                           ),
                         ),

@@ -11,8 +11,8 @@ import 'package:maktabeh_app/ui/common_widget/CategorisCard.dart';
 
 class HomeCategoris extends StatefulWidget {
   final BuiltList<Category> categories;
-
-  const HomeCategoris({Key key, this.categories}) : super(key: key);
+  final Function(int) callback;
+  const HomeCategoris({Key key, this.categories, this.callback}) : super(key: key);
   @override
   _HomeCategorisState createState() => _HomeCategorisState();
 }
@@ -45,7 +45,8 @@ class _HomeCategorisState extends State<HomeCategoris> {
                 ),
                 InkWell(
                     onTap: () {
-                      push(context, AllCategories(categories: widget.categories,));
+                      widget.callback.call(1);
+                      //push(context, AllCategories(categories: widget.categories,));
                     },
                   child: Text(
                     AppLocalizations.of(context).translate('see all'),

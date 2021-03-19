@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of author_event;
+part of filter_event;
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -62,153 +62,58 @@ class GetAuthorsBuilder implements Builder<GetAuthors, GetAuthorsBuilder> {
   }
 }
 
-class _$AddFilter extends AddFilter {
-  @override
-  final FilterData data;
+class _$GetFilterData extends GetFilterData {
+  factory _$GetFilterData([void Function(GetFilterDataBuilder) updates]) =>
+      (new GetFilterDataBuilder()..update(updates)).build();
 
-  factory _$AddFilter([void Function(AddFilterBuilder) updates]) =>
-      (new AddFilterBuilder()..update(updates)).build();
-
-  _$AddFilter._({this.data}) : super._() {
-    if (data == null) {
-      throw new BuiltValueNullFieldError('AddFilter', 'data');
-    }
-  }
+  _$GetFilterData._() : super._();
 
   @override
-  AddFilter rebuild(void Function(AddFilterBuilder) updates) =>
+  GetFilterData rebuild(void Function(GetFilterDataBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  AddFilterBuilder toBuilder() => new AddFilterBuilder()..replace(this);
+  GetFilterDataBuilder toBuilder() => new GetFilterDataBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is AddFilter && data == other.data;
+    return other is GetFilterData;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(0, data.hashCode));
+    return 297041305;
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('AddFilter')..add('data', data))
-        .toString();
+    return newBuiltValueToStringHelper('GetFilterData').toString();
   }
 }
 
-class AddFilterBuilder implements Builder<AddFilter, AddFilterBuilder> {
-  _$AddFilter _$v;
+class GetFilterDataBuilder
+    implements Builder<GetFilterData, GetFilterDataBuilder> {
+  _$GetFilterData _$v;
 
-  FilterData _data;
-  FilterData get data => _$this._data;
-  set data(FilterData data) => _$this._data = data;
-
-  AddFilterBuilder();
-
-  AddFilterBuilder get _$this {
-    if (_$v != null) {
-      _data = _$v.data;
-      _$v = null;
-    }
-    return this;
-  }
+  GetFilterDataBuilder();
 
   @override
-  void replace(AddFilter other) {
+  void replace(GetFilterData other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$AddFilter;
+    _$v = other as _$GetFilterData;
   }
 
   @override
-  void update(void Function(AddFilterBuilder) updates) {
+  void update(void Function(GetFilterDataBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$AddFilter build() {
-    final _$result = _$v ?? new _$AddFilter._(data: data);
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$AddSort extends AddSort {
-  @override
-  final String sortType;
-
-  factory _$AddSort([void Function(AddSortBuilder) updates]) =>
-      (new AddSortBuilder()..update(updates)).build();
-
-  _$AddSort._({this.sortType}) : super._() {
-    if (sortType == null) {
-      throw new BuiltValueNullFieldError('AddSort', 'sortType');
-    }
-  }
-
-  @override
-  AddSort rebuild(void Function(AddSortBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  AddSortBuilder toBuilder() => new AddSortBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is AddSort && sortType == other.sortType;
-  }
-
-  @override
-  int get hashCode {
-    return $jf($jc(0, sortType.hashCode));
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper('AddSort')..add('sortType', sortType))
-        .toString();
-  }
-}
-
-class AddSortBuilder implements Builder<AddSort, AddSortBuilder> {
-  _$AddSort _$v;
-
-  String _sortType;
-  String get sortType => _$this._sortType;
-  set sortType(String sortType) => _$this._sortType = sortType;
-
-  AddSortBuilder();
-
-  AddSortBuilder get _$this {
-    if (_$v != null) {
-      _sortType = _$v.sortType;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(AddSort other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
-    _$v = other as _$AddSort;
-  }
-
-  @override
-  void update(void Function(AddSortBuilder) updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  _$AddSort build() {
-    final _$result = _$v ?? new _$AddSort._(sortType: sortType);
+  _$GetFilterData build() {
+    final _$result = _$v ?? new _$GetFilterData._();
     replace(_$result);
     return _$result;
   }
@@ -326,113 +231,57 @@ class ClearStateBuilder implements Builder<ClearState, ClearStateBuilder> {
   }
 }
 
-class _$ClearFilter extends ClearFilter {
-  factory _$ClearFilter([void Function(ClearFilterBuilder) updates]) =>
-      (new ClearFilterBuilder()..update(updates)).build();
+class _$GetSections extends GetSections {
+  factory _$GetSections([void Function(GetSectionsBuilder) updates]) =>
+      (new GetSectionsBuilder()..update(updates)).build();
 
-  _$ClearFilter._() : super._();
+  _$GetSections._() : super._();
 
   @override
-  ClearFilter rebuild(void Function(ClearFilterBuilder) updates) =>
+  GetSections rebuild(void Function(GetSectionsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ClearFilterBuilder toBuilder() => new ClearFilterBuilder()..replace(this);
+  GetSectionsBuilder toBuilder() => new GetSectionsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is ClearFilter;
+    return other is GetSections;
   }
 
   @override
   int get hashCode {
-    return 356428798;
+    return 72182818;
   }
 
   @override
   String toString() {
-    return newBuiltValueToStringHelper('ClearFilter').toString();
+    return newBuiltValueToStringHelper('GetSections').toString();
   }
 }
 
-class ClearFilterBuilder implements Builder<ClearFilter, ClearFilterBuilder> {
-  _$ClearFilter _$v;
+class GetSectionsBuilder implements Builder<GetSections, GetSectionsBuilder> {
+  _$GetSections _$v;
 
-  ClearFilterBuilder();
+  GetSectionsBuilder();
 
   @override
-  void replace(ClearFilter other) {
+  void replace(GetSections other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$ClearFilter;
+    _$v = other as _$GetSections;
   }
 
   @override
-  void update(void Function(ClearFilterBuilder) updates) {
+  void update(void Function(GetSectionsBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$ClearFilter build() {
-    final _$result = _$v ?? new _$ClearFilter._();
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$Clear extends Clear {
-  factory _$Clear([void Function(ClearBuilder) updates]) =>
-      (new ClearBuilder()..update(updates)).build();
-
-  _$Clear._() : super._();
-
-  @override
-  Clear rebuild(void Function(ClearBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  ClearBuilder toBuilder() => new ClearBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is Clear;
-  }
-
-  @override
-  int get hashCode {
-    return 102524199;
-  }
-
-  @override
-  String toString() {
-    return newBuiltValueToStringHelper('Clear').toString();
-  }
-}
-
-class ClearBuilder implements Builder<Clear, ClearBuilder> {
-  _$Clear _$v;
-
-  ClearBuilder();
-
-  @override
-  void replace(Clear other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
-    _$v = other as _$Clear;
-  }
-
-  @override
-  void update(void Function(ClearBuilder) updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  _$Clear build() {
-    final _$result = _$v ?? new _$Clear._();
+  _$GetSections build() {
+    final _$result = _$v ?? new _$GetSections._();
     replace(_$result);
     return _$result;
   }

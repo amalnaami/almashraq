@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -7,10 +6,12 @@ import 'package:maktabeh_app/core/loaderApp.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
 import 'package:maktabeh_app/injection.dart';
 import 'package:maktabeh_app/ui/common_widget/CategorisCard.dart';
+import 'package:maktabeh_app/ui/common_widget/CustomAlert.dart';
+import 'package:maktabeh_app/ui/common_widget/local_image.dart';
 import 'package:maktabeh_app/ui/mainScreens/categories_bloc/categories_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/categories_bloc/categories_event.dart';
+import 'package:maktabeh_app/ui/mainScreens/categories_bloc/categories_state.dart';
 
-import 'categories_bloc/categories_state.dart';
 
 class CategoriesScreen extends StatefulWidget {
   @override
@@ -19,17 +20,20 @@ class CategoriesScreen extends StatefulWidget {
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
   final _bloc = sl<CategoriesBloc>();
-
+  FilterData data;
   @override
   void initState() {
-    _bloc.add(GetCategories());
     super.initState();
+    print('INI');
+    _bloc.add(ClearFilter());
+    _bloc.add(GetCategories());
+    data = FilterData.empty();
   }
 
   @override
   void dispose() {
+    _bloc.add(Clear());
     super.dispose();
-    _bloc.close();
   }
 
   @override
@@ -38,6 +42,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       cubit: _bloc,
       builder: (BuildContext context, CategoriesState state) {
         error(state.error);
+        print(state);
         return Scaffold(
           body: Stack(
             children: [
@@ -46,9 +51,40 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      AppLocalizations.of(context).translate('section'),
-                      style: boldStyle,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context).translate('section'),
+                          style: boldStyle,
+                        ),
+                        Row(
+                          children: [
+                            InkWell(
+                              onTap: () async {
+                                FilterData newData = await showDialog(
+                                    context: context,
+                                    builder: (BuildContext ctx) {
+                                      return CategoriesFilter(data);
+                                    });
+                                print(newData.sectionId);
+                                if(newData != null && newData != FilterData.empty() && newData != data) {
+                                  data = newData;
+                                  _bloc.add(AddFilter((b) => b..data = data));
+                                } else {
+                                  _bloc.add(ClearFilter());
+                                }
+                                _bloc.add(GetCategories());
+
+                              },
+                              child: buildLocalImage('assets/svg/filter.svg'),
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.05,
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                   Expanded(

@@ -89,10 +89,12 @@ class _SearchScreenState extends State<SearchScreen> {
                     SizedBox(
                       width: 25,
                     ),
-                    filterDropDown(context,
-                        hint: AppLocalizations.of(context)
-                            .translate('author name'),
-                        width: SizeConfig.screenWidth * 0.5)
+
+                    // filterDropDown(context,
+                    //     authorName: true,
+                    //     hint: AppLocalizations.of(context)
+                    //         .translate('author name'),
+                    //     width: SizeConfig.screenWidth * 0.5)
                   ],
                 ),
               ),

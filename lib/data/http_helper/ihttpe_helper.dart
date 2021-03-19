@@ -8,7 +8,6 @@ import 'package:maktabeh_app/model/book/book.dart';
 import 'package:maktabeh_app/model/book_by_category/book_by_category.dart';
 import 'package:maktabeh_app/model/category/category.dart';
 import 'package:maktabeh_app/model/country_model/country_model.dart';
-import 'package:maktabeh_app/model/login_model/login_model.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:maktabeh_app/model/quote/quote.dart';
 import 'package:maktabeh_app/model/review/review.dart';
@@ -37,7 +36,7 @@ abstract class IHttpHelper {
   Future<BookByCategoryModel> getBooksByCategory(int page, int categoryId,String language);
   Future<BookByCategoryModel> getSectionByBook(int withBooks, int sectionId,String language);
   Future<BuiltList<Author>> getAllAuthor(String language);
-  Future<BuiltList<Book>> getBooksForAuthor(int id,String language);
+  Future<BaseBook> getBooksForAuthor(int page, int id,String language);
   Future<bool> addReview(String text,int rating,int bookId,String token);
   Future<bool> addQuote(String text,int bookId,String token);
   Future<BuiltList<Review>> getAllReviews(String language);
@@ -55,4 +54,17 @@ abstract class IHttpHelper {
   Future<bool> logout(String token);
   Future<UserModel> editUser(String name, String username,String email,String tele,String gender,String country_code
       ,File image, String token,String language);
+  Future<BaseBook> getFilteredBooks({
+      String bookName,
+      String ISIN,
+      String releaseDate,
+      int authorId,
+      int sectionId,
+      String sortType,
+      String language,
+    int page
+  });
+  Future<BuiltList<Author>> getFilteredAuthors({int sectionId, String name, String language});
+  Future<Category> getCategoryById({int sectionId, String language});
+
 }

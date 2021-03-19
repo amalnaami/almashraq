@@ -175,4 +175,192 @@ class ClearStateBuilder implements Builder<ClearState, ClearStateBuilder> {
   }
 }
 
+class _$Clear extends Clear {
+  factory _$Clear([void Function(ClearBuilder) updates]) =>
+      (new ClearBuilder()..update(updates)).build();
+
+  _$Clear._() : super._();
+
+  @override
+  Clear rebuild(void Function(ClearBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  ClearBuilder toBuilder() => new ClearBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is Clear;
+  }
+
+  @override
+  int get hashCode {
+    return 102524199;
+  }
+
+  @override
+  String toString() {
+    return newBuiltValueToStringHelper('Clear').toString();
+  }
+}
+
+class ClearBuilder implements Builder<Clear, ClearBuilder> {
+  _$Clear _$v;
+
+  ClearBuilder();
+
+  @override
+  void replace(Clear other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$Clear;
+  }
+
+  @override
+  void update(void Function(ClearBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$Clear build() {
+    final _$result = _$v ?? new _$Clear._();
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$AddFilter extends AddFilter {
+  @override
+  final FilterData data;
+
+  factory _$AddFilter([void Function(AddFilterBuilder) updates]) =>
+      (new AddFilterBuilder()..update(updates)).build();
+
+  _$AddFilter._({this.data}) : super._() {
+    if (data == null) {
+      throw new BuiltValueNullFieldError('AddFilter', 'data');
+    }
+  }
+
+  @override
+  AddFilter rebuild(void Function(AddFilterBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  AddFilterBuilder toBuilder() => new AddFilterBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is AddFilter && data == other.data;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc(0, data.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('AddFilter')..add('data', data))
+        .toString();
+  }
+}
+
+class AddFilterBuilder implements Builder<AddFilter, AddFilterBuilder> {
+  _$AddFilter _$v;
+
+  FilterData _data;
+  FilterData get data => _$this._data;
+  set data(FilterData data) => _$this._data = data;
+
+  AddFilterBuilder();
+
+  AddFilterBuilder get _$this {
+    if (_$v != null) {
+      _data = _$v.data;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(AddFilter other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$AddFilter;
+  }
+
+  @override
+  void update(void Function(AddFilterBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$AddFilter build() {
+    final _$result = _$v ?? new _$AddFilter._(data: data);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$ClearFilter extends ClearFilter {
+  factory _$ClearFilter([void Function(ClearFilterBuilder) updates]) =>
+      (new ClearFilterBuilder()..update(updates)).build();
+
+  _$ClearFilter._() : super._();
+
+  @override
+  ClearFilter rebuild(void Function(ClearFilterBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  ClearFilterBuilder toBuilder() => new ClearFilterBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is ClearFilter;
+  }
+
+  @override
+  int get hashCode {
+    return 356428798;
+  }
+
+  @override
+  String toString() {
+    return newBuiltValueToStringHelper('ClearFilter').toString();
+  }
+}
+
+class ClearFilterBuilder implements Builder<ClearFilter, ClearFilterBuilder> {
+  _$ClearFilter _$v;
+
+  ClearFilterBuilder();
+
+  @override
+  void replace(ClearFilter other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$ClearFilter;
+  }
+
+  @override
+  void update(void Function(ClearFilterBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$ClearFilter build() {
+    final _$result = _$v ?? new _$ClearFilter._();
+    replace(_$result);
+    return _$result;
+  }
+}
+
 // ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

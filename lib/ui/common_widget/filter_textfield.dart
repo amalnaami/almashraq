@@ -3,11 +3,12 @@ import 'package:maktabeh_app/core/size_config.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
 
 Widget filterTextField(
-    {String hint, double height, double width, Widget suffixIcon}) {
+    {String hint, double height, double width, Widget suffixIcon, TextEditingController controller}) {
   return Container(
     width: width ?? SizeConfig.screenWidth * 0.4,
     height: height ?? SizeConfig.screenHeight * 0.07,
     child: TextField(
+      controller: controller,
       decoration: InputDecoration(
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(width: 1, color: Color(0xFFCBCBCB)),

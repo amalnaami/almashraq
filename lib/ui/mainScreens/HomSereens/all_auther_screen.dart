@@ -22,18 +22,22 @@ class AllAuthorScreen extends StatefulWidget {
 
 class _AllAuthorScreenState extends State<AllAuthorScreen> {
   final _bloc = sl<AuthorBloc>();
-
+  String sortType = 'asc';
+  FilterData data;
   @override
   void initState() {
+    super.initState();
+    _bloc.add(ClearFilter());
     _bloc.add(GetIsLogin());
     _bloc.add(GetAuthors());
-    super.initState();
+    data = FilterData.empty();
   }
 
   @override
   void dispose() {
-    super.dispose();
+    _bloc.add(Clear());
     _bloc.close();
+    super.dispose();
   }
 
   @override
@@ -62,12 +66,18 @@ class _AllAuthorScreenState extends State<AllAuthorScreen> {
                         Row(
                           children: [
                             InkWell(
-                              onTap: () {
-                                showDialog(
+                              onTap: () async {
+                                FilterData newData = await showDialog(
                                     context: context,
                                     builder: (BuildContext ctx) {
-                                      return filterDialog(ctx);
+                                      return AuthorFilter(data);
                                     });
+                                if(newData != null && newData != FilterData.empty() && newData != data) {
+                                  data = newData;
+                                  _bloc.add(AddFilter((b) => b..data = data));
+                                } else {
+                                  _bloc.add(GetAuthors());
+                                }
                               },
                               child: buildLocalImage('assets/svg/filter.svg'),
                             ),
@@ -75,12 +85,16 @@ class _AllAuthorScreenState extends State<AllAuthorScreen> {
                               width: SizeConfig.screenWidth * 0.05,
                             ),
                             InkWell(
-                                onTap: () {
-                                  showDialog(
+                                onTap: () async {
+                                  String res = await showDialog(
                                       context: context,
                                       builder: (BuildContext ctx) {
-                                        return sortDialog(ctx);
+                                        return SortDialog(sortType == 'asc' ? 1 : 0);
                                       });
+                                  if(res != sortType) {
+                                    sortType = res;
+                                    _bloc.add(AddSort((b) => b..sortType = res));
+                                  }
                                 },
                                 child: buildLocalImage('assets/svg/sort.svg')),
                           ],

@@ -58,10 +58,10 @@ class _AboutWriterScreenState extends State<AboutWriterScreen> {
                 String _msg;
                 StringBuffer _sb = new StringBuffer();
                 // setState(() {
-                _sb.write("عبدالوهاب عزام \n");
+                _sb.write("${widget.author.getName(AppLocalizations.of(context).locale.languageCode)} \n");
                 _sb.write("كاتب جميل وكتبة جميلة \n");
                 _sb.write(
-                    "و هنا هنضيف لينك لليوز يدخل بية عالويب سايت او الابلكيشن وممكن نضيف صورة \n");
+                    "https://almashreqebookstore.com\n");
 
                 _msg = _sb.toString();
                 // });

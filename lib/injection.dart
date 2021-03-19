@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:maktabeh_app/core/config/firebase_notifications.dart';
 import 'package:maktabeh_app/data/prefs_helper/iprefs_helper.dart';
 import 'package:maktabeh_app/data/prefs_helper/prefs_helper.dart';
 import 'package:maktabeh_app/ui/about_us/bloc/about_us_bloc.dart';
@@ -13,6 +12,7 @@ import 'package:maktabeh_app/ui/books_by_category/books_by_category_bloc/books_b
 import 'package:maktabeh_app/ui/contact_us/bloc/contact_us_bloc.dart';
 import 'package:maktabeh_app/ui/guide/category_bloc/category_bloc.dart';
 import 'package:maktabeh_app/ui/language_page/bloc/language_bloc.dart';
+import 'package:maktabeh_app/ui/mainScreens/HomSereens/filter_bloc/filter_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/HomSereens/home_bloc/home_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/SettingBloc/setting_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/all_quote_bloc/all_quote_bloc.dart';
@@ -21,7 +21,6 @@ import 'package:maktabeh_app/ui/mainScreens/author_bloc/author_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/author_books_bloc/author_books_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/categories_bloc/categories_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/drawer/add_rate_bloc/add_rate_bloc.dart';
-import 'package:maktabeh_app/ui/mainScreens/drawer/add_rate_bloc/add_rate_state.dart';
 import 'package:maktabeh_app/ui/mainScreens/drawer/favorite_bloc/favorite_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/drawer/rate_bloc/rate_bloc.dart';
 import 'package:maktabeh_app/ui/user/editProfile.dart/edit_password_bloc/edit_password_bloc.dart';
@@ -77,4 +76,5 @@ Future iniGetIt() async {
   sl.registerLazySingleton(() => BookScreenBloc(sl()));
   sl.registerLazySingleton(() => RateBloc(sl()));
   sl.registerLazySingleton(() => AddRateBloc(sl()));
+  sl.registerLazySingleton(() => FilterBloc(sl()));
 }

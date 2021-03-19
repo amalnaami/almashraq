@@ -29,6 +29,8 @@ class AllBooksScreen extends StatefulWidget {
 class _AllBooksScreenState extends State<AllBooksScreen> {
   final _bloc = sl<AllBooksBloc>();
   ScrollController controller = ScrollController();
+  FilterData filterData = FilterData.empty();
+  String sortType = 'asc';
   @override
   void initState() {
     _bloc.add(GetNextPage());
@@ -87,12 +89,15 @@ class _AllBooksScreenState extends State<AllBooksScreen> {
                               Row(
                                 children: [
                                   InkWell(
-                                    onTap: () {
-                                      showDialog(
+                                    onTap: () async {
+                                      final data = await showDialog(
                                           context: context,
                                           builder: (BuildContext ctx) {
-                                            return filterDialog(ctx);
+                                            return FilterDialog(data: filterData,);
                                           });
+                                      if(data == null) return;
+                                      filterData = data;
+                                      _bloc.add(AddFilter((b) => b..data = data));
                                     },
                                     child: buildLocalImage('assets/svg/filter.svg'),
                                   ),
@@ -100,12 +105,15 @@ class _AllBooksScreenState extends State<AllBooksScreen> {
                                     width: 8,
                                   ),
                                   InkWell(
-                                      onTap: () {
-                                        showDialog(
+                                      onTap: () async {
+                                        String data = await showDialog(
                                             context: context,
                                             builder: (BuildContext ctx) {
-                                              return sortDialog(ctx);
+                                              return SortDialog(sortType == 'asc' ? 1 : 0);
                                             });
+                                        if(data != null)
+                                          sortType = data;
+                                        _bloc.add(AddSort((b) => b..sortType = data));
                                       },
                                       child: buildLocalImage('assets/svg/sort.svg')),
                                 ],

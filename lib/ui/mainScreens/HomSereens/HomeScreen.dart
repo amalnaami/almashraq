@@ -17,6 +17,8 @@ import 'Compenant/mainList.dart';
 import 'home_bloc/home_state.dart';
 
 class HomeScreen extends StatefulWidget {
+  final Function(int) callback;
+  const HomeScreen({this.callback});
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -49,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   // categoris //
                   if (state.categories != null && state.categories.isNotEmpty)
-                    HomeCategoris(categories: state.categories),
+                    HomeCategoris(categories: state.categories, callback: widget.callback,),
                   // for you
                   if (state.featuredBooks != null &&
                       state.featuredBooks.isNotEmpty)
@@ -100,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   if (state.todayReview != null) ReviewToday(state.todayReview),
                   // writers
                   if (state.authors != null && state.authors.isNotEmpty)
-                    SupremeWriterPage(state.authors),
+                    SupremeWriterPage(state.authors, seeMoreCallback: widget.callback,),
                 ],
               ),
               if (state.isLoading) loaderApp

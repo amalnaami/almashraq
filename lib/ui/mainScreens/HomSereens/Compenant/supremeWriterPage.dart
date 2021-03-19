@@ -11,7 +11,8 @@ import 'package:maktabeh_app/ui/mainScreens/HomSereens/all_auther_screen.dart';
 
 class SupremeWriterPage extends StatefulWidget {
   final BuiltList<Author> authors;
-  const SupremeWriterPage(this.authors);
+  final Function(int) seeMoreCallback;
+  const SupremeWriterPage(this.authors, {this.seeMoreCallback});
   @override
   _SupremeWriterPageState createState() => _SupremeWriterPageState();
 }
@@ -42,7 +43,7 @@ class _SupremeWriterPageState extends State<SupremeWriterPage> {
                   ],
                 ),
                 InkWell(
-                   onTap: () => push(context, AllAuthorScreen()),
+                   onTap: () => widget.seeMoreCallback.call(2),
                   child: Text(
                     AppLocalizations.of(context).translate('see more'),
                     style: lightStyle.copyWith(fontSize: 10),

@@ -47,7 +47,7 @@ abstract class IRepository {
 
   Future<BuiltList<Book>> getAllBooks();
 
-  Future<BuiltList<Book>> getBooksForAuthor(int id);
+  Future<BaseBook> getBooksForAuthor(int page, int id);
 
   Future<BuiltList<Book>> getLatestBooks();
 
@@ -94,9 +94,25 @@ abstract class IRepository {
   Future<bool> contactUs(String name, String email, String message);
 
   Future<BuiltList<Book>> getFavorite();
+
   Future<AppRate> getAppRate();
+
   Future<bool> rateTheApp(int rate, String note);
+
   Future<bool> logout();
-  Future<UserModel> editUser(String name, String username,String email,String tele,String gender,String country_code
-      ,File image);
+
+  Future<UserModel> editUser(String name, String username, String email,
+      String tele, String gender, String country_code, File image);
+
+  Future<BaseBook> getFilteredBooks(
+      {String bookName,
+      String ISIN,
+      String releaseDate,
+      int authorId,
+      int sectionId,
+      String sortType,
+      int page});
+
+  Future<BuiltList<Author>> getFilteredAuthors({int sectionId, String name});
+  Future<Category> getCategoryById({int sectionId});
 }

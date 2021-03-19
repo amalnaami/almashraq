@@ -21,19 +21,18 @@ class OuthorScreen extends StatefulWidget {
 
 class _OuthorScreenState extends State<OuthorScreen> {
   final _bloc = sl<AuthorBloc>();
-
+  String sortType = 'asc';
+  FilterData data;
   @override
   void initState() {
+    super.initState();
+    print(_bloc.state);
+    _bloc.add(ClearFilter());
     _bloc.add(GetIsLogin());
     _bloc.add(GetAuthors());
-    super.initState();
+    data = FilterData.empty();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _bloc.close();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,12 +59,22 @@ class _OuthorScreenState extends State<OuthorScreen> {
                         Row(
                           children: [
                             InkWell(
-                              onTap: () {
-                                showDialog(
+                              onTap: () async {
+                                FilterData newData = await showDialog(
                                     context: context,
                                     builder: (BuildContext ctx) {
-                                      return filterDialog(ctx);
+                                      return AuthorFilter(data);
                                     });
+                                if(newData == null) return;
+                                data = newData;
+                                _bloc.add(AddFilter((b) => b..data = data));
+                                // if(newData != FilterData.empty()) {
+                                //   data = newData;
+                                //   _bloc.add(AddFilter((b) => b..data = data));
+                                // } else {
+                                //   _bloc.add(ClearFilter());
+                                //   _bloc.add(GetAuthors());
+                                // }
                               },
                               child: buildLocalImage('assets/svg/filter.svg'),
                             ),
@@ -73,12 +82,16 @@ class _OuthorScreenState extends State<OuthorScreen> {
                               width: SizeConfig.screenWidth * 0.05,
                             ),
                             InkWell(
-                                onTap: () {
-                                  showDialog(
+                                onTap: () async {
+                                  String res = await showDialog(
                                       context: context,
                                       builder: (BuildContext ctx) {
-                                        return sortDialog(ctx);
+                                        return SortDialog(sortType == 'asc' ? 1 : 0);
                                       });
+                                  if(res != sortType) {
+                                    sortType = res;
+                                    _bloc.add(AddSort((b) => b..sortType = res));
+                                  }
                                 },
                                 child: buildLocalImage('assets/svg/sort.svg')),
                           ],

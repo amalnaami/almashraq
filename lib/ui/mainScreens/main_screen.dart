@@ -21,36 +21,43 @@ class _MainPageState extends State<MainPage>
   var _bottomNavIndex = 0;
   List<String> screenTitle = [];
   List<Widget> widgets = [];
+  int inx = 0;
   @override
   void initState() {
-
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    if(widgets.isEmpty){
+    if (widgets.isEmpty) {
       widgets = [
-        HomeScreen(),
+        HomeScreen(callback: (v) {
+          setState(() {
+            inx = v;
+            _bottomNavIndex = v;
+
+          });
+        }),
         CategoriesScreen(),
         OuthorScreen(),
-        MyQuote(fromHome:true ,title: 'quotes'),
+        MyQuote(fromHome: true, title: 'quotes'),
         SettingsScreen(),
       ];
     }
-    if(screenTitle.isEmpty){
+    if (screenTitle.isEmpty) {
       screenTitle = [
-       "main", //AppLocalizations.of(context).translate('main'),
-       "sections", //AppLocalizations.of(context).translate('sections'),
-        "author",//AppLocalizations.of(context).translate('author'),
-        "quotes",//AppLocalizations.of(context).translate('quotes'),
-        "account",//AppLocalizations.of(context).translate('account'),
+        "main", //AppLocalizations.of(context).translate('main'),
+        "sections", //AppLocalizations.of(context).translate('sections'),
+        "author", //AppLocalizations.of(context).translate('author'),
+        "quotes", //AppLocalizations.of(context).translate('quotes'),
+        "account", //AppLocalizations.of(context).translate('account'),
       ];
     }
     return Scaffold(
       drawer: CustomDrawer(),
       appBar: AppBar(
         title: Text(
-      AppLocalizations.of(context).translate(screenTitle[_bottomNavIndex]),
+          AppLocalizations.of(context).translate(screenTitle[_bottomNavIndex]),
           style: regStyle.copyWith(
               color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
         ),
@@ -65,7 +72,7 @@ class _MainPageState extends State<MainPage>
           ),
         ),
         actions: [
-            IconButton(
+          IconButton(
               icon: ImageIcon(
                 AssetImage("assets/icons/Search.png"),
                 color: Colors.white,
@@ -85,13 +92,89 @@ class _MainPageState extends State<MainPage>
       ),
       extendBody: true,
       body: widgets[_bottomNavIndex],
-      bottomNavigationBar: AppBottomBar(
-        onTap: (v) {
+      bottomNavigationBar: Card(
+      elevation: 4,
+      margin: EdgeInsets.only(bottom: 0.0),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+      child: BottomNavigationBar(
+        selectedLabelStyle: TextStyle(fontSize: 10),
+        unselectedLabelStyle: TextStyle(fontSize: 10),
+        unselectedItemColor: Colors.grey,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        selectedItemColor: primaryColor,
+        currentIndex: inx,
+        onTap: (index) {
           setState(() {
-            _bottomNavIndex = v;
+            inx = index;
+            _bottomNavIndex = index;
+
           });
         },
+        items: [
+          BottomNavigationBarItem(
+            label: AppLocalizations.of(context).translate('main'),
+            icon: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ImageIcon(
+                AssetImage("assets/icons/Home.png"),
+                size: 20,
+              ),
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: AppLocalizations.of(context).translate('sections'),
+            icon: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ImageIcon(
+                AssetImage(
+                  "assets/icons/Categoris.png",
+                ),
+                size: 20,
+              ),
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: AppLocalizations.of(context).translate('author'),
+            icon: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ImageIcon(
+                AssetImage("assets/icons/Profile.png"),
+                size: 20,
+              ),
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: AppLocalizations.of(context).translate('quotes'),
+            icon: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ImageIcon(
+                AssetImage("assets/icons/Chat.png"),
+                size: 20,
+              ),
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: AppLocalizations.of(context).translate('account'),
+            icon: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ImageIcon(
+                AssetImage("assets/icons/Setting.png"),
+                size: 20,
+              ),
+            ),
+          ),
+        ],
       ),
+    )
+      // AppBottomBar(
+      //   onTap: (v) {
+      //     setState(() {
+      //       _bottomNavIndex = v;
+      //     });
+      //   },
+      // ),
     );
   }
 }

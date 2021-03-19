@@ -8,6 +8,7 @@ import 'package:maktabeh_app/core/size_config.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
 import 'package:maktabeh_app/injection.dart';
 import 'package:maktabeh_app/ui/common_widget/BookCard.dart';
+import 'package:maktabeh_app/ui/common_widget/CustomAlert.dart';
 import 'package:maktabeh_app/ui/common_widget/customAppBar.dart';
 import 'package:maktabeh_app/ui/common_widget/local_image.dart';
 import 'package:maktabeh_app/ui/mainScreens/author_books_bloc/author_books_bloc.dart';
@@ -31,12 +32,29 @@ class MoreBookPage extends StatefulWidget {
 
 class _MoreBookPageState extends State<MoreBookPage> {
   final _bloc = sl<AuthorBooksBloc>();
-
+  FilterData filterData = FilterData.empty();
+  ScrollController controller = ScrollController();
+  String sortType = 'asc';
   @override
   void initState() {
     super.initState();
     _bloc.add(GetIsLogin());
     _bloc.add(GetAuthorBooks((b) => b..id = widget.authorId));
+    controller.addListener(() {
+      if (controller.position.atEdge) {
+        if (controller.position.pixels ==
+            controller.position.maxScrollExtent) {
+          print('Geting next');
+          _bloc.add(GetAuthorBooks((b) => b..id = widget.authorId));
+        }
+      }
+    });
+    filterData.authorId = widget.authorId;
+  }
+  @override
+  void dispose() {
+    super.dispose();
+    _bloc.add(CleatFilter());
   }
 
   @override
@@ -76,7 +94,42 @@ class _MoreBookPageState extends State<MoreBookPage> {
                             Text(
                               '${widget.booksCount}',
                               style: regStyle,
-                            )
+                            ),
+                            SizedBox(
+                              width: 4,
+                            ),
+                            InkWell(
+                              onTap: () async {
+                                FilterData data = await showDialog(
+                                    context: context,
+                                    builder: (BuildContext ctx) {
+                                      return FilterDialog(data: filterData, author: false);
+                                    });
+                                if(data == null)
+                                  return;
+                                filterData = data;
+                                _bloc.add(AddFilter((b) => b..data = data));
+                                _bloc.add(GetAuthorBooks((b) => b..id = widget.authorId));
+                              },
+                              child: buildLocalImage('assets/svg/filter.svg'),
+                            ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            InkWell(
+                                onTap: () async {
+                                  String data = await showDialog(
+                                      context: context,
+                                      builder: (BuildContext ctx) {
+                                        return SortDialog(sortType == 'asc' ? 1 : 0);
+                                      });
+                                  if(data != null)
+                                    sortType = data;
+                                  _bloc.add(AddSort((b) => b..sortType = data..id = widget.authorId));
+                                  _bloc.add(GetAuthorBooks((b) => b..id = widget.authorId));
+
+                                },
+                                child: buildLocalImage('assets/svg/sort.svg')),
                           ],
                         )
                       ],
@@ -113,6 +166,7 @@ class _MoreBookPageState extends State<MoreBookPage> {
                     child: state.books == null || state.books.isEmpty
                         ? Container()
                         : GridView.count(
+                      controller: controller,
                       padding: EdgeInsets.only(right: 5, left: 5, bottom: 0),
                       childAspectRatio: (1 / 1.7),
                       crossAxisCount: 3,
