@@ -52,7 +52,7 @@ abstract class IHttpHelper {
   Future<AppRate> getAppRate();
   Future<bool> rateTheApp(String token, int rate, String note);
   Future<bool> logout(String token);
-  Future<UserModel> editUser(String name, String username,String email,String tele,String gender,String country_code
+  Future<UserModel> editUser( String username,String email,String tele,String gender,String country_code
       ,File image, String token,String language);
   Future<BaseBook> getFilteredBooks({
       String bookName,

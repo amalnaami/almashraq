@@ -96,16 +96,6 @@ abstract class LogOut extends SettingEvent
   factory LogOut([updates(LogOutBuilder b)]) = _$LogOut;
 }
 
-abstract class ChangeName extends SettingEvent
-    implements Built<ChangeName, ChangeNameBuilder> {
-  // fields go here
-  @nullable
-  String get value;
-
-  ChangeName._();
-
-  factory ChangeName([updates(ChangeNameBuilder b)]) = _$ChangeName;
-}
 
 
 
@@ -170,9 +160,7 @@ abstract class ChangeTele extends SettingEvent
 abstract class TryEdit extends SettingEvent
     implements Built<TryEdit, TryEditBuilder> {
   // fields go here
-  @nullable
 
-  String get name;
   @nullable
 
   String get username;

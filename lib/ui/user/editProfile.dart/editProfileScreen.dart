@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:maktabeh_app/core/app_localizations.dart';
 import 'package:maktabeh_app/core/config/navigatorHelper.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
+import 'package:maktabeh_app/model/user/profile_model.dart';
 import 'package:maktabeh_app/ui/auth/compnent/CustomField2.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:maktabeh_app/ui/common_widget/CustomAlert.dart';
@@ -24,7 +25,8 @@ import 'package:maktabeh_app/ui/mainScreens/main_screen.dart';
 
 class EfitProfileScreen extends StatefulWidget {
   final User userData;
-  EfitProfileScreen({this.userData});
+  final ProfileModel profileModel;
+  EfitProfileScreen({this.userData,this.profileModel});
 
 
   @override
@@ -65,12 +67,14 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
       //   WidgetsBinding.instance.addPostFrameCallback((_) =>
       //       Navigator.of(context).pop());
       // }
-      //     if (state.successedit) {
-      //       WidgetsBinding.instance.addPostFrameCallback((_) => Navigator.of(context).pop());
-      //           // Navigator.of(context).pushReplacement(
-      //           //     MaterialPageRoute(builder: (context) => MainPage())));
-      //
-      //     }
+//           if (state.success) {
+// print('successeditsuccesseditsuccessedit${state.successedit}');
+//             WidgetsBinding.instance.addPostFrameCallback((_) => Navigator.of(context).pop());
+//                 Navigator.of(context).pushReplacement(
+//                     MaterialPageRoute(builder: (context) => MainPage()));
+//           error(AppLocalizations.of(context).translate('adding successfully'));
+//
+//           }
 
           return Scaffold(
       backgroundColor: Colors.white,
@@ -159,8 +163,13 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
               onChanged: (v) {
                 _bloc.add(ChangeUserName((b) => b..value = v));
               },
-             // initialValue: widget.userData.username,
-              controller: _nameController,
+              validator: (v) {
+                if (v.isEmpty) {
+                  return AppLocalizations.of(context)
+                      .translate("name can not be empty");
+                }
+                return null;
+              }    ,              controller: _nameuserController,
               maxLines:  1,
               decoration: InputDecoration(
                 fillColor: Color(0xFFFBFBFB),
@@ -189,7 +198,14 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
               onChanged: (v) {
                 _bloc.add(ChangeTele((b) => b..value = v));
               },
-              //initialValue: widget.userData.mobile,
+
+              validator: (v) {
+                if (v.isEmpty) {
+                  return AppLocalizations.of(context)
+                      .translate("name can not be empty");
+                }
+                return null;
+              }    ,
               controller: _teleController,
               maxLines:  1,
               decoration: InputDecoration(
@@ -218,8 +234,13 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
               onChanged: (v) {
                 _bloc.add(ChangeEmail((b) => b..value = v));
               },
-            //  initialValue: widget.userData.email,
-              controller: _emailController,
+              validator: (v) {
+                if (v.isEmpty) {
+                  return AppLocalizations.of(context)
+                      .translate("email can not be empty");
+                }
+                return null;
+              }    ,              controller: _emailController,
               maxLines:  1,
               decoration: InputDecoration(
                 fillColor: Color(0xFFFBFBFB),
@@ -407,16 +428,53 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
               text: AppLocalizations.of(context).translate('save changes'),
               textColor: Colors.white,
               onTap: () {
-                _bloc.add(TryEdit((b) => b
-                  ..username = _nameController.value.text
-                  ..email = _emailController.value.text
-                  ..tele = _teleController.value.text
-                  ..gender = genderType.toString()
-                  ..country_code = dropdownCountry.toString()
-                  ..image =_image));
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => MainPage()));
+                if (_teleController.value.text == null ||
+                    _teleController.value.text.isEmpty) {
+                  error(AppLocalizations.of(context)
+                      .translate('fullname can not be empty'));
+                  return;
+                }if (_nameuserController.value.text == null ||
+                    _nameuserController.value.text.isEmpty) {
+                  error(AppLocalizations.of(context)
+                      .translate('username can not be empty'));
+                  return;
+                }
+                else if (dropdownCountry ==
+                    null ||
+                    dropdownCountry.isEmpty) {
+                  error(AppLocalizations.of(context)
+                      .translate('country can not be empty'));
+                  return;
+                }  else if (genderType ==
+                    null ||genderType=='0'||
+                    genderType.isEmpty) {
+                  print('genderTypegenderType $genderType');
+                  error(AppLocalizations.of(context)
+                      .translate('gender can not be empty'));
+                  return;
+                }
+                if (_emailController.value.text == null ||
+                    _emailController.value.text.isEmpty) {
+                  error(AppLocalizations.of(context)
+                      .translate('email can not be empty'));
+                  return;
+                }
+                else
+                 {
+                   _bloc.add(TryEdit((b) => b
+                     ..username = _nameuserController.value.text!=null?_nameuserController.value.text:widget.profileModel.data.username
+                     ..email = _emailController.value.text!=null?_emailController.value.text:widget.profileModel.data.email
+                     ..tele = _teleController.value.text!=null?_teleController.value.text:widget.profileModel.data.mobile
+                     ..gender = genderType.toString()!=null?genderType.toString():widget.profileModel.data.gender
+                     ..country_code = dropdownCountry.toString()!=null?dropdownCountry.toString():widget.profileModel.data.country
+                     ..image =_image));
+                 }
+           Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => MainPage()));
                 error(AppLocalizations.of(context).translate('adding successfully'));
+
+                // Navigator.of(context).pushReplacement(
+                //   MaterialPageRoute(builder: (context) => MainPage()));
                 // CustomAlert().submitChangeData(
                 //   context: context,
                 //   onSubmite: () {

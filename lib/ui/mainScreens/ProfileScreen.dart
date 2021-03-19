@@ -148,11 +148,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             push(
                                 context,
                               AllMyQuote())
-                                // MyQuote(
-                                //     fromHome: false,
-                                //     title:
-                                //       'my quotes',
-                                //     )
                         ,
                         pathIcon: "assets/icons/Iconly-Broken-Chat.png",
                         title: AppLocalizations.of(context).translate('my quotes'),

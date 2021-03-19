@@ -619,78 +619,6 @@ class LogOutBuilder implements Builder<LogOut, LogOutBuilder> {
   }
 }
 
-class _$ChangeName extends ChangeName {
-  @override
-  final String value;
-
-  factory _$ChangeName([void Function(ChangeNameBuilder) updates]) =>
-      (new ChangeNameBuilder()..update(updates)).build();
-
-  _$ChangeName._({this.value}) : super._();
-
-  @override
-  ChangeName rebuild(void Function(ChangeNameBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  ChangeNameBuilder toBuilder() => new ChangeNameBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is ChangeName && value == other.value;
-  }
-
-  @override
-  int get hashCode {
-    return $jf($jc(0, value.hashCode));
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper('ChangeName')..add('value', value))
-        .toString();
-  }
-}
-
-class ChangeNameBuilder implements Builder<ChangeName, ChangeNameBuilder> {
-  _$ChangeName _$v;
-
-  String _value;
-  String get value => _$this._value;
-  set value(String value) => _$this._value = value;
-
-  ChangeNameBuilder();
-
-  ChangeNameBuilder get _$this {
-    if (_$v != null) {
-      _value = _$v.value;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(ChangeName other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
-    _$v = other as _$ChangeName;
-  }
-
-  @override
-  void update(void Function(ChangeNameBuilder) updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  _$ChangeName build() {
-    final _$result = _$v ?? new _$ChangeName._(value: value);
-    replace(_$result);
-    return _$result;
-  }
-}
-
 class _$ChangeUserName extends ChangeUserName {
   @override
   final String value;
@@ -1057,8 +985,6 @@ class ChangeTeleBuilder implements Builder<ChangeTele, ChangeTeleBuilder> {
 
 class _$TryEdit extends TryEdit {
   @override
-  final String name;
-  @override
   final String username;
   @override
   final String email;
@@ -1075,8 +1001,7 @@ class _$TryEdit extends TryEdit {
       (new TryEditBuilder()..update(updates)).build();
 
   _$TryEdit._(
-      {this.name,
-      this.username,
+      {this.username,
       this.email,
       this.tele,
       this.gender,
@@ -1095,7 +1020,6 @@ class _$TryEdit extends TryEdit {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is TryEdit &&
-        name == other.name &&
         username == other.username &&
         email == other.email &&
         tele == other.tele &&
@@ -1109,9 +1033,7 @@ class _$TryEdit extends TryEdit {
     return $jf($jc(
         $jc(
             $jc(
-                $jc(
-                    $jc($jc($jc(0, name.hashCode), username.hashCode),
-                        email.hashCode),
+                $jc($jc($jc(0, username.hashCode), email.hashCode),
                     tele.hashCode),
                 gender.hashCode),
             country_code.hashCode),
@@ -1121,7 +1043,6 @@ class _$TryEdit extends TryEdit {
   @override
   String toString() {
     return (newBuiltValueToStringHelper('TryEdit')
-          ..add('name', name)
           ..add('username', username)
           ..add('email', email)
           ..add('tele', tele)
@@ -1134,10 +1055,6 @@ class _$TryEdit extends TryEdit {
 
 class TryEditBuilder implements Builder<TryEdit, TryEditBuilder> {
   _$TryEdit _$v;
-
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
 
   String _username;
   String get username => _$this._username;
@@ -1167,7 +1084,6 @@ class TryEditBuilder implements Builder<TryEdit, TryEditBuilder> {
 
   TryEditBuilder get _$this {
     if (_$v != null) {
-      _name = _$v.name;
       _username = _$v.username;
       _email = _$v.email;
       _tele = _$v.tele;
@@ -1196,7 +1112,6 @@ class TryEditBuilder implements Builder<TryEdit, TryEditBuilder> {
   _$TryEdit build() {
     final _$result = _$v ??
         new _$TryEdit._(
-            name: name,
             username: username,
             email: email,
             tele: tele,
