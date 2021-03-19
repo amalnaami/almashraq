@@ -362,21 +362,6 @@ class Repository implements IRepository {
     return data;
   }
   @override
-  Future<UserModel> editUser(String name, String username, String email,
-      String tele, String gender, String country_code, File image) async {
-    final data = await _ihttpHelper.editUser(
-        name,
-        username,
-        email,
-        tele,
-        gender,
-        country_code,
-        image,
-        await _iprefHelper.getToken(),
-        await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
-    return data;
-  }
-  @override
   Future<UserModel> editUser(String name, String username, String email, String tele, String gender, String country_code, File image) async{
     final data = await _ihttpHelper.editUser(name, username, email, tele, gender, country_code, image,  await _iprefHelper.getToken(), await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
     final save = await _iprefHelper.saveUser(null, false);

@@ -25,7 +25,6 @@ import 'package:maktabeh_app/model/user/user_model.dart';
 
 import 'ihttpe_helper.dart';
 
-
 class HttpHelper implements IHttpHelper {
   final Dio _dio;
 
@@ -312,11 +311,10 @@ class HttpHelper implements IHttpHelper {
       String gender,
       String country_code,
       File image,
-      String firebaseToken
-     ) async {
+      String firebaseToken) async {
     try {
       print('register Response body ');
-      final formData = FormData.fromMap( {
+      final formData = FormData.fromMap({
         "name": name,
         "username": username,
         "email": email,
@@ -329,8 +327,10 @@ class HttpHelper implements IHttpHelper {
       if (image.path.isNotEmpty) {
         formData.files.add(MapEntry(
           "image",
-          await MultipartFile.fromFile(image.path,
-              filename: basename(image.path)),
+          await MultipartFile.fromFile(
+            image.path,
+            //filename: basename(image.path),
+          ),
         ));
       }
       final response = await _dio.post(
@@ -946,34 +946,40 @@ class HttpHelper implements IHttpHelper {
       String token,
       String language) async {
     try {
-        final formData =  FormData.fromMap({
+      final formData = FormData.fromMap({
         "name": name,
         "username": username,
         "email": email,
         "tele": tele,
         "gender": gender,
         "country_code": country_code
-        });
-        if (image != null && image.path.isNotEmpty) {
-          formData.files.add(MapEntry(
-            "image",
-            await MultipartFile.fromFile(image.path,
-                filename: basename(image.path)),
-          ));
-        }
-        final response = await _dio.post('user', data: formData,options: Options(
-            headers: {'Authorization': 'Bearer $token', "Accept-Language": language}));
+      });
+      if (image != null && image.path.isNotEmpty) {
+        formData.files.add(MapEntry(
+          "image",
+          await MultipartFile.fromFile(
+            image.path,
+            //filename: basename(image.path),
+          ),
+        ));
+      }
+      final response = await _dio.post('user',
+          data: formData,
+          options: Options(headers: {
+            'Authorization': 'Bearer $token',
+            "Accept-Language": language
+          }));
       print('login Response StatusCode ${response.statusCode}');
 
-        if (response.statusCode == 201) {
-          final baseResponse = serializers.deserialize(json.decode(response.data),
+      if (response.statusCode == 201) {
+        final baseResponse = serializers.deserialize(json.decode(response.data),
             specifiedType: FullType(UserModel));
-          print("implement edit status : ${baseResponse}");
-          if (baseResponse != null) {
-            return baseResponse;
-          } else {
-            throw NetworkException();
-          }
+        print("implement edit status : ${baseResponse}");
+        if (baseResponse != null) {
+          return baseResponse;
+        } else {
+          throw NetworkException();
+        }
       } else {
         throw NetworkException(code: response.statusCode);
       }
@@ -1079,24 +1085,22 @@ class HttpHelper implements IHttpHelper {
 
   @override
   Future<Category> getCategoryById({int sectionId, String language}) async {
+    try {
+      final response = await _dio.get('sections/$sectionId?with_books=1',
+          options: Options(headers: {"Accept-Language": language}));
+      print('getCategoryById Response StatusCode ${response.statusCode}');
+      if (response.statusCode == 200) {
+        print('getCategoryById Response body  ${response.data}');
 
-      try {
-        final response = await _dio.get('sections/$sectionId?with_books=1',
-            options: Options(headers: {"Accept-Language": language}));
-        print('getCategoryById Response StatusCode ${response.statusCode}');
-        if (response.statusCode == 200) {
-          print('getCategoryById Response body  ${response.data}');
-
-          final ret = serializers.deserialize(
-              json.decode(response.data)['data'],
-              specifiedType: FullType(Category));
-          return ret;
-        } else {
-          throw NetworkException();
-        }
-      } catch (e) {
-        print(e.toString());
+        final ret = serializers.deserialize(json.decode(response.data)['data'],
+            specifiedType: FullType(Category));
+        return ret;
+      } else {
         throw NetworkException();
       }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException();
     }
+  }
 }
