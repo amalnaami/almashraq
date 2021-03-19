@@ -55,8 +55,8 @@ class PrefsHelper implements IPrefsHelper {
 
 
   @override
-  Future<void> setIsLogin() async{
-    (await getPrefs()).setBool(IS_LOGIN, true);
+  Future<void> setIsLogin(bool isLogin) async{
+    (await getPrefs()).setBool(IS_LOGIN, isLogin);
   }
 
 }

@@ -133,9 +133,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ],
                     ):Container():Center(child: Text(' '),),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  SizedBox( height: 10,),
                   (state.isLogin)?   Row(
                     children: [
                       optionSetting(

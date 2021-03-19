@@ -19,6 +19,7 @@ import 'package:maktabeh_app/ui/user/editProfile.dart/editPassScreen.dart';
 import '../../../injection.dart';
 import 'package:maktabeh_app/model/user/user_data.dart';
 import 'package:maktabeh_app/model/user/user.dart';
+import 'package:maktabeh_app/ui/mainScreens/main_screen.dart';
 
 class EfitProfileScreen extends StatefulWidget {
   final User userData;
@@ -63,7 +64,12 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
       //   WidgetsBinding.instance.addPostFrameCallback((_) =>
       //       Navigator.of(context).pop());
       // }
-          if (state.successedit) Navigator.pop(context, "refresh");
+          if (state.successedit) {
+            WidgetsBinding.instance.addPostFrameCallback((_) =>
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => MainPage())));
+
+          }
 
           return Scaffold(
       backgroundColor: Colors.white,
@@ -153,7 +159,7 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
                 _bloc.add(ChangeUserName((b) => b..value = v));
               },
              // initialValue: widget.userData.username,
-              controller: _nameuserController,
+              controller: _nameController,
               maxLines:  1,
               decoration: InputDecoration(
                 fillColor: Color(0xFFFBFBFB),
@@ -402,7 +408,7 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
               onTap: () {
                 _bloc.add(TryEdit((b) => b
                   ..name='widget.userData.name'
-                  ..username = '_nameController.value.text'
+                  ..username = _nameController.value.text
                   ..email = _emailController.value.text
                   ..tele = _teleController.value.text
                   ..gender = genderType.toString()

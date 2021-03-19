@@ -14,5 +14,5 @@ abstract class IPrefsHelper {
   Future<String> getToken();
   Future<bool> getIsLogin();
 
-  Future<void> setIsLogin();
+  Future<void> setIsLogin(bool isLogin);
 }

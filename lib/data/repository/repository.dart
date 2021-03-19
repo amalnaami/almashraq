@@ -359,6 +359,7 @@ class Repository implements IRepository {
   @override
   Future<bool> logout() async {
     final data = await _ihttpHelper.logout(await _iprefHelper.getToken());
+    await _iprefHelper.setIsLogin(false);
     return data;
   }
 

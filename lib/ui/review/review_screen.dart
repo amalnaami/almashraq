@@ -56,9 +56,12 @@ class _ReviewScreenState extends State<ReviewScreen> {
                           vertical: SizeConfig.blockSizeVertical * 2),
                       child: appButton(
                         context: context,
-                        onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => AddReviewScreen(bookid: widget.bookid,),
-                        )),
+                        onTap: () {
+                         // state.allReview=
+                             Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => AddReviewScreen(bookid: widget.bookid,isLogin:widget.isLogin),
+                          ));
+                        },
                         text: AppLocalizations.of(context).translate('add review'),
                       ),
                     ):Container(),
