@@ -11,7 +11,8 @@ import 'QuoteCard.dart';
 
 class QuoteToday extends StatefulWidget {
   final Quote quote;
-  const QuoteToday(this.quote);
+  final Function(int) callBack;
+  const QuoteToday(this.quote, this.callBack);
   @override
   _QuoteTodayState createState() => _QuoteTodayState();
 }
@@ -43,7 +44,7 @@ class _QuoteTodayState extends State<QuoteToday> {
                 ],
               ),
               InkWell(
-                onTap: () => push(context, AllQuote()),
+                onTap: () => widget.callBack.call(3),
                 child: Text(
                   AppLocalizations.of(context).translate('see more'),
                   style: lightStyle.copyWith(fontSize: 10),

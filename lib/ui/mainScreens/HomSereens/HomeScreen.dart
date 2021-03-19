@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           .translate('recently added'),
                     ),
                   //QuoteToday
-                  if (state.todayQuote != null) QuoteToday(state.todayQuote),
+                  if (state.todayQuote != null) QuoteToday(state.todayQuote, widget.callback),
                   // review today
                   if (state.todayReview != null) ReviewToday(state.todayReview),
                   // writers
