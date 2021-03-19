@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -64,12 +65,12 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
       //   WidgetsBinding.instance.addPostFrameCallback((_) =>
       //       Navigator.of(context).pop());
       // }
-          if (state.successedit) {
-            WidgetsBinding.instance.addPostFrameCallback((_) =>
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => MainPage())));
-
-          }
+      //     if (state.successedit) {
+      //       WidgetsBinding.instance.addPostFrameCallback((_) => Navigator.of(context).pop());
+      //           // Navigator.of(context).pushReplacement(
+      //           //     MaterialPageRoute(builder: (context) => MainPage())));
+      //
+      //     }
 
           return Scaffold(
       backgroundColor: Colors.white,
@@ -407,13 +408,15 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
               textColor: Colors.white,
               onTap: () {
                 _bloc.add(TryEdit((b) => b
-                  ..name='widget.userData.name'
                   ..username = _nameController.value.text
                   ..email = _emailController.value.text
                   ..tele = _teleController.value.text
                   ..gender = genderType.toString()
                   ..country_code = dropdownCountry.toString()
                   ..image =_image));
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => MainPage()));
+                error(AppLocalizations.of(context).translate('adding successfully'));
                 // CustomAlert().submitChangeData(
                 //   context: context,
                 //   onSubmite: () {
@@ -478,5 +481,18 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
         // ));
       }
     });
+  }
+  void error(String errorCode) {
+    if (errorCode.isNotEmpty) {
+      Fluttertoast.showToast(
+          msg: (errorCode),
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          // timeInSecForIosWeb: 1,
+          backgroundColor: primaryColor,
+          textColor: Colors.white,
+          fontSize: 16.0);
+   //   _bloc.add(ClearState());
+    }
   }
 }

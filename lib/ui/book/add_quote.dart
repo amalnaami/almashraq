@@ -3,6 +3,7 @@ import 'package:maktabeh_app/core/app_localizations.dart';
 import 'package:maktabeh_app/core/size_config.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
 import 'package:maktabeh_app/ui/auth/compnent/CustomField2.dart';
+import 'package:maktabeh_app/ui/book/quotes_screen.dart';
 import 'package:maktabeh_app/ui/common_widget/app_bar.dart';
 import 'package:maktabeh_app/ui/common_widget/app_button.dart';
 import 'package:maktabeh_app/ui/mainScreens/HomSereens/home_bloc/home_bloc.dart';
@@ -17,7 +18,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class AddQuoteScreen extends StatefulWidget {
   int bookid;
-  AddQuoteScreen({this.bookid});
+  bool isLogin;
+  AddQuoteScreen({this.bookid,this.isLogin});
   @override
   _AddQuoteScreenState createState() => _AddQuoteScreenState();
 }
@@ -39,9 +41,14 @@ class _AddQuoteScreenState extends State<AddQuoteScreen> {
         cubit: _bloc,
         builder: (BuildContext context, HomeState state) {
       error(state.error);
-      if(state.successAddQuote) {
+      if(state.success) {
         error(AppLocalizations.of(context).translate('adding successfully'));
-        Timer(Duration(seconds: 1), () => Navigator.of(context).pop());
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp){
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => QuotesScreen(bookid: widget.bookid,isLogin:widget.isLogin),
+          ));
+        });
+    //    Timer(Duration(seconds: 1), () => Navigator.of(context).pop());
       }
       return SafeArea(
         child: Scaffold(
