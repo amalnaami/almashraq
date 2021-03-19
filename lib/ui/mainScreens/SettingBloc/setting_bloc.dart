@@ -129,24 +129,42 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
       }
     }
 
+    if (event is ChangeName) {
+      yield state.rebuild((b) => b..user.user.name = event.value);
+    }
+    if (event is ChangeUserName) {
+      yield state.rebuild((b) => b..user.user.username = event.value);
+    }
+    if (event is ChangeEmail) {
+      yield state.rebuild((b) => b..user.user.email = event.value);
+    }
+    if (event is ChangeGender) {
+      yield state.rebuild((b) => b..user.user.gender = event.value);
+    }
+    if (event is ChangeCountry) {
+      yield state.rebuild((b) => b..user.user.country = event.value);
+    }
+    if (event is ChangeTele) {
+      yield state.rebuild((b) => b..user.user.mobile = event.value);
+    }
     if (event is TryEdit) {
       try {
         yield state.rebuild((b) => b
           ..isLoading = true
           ..error = ""
-          ..success = false);
+          ..successedit = false);
         final data = await _repository.editUser(event.name, event.username, event.email, event.tele, event.gender, event.country_code, event.image);
         await _repository.saveUser(data.data);
         yield state.rebuild((b) => b
           ..isLoading = false
           ..error = ""
-          ..success = true);
+          ..successedit = true);
       } catch (e) {
         print('Error: ${e.toString()}\n');
         yield state.rebuild((b) => b
           ..isLoading = true
           ..error = "something went wrong"
-          ..success = false);
+          ..successedit = false);
       }
     }
     if (event is GetCountry) {

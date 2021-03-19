@@ -133,6 +133,8 @@ class _$SignUp extends SignUp {
   final String gender;
   @override
   final String country_code;
+  @override
+  final File image;
 
   factory _$SignUp([void Function(SignUpBuilder) updates]) =>
       (new SignUpBuilder()..update(updates)).build();
@@ -144,7 +146,8 @@ class _$SignUp extends SignUp {
       this.password,
       this.tele,
       this.gender,
-      this.country_code})
+      this.country_code,
+      this.image})
       : super._() {
     if (name == null) {
       throw new BuiltValueNullFieldError('SignUp', 'name');
@@ -157,9 +160,6 @@ class _$SignUp extends SignUp {
     }
     if (password == null) {
       throw new BuiltValueNullFieldError('SignUp', 'password');
-    }
-    if (tele == null) {
-      throw new BuiltValueNullFieldError('SignUp', 'tele');
     }
     if (gender == null) {
       throw new BuiltValueNullFieldError('SignUp', 'gender');
@@ -186,7 +186,8 @@ class _$SignUp extends SignUp {
         password == other.password &&
         tele == other.tele &&
         gender == other.gender &&
-        country_code == other.country_code;
+        country_code == other.country_code &&
+        image == other.image;
   }
 
   @override
@@ -195,12 +196,14 @@ class _$SignUp extends SignUp {
         $jc(
             $jc(
                 $jc(
-                    $jc($jc($jc(0, name.hashCode), username.hashCode),
-                        email.hashCode),
-                    password.hashCode),
-                tele.hashCode),
-            gender.hashCode),
-        country_code.hashCode));
+                    $jc(
+                        $jc($jc($jc(0, name.hashCode), username.hashCode),
+                            email.hashCode),
+                        password.hashCode),
+                    tele.hashCode),
+                gender.hashCode),
+            country_code.hashCode),
+        image.hashCode));
   }
 
   @override
@@ -212,7 +215,8 @@ class _$SignUp extends SignUp {
           ..add('password', password)
           ..add('tele', tele)
           ..add('gender', gender)
-          ..add('country_code', country_code))
+          ..add('country_code', country_code)
+          ..add('image', image))
         .toString();
   }
 }
@@ -248,6 +252,10 @@ class SignUpBuilder implements Builder<SignUp, SignUpBuilder> {
   String get country_code => _$this._country_code;
   set country_code(String country_code) => _$this._country_code = country_code;
 
+  File _image;
+  File get image => _$this._image;
+  set image(File image) => _$this._image = image;
+
   SignUpBuilder();
 
   SignUpBuilder get _$this {
@@ -259,6 +267,7 @@ class SignUpBuilder implements Builder<SignUp, SignUpBuilder> {
       _tele = _$v.tele;
       _gender = _$v.gender;
       _country_code = _$v.country_code;
+      _image = _$v.image;
       _$v = null;
     }
     return this;
@@ -287,7 +296,8 @@ class SignUpBuilder implements Builder<SignUp, SignUpBuilder> {
             password: password,
             tele: tele,
             gender: gender,
-            country_code: country_code);
+            country_code: country_code,
+            image: image);
     replace(_$result);
     return _$result;
   }

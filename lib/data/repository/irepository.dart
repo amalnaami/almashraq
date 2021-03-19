@@ -56,7 +56,7 @@ abstract class IRepository {
   Future<BuiltList<Book>> getFeaturedBooks();
 
   Future<UserModel> register(String name, String username, String email,
-      String password, String tele, String gender, String country_code);
+      String password, String tele, String gender, String country_code, File image);
 
   Future<BaseBook> getAllBookNextPage(int page);
 

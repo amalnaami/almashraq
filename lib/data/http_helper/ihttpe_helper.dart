@@ -31,7 +31,7 @@ abstract class IHttpHelper {
   Future<BuiltList<Book>> getLatestBooks(String language);
   Future<BuiltList<Book>> getMostReviewedBooks(String language);
   Future<BuiltList<Book>> getFeaturedBooks(String token,String language);
-  Future<UserModel> register(String name,String username, String email, String password,String tele,String gender,String countryCode, String firebaseToken);
+  Future<UserModel> register(String name,String username, String email, String password,String tele,String gender,String countryCode, File image, String firebaseToken);
   Future<bool> insertCategories(List<int> categories, String token);
   Future<BaseBook> getAllBookNextPage(int page,String language);
   Future<BookByCategoryModel> getBooksByCategory(int page, int categoryId,String language);

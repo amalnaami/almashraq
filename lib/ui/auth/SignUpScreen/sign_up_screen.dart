@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:maktabeh_app/core/app_localizations.dart';
 import 'package:maktabeh_app/core/config/navigatorHelper.dart';
 import 'package:maktabeh_app/core/loaderApp.dart';
@@ -41,6 +44,10 @@ class _SignupScreenState extends State<SignupScreen> {
     phoneController = TextEditingController();
     passwordController = TextEditingController();
   }
+  File image = File("");
+
+  bool uploadImage = false;
+  final picker = ImagePicker();
   String dropdownCountry;
   String genderType = '0';
   String genderValueType = null;
@@ -48,13 +55,14 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
+    final sizeAware = MediaQuery.of(context).size;
 
     return BlocBuilder(
         cubit: _bloc,
         builder: (BuildContext context, SignUpState state) {
       error(state.error);
       if(state.successSignup) {
-        WidgetsBinding.instance.addPostFrameCallback((timeStamp) { push(context, GuideScreen());});
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) { push(context, SectionGuideScreen());});
         _bloc.add(ClearState());
       }
       return Scaffold(
@@ -125,6 +133,279 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       SizedBox(
                         height: 20,
+                      ),
+
+                      Container(
+                        alignment: Alignment.center,
+                        margin: EdgeInsets.only(bottom: sizeAware.width * 0.01),
+                        child: Stack(
+                          alignment: Alignment.bottomRight,
+                          children: [
+                            Container(
+                              width: sizeAware.width * 0.25,
+                              height: sizeAware.width * 0.25,
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black26,
+                                    spreadRadius: 1,
+                                    blurRadius: 3,
+                                    offset: Offset(
+                                        0, 1), // changes position of shadow
+                                  ),
+                                ],
+                                border: Border.all(
+                                    color: Colors.grey[200],
+                                    width: sizeAware.width * 0.008),
+                                image: DecorationImage(
+                                    image: !uploadImage
+                                        ? NetworkImage('https://th.bing.com/th/id/OIP.dfOyZLx5TURjqBMYs1-iIAD6D5?pid=ImgDet&rs=1')
+                                        : FileImage(image),
+
+                                    // image: NetworkImage(
+                                    //   'https://i1.wp.com/manforhimself.com/wp-content/uploads/sizeAware.width*0.045sizeAware.width*0.045/04/david-beckham-mens-haircut-hairstyle-short-cropped-MFHC2-man-for-himself-1.jpg?resize=600%2C600&ssl=1'),
+                                    fit: BoxFit.cover),
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(60)),
+                              ),
+// =======
+//                           )
+//                         ],
+//                       ),
+//                     ),
+//                     Padding(
+//                       padding: EdgeInsets.all(sizeAware.width * 0.03),
+//                       child: Column(
+//                         children: [
+//                           Container(
+//                             margin: EdgeInsets.all(8),
+//                             decoration: BoxDecoration(
+//                               color: whiteColor,
+//                               borderRadius: BorderRadius.circular(12),
+//                             ),
+//                             child: TextField(
+//                               onTap: () {
+//                                 setState(() {
+//                                   _color1 = Colors.black;
+//                                 });
+//                               },
+//                               decoration: InputDecoration(
+//                                 labelText: AppLocalizations.of(context)
+//                                     .translate('Full name'),
+//                                 prefixIcon: Icon(
+//                                   Icons.person,
+//                                   color: _color1,
+//                                 ),
+//                                 contentPadding: EdgeInsets.all(0),
+//                                 focusedBorder: OutlineInputBorder(
+//                                   borderRadius: BorderRadius.circular(12),
+//                                   borderSide: BorderSide(
+//                                       width: 1, color: Colors.black),
+//                                 ),
+//                                 enabledBorder: OutlineInputBorder(
+//                                   borderRadius: BorderRadius.circular(4),
+//                                   borderSide: BorderSide(
+//                                       width: 1, color: Colors.black),
+//                                 ),
+//                                 labelStyle: dataStyle.copyWith(
+//                                     fontWeight: FontWeight.w900,
+//                                     fontSize: sizeAware.width * 0.035,
+//                                     fontFamily: 'fonts',
+//                                     color: _color1),
+//                               ),
+//                             ),
+//                           ),
+//                           Container(
+//                             margin: EdgeInsets.all(8),
+//                             decoration: BoxDecoration(
+//                               color: whiteColor,
+//                               borderRadius: BorderRadius.circular(12),
+//                             ),
+//                             child: TextField(
+//                               onTap: () {
+//                                 setState(() {
+//                                   _color2 = Colors.black;
+//                                 });
+//                               },
+//                               decoration: InputDecoration(
+//                                 labelText: AppLocalizations.of(context)
+//                                     .translate('Address'),
+//                                 contentPadding: EdgeInsets.all(0),
+//                                 prefixIcon: Icon(
+//                                   Icons.location_on,
+//                                   color: _color2,
+//                                 ),
+//                                 focusedBorder: OutlineInputBorder(
+//                                   borderRadius: BorderRadius.circular(12),
+//                                   borderSide: BorderSide(
+//                                       width: 1, color: Colors.black),
+//                                 ),
+//                                 enabledBorder: OutlineInputBorder(
+//                                   borderRadius: BorderRadius.circular(4),
+//                                   borderSide: BorderSide(
+//                                       width: 1, color: Colors.black),
+//                                 ),
+//                                 labelStyle: dataStyle.copyWith(
+//                                     fontWeight: FontWeight.w900,
+//                                     fontSize: sizeAware.width * 0.035,
+//                                     fontFamily: 'fonts',
+//                                     color: _color2),
+//                               ),
+//                             ),
+//                           ),
+//                           Container(
+//                             margin: EdgeInsets.all(8),
+//                             decoration: BoxDecoration(
+//                               color: whiteColor,
+//                               borderRadius: BorderRadius.circular(12),
+//                             ),
+//                             child: TextField(
+//                               onTap: () {
+//                                 setState(() {
+//                                   _color3 = Colors.black;
+//                                 });
+//                               },
+//                               decoration: InputDecoration(
+//                                 labelText: AppLocalizations.of(context)
+//                                     .translate('Email'),
+//                                 contentPadding: EdgeInsets.all(0),
+//
+//                                 //hintText: 'Email',
+//                                 prefixIcon: Icon(
+//                                   Icons.email,
+//                                   color: _color3,
+//                                 ),
+//                                 focusedBorder: OutlineInputBorder(
+//                                   borderRadius: BorderRadius.circular(12),
+//                                   borderSide: BorderSide(
+//                                       width: 1, color: Colors.black),
+//                                 ),
+//                                 enabledBorder: OutlineInputBorder(
+//                                   borderRadius: BorderRadius.circular(4),
+//                                   borderSide: BorderSide(
+//                                       width: 1, color: Colors.black),
+//                                 ),
+//
+//                                 labelStyle: dataStyle.copyWith(
+//                                     fontWeight: FontWeight.w900,
+//                                     fontSize: sizeAware.width * 0.035,
+//                                     fontFamily: 'fonts',
+//                                     color: _color3),
+//                               ),
+//                             ),
+//                           ),
+//                           Container(
+//                             margin: EdgeInsets.all(8),
+//                             decoration: BoxDecoration(
+//                               color: whiteColor,
+//                               borderRadius: BorderRadius.circular(12),
+//                             ),
+//                             child: TextField(
+//                               onTap: () {
+//                                 setState(() {
+//                                   _color4 = Colors.black;
+//                                 });
+//                               },
+//                               decoration: InputDecoration(
+//                                 labelText: AppLocalizations.of(context)
+//                                     .translate('phone Number'),
+//                                 contentPadding: EdgeInsets.all(0),
+//                                 prefixIcon: Icon(
+//                                   Icons.phone_android,
+//                                   color: _color4,
+//                                 ),
+//                                 focusedBorder: OutlineInputBorder(
+//                                   borderRadius:
+//                                       BorderRadius.all(Radius.circular(12)),
+//                                   borderSide: BorderSide(
+//                                       width: 1, color: Colors.black),
+//                                 ),
+//                                 enabledBorder: OutlineInputBorder(
+//                                   borderRadius:
+//                                       BorderRadius.all(Radius.circular(4)),
+//                                   borderSide: BorderSide(
+//                                       width: 1, color: Colors.black),
+//                                 ),
+//                                 labelStyle: dataStyle.copyWith(
+//                                     fontWeight: FontWeight.w900,
+//                                     fontSize: sizeAware.width * 0.035,
+//                                     fontFamily: 'fonts',
+//                                     color: _color4),
+//                               ),
+//                             ),
+//                           ),
+//                           Container(
+//                             margin: EdgeInsets.all(8),
+//                             decoration: BoxDecoration(
+//                               color: whiteColor,
+//                               borderRadius:
+//                                   BorderRadius.all(Radius.circular(12)),
+//                             ),
+//                             child: TextField(
+//                               onTap: () {
+//                                 setState(() {
+//                                   _color5 = Colors.black;
+//                                 });
+//                               },
+//                               decoration: InputDecoration(
+//                                 labelText: AppLocalizations.of(context)
+//                                     .translate('Password'),
+//                                 contentPadding: EdgeInsets.all(0),
+//
+//                                 //hintText: 'Email',
+//                                 prefixIcon: Icon(
+//                                   Icons.lock,
+//                                   color: _color5,
+//                                 ),
+//                                 focusedBorder: OutlineInputBorder(
+//                                   borderRadius:
+//                                       BorderRadius.all(Radius.circular(12)),
+//                                   borderSide: BorderSide(
+//                                       width: 1, color: Colors.black),
+//                                 ),
+//                                 enabledBorder: OutlineInputBorder(
+//                                   borderRadius:
+//                                       BorderRadius.all(Radius.circular(4)),
+//                                   borderSide: BorderSide(
+//                                       width: 1, color: Colors.black),
+// >>>>>>> 1afc7011e3f67c5b3b8e45fe28b1fcb833a0d2c4
+                            ),
+                            Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Container(
+                                  width: sizeAware.width * 0.065,
+                                  height: sizeAware.width * 0.065,
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black12,
+                                        spreadRadius: 1,
+                                        blurRadius: 3,
+                                        offset: Offset(0,
+                                            0.5), // changes position of shadow
+                                      ),
+                                    ],
+                                    color: Colors.grey[200],
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(
+                                            sizeAware.height * 0.06)),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    getImage();
+                                  },
+                                  child: Icon(
+                                    Icons.camera_alt_outlined,
+                                    size: sizeAware.width * 0.045,
+                                    color: Colors.orange,
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                       CustomFeild2(
                         hintText: AppLocalizations.of(context).translate('full name'),
@@ -388,6 +669,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 ..tele = phoneController.value.text
                                 ..gender=genderType.toString()
                                 ..country_code=dropdownCountry.toString()
+                                ..image=(image!=null)?image:'https://th.bing.com/th/id/OIP.dfOyZLx5TURjqBMYs1-iIAD6D5?pid=ImgDet&w=577&h=576&rs=1'
                                 ,),
                             );
                             print('dropdownCountrydropdownCountry $dropdownCountry');
@@ -413,6 +695,14 @@ class _SignupScreenState extends State<SignupScreen> {
   },
   );
 }
+
+  Future getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    setState(() {
+      image = File(pickedFile.path);
+      uploadImage = true;
+    });
+  }
   void error(String errorCode) {
     if (errorCode.isNotEmpty) {
       Fluttertoast.showToast(
