@@ -22,7 +22,7 @@ import 'package:maktabeh_app/model/serializer/serializer.dart';
 import 'package:maktabeh_app/model/user/profile_model.dart';
 import 'package:maktabeh_app/model/user/user.dart';
 import 'package:maktabeh_app/model/user/user_model.dart';
-
+import 'package:path/path.dart';
 import 'ihttpe_helper.dart';
 
 class HttpHelper implements IHttpHelper {
@@ -329,7 +329,7 @@ class HttpHelper implements IHttpHelper {
           "image",
           await MultipartFile.fromFile(
             image.path,
-            //filename: basename(image.path),
+            filename: basename(image.path),
           ),
         ));
       }
@@ -959,7 +959,7 @@ class HttpHelper implements IHttpHelper {
           "image",
           await MultipartFile.fromFile(
             image.path,
-            //filename: basename(image.path),
+            filename: basename(image.path),
           ),
         ));
       }
