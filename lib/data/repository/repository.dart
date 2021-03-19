@@ -176,9 +176,8 @@ class Repository implements IRepository {
 
   @override
   Future<UserModel> register(String name, String username, String email,
-      String password, String tele, String gender, String countryCode) async {
-    final user = await _ihttpHelper.register(name, username, email, password,
-        tele, gender, countryCode, await PushNotificationsManager().getToken());
+      String password, String tele, String gender, String countryCode, File image) async {
+    final user = await _ihttpHelper.register(name, username, email, password, tele, gender, countryCode, image, await PushNotificationsManager().getToken());
     // final save = await _iprefHelper.saveUser(user.data, user.token,false);
     await _iprefHelper.saveUser(user.data, true);
     return user;
@@ -359,9 +358,9 @@ class Repository implements IRepository {
   @override
   Future<bool> logout() async {
     final data = await _ihttpHelper.logout(await _iprefHelper.getToken());
+    await _iprefHelper.setIsLogin(false);
     return data;
   }
-
   @override
   Future<UserModel> editUser(String name, String username, String email,
       String tele, String gender, String country_code, File image) async {
@@ -375,6 +374,12 @@ class Repository implements IRepository {
         image,
         await _iprefHelper.getToken(),
         await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
+    return data;
+  }
+  @override
+  Future<UserModel> editUser(String name, String username, String email, String tele, String gender, String country_code, File image) async{
+    final data = await _ihttpHelper.editUser(name, username, email, tele, gender, country_code, image,  await _iprefHelper.getToken(), await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
+    final save = await _iprefHelper.saveUser(null, false);
     return data;
   }
 

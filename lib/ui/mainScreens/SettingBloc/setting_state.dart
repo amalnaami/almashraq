@@ -14,13 +14,15 @@ abstract class SettingState implements Built<SettingState, SettingStateBuilder> 
   bool get isLoading;
   int get lang;
   bool get isLogin;
+  bool get successedit;
   bool get logout;
   bool get success;
   String get error;
   ProfileModel get profileUser;
   UserData get data;
   BuiltList<CountryModel> get country;
-
+  @nullable
+  UserData get user;
   BuiltList<ReviewQuoteUserModel> get quoteUser;
   BuiltList<ReviewQuoteUserModel> get reviewUser;
   SettingState._();
@@ -34,11 +36,13 @@ abstract class SettingState implements Built<SettingState, SettingStateBuilder> 
       ..lang = 1
       ..isLogin = false
       ..logout = false
+      ..successedit = false
       ..success = false
       ..error = ""
         ..profileUser=null
       ..data=null
       ..country.replace([])
+      ..user = null
         ..quoteUser.replace([])
         ..reviewUser.replace([])
     );

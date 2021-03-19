@@ -95,16 +95,101 @@ abstract class LogOut extends SettingEvent
 
   factory LogOut([updates(LogOutBuilder b)]) = _$LogOut;
 }
+
+abstract class ChangeName extends SettingEvent
+    implements Built<ChangeName, ChangeNameBuilder> {
+  // fields go here
+  @nullable
+  String get value;
+
+  ChangeName._();
+
+  factory ChangeName([updates(ChangeNameBuilder b)]) = _$ChangeName;
+}
+
+
+
+abstract class ChangeUserName extends SettingEvent
+    implements Built<ChangeUserName, ChangeUserNameBuilder> {
+  // fields go here
+  @nullable
+  String get value;
+
+  ChangeUserName._();
+
+  factory ChangeUserName([updates(ChangeUserNameBuilder b)]) = _$ChangeUserName;
+}
+
+
+abstract class ChangeEmail extends SettingEvent
+    implements Built<ChangeEmail, ChangeEmailBuilder> {
+  // fields go here
+  @nullable
+  String get value;
+
+  ChangeEmail._();
+
+  factory ChangeEmail([updates(ChangeEmailBuilder b)]) = _$ChangeEmail;
+}
+
+
+abstract class ChangeGender extends SettingEvent
+    implements Built<ChangeGender, ChangeGenderBuilder> {
+  // fields go here
+  @nullable
+  String get value;
+
+  ChangeGender._();
+
+  factory ChangeGender([updates(ChangeGenderBuilder b)]) = _$ChangeGender;
+}
+
+abstract class ChangeCountry extends SettingEvent
+    implements Built<ChangeCountry, ChangeCountryBuilder> {
+  // fields go here
+  @nullable
+  String get value;
+
+  ChangeCountry._();
+
+  factory ChangeCountry([updates(ChangeCountryBuilder b)]) = _$ChangeCountry;
+}
+
+
+abstract class ChangeTele extends SettingEvent
+    implements Built<ChangeTele, ChangeTeleBuilder> {
+  // fields go here
+  @nullable
+  String get value;
+
+  ChangeTele._();
+
+  factory ChangeTele([updates(ChangeTeleBuilder b)]) = _$ChangeTele;
+}
+
 abstract class TryEdit extends SettingEvent
     implements Built<TryEdit, TryEditBuilder> {
   // fields go here
+  @nullable
 
   String get name;
+  @nullable
+
   String get username;
+  @nullable
+
   String get email;
+  @nullable
+
   String get tele;
+  @nullable
+
   String get gender;
+  @nullable
+
   String get country_code;
+  @nullable
+
   @nullable
   File get image;
 

@@ -42,7 +42,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           ..user=null
         );
 
-        final date = await _repository.register(event.name, event.username, event.email, event.password, event.tele, event.gender, event.country_code);
+        final date = await _repository.register(event.name, event.username, event.email, event.password, event.tele, event.gender, event.country_code,event.image);
         print('TryRegister Success data ${date}');
         yield state.rebuild((b) => b
           ..isLoading = false

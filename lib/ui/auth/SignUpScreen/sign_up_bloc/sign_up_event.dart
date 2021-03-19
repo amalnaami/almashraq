@@ -1,6 +1,8 @@
 
 library sign_up_event;
 
+import 'dart:io';
+
 import 'package:built_value/built_value.dart';
 
 part 'sign_up_event.g.dart';
@@ -26,9 +28,12 @@ abstract class SignUp extends SignUpEvent
   String get username;
   String get email;
   String get password;
+  @nullable
   String get tele;
   String get gender;
   String get country_code;
+  @nullable
+  File get image;
 
 
   SignUp._();

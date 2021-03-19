@@ -20,6 +20,9 @@ import 'package:maktabeh_app/ui/mainScreens/main_screen.dart';
 
 import 'package:maktabeh_app/ui/start_screen/start_screen.dart';
 
+import 'package:maktabeh_app/ui/mainScreens/main_screen.dart';
+
+
 class GuideScreen extends StatefulWidget {
   @override
   _GuideScreenState createState() => _GuideScreenState();
@@ -102,21 +105,18 @@ class _GuideScreenState extends State<GuideScreen> {
                                 onPageChanged: (int index) {
                                   setState(() {
                                     pageIndex++;
-                                    if (pageIndex == 3)
-                                      _bloc.add(GetCategories());
+
                                   });
                                 },
                                 children: [
                                   thirdScreen(context),
                                   secondScreen(context),
                                   firstScreen(context),
-                                  optionScreen(context, state.categories,
-                                      addOrRemove, canAdd),
+
                                 ],
                               ),
                             ),
-                            pageIndex != 3
-                                ? Row(
+                           Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
@@ -135,7 +135,7 @@ class _GuideScreenState extends State<GuideScreen> {
                                       ),
                                     ],
                                   )
-                                : Container()
+
                           ],
                         ),
                         Positioned(
@@ -167,30 +167,30 @@ class _GuideScreenState extends State<GuideScreen> {
                                         if (pageIndex == 2){
                                           push(context, StartScreen());
                                         }
-                                          if (pageIndex == 3) {
-                                          if (selectedCategories.isEmpty) {
-                                            Fluttertoast.showToast(
-                                                msg: AppLocalizations.of(
-                                                        context)
-                                                    .translate(
-                                                        'choose at least one category'),
-                                                toastLength: Toast.LENGTH_SHORT,
-                                                gravity: ToastGravity.BOTTOM,
-                                                // timeInSecForIosWeb: 1,
-                                                backgroundColor: primaryColor,
-                                                textColor: Colors.white,
-                                                fontSize: 16.0);
-                                            return;
-                                          }
-                                          _bloc.add(InsertCategories((b) => b..selectedCategories = selectedCategories));
-                                        }
+                                        //   if (pageIndex == 3) {
+                                        //   if (selectedCategories.isEmpty) {
+                                        //     Fluttertoast.showToast(
+                                        //         msg: AppLocalizations.of(
+                                        //                 context)
+                                        //             .translate(
+                                        //                 'choose at least one category'),
+                                        //         toastLength: Toast.LENGTH_SHORT,
+                                        //         gravity: ToastGravity.BOTTOM,
+                                        //         // timeInSecForIosWeb: 1,
+                                        //         backgroundColor: primaryColor,
+                                        //         textColor: Colors.white,
+                                        //         fontSize: 16.0);
+                                        //     return;
+                                        //   }
+                                        //   _bloc.add(InsertCategories((b) => b..selectedCategories = selectedCategories));
+                                        // }
                                       }),
                                 ),
-                                pageIndex == 3
-                                    ? Container()
-                                    : InkWell(
-                                  onTap: () => setState(() => pageIndex = 3),
-                                        child: Text(
+                                InkWell(
+                                onTap:() {
+                                push(context, MainPage());
+                                }                    ,
+                                  child: Text(
                                           AppLocalizations.of(context)
                                               .translate('skip'),
                                           style: boldStyle.copyWith(
@@ -214,15 +214,15 @@ class _GuideScreenState extends State<GuideScreen> {
     );
   }
 
-  void addOrRemove(int id) {
-    if (selectedCategories.contains(id))
-      selectedCategories.remove(id);
-    else
-      selectedCategories.add(id);
-    print(selectedCategories);
-  }
-
-  bool canAdd() => selectedCategories.length < 5;
+  // void addOrRemove(int id) {
+  //   if (selectedCategories.contains(id))
+  //     selectedCategories.remove(id);
+  //   else
+  //     selectedCategories.add(id);
+  //   print(selectedCategories);
+  // }
+  //
+  // bool canAdd() => selectedCategories.length < 5;
 
   void error(String errorCode) {
     print('CALLING TOAST $errorCode');
@@ -239,6 +239,8 @@ class _GuideScreenState extends State<GuideScreen> {
     }
   }
 }
+
+
 
 Widget firstScreen(BuildContext context) {
   return Padding(
@@ -472,3 +474,166 @@ class _ItemState extends State<Item> {
     }
   }
 }
+
+
+
+
+class SectionGuideScreen extends StatefulWidget {
+
+  @override
+  _SectionGuideScreenState createState() => _SectionGuideScreenState();
+}
+
+class _SectionGuideScreenState extends State<SectionGuideScreen> {
+
+  final _bloc = sl<CategoryBloc>();
+  List<int> selectedCategories = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _bloc.add(GetCategories());
+  }
+
+  @override
+  void dispose() {
+    _bloc.close();
+    super.dispose();
+  }
+
+  var isLargeScreen = false;
+
+  @override
+  Widget build(BuildContext context) {
+    SizeConfig.init(context);
+
+    if (MediaQuery.of(context).size.height > 700) {
+      isLargeScreen = true;
+    } else {
+      isLargeScreen = false;
+    }
+    return BlocBuilder(
+      cubit: _bloc,
+      builder: (BuildContext context, CategoryState state) {
+        error(state.error);
+        if (state.successAdding) {
+          WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+            push(context, MainPage());
+          });
+          _bloc.add(ClearState());
+        }
+        return Scaffold(
+          body: Stack(
+            children: [
+              Column(
+                children: [
+                  Container(
+                    height: SizeConfig.screenHeight,
+                    child: Stack(
+                      children: [
+                        Image.asset(
+                          'assets/image/welcome.png',
+                          height: SizeConfig.screenHeight,
+                          width: SizeConfig.screenWidth,
+                          fit: BoxFit.fill,
+                        ),
+                        Column(
+                          children: [
+                            SizedBox(height: SizeConfig.blockSizeVertical * 5),
+                            Align(
+                              alignment: Alignment.topCenter,
+                              child: Image.asset(
+                                'assets/image/logo_image.png',
+                                height: SizeConfig.screenHeight * 0.1,
+                              ),
+                            ),
+                            Container(
+                              height: SizeConfig.screenHeight * 0.5,
+                              child:  optionScreen(context, state.categories,
+                                  addOrRemove, canAdd),
+                            ),
+
+                          ],
+                        ),
+                        Positioned(
+                          height: MediaQuery.of(context).size.height * 0.18,
+                          width: MediaQuery.of(context).size.width,
+                          bottom: 0,
+                          child: Center(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      bottom: SizeConfig.blockSizeVertical * 3),
+                                  child: appButton(
+                                      context: context,
+                                      buttonColor: Colors.white,
+                                      textColor: seconderyColor,
+                                      text:  AppLocalizations.of(context)
+                                          .translate('Continue'),
+                                      onTap: () {
+                                          if (selectedCategories.isEmpty) {
+                                            Fluttertoast.showToast(
+                                                msg: AppLocalizations.of(
+                                                    context)
+                                                    .translate(
+                                                    'choose at least one category'),
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.BOTTOM,
+                                                // timeInSecForIosWeb: 1,
+                                                backgroundColor: primaryColor,
+                                                textColor: Colors.white,
+                                                fontSize: 16.0);
+                                            return;
+
+
+                                        }
+                                          _bloc.add(InsertCategories((b) => b..selectedCategories = selectedCategories));
+
+                                      }),
+                                ),
+
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              if (state.isLoading) loaderApp
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void addOrRemove(int id) {
+    if (selectedCategories.contains(id))
+      selectedCategories.remove(id);
+    else
+      selectedCategories.add(id);
+    print(selectedCategories);
+  }
+
+  bool canAdd() => selectedCategories.length < 5;
+
+  void error(String errorCode) {
+    print('CALLING TOAST $errorCode');
+    if (errorCode.isNotEmpty) {
+      Fluttertoast.showToast(
+          msg: (errorCode),
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          // timeInSecForIosWeb: 1,
+          backgroundColor: primaryColor,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      _bloc.add(ClearState());
+    }
+  }
+}
+

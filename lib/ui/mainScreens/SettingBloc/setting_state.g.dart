@@ -14,6 +14,8 @@ class _$SettingState extends SettingState {
   @override
   final bool isLogin;
   @override
+  final bool successedit;
+  @override
   final bool logout;
   @override
   final bool success;
@@ -26,6 +28,8 @@ class _$SettingState extends SettingState {
   @override
   final BuiltList<CountryModel> country;
   @override
+  final UserData user;
+  @override
   final BuiltList<ReviewQuoteUserModel> quoteUser;
   @override
   final BuiltList<ReviewQuoteUserModel> reviewUser;
@@ -37,12 +41,14 @@ class _$SettingState extends SettingState {
       {this.isLoading,
       this.lang,
       this.isLogin,
+      this.successedit,
       this.logout,
       this.success,
       this.error,
       this.profileUser,
       this.data,
       this.country,
+      this.user,
       this.quoteUser,
       this.reviewUser})
       : super._() {
@@ -54,6 +60,9 @@ class _$SettingState extends SettingState {
     }
     if (isLogin == null) {
       throw new BuiltValueNullFieldError('SettingState', 'isLogin');
+    }
+    if (successedit == null) {
+      throw new BuiltValueNullFieldError('SettingState', 'successedit');
     }
     if (logout == null) {
       throw new BuiltValueNullFieldError('SettingState', 'logout');
@@ -95,12 +104,14 @@ class _$SettingState extends SettingState {
         isLoading == other.isLoading &&
         lang == other.lang &&
         isLogin == other.isLogin &&
+        successedit == other.successedit &&
         logout == other.logout &&
         success == other.success &&
         error == other.error &&
         profileUser == other.profileUser &&
         data == other.data &&
         country == other.country &&
+        user == other.user &&
         quoteUser == other.quoteUser &&
         reviewUser == other.reviewUser;
   }
@@ -116,15 +127,19 @@ class _$SettingState extends SettingState {
                             $jc(
                                 $jc(
                                     $jc(
-                                        $jc($jc(0, isLoading.hashCode),
-                                            lang.hashCode),
-                                        isLogin.hashCode),
-                                    logout.hashCode),
-                                success.hashCode),
-                            error.hashCode),
-                        profileUser.hashCode),
-                    data.hashCode),
-                country.hashCode),
+                                        $jc(
+                                            $jc(
+                                                $jc($jc(0, isLoading.hashCode),
+                                                    lang.hashCode),
+                                                isLogin.hashCode),
+                                            successedit.hashCode),
+                                        logout.hashCode),
+                                    success.hashCode),
+                                error.hashCode),
+                            profileUser.hashCode),
+                        data.hashCode),
+                    country.hashCode),
+                user.hashCode),
             quoteUser.hashCode),
         reviewUser.hashCode));
   }
@@ -135,12 +150,14 @@ class _$SettingState extends SettingState {
           ..add('isLoading', isLoading)
           ..add('lang', lang)
           ..add('isLogin', isLogin)
+          ..add('successedit', successedit)
           ..add('logout', logout)
           ..add('success', success)
           ..add('error', error)
           ..add('profileUser', profileUser)
           ..add('data', data)
           ..add('country', country)
+          ..add('user', user)
           ..add('quoteUser', quoteUser)
           ..add('reviewUser', reviewUser))
         .toString();
@@ -162,6 +179,10 @@ class SettingStateBuilder
   bool _isLogin;
   bool get isLogin => _$this._isLogin;
   set isLogin(bool isLogin) => _$this._isLogin = isLogin;
+
+  bool _successedit;
+  bool get successedit => _$this._successedit;
+  set successedit(bool successedit) => _$this._successedit = successedit;
 
   bool _logout;
   bool get logout => _$this._logout;
@@ -190,6 +211,10 @@ class SettingStateBuilder
       _$this._country ??= new ListBuilder<CountryModel>();
   set country(ListBuilder<CountryModel> country) => _$this._country = country;
 
+  UserDataBuilder _user;
+  UserDataBuilder get user => _$this._user ??= new UserDataBuilder();
+  set user(UserDataBuilder user) => _$this._user = user;
+
   ListBuilder<ReviewQuoteUserModel> _quoteUser;
   ListBuilder<ReviewQuoteUserModel> get quoteUser =>
       _$this._quoteUser ??= new ListBuilder<ReviewQuoteUserModel>();
@@ -209,12 +234,14 @@ class SettingStateBuilder
       _isLoading = _$v.isLoading;
       _lang = _$v.lang;
       _isLogin = _$v.isLogin;
+      _successedit = _$v.successedit;
       _logout = _$v.logout;
       _success = _$v.success;
       _error = _$v.error;
       _profileUser = _$v.profileUser?.toBuilder();
       _data = _$v.data?.toBuilder();
       _country = _$v.country?.toBuilder();
+      _user = _$v.user?.toBuilder();
       _quoteUser = _$v.quoteUser?.toBuilder();
       _reviewUser = _$v.reviewUser?.toBuilder();
       _$v = null;
@@ -244,12 +271,14 @@ class SettingStateBuilder
               isLoading: isLoading,
               lang: lang,
               isLogin: isLogin,
+              successedit: successedit,
               logout: logout,
               success: success,
               error: error,
               profileUser: profileUser.build(),
               data: data.build(),
               country: country.build(),
+              user: _user?.build(),
               quoteUser: quoteUser.build(),
               reviewUser: reviewUser.build());
     } catch (_) {
@@ -261,6 +290,8 @@ class SettingStateBuilder
         data.build();
         _$failedField = 'country';
         country.build();
+        _$failedField = 'user';
+        _user?.build();
         _$failedField = 'quoteUser';
         quoteUser.build();
         _$failedField = 'reviewUser';

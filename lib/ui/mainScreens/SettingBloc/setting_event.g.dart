@@ -619,6 +619,442 @@ class LogOutBuilder implements Builder<LogOut, LogOutBuilder> {
   }
 }
 
+class _$ChangeName extends ChangeName {
+  @override
+  final String value;
+
+  factory _$ChangeName([void Function(ChangeNameBuilder) updates]) =>
+      (new ChangeNameBuilder()..update(updates)).build();
+
+  _$ChangeName._({this.value}) : super._();
+
+  @override
+  ChangeName rebuild(void Function(ChangeNameBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  ChangeNameBuilder toBuilder() => new ChangeNameBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is ChangeName && value == other.value;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc(0, value.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('ChangeName')..add('value', value))
+        .toString();
+  }
+}
+
+class ChangeNameBuilder implements Builder<ChangeName, ChangeNameBuilder> {
+  _$ChangeName _$v;
+
+  String _value;
+  String get value => _$this._value;
+  set value(String value) => _$this._value = value;
+
+  ChangeNameBuilder();
+
+  ChangeNameBuilder get _$this {
+    if (_$v != null) {
+      _value = _$v.value;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(ChangeName other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$ChangeName;
+  }
+
+  @override
+  void update(void Function(ChangeNameBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$ChangeName build() {
+    final _$result = _$v ?? new _$ChangeName._(value: value);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$ChangeUserName extends ChangeUserName {
+  @override
+  final String value;
+
+  factory _$ChangeUserName([void Function(ChangeUserNameBuilder) updates]) =>
+      (new ChangeUserNameBuilder()..update(updates)).build();
+
+  _$ChangeUserName._({this.value}) : super._();
+
+  @override
+  ChangeUserName rebuild(void Function(ChangeUserNameBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  ChangeUserNameBuilder toBuilder() =>
+      new ChangeUserNameBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is ChangeUserName && value == other.value;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc(0, value.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('ChangeUserName')..add('value', value))
+        .toString();
+  }
+}
+
+class ChangeUserNameBuilder
+    implements Builder<ChangeUserName, ChangeUserNameBuilder> {
+  _$ChangeUserName _$v;
+
+  String _value;
+  String get value => _$this._value;
+  set value(String value) => _$this._value = value;
+
+  ChangeUserNameBuilder();
+
+  ChangeUserNameBuilder get _$this {
+    if (_$v != null) {
+      _value = _$v.value;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(ChangeUserName other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$ChangeUserName;
+  }
+
+  @override
+  void update(void Function(ChangeUserNameBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$ChangeUserName build() {
+    final _$result = _$v ?? new _$ChangeUserName._(value: value);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$ChangeEmail extends ChangeEmail {
+  @override
+  final String value;
+
+  factory _$ChangeEmail([void Function(ChangeEmailBuilder) updates]) =>
+      (new ChangeEmailBuilder()..update(updates)).build();
+
+  _$ChangeEmail._({this.value}) : super._();
+
+  @override
+  ChangeEmail rebuild(void Function(ChangeEmailBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  ChangeEmailBuilder toBuilder() => new ChangeEmailBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is ChangeEmail && value == other.value;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc(0, value.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('ChangeEmail')..add('value', value))
+        .toString();
+  }
+}
+
+class ChangeEmailBuilder implements Builder<ChangeEmail, ChangeEmailBuilder> {
+  _$ChangeEmail _$v;
+
+  String _value;
+  String get value => _$this._value;
+  set value(String value) => _$this._value = value;
+
+  ChangeEmailBuilder();
+
+  ChangeEmailBuilder get _$this {
+    if (_$v != null) {
+      _value = _$v.value;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(ChangeEmail other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$ChangeEmail;
+  }
+
+  @override
+  void update(void Function(ChangeEmailBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$ChangeEmail build() {
+    final _$result = _$v ?? new _$ChangeEmail._(value: value);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$ChangeGender extends ChangeGender {
+  @override
+  final String value;
+
+  factory _$ChangeGender([void Function(ChangeGenderBuilder) updates]) =>
+      (new ChangeGenderBuilder()..update(updates)).build();
+
+  _$ChangeGender._({this.value}) : super._();
+
+  @override
+  ChangeGender rebuild(void Function(ChangeGenderBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  ChangeGenderBuilder toBuilder() => new ChangeGenderBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is ChangeGender && value == other.value;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc(0, value.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('ChangeGender')..add('value', value))
+        .toString();
+  }
+}
+
+class ChangeGenderBuilder
+    implements Builder<ChangeGender, ChangeGenderBuilder> {
+  _$ChangeGender _$v;
+
+  String _value;
+  String get value => _$this._value;
+  set value(String value) => _$this._value = value;
+
+  ChangeGenderBuilder();
+
+  ChangeGenderBuilder get _$this {
+    if (_$v != null) {
+      _value = _$v.value;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(ChangeGender other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$ChangeGender;
+  }
+
+  @override
+  void update(void Function(ChangeGenderBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$ChangeGender build() {
+    final _$result = _$v ?? new _$ChangeGender._(value: value);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$ChangeCountry extends ChangeCountry {
+  @override
+  final String value;
+
+  factory _$ChangeCountry([void Function(ChangeCountryBuilder) updates]) =>
+      (new ChangeCountryBuilder()..update(updates)).build();
+
+  _$ChangeCountry._({this.value}) : super._();
+
+  @override
+  ChangeCountry rebuild(void Function(ChangeCountryBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  ChangeCountryBuilder toBuilder() => new ChangeCountryBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is ChangeCountry && value == other.value;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc(0, value.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('ChangeCountry')..add('value', value))
+        .toString();
+  }
+}
+
+class ChangeCountryBuilder
+    implements Builder<ChangeCountry, ChangeCountryBuilder> {
+  _$ChangeCountry _$v;
+
+  String _value;
+  String get value => _$this._value;
+  set value(String value) => _$this._value = value;
+
+  ChangeCountryBuilder();
+
+  ChangeCountryBuilder get _$this {
+    if (_$v != null) {
+      _value = _$v.value;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(ChangeCountry other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$ChangeCountry;
+  }
+
+  @override
+  void update(void Function(ChangeCountryBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$ChangeCountry build() {
+    final _$result = _$v ?? new _$ChangeCountry._(value: value);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$ChangeTele extends ChangeTele {
+  @override
+  final String value;
+
+  factory _$ChangeTele([void Function(ChangeTeleBuilder) updates]) =>
+      (new ChangeTeleBuilder()..update(updates)).build();
+
+  _$ChangeTele._({this.value}) : super._();
+
+  @override
+  ChangeTele rebuild(void Function(ChangeTeleBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  ChangeTeleBuilder toBuilder() => new ChangeTeleBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is ChangeTele && value == other.value;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc(0, value.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('ChangeTele')..add('value', value))
+        .toString();
+  }
+}
+
+class ChangeTeleBuilder implements Builder<ChangeTele, ChangeTeleBuilder> {
+  _$ChangeTele _$v;
+
+  String _value;
+  String get value => _$this._value;
+  set value(String value) => _$this._value = value;
+
+  ChangeTeleBuilder();
+
+  ChangeTeleBuilder get _$this {
+    if (_$v != null) {
+      _value = _$v.value;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(ChangeTele other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$ChangeTele;
+  }
+
+  @override
+  void update(void Function(ChangeTeleBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$ChangeTele build() {
+    final _$result = _$v ?? new _$ChangeTele._(value: value);
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$TryEdit extends TryEdit {
   @override
   final String name;
@@ -646,26 +1082,7 @@ class _$TryEdit extends TryEdit {
       this.gender,
       this.country_code,
       this.image})
-      : super._() {
-    if (name == null) {
-      throw new BuiltValueNullFieldError('TryEdit', 'name');
-    }
-    if (username == null) {
-      throw new BuiltValueNullFieldError('TryEdit', 'username');
-    }
-    if (email == null) {
-      throw new BuiltValueNullFieldError('TryEdit', 'email');
-    }
-    if (tele == null) {
-      throw new BuiltValueNullFieldError('TryEdit', 'tele');
-    }
-    if (gender == null) {
-      throw new BuiltValueNullFieldError('TryEdit', 'gender');
-    }
-    if (country_code == null) {
-      throw new BuiltValueNullFieldError('TryEdit', 'country_code');
-    }
-  }
+      : super._();
 
   @override
   TryEdit rebuild(void Function(TryEditBuilder) updates) =>

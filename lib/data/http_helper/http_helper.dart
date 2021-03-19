@@ -25,6 +25,7 @@ import 'package:maktabeh_app/model/user/user_model.dart';
 
 import 'ihttpe_helper.dart';
 
+
 class HttpHelper implements IHttpHelper {
   final Dio _dio;
 
@@ -310,10 +311,12 @@ class HttpHelper implements IHttpHelper {
       String tele,
       String gender,
       String country_code,
-      String firebaseToken) async {
+      File image,
+      String firebaseToken
+     ) async {
     try {
       print('register Response body ');
-      final formData = {
+      final formData = FormData.fromMap( {
         "name": name,
         "username": username,
         "email": email,
@@ -322,8 +325,14 @@ class HttpHelper implements IHttpHelper {
         "gender": gender,
         "country_code": country_code,
         "device_token": firebaseToken
-      };
-
+      });
+      if (image.path.isNotEmpty) {
+        formData.files.add(MapEntry(
+          "image",
+          await MultipartFile.fromFile(image.path,
+              filename: basename(image.path)),
+        ));
+      }
       final response = await _dio.post(
         'signup',
         data: formData,
@@ -937,28 +946,34 @@ class HttpHelper implements IHttpHelper {
       String token,
       String language) async {
     try {
-      final formData = {
+        final formData =  FormData.fromMap({
         "name": name,
         "username": username,
         "email": email,
         "tele": tele,
         "gender": gender,
         "country_code": country_code
-      };
-      // if (image != null && image.path.isNotEmpty) {
-      //   formData.file.add(MapEntry(
-      //     "image",
-      //     await MultipartFile.fromFile(image.path,
-      //         filename: basename(image.path)),
-      //   ));
-      // }
-      final response = await _dio.post('login', data: formData);
+        });
+        if (image != null && image.path.isNotEmpty) {
+          formData.files.add(MapEntry(
+            "image",
+            await MultipartFile.fromFile(image.path,
+                filename: basename(image.path)),
+          ));
+        }
+        final response = await _dio.post('user', data: formData,options: Options(
+            headers: {'Authorization': 'Bearer $token', "Accept-Language": language}));
       print('login Response StatusCode ${response.statusCode}');
 
-      if (response.statusCode == 200) {
-        final ret = serializers.deserialize(json.decode(response.data),
+        if (response.statusCode == 201) {
+          final baseResponse = serializers.deserialize(json.decode(response.data),
             specifiedType: FullType(UserModel));
-        return ret;
+          print("implement edit status : ${baseResponse}");
+          if (baseResponse != null) {
+            return baseResponse;
+          } else {
+            throw NetworkException();
+          }
       } else {
         throw NetworkException(code: response.statusCode);
       }

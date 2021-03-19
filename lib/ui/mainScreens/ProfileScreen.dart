@@ -56,6 +56,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           WidgetsBinding.instance.addPostFrameCallback((_) =>
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => StartScreen())));
+          ChangeStatus();
         }
         return Scaffold(
           body: Stack(
@@ -126,15 +127,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Center(
                           child: IconButton(
                             icon: Image.asset("assets/icons/Edit.png"),
-                            onPressed: () => push(context, EfitProfileScreen()),
+                            onPressed: () => push(context, EfitProfileScreen(userData: state.profileUser.data,)),
                           ),
                         )
                       ],
                     ):Container():Center(child: Text(' '),),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  SizedBox( height: 10,),
                   (state.isLogin)?   Row(
                     children: [
                       optionSetting(

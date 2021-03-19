@@ -14,13 +14,15 @@ import 'package:maktabeh_app/ui/common_widget/rate_stars.dart';
 import 'package:maktabeh_app/ui/mainScreens/HomSereens/home_bloc/home_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/HomSereens/home_bloc/home_event.dart';
 import 'package:maktabeh_app/ui/mainScreens/HomSereens/home_bloc/home_state.dart';
+import 'package:maktabeh_app/ui/review/review_screen.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 import '../../injection.dart';
 
 class AddReviewScreen extends StatefulWidget {
   int bookid;
-  AddReviewScreen({this.bookid});
+  bool isLogin;
+  AddReviewScreen({this.isLogin,this.bookid});
   @override
   _AddReviewScreenState createState() => _AddReviewScreenState();
 }
@@ -44,7 +46,12 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
       error(state.error);
       if(state.success) {
         error(AppLocalizations.of(context).translate('adding successfully'));
-        Timer(Duration(seconds: 1), () => Navigator.of(context).pop());
+        // Timer(Duration(seconds: 1), () => Navigator.of(context).pop());
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp){
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => ReviewScreen(bookid: widget.bookid,isLogin:widget.isLogin),
+          ));
+        });
 
       }
       return SafeArea(
