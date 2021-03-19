@@ -129,9 +129,6 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
       }
     }
 
-    if (event is ChangeName) {
-      yield state.rebuild((b) => b..user.user.name = event.value);
-    }
     if (event is ChangeUserName) {
       yield state.rebuild((b) => b..user.user.username = event.value);
     }
@@ -153,7 +150,7 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
           ..isLoading = true
           ..error = ""
           ..successedit = false);
-        final data = await _repository.editUser(event.name, event.username, event.email, event.tele, event.gender, event.country_code, event.image);
+        final data = await _repository.editUser( event.username, event.email, event.tele, event.gender, event.country_code, event.image);
         await _repository.saveUser(data.data);
         yield state.rebuild((b) => b
           ..isLoading = false

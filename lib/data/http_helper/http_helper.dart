@@ -301,6 +301,7 @@ class HttpHelper implements IHttpHelper {
     }
   }
 
+
   @override
   Future<UserModel> register(
       String name,
@@ -936,7 +937,6 @@ class HttpHelper implements IHttpHelper {
 
   @override
   Future<UserModel> editUser(
-      String name,
       String username,
       String email,
       String tele,
@@ -947,7 +947,6 @@ class HttpHelper implements IHttpHelper {
       String language) async {
     try {
       final formData = FormData.fromMap({
-        "name": name,
         "username": username,
         "email": email,
         "tele": tele,

@@ -101,7 +101,7 @@ abstract class IRepository {
 
   Future<bool> logout();
 
-  Future<UserModel> editUser(String name, String username, String email,
+  Future<UserModel> editUser( String username, String email,
       String tele, String gender, String country_code, File image);
 
   Future<BaseBook> getFilteredBooks(
