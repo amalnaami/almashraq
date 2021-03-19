@@ -20,6 +20,7 @@ import 'package:maktabeh_app/ui/mainScreens/main_screen.dart';
 
 import 'package:maktabeh_app/ui/start_screen/start_screen.dart';
 
+import 'package:maktabeh_app/ui/mainScreens/main_screen.dart';
 
 
 class GuideScreen extends StatefulWidget {
@@ -186,8 +187,10 @@ class _GuideScreenState extends State<GuideScreen> {
                                       }),
                                 ),
                                 InkWell(
-                                //  onTap: () => setState(() => pageIndex = 3),
-                                        child: Text(
+                                onTap:() {
+                                push(context, MainPage());
+                                }                    ,
+                                  child: Text(
                                           AppLocalizations.of(context)
                                               .translate('skip'),
                                           style: boldStyle.copyWith(
