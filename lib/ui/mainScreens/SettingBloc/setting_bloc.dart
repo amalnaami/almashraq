@@ -130,7 +130,7 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     }
 
     if (event is ChangeUserName) {
-      yield state.rebuild((b) => b..user.user.username = event.value);
+      yield state.rebuild((b) => b..user.user.name = event.value);
     }
     if (event is ChangeEmail) {
       yield state.rebuild((b) => b..user.user.email = event.value);
