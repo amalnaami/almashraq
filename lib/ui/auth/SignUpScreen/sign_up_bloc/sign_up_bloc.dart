@@ -15,7 +15,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     if (event is ClearState) {
       yield state.rebuild((b) => b
         ..isLoading = false
-        ..error = '');
+        ..error = ''
+      ..successSignup = false);
     }
     if (event is GetCountry) {
       try {
