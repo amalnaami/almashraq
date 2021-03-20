@@ -49,16 +49,19 @@ class QuoteCard extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: ReadMoreText(
-                            "\"${quote.quotation_text}\"",
-                            trimLines: 1,
-                            textDirection: AppLocalizations.of(context)
-                                        .locale
-                                        .languageCode ==
-                                    'ar'
-                                ? TextDirection.ltr
-                                : TextDirection.rtl,
-                            style: regStyle.copyWith(color: Colors.black),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * .45,
+                            child: ReadMoreText(
+                              "\"${quote.quotation_text}\"",
+                              trimLines: 1,
+                              textDirection: AppLocalizations.of(context)
+                                          .locale
+                                          .languageCode ==
+                                      'ar'
+                                  ? TextDirection.ltr
+                                  : TextDirection.rtl,
+                              style: regStyle.copyWith(color: Colors.black),
+                            ),
                           ),
                         ),
                         SizedBox(

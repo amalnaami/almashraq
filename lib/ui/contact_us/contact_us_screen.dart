@@ -25,7 +25,11 @@ class _ContactUsState extends State<ContactUs> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController messageController = TextEditingController();
-
+  @override
+  void dispose() {
+    super.dispose();
+    _bloc.close();
+  }
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -42,6 +46,7 @@ class _ContactUsState extends State<ContactUs> {
             ),
               () => Navigator.of(context).pop()
           );
+          _bloc.add(ClearState());
         }
         return SafeArea(
           child: Scaffold(

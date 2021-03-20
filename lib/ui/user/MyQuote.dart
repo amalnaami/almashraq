@@ -35,7 +35,7 @@ class _MyQuoteState extends State<MyQuote> {
       builder: (BuildContext context, AllQuoteState state) {
         error(state.error);
         return Scaffold(
-          appBar: customAppBar(context, AppLocalizations.of(context).translate('All quotes')),
+          //appBar: customAppBar(context, AppLocalizations.of(context).translate('All quotes')),
           body: Stack(
             children: [
               Column(

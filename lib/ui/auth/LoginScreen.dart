@@ -50,7 +50,8 @@ class _LoginScreenState extends State<LoginScreen> {
       builder: (BuildContext context, LoginState state) {
         error(state.error);
         if(state.successLogin) {
-          WidgetsBinding.instance.addPostFrameCallback((timeStamp) { push(context, MainPage());});
+          WidgetsBinding.instance.addPostFrameCallback((timeStamp) { Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+              MainPage()), (Route<dynamic> route) => false);});
           _bloc.add(ClearState());
         }
         return Scaffold(

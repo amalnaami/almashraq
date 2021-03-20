@@ -30,7 +30,7 @@ class ContactUsBloc extends Bloc<ContactUsEvent, ContactUsState> {
           ..isLoading = false);
       }
     } else if (event is ClearState) {
-      yield state.rebuild((b) => b..error = '');
+      yield state.rebuild((b) => b..error = ''..success = false);
     }
   }
 }

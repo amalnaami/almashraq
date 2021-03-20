@@ -17,10 +17,13 @@ class AuthorBooksBloc extends Bloc<AuthorBooksEvent, AuthorBooksState> {
   Stream<AuthorBooksState> mapEventToState(
     AuthorBooksEvent event,
   ) async* {
+    print('EVVENT IS $event');
     if (event is GetAuthorBooks) {
       try {
         if ((data == null) && (sortType == null || sortType.isEmpty)) {
+          print('ss');
           if (currentPage <= lastPage) {
+            print('xx');
             yield state.rebuild((b) => b..isLoading = true);
             final res = await _repository.getBooksForAuthor(currentPage, event.id);
             lastPage = res.paginator.last_page;
@@ -30,6 +33,9 @@ class AuthorBooksBloc extends Bloc<AuthorBooksEvent, AuthorBooksState> {
               ..books.addAll(res.data));
           }
         } else {
+          print('ELSE');
+          print('$currentPage');
+          print('$lastPage');
           if (currentPage <= lastPage) {
             yield state.rebuild((b) => b..isLoading = true);
             final res = await _repository.getFilteredBooks(

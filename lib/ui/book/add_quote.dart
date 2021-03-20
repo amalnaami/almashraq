@@ -51,7 +51,7 @@ class _AddQuoteScreenState extends State<AddQuoteScreen> {
       }
       return SafeArea(
         child: Scaffold(
-      appBar: app_bar(AppLocalizations.of(context).translate('add quote'), context),
+      //: app_bar(AppLocalizations.of(context).translate('add quote'), context),
       body: Padding(
         padding: EdgeInsets.symmetric(
             vertical: SizeConfig.blockSizeVertical * 2,

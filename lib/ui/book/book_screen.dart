@@ -17,6 +17,7 @@ import 'package:maktabeh_app/ui/book/book_same_section.dart';
 import 'package:maktabeh_app/ui/book/book_screen_bloc/book_screen_state.dart';
 import 'package:maktabeh_app/ui/book/buy_books.dart';
 import 'package:maktabeh_app/ui/book/quotes_screen.dart';
+import 'package:maktabeh_app/ui/books_by_category/books_by_category.dart';
 import 'package:maktabeh_app/ui/common_widget/app_button.dart';
 import 'package:maktabeh_app/ui/common_widget/local_image.dart';
 import 'package:maktabeh_app/ui/common_widget/rate_stars.dart';
@@ -512,10 +513,7 @@ class _BookScreenState extends State<BookScreen> {
                                 widget: Container(),
                                 onTab: () => Navigator.of(context)
                                         .push(MaterialPageRoute(
-                                      builder: (context) => BookSameSection(
-                                        sectionId: widget.singleBook.section.id,
-                                        bookId: widget.singleBook.id,
-                                      ),
+                                      builder: (context) => BooksByCategory(widget.singleBook.section),
                                       //     Navigator.of(context).push(MaterialPageRoute(
                                       //   builder: (context) => AboutWriterScreen(widget.author),
                                     )),

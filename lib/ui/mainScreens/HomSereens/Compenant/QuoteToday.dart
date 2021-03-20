@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:maktabeh_app/core/app_localizations.dart';
-import 'package:maktabeh_app/core/config/navigatorHelper.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
 import 'package:maktabeh_app/model/quote/quote.dart';
-import 'package:maktabeh_app/ui/common_widget/networkImage.dart';
-import 'package:maktabeh_app/ui/mainScreens/allReviewsPage.dart';
-import 'package:maktabeh_app/ui/mainScreens/all_quotes_screen.dart';
 
 import 'QuoteCard.dart';
 

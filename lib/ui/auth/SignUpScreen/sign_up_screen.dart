@@ -662,8 +662,8 @@ class _SignupScreenState extends State<SignupScreen> {
                           else {
                             _bloc.add(
                               SignUp((b) => b
-                              ..username=fullNameController.value.text
-                              ..name=nameController.value.text
+                              ..name=fullNameController.value.text
+                              ..username=nameController.value.text
                                 ..email=emailController.value.text
                                 ..password = passwordController.value.text
                                 ..tele = phoneController.value.text

@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:maktabeh_app/core/app_localizations.dart';
-import 'package:maktabeh_app/core/config/navigatorHelper.dart';
 import 'package:maktabeh_app/core/size_config.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
-import 'package:maktabeh_app/model/country_model/country_model.dart';
 import 'package:maktabeh_app/ui/auth/LoginScreen.dart';
 import 'package:maktabeh_app/ui/auth/SignUpScreen/sign_up_screen.dart';
 import 'package:maktabeh_app/ui/common_widget/app_button.dart';
-import 'package:maktabeh_app/ui/mainScreens/HomSereens/HomeScreen.dart';
 import 'package:maktabeh_app/ui/mainScreens/main_screen.dart';
 
 class StartScreen extends StatefulWidget {
@@ -36,7 +33,8 @@ class _StartScreenState extends State<StartScreen> {
           leading: Container(),
           actions: [
             InkWell(
-              onTap: () => push(context, MainPage()),
+              onTap: () =>Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                  MainPage()), (Route<dynamic> route) => false),
               child: Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: SizeConfig.blockSizeHorizontal * 2),
@@ -44,7 +42,8 @@ class _StartScreenState extends State<StartScreen> {
                   // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     InkWell(
-                      onTap: () => push(context, MainPage()),
+                      onTap: () => Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                          MainPage()), (Route<dynamic> route) => false),
                       child: Text(
                         AppLocalizations.of(context).translate('skip login'),
                         style: boldStyle.copyWith(color: Colors.white),
