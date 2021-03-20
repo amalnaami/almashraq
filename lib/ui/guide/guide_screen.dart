@@ -66,7 +66,7 @@ class _GuideScreenState extends State<GuideScreen> {
         if (state.successAdding) {
           WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
             Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-                MainPage()), (Route<dynamic> route) => false);
+                MainPageProvider()), (Route<dynamic> route) => false);
           });
           _bloc.add(ClearState());
         }
@@ -190,7 +190,7 @@ class _GuideScreenState extends State<GuideScreen> {
                                 InkWell(
                                 onTap:() {
                                   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-                                      MainPage()), (Route<dynamic> route) => false);
+                                      MainPageProvider()), (Route<dynamic> route) => false);
                                 }                    ,
                                   child: Text(
                                           AppLocalizations.of(context)
@@ -521,7 +521,7 @@ class _SectionGuideScreenState extends State<SectionGuideScreen> {
         if (state.successAdding) {
           WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
             Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-                MainPage()), (Route<dynamic> route) => false);
+                MainPageProvider()), (Route<dynamic> route) => false);
           });
           _bloc.add(ClearState());
         }

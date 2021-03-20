@@ -59,6 +59,10 @@ class Repository implements IRepository {
   Future<bool> login(String userName, String password) async {
     final res = await _ihttpHelper.login(
         userName, password, await PushNotificationsManager().getToken());
+    print(res.data.user.image);
+    print(res.data.user.email);
+    print(res.data.user.name);
+    print(res.data.user.country);
     await _iprefHelper.saveUser(res.data, true);
     return true;
   }
@@ -358,7 +362,8 @@ class Repository implements IRepository {
   @override
   Future<bool> logout() async {
     final data = await _ihttpHelper.logout(await _iprefHelper.getToken());
-    await _iprefHelper.setIsLogin(false);
+    await _iprefHelper.logout();
+    print('LOGout repo');
     return data;
   }
   @override
@@ -403,5 +408,25 @@ class Repository implements IRepository {
       sectionId: sectionId,
       language: await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar',
     );
+  }
+
+  @override
+  Future<String> getCountry() async {
+    return await _iprefHelper.getCountry();
+  }
+
+  @override
+  Future<String> getEmail() async {
+    return await _iprefHelper.getEmail();
+  }
+
+  @override
+  Future<String> getImage() async {
+    return await _iprefHelper.getImage();
+  }
+
+  @override
+  Future<String> getName() async {
+    return await _iprefHelper.getName();
   }
 }

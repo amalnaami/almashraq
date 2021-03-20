@@ -8,3 +8,4 @@ const String USERNAME = "username";
 const String ID = "id";
 const String MOBILE = "mobile";
 const String IMAGE = "image";
+const String COUNTRY = "country";

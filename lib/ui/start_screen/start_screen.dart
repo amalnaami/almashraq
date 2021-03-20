@@ -41,7 +41,7 @@ class _StartScreenState extends State<StartScreen> {
           actions: [
             InkWell(
               onTap: () =>Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-                  MainPage()), (Route<dynamic> route) => false),
+                  MainPageProvider()), (Route<dynamic> route) => false),
               child: Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: SizeConfig.blockSizeHorizontal * 2),
@@ -50,7 +50,7 @@ class _StartScreenState extends State<StartScreen> {
                   children: [
                     InkWell(
                       onTap: () => Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-                          MainPage()), (Route<dynamic> route) => false),
+                          MainPageProvider()), (Route<dynamic> route) => false),
                       child: Text(
                         AppLocalizations.of(context).translate('skip login'),
                         style: boldStyle.copyWith(color: Colors.white),

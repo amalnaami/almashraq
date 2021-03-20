@@ -468,7 +468,7 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
                      ..image =_image));
                  }
            Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => MainPage()));
+                    MaterialPageRoute(builder: (context) => MainPageProvider()));
                 error(AppLocalizations.of(context).translate('adding successfully'));
 print('usernameusernameusername${_nameuserController.value.text}');
 print('usernameusernameusername1${widget.userData.username}');

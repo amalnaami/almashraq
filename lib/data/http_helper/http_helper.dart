@@ -90,6 +90,9 @@ class HttpHelper implements IHttpHelper {
         "password": password,
         "device_token": firebaseToken
       };
+      print(userName);
+      print(password);
+      print(firebaseToken);
       final response = await _dio.post('login', data: formData);
       print('login Response StatusCode ${response.statusCode}');
 

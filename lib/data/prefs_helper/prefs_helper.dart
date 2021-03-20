@@ -28,11 +28,18 @@ class PrefsHelper implements IPrefsHelper {
 
   @override
   Future<void> saveUser(UserData user,bool active) async {
+    print('SAVING DATA');
+    print(user.user.image);
+    print(user.user.email);
+    print(user.user.name);
+    print(user.user.country);
     (await getPrefs()).setString(TOKEN, user.access_token);
     (await getPrefs()).setString(IMAGE, user.user.image);
     (await getPrefs()).setString(EMAIL, user.user.email);
     (await getPrefs()).setString(USERNAME, user.user.username);
     (await getPrefs()).setInt(ID, user.user.id);
+    (await getPrefs()).setString(NAME, user.user.name);
+    (await getPrefs()).setString(COUNTRY, user.user.country);
     if(active){
       (await getPrefs()).setBool(IS_LOGIN, true);
     }
@@ -50,13 +57,37 @@ class PrefsHelper implements IPrefsHelper {
 
   @override
   Future<bool> getIsLogin() async {
-    return (await getPrefs()).getBool(IS_LOGIN) ?? false;
+    return (await getPrefs()).containsKey(TOKEN);
   }
 
 
   @override
-  Future<void> setIsLogin(bool isLogin) async{
-    (await getPrefs()).setBool(IS_LOGIN, isLogin);
+  Future<void> logout() async{
+    (await getPrefs()).clear();
+  }
+
+  @override
+  Future<String> getCountry() async{
+    return (await getPrefs()).getString(COUNTRY);
+
+  }
+
+  @override
+  Future<String> getEmail() async{
+    return (await getPrefs()).getString(EMAIL);
+
+  }
+
+  @override
+  Future<String> getImage() async{
+    return (await getPrefs()).getString(IMAGE);
+
+  }
+
+  @override
+  Future<String> getName() async{
+    return (await getPrefs()).getString(NAME);
+
   }
 
 }

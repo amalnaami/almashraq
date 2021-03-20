@@ -62,8 +62,8 @@ class _SignupScreenState extends State<SignupScreen> {
         builder: (BuildContext context, SignUpState state) {
       error(state.error);
       if(state.successSignup) {
-        WidgetsBinding.instance.addPostFrameCallback((timeStamp) { push(context, SectionGuideScreen());});
         _bloc.add(ClearState());
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) { push(context, SectionGuideScreen());});
       }
       return Scaffold(
       backgroundColor: Colors.white,

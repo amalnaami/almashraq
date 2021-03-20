@@ -115,4 +115,8 @@ abstract class IRepository {
 
   Future<BuiltList<Author>> getFilteredAuthors({int sectionId, String name});
   Future<Category> getCategoryById({int sectionId});
+  Future<String> getEmail();
+  Future<String> getCountry();
+  Future<String> getImage();
+  Future<String> getName();
 }

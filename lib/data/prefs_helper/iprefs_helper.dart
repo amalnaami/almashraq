@@ -14,5 +14,9 @@ abstract class IPrefsHelper {
   Future<String> getToken();
   Future<bool> getIsLogin();
 
-  Future<void> setIsLogin(bool isLogin);
+  Future<void> logout();
+  Future<String> getEmail();
+  Future<String> getCountry();
+  Future<String> getImage();
+  Future<String> getName();
 }

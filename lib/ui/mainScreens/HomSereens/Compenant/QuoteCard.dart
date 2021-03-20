@@ -104,7 +104,7 @@ class QuoteCard extends StatelessWidget {
                         ),
                         SizedBox(height: 8),
                         SoshialBar(quote.quotation_text),
-                        //SizedBox(height: 4),
+                        // SizedBox(height: 4),
                         // if (title == "الاقتباسات" || title == 'quotes')
                         //   Text(
                         //     AppLocalizations.of(context)

@@ -21,6 +21,7 @@ import 'package:maktabeh_app/ui/mainScreens/author_bloc/author_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/author_books_bloc/author_books_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/categories_bloc/categories_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/drawer/add_rate_bloc/add_rate_bloc.dart';
+import 'package:maktabeh_app/ui/mainScreens/drawer/custom_drawer_bloc/custom_drawer_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/drawer/favorite_bloc/favorite_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/drawer/rate_bloc/rate_bloc.dart';
 import 'package:maktabeh_app/ui/user/editProfile.dart/edit_password_bloc/edit_password_bloc.dart';
@@ -77,4 +78,5 @@ Future iniGetIt() async {
   sl.registerLazySingleton(() => RateBloc(sl()));
   sl.registerLazySingleton(() => AddRateBloc(sl()));
   sl.registerLazySingleton(() => FilterBloc(sl()));
+  sl.registerLazySingleton(() => CustomDrawerBloc(sl()));
 }
