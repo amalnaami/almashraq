@@ -191,7 +191,6 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
               ),
             ),
           ),
-
           Container(
             padding: EdgeInsets.symmetric(vertical: 10),
             child: TextFormField(
@@ -199,13 +198,13 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
                 _bloc.add(ChangeTele((b) => b..value = v));
               },
 
-              validator: (v) {
-                if (v.isEmpty) {
-                  return AppLocalizations.of(context)
-                      .translate("name can not be empty");
-                }
-                return null;
-              }    ,
+              // validator: (v) {
+              //   if (v.isEmpty) {
+              //     return AppLocalizations.of(context)
+              //         .translate("name can not be empty");
+              //   }
+              //   return null;
+              // }    ,
               controller: _teleController,
               maxLines:  1,
               decoration: InputDecoration(
@@ -278,7 +277,6 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
           //   hintText: AppLocalizations.of(context).translate('phone number (optional)'),
           //   iconPath: "assets/svg/mobile.svg",
           // ),
-
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
@@ -430,10 +428,10 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
               onTap: () {
                 if (_teleController.value.text == null ||
                     _teleController.value.text.isEmpty) {
-                  error(AppLocalizations.of(context)
-                      .translate('fullname can not be empty'));
+                  error('mobile can not be empty');
                   return;
-                }if (_nameuserController.value.text == null ||
+                }
+                if (_nameuserController.value.text == null ||
                     _nameuserController.value.text.isEmpty) {
                   error(AppLocalizations.of(context)
                       .translate('username can not be empty'));
@@ -462,17 +460,18 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
                 else
                  {
                    _bloc.add(TryEdit((b) => b
-                     ..username = _nameuserController.value.text!=null?_nameuserController.value.text:widget.profileModel.data.username
-                     ..email = _emailController.value.text!=null?_emailController.value.text:widget.profileModel.data.email
-                     ..tele = _teleController.value.text!=null?_teleController.value.text:widget.profileModel.data.mobile
-                     ..gender = genderType.toString()!=null?genderType.toString():widget.profileModel.data.gender
-                     ..country_code = dropdownCountry.toString()!=null?dropdownCountry.toString():widget.profileModel.data.country
+                     ..username = _nameuserController.value.text
+                     ..email = _emailController.value.text!=null?_emailController.value.text:widget.userData.email
+                     ..tele = _teleController.value.text!=null?_teleController.value.text:widget.userData.mobile
+                     ..gender = genderType.toString()!=null?genderType.toString():widget.userData.gender
+                     ..country_code = dropdownCountry.toString()!=null?dropdownCountry.toString():widget.userData.country
                      ..image =_image));
                  }
            Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => MainPage()));
                 error(AppLocalizations.of(context).translate('adding successfully'));
-
+print('usernameusernameusername${_nameuserController.value.text}');
+print('usernameusernameusername1${widget.userData.username}');
                 // Navigator.of(context).pushReplacement(
                 //   MaterialPageRoute(builder: (context) => MainPage()));
                 // CustomAlert().submitChangeData(

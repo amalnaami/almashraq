@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:maktabeh_app/core/app_localizations.dart';
 import 'package:maktabeh_app/core/size_config.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
@@ -6,6 +9,8 @@ import 'package:maktabeh_app/ui/auth/LoginScreen.dart';
 import 'package:maktabeh_app/ui/auth/SignUpScreen/sign_up_screen.dart';
 import 'package:maktabeh_app/ui/common_widget/app_button.dart';
 import 'package:maktabeh_app/ui/mainScreens/main_screen.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as JSON;
 
 class StartScreen extends StatefulWidget {
   @override
@@ -15,6 +20,8 @@ class StartScreen extends StatefulWidget {
 class _StartScreenState extends State<StartScreen> {
   var isLargeScreen = false;
   bool isSelected = false;
+  final facebookLogin = FacebookLogin();
+  GoogleSignIn _googleSignIn;
 
   @override
   Widget build(BuildContext context) {
@@ -125,8 +132,8 @@ class _StartScreenState extends State<StartScreen> {
                                 text: AppLocalizations.of(context)
                                     .translate('sign in'),
                                 textColor: Colors.white,
-                                onTap: () =>
-                                    Navigator.of(context).push(MaterialPageRoute(
+                                onTap: () => Navigator.of(context)
+                                    .push(MaterialPageRoute(
                                   builder: (context) => LoginScreen(),
                                 )),
                               ),
@@ -141,8 +148,8 @@ class _StartScreenState extends State<StartScreen> {
                                         builder: (context) => SignupScreen(),
                                       )),
                                   shape: RoundedRectangleBorder(
-                                    side:
-                                        BorderSide(width: 1, color: primaryColor),
+                                    side: BorderSide(
+                                        width: 1, color: primaryColor),
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   child: Text(
@@ -166,28 +173,118 @@ class _StartScreenState extends State<StartScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Container(
-                                  width: 50,
-                                  height: 50,
-                                  child: Image.asset(
-                                      'assets/image/facebook_icon.png'),
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: seconderyColor,
+                                InkWell(
+                                  child: Container(
+                                    width: 50,
+                                    height: 50,
+                                    child: Image.asset(
+                                        'assets/image/facebook_icon.png'),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: seconderyColor,
+                                    ),
                                   ),
+                                  onTap: () async {
+                                    print('facebookClick');
+                                    final result = await facebookLogin.logIn([
+                                      'email',
+                                    ]);
+                                    switch (result.status) {
+                                      case FacebookLoginStatus.loggedIn:
+                                        {
+                                          final token =
+                                              result.accessToken.token;
+                                          final graphResponse = await http.get(
+                                              'https://graph.facebook.com/v2.12/me?fields=name,picture.width(800).height(800),first_name,last_name,email&access_token=${token}');
+                                          final profile = JSON
+                                              .jsonDecode(graphResponse.body);
+
+                                          print(
+                                              'facebook name : ${profile["name"]}');
+                                          print(
+                                              'facebook email : ${profile["email"] ?? profile["id"]}');
+                                          print(
+                                              'facebook accessToken  : $token');
+                                          print(
+                                              'facebook image  : ${profile["picture"]["data"]["url"]}');
+                                          print(
+                                              'facebook id : ${profile["id"]}');
+                                          if (profile != null) {
+                                            if (profile["name"]
+                                                .toString()
+                                                .isNotEmpty) {
+                                              print("ok success");
+                                              // _bloc.add(FaceBookLogin((b) => b
+                                              //   ..email = profile["email"] ?? profile["id"]
+                                              //   ..fullName = profile["name"]
+                                              //   ..image = profile["picture"]["data"]["url"]
+                                              //   ..tokenFacebook = token
+                                              //   ..id = int.parse(profile["id"])));
+                                            }
+                                          }
+                                        }
+                                        break;
+                                      case FacebookLoginStatus.cancelledByUser:
+                                        //_showCancelledMessage();
+                                        break;
+                                      case FacebookLoginStatus.error:
+                                        print(
+                                            'FacebookLoginStatus Error : ${result.errorMessage}');
+                                        break;
+                                    }
+                                  },
                                 ),
                                 SizedBox(
                                     width: SizeConfig.blockSizeHorizontal * 2),
-                                Container(
-                                  width: 50,
-                                  height: 50,
-                                  child:
-                                      Image.asset('assets/image/google_icon.png'),
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: seconderyColor,
-                                  ),
-                                )
+                                InkWell(
+                                    child: Container(
+                                      width: 50,
+                                      height: 50,
+                                      child: Image.asset(
+                                          'assets/image/google_icon.png'),
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: seconderyColor,
+                                      ),
+                                    ),
+                                    onTap: () async {
+                                      try {
+                                        _googleSignIn = GoogleSignIn(scopes: <String>['email']);
+                                        print('_googleSignIn $_googleSignIn');
+                                        GoogleSignInAccount googleSignInAccount;
+                                        if (googleSignInAccount == null) {
+                                          googleSignInAccount = await _googleSignIn.signIn().catchError((onError) {
+                                            return Future.error(onError.toString());
+                                          });
+                                          print(googleSignInAccount ?? "error in google");
+                                        }
+                                        if (googleSignInAccount != null) {
+                                          //process success
+                                          final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+                                          final token = googleSignInAuthentication;
+                                          print("ok success");
+                                          print('googleSignInAccount.displayName${googleSignInAccount.displayName}');
+
+                                          // _bloc.add(GoogleLogin((b) => b
+                                          //   ..email = googleSignInAccount.email
+                                          //   ..fullName =
+                                          //       googleSignInAccount.displayName
+                                          //   ..tokenGoogle = token.accessToken
+                                          //   ..id = BigInt.parse(
+                                          //       googleSignInAccount.id)
+                                          //   ..image =
+                                          //       googleSignInAccount.photoUrl));
+                                        }
+                                        return Future.error(
+                                            "error in google sign in");
+                                      } on PlatformException catch (e) {
+                                        print(e.toString());
+                                        Future.error("error in google sin in");
+                                      } catch (e) {
+                                        print(e.toString());
+                                        Future.error("error in google sin in");
+                                      }
+                                    })
                               ],
                             )
                           ],
