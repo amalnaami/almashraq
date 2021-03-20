@@ -31,3 +31,12 @@ abstract class GetIsLogin extends LoginEvent implements Built<GetIsLogin,GetIsLo
 
   factory GetIsLogin([updates(GetIsLoginBuilder b)]) = _$GetIsLogin;
 }
+
+abstract class SocialLogin extends LoginEvent implements Built<SocialLogin,SocialLoginBuilder> {
+  // fields go here
+  String get acessToken;
+  String get typeSocial;
+  SocialLogin._();
+
+  factory SocialLogin([updates(SocialLoginBuilder b)]) = _$SocialLogin;
+}

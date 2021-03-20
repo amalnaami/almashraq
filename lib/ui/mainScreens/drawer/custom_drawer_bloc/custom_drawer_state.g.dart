@@ -50,9 +50,6 @@ class _$CustomDrawerState extends CustomDrawerState {
     if (error == null) {
       throw new BuiltValueNullFieldError('CustomDrawerState', 'error');
     }
-    if (image == null) {
-      throw new BuiltValueNullFieldError('CustomDrawerState', 'image');
-    }
     if (name == null) {
       throw new BuiltValueNullFieldError('CustomDrawerState', 'name');
     }

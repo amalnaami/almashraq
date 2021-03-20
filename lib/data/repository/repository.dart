@@ -369,7 +369,8 @@ class Repository implements IRepository {
   @override
   Future<UserModel> editUser( String username, String email, String tele, String gender, String country_code, File image) async{
     final data = await _ihttpHelper.editUser( username, email, tele, gender, country_code, image,  await _iprefHelper.getToken(), await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
- final save = await _iprefHelper.saveUser(null, false);
+ // final save = await _iprefHelper.saveUser(null, false);
+    final save = await _iprefHelper.saveUser(data.data, true);
     return data;
   }
 
@@ -428,5 +429,12 @@ class Repository implements IRepository {
   @override
   Future<String> getName() async {
     return await _iprefHelper.getName();
+  }
+  @override
+  Future<bool> socialMediaLogin(String accessToken, String typeSocial) async {
+    final res = await _ihttpHelper.socialMediaLogin(
+        accessToken, await PushNotificationsManager().getToken(), typeSocial);
+    await _iprefHelper.saveUser(res.data, true);
+    return true;
   }
 }

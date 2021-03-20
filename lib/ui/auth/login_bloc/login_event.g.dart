@@ -209,4 +209,95 @@ class GetIsLoginBuilder implements Builder<GetIsLogin, GetIsLoginBuilder> {
   }
 }
 
+class _$SocialLogin extends SocialLogin {
+  @override
+  final String acessToken;
+  @override
+  final String typeSocial;
+
+  factory _$SocialLogin([void Function(SocialLoginBuilder) updates]) =>
+      (new SocialLoginBuilder()..update(updates)).build();
+
+  _$SocialLogin._({this.acessToken, this.typeSocial}) : super._() {
+    if (acessToken == null) {
+      throw new BuiltValueNullFieldError('SocialLogin', 'acessToken');
+    }
+    if (typeSocial == null) {
+      throw new BuiltValueNullFieldError('SocialLogin', 'typeSocial');
+    }
+  }
+
+  @override
+  SocialLogin rebuild(void Function(SocialLoginBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  SocialLoginBuilder toBuilder() => new SocialLoginBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is SocialLogin &&
+        acessToken == other.acessToken &&
+        typeSocial == other.typeSocial;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc($jc(0, acessToken.hashCode), typeSocial.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('SocialLogin')
+          ..add('acessToken', acessToken)
+          ..add('typeSocial', typeSocial))
+        .toString();
+  }
+}
+
+class SocialLoginBuilder implements Builder<SocialLogin, SocialLoginBuilder> {
+  _$SocialLogin _$v;
+
+  String _acessToken;
+  String get acessToken => _$this._acessToken;
+  set acessToken(String acessToken) => _$this._acessToken = acessToken;
+
+  String _typeSocial;
+  String get typeSocial => _$this._typeSocial;
+  set typeSocial(String typeSocial) => _$this._typeSocial = typeSocial;
+
+  SocialLoginBuilder();
+
+  SocialLoginBuilder get _$this {
+    if (_$v != null) {
+      _acessToken = _$v.acessToken;
+      _typeSocial = _$v.typeSocial;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(SocialLogin other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$SocialLogin;
+  }
+
+  @override
+  void update(void Function(SocialLoginBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$SocialLogin build() {
+    final _$result = _$v ??
+        new _$SocialLogin._(acessToken: acessToken, typeSocial: typeSocial);
+    replace(_$result);
+    return _$result;
+  }
+}
+
 // ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

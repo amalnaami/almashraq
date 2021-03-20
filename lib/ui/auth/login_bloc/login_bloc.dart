@@ -30,6 +30,22 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
     }
 
+    if (event is SocialLogin) {
+      try {
+        yield state.rebuild((b) => b..isLoading = true ..error = '');
+        final data = await _repository.socialMediaLogin(event.acessToken, event.typeSocial);
+        print('Login $data');
+        yield state.rebuild((b) => b
+          ..isLoading = false
+          ..error = ''
+          ..successSocail = true);
+      } catch (e) {
+        yield state.rebuild((b) => b
+          ..isLoading = false
+          ..error = '${e.toString()}');
+      }
+    }
+
     if (event is ClearState) {
       yield state.rebuild((b) => b
         ..isLoading = false

@@ -18,6 +18,7 @@ import 'package:maktabeh_app/ui/user/editProfile.dart/editProfileScreen.dart';
 import 'package:maktabeh_app/ui/language_page/language_screen.dart';
 
 import '../../core/loaderApp.dart';
+import '../../model/user/profile_model.dart';
 import 'SettingBloc/setting_bloc.dart';
 import 'SettingBloc/setting_event.dart';
 import 'SettingBloc/setting_state.dart';
@@ -46,7 +47,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       setState(() {});
     });
 
-  }
+  }ProfileModel profileModel;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder(
@@ -127,7 +128,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Center(
                           child: IconButton(
                             icon: Image.asset("assets/icons/Edit.png"),
-                            onPressed: () => push(context, EfitProfileScreen(userData: state.profileUser.data,)),
+                            // onPressed: () => push(context, EfitProfileScreen(userData: state.profileUser.data,)),
+                              onPressed: () async{
+                                var model =  await  push(context, EfitProfileScreen(userData: state.profileUser.data,profileModel: state.profileUser));
+                                setState(() {
+                                  profileModel = model;
+                                });
+                                // print('profileModel ${profileModel.data.mobile}');
+                                print('profileModel $model');
+                              }
                           ),
                         )
                       ],

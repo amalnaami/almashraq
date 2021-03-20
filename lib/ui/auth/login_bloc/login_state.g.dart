@@ -15,11 +15,18 @@ class _$LoginState extends LoginState {
   final bool successLogin;
   @override
   final bool isLogin;
+  @override
+  final bool successSocail;
 
   factory _$LoginState([void Function(LoginStateBuilder) updates]) =>
       (new LoginStateBuilder()..update(updates)).build();
 
-  _$LoginState._({this.isLoading, this.error, this.successLogin, this.isLogin})
+  _$LoginState._(
+      {this.isLoading,
+      this.error,
+      this.successLogin,
+      this.isLogin,
+      this.successSocail})
       : super._() {
     if (isLoading == null) {
       throw new BuiltValueNullFieldError('LoginState', 'isLoading');
@@ -32,6 +39,9 @@ class _$LoginState extends LoginState {
     }
     if (isLogin == null) {
       throw new BuiltValueNullFieldError('LoginState', 'isLogin');
+    }
+    if (successSocail == null) {
+      throw new BuiltValueNullFieldError('LoginState', 'successSocail');
     }
   }
 
@@ -49,15 +59,18 @@ class _$LoginState extends LoginState {
         isLoading == other.isLoading &&
         error == other.error &&
         successLogin == other.successLogin &&
-        isLogin == other.isLogin;
+        isLogin == other.isLogin &&
+        successSocail == other.successSocail;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, isLoading.hashCode), error.hashCode),
-            successLogin.hashCode),
-        isLogin.hashCode));
+        $jc(
+            $jc($jc($jc(0, isLoading.hashCode), error.hashCode),
+                successLogin.hashCode),
+            isLogin.hashCode),
+        successSocail.hashCode));
   }
 
   @override
@@ -66,7 +79,8 @@ class _$LoginState extends LoginState {
           ..add('isLoading', isLoading)
           ..add('error', error)
           ..add('successLogin', successLogin)
-          ..add('isLogin', isLogin))
+          ..add('isLogin', isLogin)
+          ..add('successSocail', successSocail))
         .toString();
   }
 }
@@ -90,6 +104,11 @@ class LoginStateBuilder implements Builder<LoginState, LoginStateBuilder> {
   bool get isLogin => _$this._isLogin;
   set isLogin(bool isLogin) => _$this._isLogin = isLogin;
 
+  bool _successSocail;
+  bool get successSocail => _$this._successSocail;
+  set successSocail(bool successSocail) =>
+      _$this._successSocail = successSocail;
+
   LoginStateBuilder();
 
   LoginStateBuilder get _$this {
@@ -98,6 +117,7 @@ class LoginStateBuilder implements Builder<LoginState, LoginStateBuilder> {
       _error = _$v.error;
       _successLogin = _$v.successLogin;
       _isLogin = _$v.isLogin;
+      _successSocail = _$v.successSocail;
       _$v = null;
     }
     return this;
@@ -123,7 +143,8 @@ class LoginStateBuilder implements Builder<LoginState, LoginStateBuilder> {
             isLoading: isLoading,
             error: error,
             successLogin: successLogin,
-            isLogin: isLogin);
+            isLogin: isLogin,
+            successSocail: successSocail);
     replace(_$result);
     return _$result;
   }

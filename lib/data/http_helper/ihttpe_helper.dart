@@ -66,5 +66,6 @@ abstract class IHttpHelper {
   });
   Future<BuiltList<Author>> getFilteredAuthors({int sectionId, String name, String language});
   Future<Category> getCategoryById({int sectionId, String language});
+  Future<UserModel> socialMediaLogin(String accessToken,  String firebaseToken,String typeSocial);
 
 }

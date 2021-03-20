@@ -11,6 +11,7 @@ abstract class LoginState implements Built<LoginState, LoginStateBuilder> {
 
   bool get successLogin;
   bool get isLogin;
+  bool get successSocail;
 
   LoginState._();
 
@@ -22,6 +23,7 @@ abstract class LoginState implements Built<LoginState, LoginStateBuilder> {
       ..isLoading = false
       ..error = ''
       ..successLogin = false
+      ..successSocail = false
       ..isLogin=false);
   }
 }

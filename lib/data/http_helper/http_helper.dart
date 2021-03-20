@@ -1105,4 +1105,28 @@ class HttpHelper implements IHttpHelper {
       throw NetworkException();
     }
   }
+
+  @override
+  Future<UserModel> socialMediaLogin(String accessToken, String firebaseToken, String typeSocial) async{
+    try {
+      final formData = {
+        "accessToken": accessToken,
+        "device_token": firebaseToken
+      };
+      final response = await _dio.post('auth/social/$typeSocial', data: formData);
+      print('login Response StatusCode ${response.statusCode}');
+
+      if (response.statusCode == 200) {
+        final ret = serializers.deserialize(json.decode(response.data),
+            specifiedType: FullType(UserModel));
+        return ret;
+      } else {
+        throw NetworkException(code: response.statusCode);
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException(error: e.toString());
+    }
+  }
+
 }

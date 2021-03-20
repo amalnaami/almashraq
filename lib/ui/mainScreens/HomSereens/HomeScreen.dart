@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -49,6 +52,12 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               ListView(
                 children: [
+                  Container(
+                      margin: EdgeInsets.only(top: 12,bottom: 12,left: 4,right: 4),
+                      child: AdmobBanner(
+                          adUnitId: getBannerAdUnitId(),
+                          adSize: AdmobBannerSize.FULL_BANNER),
+                      width: MediaQuery.of(context).size.width),
                   // categoris //
                   if (state.categories != null && state.categories.isNotEmpty)
                     HomeCategoris(categories: state.categories, callback: widget.callback,),
@@ -125,5 +134,14 @@ class _HomeScreenState extends State<HomeScreen> {
           fontSize: 16.0);
       _bloc.add(ClearState());
     }
+  }
+
+  String getBannerAdUnitId() {
+    if (Platform.isIOS) {
+      return 'ca-app-pub-3940256099942544/2934735716';
+    } else if (Platform.isAndroid) {
+      return 'ca-app-pub-3940256099942544/6300978111';
+    }
+    return null;
   }
 }

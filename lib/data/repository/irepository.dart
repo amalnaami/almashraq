@@ -119,4 +119,5 @@ abstract class IRepository {
   Future<String> getCountry();
   Future<String> getImage();
   Future<String> getName();
+  Future<bool> socialMediaLogin(String accessToken,  String typeSocial);
 }
