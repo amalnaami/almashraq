@@ -36,13 +36,13 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController passwordController;
   @override
   void initState() {
-    super.initState();
     _bloc.add(GetCountry());
     fullNameController = TextEditingController();
     emailController = TextEditingController();
     nameController = TextEditingController();
     phoneController = TextEditingController();
     passwordController = TextEditingController();
+    super.initState();
   }
   File image = File("");
 
@@ -60,10 +60,14 @@ class _SignupScreenState extends State<SignupScreen> {
     return BlocBuilder(
         cubit: _bloc,
         builder: (BuildContext context, SignUpState state) {
+          print('state is $state');
       error(state.error);
       if(state.successSignup) {
         _bloc.add(ClearState());
-        WidgetsBinding.instance.addPostFrameCallback((timeStamp) { push(context, SectionGuideScreen());});
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+          print('PUSHING');
+          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => SectionGuideScreen()), (route) => false);
+        });
       }
       return Scaffold(
       backgroundColor: Colors.white,

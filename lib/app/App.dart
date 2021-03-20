@@ -14,55 +14,6 @@ import '../injection.dart';
 import 'bloc/app_bloc.dart';
 import 'bloc/app_state.dart';
 
-// class App extends StatefulWidget {
-//   App({Key key}) : super(key: key);
-//
-//   @override
-//   _AppState createState() => _AppState();
-// }
-//
-// class _AppState extends State<App> {
-//   // ignore: close_sinks
-//   final _bloc = sl<AppBloc>();
-//   @override
-//   void initState() {
-//     super.initState();
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocBuilder(
-//         bloc: _bloc,
-//         builder: (BuildContext context, AppState state) {
-//           print('Language App : ${state.appLanguage}');
-//           return StreamBuilder(
-//               stream: localeSubjectAppLanguage.stream.distinct(),
-//               initialData: state.appLanguage == AppLanguageKeys.AR
-//                   ? Locale('ar', '')
-//                   : Locale('en', ''),
-//               builder: (context, snapshotLanguage) {
-//                 return MaterialApp(
-//                     title: "Warehouses",
-//                     home: Scaffold(
-//                       backgroundColor: primaryColor,
-//                     ),
-//                     locale: snapshotLanguage.data == AppLanguageKeys.AR
-//                         ? Locale('ar', '')
-//                         : Locale('en', ''),
-//                     localizationsDelegates: [
-//                       AppLocalizations.delegate,
-//                       GlobalMaterialLocalizations.delegate,
-//                       GlobalWidgetsLocalizations.delegate,
-//                     ],
-//                     supportedLocales: [
-//                       const Locale('en', ''), // English
-//                       const Locale('ar', ''), // Arabic
-//                     ]);
-//               });
-//         });
-//   }
-// }
-
 class App extends StatefulWidget {
   @override
   _AppState createState() => _AppState();
@@ -99,7 +50,7 @@ class _AppState extends State<App> {
           builder: (context, snapshot) {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
-              home:  state.loginState ?MainPage(): SplashScreen(),
+              home:  state.loginState ?MainPageProvider(): SplashScreen(),
               locale: snapshot.data == AppLanguageKeys.AR
                   ? Locale('ar', '')
                   : Locale('en', ''),

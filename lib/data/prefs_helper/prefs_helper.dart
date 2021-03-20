@@ -33,6 +33,7 @@ class PrefsHelper implements IPrefsHelper {
     print(user.user.email);
     print(user.user.name);
     print(user.user.country);
+    print(user.access_token);
     (await getPrefs()).setString(TOKEN, user.access_token);
     (await getPrefs()).setString(IMAGE, user.user.image);
     (await getPrefs()).setString(EMAIL, user.user.email);
