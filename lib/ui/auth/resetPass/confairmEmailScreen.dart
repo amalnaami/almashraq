@@ -127,8 +127,14 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
                                 .translate('confirm'),
                             textColor: Colors.white,
                             onTap: () {
+                              Pattern pattern =
+                                  r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$";
+                              RegExp regex = new RegExp(pattern);
                               if(emailController.value.text == null || emailController.value.text.isEmpty) {
                                 error(AppLocalizations.of(context).translate('email can not be empty'));
+                                return;
+                              } else if(!regex.hasMatch(emailController.value.text)) {
+                                error(AppLocalizations.of(context).translate('enter a valid email'));
                                 return;
                               }
                               _bloc.add(SubmitEmail((b) => b..email = emailController.value.text));

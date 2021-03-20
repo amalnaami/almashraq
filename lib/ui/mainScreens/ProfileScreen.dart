@@ -4,18 +4,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:maktabeh_app/core/app_language.dart';
 import 'package:maktabeh_app/core/app_localizations.dart';
 import 'package:maktabeh_app/core/config/navigatorHelper.dart';
-import 'package:maktabeh_app/core/size_config.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
 import 'package:maktabeh_app/injection.dart';
-import 'package:maktabeh_app/ui/common_widget/local_image.dart';
-import 'package:maktabeh_app/ui/guide/guide_screen.dart';
 import 'package:maktabeh_app/ui/mainScreens/all_mu_quote.dart';
 import 'package:maktabeh_app/ui/mainScreens/all_my_review.dart';
 import 'package:maktabeh_app/ui/start_screen/start_screen.dart';
-import 'package:maktabeh_app/ui/user/MyQuote.dart';
 import 'package:maktabeh_app/ui/user/SubscriptionScreen/SubscriptionScreen.dart';
 import 'package:maktabeh_app/ui/user/editProfile.dart/editProfileScreen.dart';
-import 'package:maktabeh_app/ui/language_page/language_screen.dart';
 
 import '../../core/loaderApp.dart';
 import '../../model/user/profile_model.dart';
@@ -291,7 +286,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     onTap: (){
                       print('state.isLogin ${state.isLogin}');
                       state.isLogin ?      _bloc.add(LogOut()): Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => LanguageScreen()));
+                          MaterialPageRoute(builder: (context) => StartScreen()));
                     },
                     child: ListTile(
                         title: Text(
