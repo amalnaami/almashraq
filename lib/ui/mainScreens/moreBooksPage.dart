@@ -75,7 +75,8 @@ class _MoreBookPageState extends State<MoreBookPage> {
           appBar: customAppBar(context, widget.title),
           body: Stack(
             children: [
-              Column(
+              ListView(
+                controller: controller,
                 children: [
                   widget.bookNum == true
                       ? Padding(

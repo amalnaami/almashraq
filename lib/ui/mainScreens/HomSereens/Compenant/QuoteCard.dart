@@ -50,7 +50,8 @@ class QuoteCard extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Container(
-                            width: MediaQuery.of(context).size.width * .45,
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
+                            //width: MediaQuery.of(context).size.width * .45,
                             child: ReadMoreText(
                               "\"${quote.quotation_text}\"",
                               trimLines: 1,
@@ -60,7 +61,7 @@ class QuoteCard extends StatelessWidget {
                                       'ar'
                                   ? TextDirection.ltr
                                   : TextDirection.rtl,
-                              style: regStyle.copyWith(color: Colors.black),
+                              style: regStyle.copyWith(color: Colors.black,),
                             ),
                           ),
                         ),
