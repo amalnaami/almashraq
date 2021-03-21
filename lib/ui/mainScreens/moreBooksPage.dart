@@ -75,8 +75,8 @@ class _MoreBookPageState extends State<MoreBookPage> {
           appBar: customAppBar(context, widget.title),
           body: Stack(
             children: [
-              ListView(
-                controller: controller,
+              Column(
+//                controller: controller,
                 children: [
                   widget.bookNum == true
                       ? Padding(
@@ -183,7 +183,8 @@ class _MoreBookPageState extends State<MoreBookPage> {
                     child: state.books == null
                         ? Container()
                         : GridView.builder(
-                            physics: NeverScrollableScrollPhysics(),
+                      controller: controller,
+                           // physics: NeverScrollableScrollPhysics(),
                             padding: EdgeInsets.all(
                                 SizeConfig.blockSizeHorizontal * 4),
                             itemCount: state.books.length,

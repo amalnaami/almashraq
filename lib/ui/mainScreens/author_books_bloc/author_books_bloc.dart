@@ -23,7 +23,9 @@ class AuthorBooksBloc extends Bloc<AuthorBooksEvent, AuthorBooksState> {
         if ((data == null) && (sortType == null || sortType.isEmpty)) {
           print('ss');
           if (currentPage <= lastPage) {
-            print('xx');
+            if(currentPage == 1 && lastPage == 1)
+              yield state.rebuild((b) => b..isLoading = true..books.replace([]));
+            else
             yield state.rebuild((b) => b..isLoading = true);
             final res = await _repository.getBooksForAuthor(currentPage, event.id);
             lastPage = res.paginator.last_page;
@@ -37,6 +39,9 @@ class AuthorBooksBloc extends Bloc<AuthorBooksEvent, AuthorBooksState> {
           print('$currentPage');
           print('$lastPage');
           if (currentPage <= lastPage) {
+            if(currentPage == 1 && lastPage == 1)
+              yield state.rebuild((b) => b..isLoading = true..books.replace([]));
+            else
             yield state.rebuild((b) => b..isLoading = true);
             final res = await _repository.getFilteredBooks(
                 ISIN: data.ISIN,

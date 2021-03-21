@@ -38,7 +38,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     _bloc.add(GetIsLogin());
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _radioValue =
-      AppLocalizations.of(context).locale.toLanguageTag() == 'en' ? 1 : 0;
+      AppLocalizations.of(context).locale.languageCode == 'en' ? 1 : 0;
       setState(() {});
     });
 

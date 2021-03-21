@@ -405,6 +405,7 @@ class Repository implements IRepository {
 
   @override
   Future<Category> getCategoryById({int sectionId}) async {
+    print('LANGUAGE CODE IS ${await _iprefHelper.getAppLanguage()}');
     return await _ihttpHelper.getCategoryById(
       sectionId: sectionId,
       language: await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar',
