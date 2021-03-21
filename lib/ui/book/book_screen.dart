@@ -48,6 +48,7 @@ class _BookScreenState extends State<BookScreen> {
     print(widget.singleBook);
     _bloc.add(GetIsLogin());
     _bloc.add(GetFavorite((b) => b..id = widget.bookId));
+    isFav = false;
   }
 
   bool showAnswer1 = false;
@@ -62,6 +63,8 @@ class _BookScreenState extends State<BookScreen> {
     return BlocBuilder(
       cubit: _bloc,
       builder: (BuildContext context, BookScreenState state) {
+        print(
+            '${widget.singleBook.getName(AppLocalizations.of(context).locale.languageCode)}  ${state.isFavorite}');
         error(state.error);
         print('IS FAVOI : ${state.isFavorite}');
         return SafeArea(
@@ -124,8 +127,9 @@ class _BookScreenState extends State<BookScreen> {
                     onTap: () {
                       setState(() {
                         if (!state.isLoading)
-                          _bloc.add(ModifyFavorite(
-                              (b) => b..isFavorite = state.isFavorite..id = widget.bookId));
+                          _bloc.add(ModifyFavorite((b) => b
+                            ..isFavorite = state.isFavorite
+                            ..id = widget.bookId));
                       });
                     },
                     child: Padding(
@@ -235,7 +239,6 @@ class _BookScreenState extends State<BookScreen> {
                                           Row(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
-
                                             children: [
                                               RichText(
                                                 text: TextSpan(
@@ -283,7 +286,8 @@ class _BookScreenState extends State<BookScreen> {
                                                 vertical: SizeConfig
                                                     .blockSizeVertical),
                                             child: Row(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 RichText(
                                                   text: TextSpan(
@@ -490,17 +494,19 @@ class _BookScreenState extends State<BookScreen> {
                             bookRow(context,
                                 show: showAnswer3,
                                 icon: 'assets/svg/book.svg',
-                                widget: Container(),
-                                onTab: () => push(
-                                    context,
-                                    MoreBookPage(
-                                      authorId: widget.author.id,
-                                      booksCount: widget.author.books_count,
-                                      title: AppLocalizations.of(context)
-                                          .translate(
-                                              'books for the same author'),
-                                      bookNum: true,
-                                    )),
+                                widget: Container(), onTab: () async {
+                              await Navigator.of(context)
+                                  .push(MaterialPageRoute(
+                                builder: (_) => MoreBookPage(
+                                  authorId: widget.author.id,
+                                  booksCount: widget.author.books_count,
+                                  title: AppLocalizations.of(context)
+                                      .translate('books for the same author'),
+                                  bookNum: true,
+                                ),
+                              ));
+                              _bloc.add(GetFavorite((b) => b..id = widget.bookId));
+                            },
                                 text: AppLocalizations.of(context)
                                     .translate('books for the same author')),
                             Divider(
@@ -510,13 +516,17 @@ class _BookScreenState extends State<BookScreen> {
                             bookRow(context,
                                 show: showAnswer3,
                                 icon: 'assets/svg/book.svg',
-                                widget: Container(),
-                                onTab: () => Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                      builder: (context) => BooksByCategory(widget.singleBook.section),
-                                      //     Navigator.of(context).push(MaterialPageRoute(
-                                      //   builder: (context) => AboutWriterScreen(widget.author),
-                                    )),
+                                widget: Container(), onTab: () async {
+                              await Navigator.of(context)
+                                  .push(MaterialPageRoute(
+                                builder: (context) =>
+                                    BooksByCategory(widget.singleBook.section),
+                                //     Navigator.of(context).push(MaterialPageRoute(
+                                //   builder: (context) => AboutWriterScreen(widget.author),
+                              ));
+                              _bloc.add(GetFavorite((b) => b..id = widget.bookId));
+
+                                },
                                 text: AppLocalizations.of(context)
                                     .translate('books for the same section')),
                             Divider(
@@ -529,8 +539,7 @@ class _BookScreenState extends State<BookScreen> {
                     ),
                   ),
                 ),
-                if(state.isLoading)
-                  loaderApp
+                if (state.isLoading) loaderApp
               ],
             ),
           ),

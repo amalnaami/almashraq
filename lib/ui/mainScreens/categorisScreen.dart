@@ -67,7 +67,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                     builder: (BuildContext ctx) {
                                       return CategoriesFilter(data);
                                     });
-                                //print(newData.sectionId);
+                                if(newData == null)
+                                  return;
                                 if(newData != null && newData != FilterData.empty() && newData != data) {
                                   data = newData;
                                   _bloc.add(AddFilter((b) => b..data = data));

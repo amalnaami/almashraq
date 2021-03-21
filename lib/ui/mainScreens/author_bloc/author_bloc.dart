@@ -54,7 +54,7 @@ class AuthorBloc extends Bloc<AuthorEvent, AuthorState> {
       add(GetAuthors());
     } else if (event is AddSort) {
       sortType = event.sortType;
-      add(GetAuthors());
+      yield state.rebuild((b) => b..authors.replace(state.authors.reversed));
     } else if(event is ClearFilter) {
       data = FilterData.empty();
     } else if(event is Clear) {
