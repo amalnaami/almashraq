@@ -143,7 +143,7 @@
   "arabic history": "التاريخ العربي",
   "rate the app": "قيم التطبيق",
   "see all": "شاهد الكل",
-  "example name": "اسامة عبدالله",
+  "example name": "اسامة_عبدالله",
   "confirm": "تاكيد",
   "page number:": "عدد الصفحات: ",
   "number:": "الترقيم: ",
@@ -177,5 +177,6 @@
   "add rate": "اضافة تقييم",
   "All rates": "كل التقيمات",
 "image can not be empty": "حمل صورة جديدة",
-  "enter a valid email": "البريد الالكتروني غير صالح"
+  "enter a valid email": "البريد الالكتروني غير صالح",
+  "Search result": "ناتئج البحث"
 }

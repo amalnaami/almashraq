@@ -24,7 +24,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
           ..error = '');
         final ret = data == null || data == FilterData.empty()
             ? await _repository.getCategories()
-            : await _repository.getCategoryById(sectionId: data.sectionId);
+            : await _repository.getCategoryByName(sectionName: data.sectionName);
         if(data == null || data == FilterData.empty()) {
           yield state.rebuild((b) => b
             ..isLoading = false
@@ -33,7 +33,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
         } else {
           yield state.rebuild((b) => b
             ..isLoading = false
-            ..categories.add(ret)
+            ..categories.replace(ret)
             ..error = '');
         }
       } catch (e) {

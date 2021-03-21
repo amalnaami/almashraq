@@ -404,10 +404,10 @@ class Repository implements IRepository {
   }
 
   @override
-  Future<Category> getCategoryById({int sectionId}) async {
+  Future<BuiltList<Category>> getCategoryByName({String sectionName}) async {
     print('LANGUAGE CODE IS ${await _iprefHelper.getAppLanguage()}');
-    return await _ihttpHelper.getCategoryById(
-      sectionId: sectionId,
+    return await _ihttpHelper.getCategoryByName(
+      sectionName: sectionName,
       language: await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar',
     );
   }
@@ -437,5 +437,23 @@ class Repository implements IRepository {
         accessToken, await PushNotificationsManager().getToken(), typeSocial);
     await _iprefHelper.saveUser(res.data, true);
     return true;
+  }
+  @override
+  Future<BaseBook> searchBooks({
+    String bookName,
+    List<int> sectionId,
+    String searchWords,
+    int authorId,
+    int page
+  }) async {
+    final res = await _ihttpHelper.searchBooks(
+         bookName: bookName,
+        sectionId: sectionId,
+         searchWords: searchWords,
+         authorId: authorId,
+         language:  await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar',
+         page:page
+        );
+    return res;
   }
 }

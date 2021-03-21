@@ -144,7 +144,7 @@
   "arabic history":"arabic history",
   "rate the app":"rate the app",
   "see all":"see all",
-  "example name": "osama abd allah",
+  "example name": "osama_abd_allah",
   "confirm": "confirm",
   "page number:": "page number: ",
   "number:": "number: ",
@@ -177,5 +177,6 @@
   "add rate": "add rate",
   "All rates": "All rates",
 "image can not be empty": "image can not be empty",
-  "enter a valid email": "enter a valid email"
+  "enter a valid email": "enter a valid email",
+  "Search result": "Search result"
 }

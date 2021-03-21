@@ -43,7 +43,7 @@ class _MoreBookPageState extends State<MoreBookPage> {
   @override
   void initState() {
     _bloc.currentPage = 1;
-    _bloc.lastPage = 1;
+    _bloc.lastPage = 2;
     _bloc.data = FilterData.empty();
     _bloc.add(GetAuthorBooks((b) => b..id = widget.authorId));
     controller.addListener(() {

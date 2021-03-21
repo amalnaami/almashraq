@@ -114,10 +114,17 @@ abstract class IRepository {
       int page});
 
   Future<BuiltList<Author>> getFilteredAuthors({int sectionId, String name});
-  Future<Category> getCategoryById({int sectionId});
+  Future<BuiltList<Category>> getCategoryByName({String sectionName});
   Future<String> getEmail();
   Future<String> getCountry();
   Future<String> getImage();
   Future<String> getName();
   Future<bool> socialMediaLogin(String accessToken,  String typeSocial);
+  Future<BaseBook> searchBooks({
+    String bookName,
+    List<int> sectionId,
+    String searchWords,
+    int authorId,
+    int page
+  });
 }

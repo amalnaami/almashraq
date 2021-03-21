@@ -8,7 +8,7 @@ import 'author_books_state.dart';
 class AuthorBooksBloc extends Bloc<AuthorBooksEvent, AuthorBooksState> {
   IRepository _repository;
   int currentPage = 1;
-  int lastPage = 1;
+  int lastPage = 2;
   String sortType;
   FilterData data = FilterData.empty();
   AuthorBooksBloc(this._repository) : super(AuthorBooksState.init());
@@ -22,8 +22,8 @@ class AuthorBooksBloc extends Bloc<AuthorBooksEvent, AuthorBooksState> {
       try {
         if ((data == null) && (sortType == null || sortType.isEmpty)) {
           print('ss');
-          if (currentPage <= lastPage) {
-            if(currentPage == 1 && lastPage == 1)
+          if (currentPage < lastPage) {
+            if(currentPage == 1 && lastPage == 2)
               yield state.rebuild((b) => b..isLoading = true..books.replace([]));
             else
             yield state.rebuild((b) => b..isLoading = true);
@@ -38,8 +38,8 @@ class AuthorBooksBloc extends Bloc<AuthorBooksEvent, AuthorBooksState> {
           print('ELSE');
           print('$currentPage');
           print('$lastPage');
-          if (currentPage <= lastPage) {
-            if(currentPage == 1 && lastPage == 1)
+          if (currentPage < lastPage) {
+            if(currentPage == 1 && lastPage == 2)
               yield state.rebuild((b) => b..isLoading = true..books.replace([]));
             else
             yield state.rebuild((b) => b..isLoading = true);
@@ -76,17 +76,17 @@ class AuthorBooksBloc extends Bloc<AuthorBooksEvent, AuthorBooksState> {
     }else if(event is AddFilter) {
       data = event.data;
       currentPage = 1;
-      lastPage = 1;
+      lastPage = 2;
       yield state.rebuild((b) => b..books.replace([]));
     } else if(event is AddSort) {
       sortType = event.sortType;
       currentPage = 1;
-      lastPage = 1;
+      lastPage = 2;
       yield state.rebuild((b) => b..books.replace([]));
     } else if(event is CleatFilter) {
       data = FilterData.empty();
       currentPage = 1;
-      lastPage = 1;
+      lastPage = 2;
       yield state.rebuild((b) => b..books.replace([]));
     }
   }

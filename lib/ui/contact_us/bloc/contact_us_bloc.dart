@@ -7,7 +7,7 @@ import 'contact_us_state.dart';
 class ContactUsBloc extends Bloc<ContactUsEvent, ContactUsState> {
   IRepository _repository;
   int currentPage = 1;
-  int lastPage = 1;
+  int lastPage = 2;
 
   ContactUsBloc(this._repository) : super(ContactUsState.init());
 

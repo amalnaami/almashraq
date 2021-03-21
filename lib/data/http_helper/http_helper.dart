@@ -1086,16 +1086,16 @@ class HttpHelper implements IHttpHelper {
   }
 
   @override
-  Future<Category> getCategoryById({int sectionId, String language}) async {
+  Future<BuiltList<Category>> getCategoryByName({String sectionName, String language}) async {
     try {
-      final response = await _dio.get('sections/$sectionId?with_books=1',
+      final response = await _dio.get('sections?with_books=1&name=$sectionName',
           options: Options(headers: {"Accept-Language": language}));
       print('getCategoryById Response StatusCode ${response.statusCode}');
       if (response.statusCode == 200) {
         print('getCategoryById Response body  ${response.data}');
 
         final ret = serializers.deserialize(json.decode(response.data)['data'],
-            specifiedType: FullType(Category));
+            specifiedType: FullType(BuiltList, [FullType(Category)]));
         return ret;
       } else {
         throw NetworkException();
@@ -1126,6 +1126,60 @@ class HttpHelper implements IHttpHelper {
     } catch (e) {
       print(e.toString());
       throw NetworkException(error: e.toString());
+    }
+  }
+  @override
+  Future<BaseBook> searchBooks({
+    String bookName,
+    List<int> sectionId,
+    String searchWords,
+    int authorId,
+    String language,
+    int page
+    }) async {
+    try {
+      List<String> queries = [];
+      if (authorId != null && authorId != -1) {
+        queries.add('author_id=$authorId');
+      }
+      if (sectionId != null && sectionId.isNotEmpty) {
+        String tmp = '';
+        for(int i = 0 ; i < sectionId.length ; i++) {
+          tmp += sectionId[i].toString();
+          if(i < sectionId.length - 1)
+            tmp += ',';
+        }
+        queries.add('sections_ids=$tmp');
+      }
+      if (bookName != null && bookName.isNotEmpty) {
+        queries.add('query=$bookName');
+      }
+      if(searchWords != null && searchWords.isNotEmpty) {
+        queries.add('brief=$searchWords');
+      }
+
+      String finalQ = '';
+      for (int i = 0; i < queries.length; i++) {
+        finalQ += queries[i];
+        if (i < queries.length - 1) finalQ += '&';
+      }
+      final response = await _dio.get('books/filter?$finalQ&page=$page',
+          options: Options(headers: {"Accept-Language": language}));
+      print('searchBooks Response StatusCode ${response.statusCode}');
+      if (response.statusCode == 200) {
+        print('searchBooks Response body  ${response.data}');
+        final books = serializers.deserialize(
+          json.decode(response.data),
+          specifiedType: FullType(BaseBook),
+        );
+        print(books);
+        return books;
+      } else {
+        throw NetworkException();
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException();
     }
   }
 

@@ -7,7 +7,7 @@ import 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   IRepository _repository;
   int currentPage = 1;
-  int lastPage = 1;
+  int lastPage = 2;
   HomeBloc(this._repository) : super(HomeState.init());
 
   @override

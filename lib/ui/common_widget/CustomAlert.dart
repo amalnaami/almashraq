@@ -259,6 +259,7 @@ class CustomAlert {
 class FilterData extends Equatable {
   final String bookName;
   final String authorName;
+  final String sectionName;
 
   // ignore: non_constant_identifier_names
   final String ISIN;
@@ -273,7 +274,8 @@ class FilterData extends Equatable {
       this.releaseDate,
       // ignore: non_constant_identifier_names
       this.ISIN,
-      this.authorName});
+      this.authorName,
+      this.sectionName});
 
   factory FilterData.empty() => FilterData(
         bookName: '',
@@ -282,11 +284,12 @@ class FilterData extends Equatable {
         releaseDate: '',
         ISIN: '',
         authorName: '',
+        sectionName: ''
       );
 
   @override
   List<Object> get props =>
-      [bookName, authorId, sectionId, releaseDate, ISIN, authorName];
+      [bookName, authorId, sectionId, releaseDate, ISIN, authorName, sectionName];
 }
 
 class FilterDialog extends StatefulWidget {
@@ -596,16 +599,21 @@ class CategoriesFilter extends StatefulWidget {
 
 class _CategoriesFilterState extends State<CategoriesFilter> {
   String categoryName;
+  TextEditingController controller;
   final _bloc = sl<FilterBloc>();
 
   @override
   void initState() {
     super.initState();
-    _bloc.add(GetSections());
+    controller = TextEditingController();
+    if(widget.data.sectionName != null && widget.data.sectionName.isNotEmpty)
+      controller.text = widget.data.sectionName;
+    //_bloc.add(GetSections());
   }
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
     return BlocBuilder(
       cubit: _bloc,
       builder: (BuildContext context, FilterState state) {
@@ -662,17 +670,8 @@ class _CategoriesFilterState extends State<CategoriesFilter> {
                                   AppLocalizations.of(context)
                                       .translate('section'),
                                   style: regStyle),
-                              FilterDropDown(
-                                  value: getCategoryNameFromId(context,
-                                      widget.data.sectionId, state.categories),
-                                  callBack: (String value) =>
-                                      categoryName = value,
-                                  values: state.categories
-                                      .map((category) => category.getName(
-                                          AppLocalizations.of(context)
-                                              .locale
-                                              .languageCode))
-                                      .toList(),
+                              filterTextField(
+                                  controller: controller,
                                   hint: AppLocalizations.of(context)
                                       .translate('section'))
                             ],
@@ -688,23 +687,23 @@ class _CategoriesFilterState extends State<CategoriesFilter> {
                               text: AppLocalizations.of(context)
                                   .translate('apply'),
                               onTap: () {
-                                int categoryId = widget.data.sectionId;
-                                if (categoryName != null &&
-                                    categoryName.isNotEmpty) {
-                                  for (Category category in state.categories) {
-                                    if (category.getName(
-                                            AppLocalizations.of(context)
-                                                .locale
-                                                .languageCode) ==
-                                        categoryName) {
-                                      categoryId = category.id;
-                                      break;
-                                    }
-                                  }
-                                }
-                                print(FilterData(sectionId: categoryId));
+                                // int categoryId = widget.data.sectionId;
+                                // if (categoryName != null &&
+                                //     categoryName.isNotEmpty) {
+                                //   for (Category category in state.categories) {
+                                //     if (category.getName(
+                                //             AppLocalizations.of(context)
+                                //                 .locale
+                                //                 .languageCode) ==
+                                //         categoryName) {
+                                //       categoryId = category.id;
+                                //       break;
+                                //     }
+                                //   }
+                                // }
+                                print(FilterData(sectionName: controller.value.text));
                                 Navigator.of(context)
-                                    .pop(FilterData(sectionId: categoryId));
+                                    .pop(FilterData(sectionName: controller.value.text));
                               },
                             ),
                           ),

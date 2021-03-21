@@ -8,7 +8,7 @@ import 'books_by_category_state.dart';
 class BooksByCategoryBloc extends Bloc<BooksByCategoryEvent, BooksByCategoryState> {
   IRepository _repository;
   int currentPage = 1;
-  int lastPage = 1;
+  int lastPage = 2;
   String sortType;
   FilterData data = FilterData.empty();
   BooksByCategoryBloc(this._repository) : super(BooksByCategoryState.init());
@@ -20,7 +20,7 @@ class BooksByCategoryBloc extends Bloc<BooksByCategoryEvent, BooksByCategoryStat
     if(event is GetNextPage) {
       try {
         if ((data == null) && (sortType == null || sortType.isEmpty)) {
-          if (currentPage <= lastPage) {
+          if (currentPage < lastPage) {
             yield state.rebuild((b) => b..isLoading = true);
             final res = await _repository.getBooksByCategory(currentPage, event.categoryId);
             lastPage = res.books.paginator.last_page;
@@ -30,7 +30,7 @@ class BooksByCategoryBloc extends Bloc<BooksByCategoryEvent, BooksByCategoryStat
               ..allBooks.addAll(res.books.data));
           }
         } else {
-          if (currentPage <= lastPage) {
+          if (currentPage < lastPage) {
             yield state.rebuild((b) => b..isLoading = true);
             final res = await _repository.getFilteredBooks(
                 ISIN: data.ISIN,
@@ -57,12 +57,12 @@ class BooksByCategoryBloc extends Bloc<BooksByCategoryEvent, BooksByCategoryStat
     }else if(event is AddFilter) {
       data = event.data;
       currentPage = 1;
-      lastPage = 1;
+      lastPage = 2;
       yield state.rebuild((b) => b..allBooks.replace([]));
     } else if(event is AddSort) {
       sortType = event.sortType;
       currentPage = 1;
-      lastPage = 1;
+      lastPage = 2;
       yield state.rebuild((b) => b..allBooks.replace([]));
     }
   }
