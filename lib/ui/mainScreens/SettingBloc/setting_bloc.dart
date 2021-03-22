@@ -25,6 +25,12 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
       }
     }
 
+    if (event is ClearState) {
+      yield state.rebuild((b) => b
+        ..isLoading = false
+        ..error = ''
+        ..successedit = false);
+    }
     if (event is SetAppLanguage) {
       try {
         await _repository.setAppLanguage(event.language);
@@ -134,8 +140,11 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
       }
     }
 
-    if (event is ChangeUserName) {
+    if (event is ChangeName) {
       yield state.rebuild((b) => b..user.user.name = event.value);
+    }
+    if (event is ChangeUserName) {
+      yield state.rebuild((b) => b..user.user.username = event.value);
     }
     if (event is ChangeEmail) {
       yield state.rebuild((b) => b..user.user.email = event.value);
@@ -155,19 +164,38 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
           ..isLoading = true
           ..error = ""
           ..successedit = false);
-        final data = await _repository.editUser( event.username, event.email, event.tele, event.gender, event.country_code, event.image);
-        await _repository.saveUser(data.data);
+
+        final date = await _repository.editUser( event.username, event.email, event.tele, event.gender, event.country_code, event.image);
+        print('TryChangePassword Success data ${date}');
         yield state.rebuild((b) => b
           ..isLoading = false
           ..error = ""
           ..successedit = true);
       } catch (e) {
-        print('Error: ${e.toString()}\n');
+        print('TryChangePassword Error $e');
         yield state.rebuild((b) => b
-          ..isLoading = true
-          ..error = "something went wrong"
+          ..isLoading = false
+          ..error = "Something went wrong"
           ..successedit = false);
       }
+      // try {
+      //   yield state.rebuild((b) => b
+      //     ..isLoading = true
+      //     ..error = ""
+      //     ..successedit = false);
+      //   final data = await _repository.editUser( event.username, event.email, event.tele, event.gender, event.country_code, event.image);
+      //   await _repository.saveUser(data.data);
+      //   yield state.rebuild((b) => b
+      //     ..isLoading = false
+      //     ..error = ""
+      //     ..successedit = true);
+      // } catch (e) {
+      //   print('Error: ${e.toString()}\n');
+      //   yield state.rebuild((b) => b
+      //     ..isLoading = true
+      //     ..error = "something went wrong"
+      //     ..successedit = false);
+      // }
     }
     if (event is GetCountry) {
       try {

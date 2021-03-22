@@ -6,7 +6,12 @@ import 'package:built_value/built_value.dart';
 part 'setting_event.g.dart';
 
 abstract class SettingEvent {}
+abstract class ClearState extends SettingEvent
+    implements Built<ClearState, ClearStateBuilder> {
+  ClearState._();
 
+  factory ClearState([updates(ClearStateBuilder b)]) = _$ClearState;
+}
 abstract class ChangeLanguage extends SettingEvent
     implements Built<ChangeLanguage, ChangeLanguageBuilder> {
   int get idLang;
@@ -108,6 +113,18 @@ abstract class ChangeUserName extends SettingEvent
   ChangeUserName._();
 
   factory ChangeUserName([updates(ChangeUserNameBuilder b)]) = _$ChangeUserName;
+}
+
+
+abstract class ChangeName extends SettingEvent
+    implements Built<ChangeName, ChangeNameBuilder> {
+  // fields go here
+  @nullable
+  String get value;
+
+  ChangeName._();
+
+  factory ChangeName([updates(ChangeNameBuilder b)]) = _$ChangeName;
 }
 
 

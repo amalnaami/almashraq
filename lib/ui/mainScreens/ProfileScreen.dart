@@ -87,7 +87,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                     state.profileUser.data.image != null
                                         ? state.profileUser.data.image
                                         : "https://th.bing.com/th/id/OIP.BJLPreahM4_L0rTTUQAasQAAAA?pid=ImgDet&w=350&h=350&rs=1",
-                                    fit: BoxFit.fill,
+                                    fit: BoxFit.cover,
                                     height: double.infinity,
                                     width: double.infinity,
                                   ),

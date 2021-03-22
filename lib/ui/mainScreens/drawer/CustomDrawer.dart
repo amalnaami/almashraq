@@ -138,10 +138,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 alignment: Alignment.topRight,
                 child: SafeArea(
                   child: IconButton(
-                    icon: ImageIcon(
-                      AssetImage("assets/icons/Icon_sorting.png"),
-                      color: Colors.white,
-                    ),
+                    icon:Icon( Icons.menu_sharp,color: Colors.white,),
+                    // icon: ImageIcon(
+                    //   AssetImage("assets/icons/Icon_sorting.png"),
+                    //   color: Colors.white,
+                    // ),
                     onPressed: () => Navigator.pop(context),
                   ),
                 ),

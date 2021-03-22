@@ -6,6 +6,62 @@ part of setting_event;
 // BuiltValueGenerator
 // **************************************************************************
 
+class _$ClearState extends ClearState {
+  factory _$ClearState([void Function(ClearStateBuilder) updates]) =>
+      (new ClearStateBuilder()..update(updates)).build();
+
+  _$ClearState._() : super._();
+
+  @override
+  ClearState rebuild(void Function(ClearStateBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  ClearStateBuilder toBuilder() => new ClearStateBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is ClearState;
+  }
+
+  @override
+  int get hashCode {
+    return 338996177;
+  }
+
+  @override
+  String toString() {
+    return newBuiltValueToStringHelper('ClearState').toString();
+  }
+}
+
+class ClearStateBuilder implements Builder<ClearState, ClearStateBuilder> {
+  _$ClearState _$v;
+
+  ClearStateBuilder();
+
+  @override
+  void replace(ClearState other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$ClearState;
+  }
+
+  @override
+  void update(void Function(ClearStateBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$ClearState build() {
+    final _$result = _$v ?? new _$ClearState._();
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$ChangeLanguage extends ChangeLanguage {
   @override
   final int idLang;
@@ -688,6 +744,78 @@ class ChangeUserNameBuilder
   @override
   _$ChangeUserName build() {
     final _$result = _$v ?? new _$ChangeUserName._(value: value);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$ChangeName extends ChangeName {
+  @override
+  final String value;
+
+  factory _$ChangeName([void Function(ChangeNameBuilder) updates]) =>
+      (new ChangeNameBuilder()..update(updates)).build();
+
+  _$ChangeName._({this.value}) : super._();
+
+  @override
+  ChangeName rebuild(void Function(ChangeNameBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  ChangeNameBuilder toBuilder() => new ChangeNameBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is ChangeName && value == other.value;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc(0, value.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('ChangeName')..add('value', value))
+        .toString();
+  }
+}
+
+class ChangeNameBuilder implements Builder<ChangeName, ChangeNameBuilder> {
+  _$ChangeName _$v;
+
+  String _value;
+  String get value => _$this._value;
+  set value(String value) => _$this._value = value;
+
+  ChangeNameBuilder();
+
+  ChangeNameBuilder get _$this {
+    if (_$v != null) {
+      _value = _$v.value;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(ChangeName other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$ChangeName;
+  }
+
+  @override
+  void update(void Function(ChangeNameBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$ChangeName build() {
+    final _$result = _$v ?? new _$ChangeName._(value: value);
     replace(_$result);
     return _$result;
   }
