@@ -65,7 +65,7 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
       cubit: _bloc,
       builder: (BuildContext context, SettingState state){
         if (state.successedit && Navigator.canPop(context)) {
-
+          error(AppLocalizations.of(context).translate('success change'));
           WidgetsBinding.instance.addPostFrameCallback((_) =>
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => StartScreen())));
@@ -483,13 +483,13 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
                       ..image =_image
                       ..tele = state.profileUser.data.mobile
                       ..gender = state.profileUser.data.gender
-                      ..country_code =state.profileUser.data.country
+                      ..country_code =dropdownCountry=!null?dropdownCountry.toString():state.profileUser.data.country
                     ));
 
                     // }
                     // Navigator.of(context).pushReplacement(
                     //          MaterialPageRoute(builder: (context) => MainPage()));
-                    error(AppLocalizations.of(context).translate('adding successfully'));
+                    //error(AppLocalizations.of(context).translate('adding successfully'));
 
                     // Navigator.of(context).pushReplacement(
                     //   MaterialPageRoute(builder: (context) => MainPage()));
