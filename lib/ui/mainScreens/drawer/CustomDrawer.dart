@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:maktabeh_app/core/app_localizations.dart';
 import 'package:maktabeh_app/core/config/navigatorHelper.dart';
+import 'package:maktabeh_app/core/size_config.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
+import 'package:maktabeh_app/ui/auth/SignUpScreen/sign_up_screen.dart';
+import 'package:maktabeh_app/ui/common_widget/app_button.dart';
 import 'package:maktabeh_app/ui/common_widget/listTileDrawer.dart';
 import 'package:maktabeh_app/ui/common_widget/local_image.dart';
+import 'package:maktabeh_app/ui/mainScreens/SettingBloc/setting_bloc.dart';
+import 'package:maktabeh_app/ui/mainScreens/SettingBloc/setting_event.dart';
+import 'package:maktabeh_app/ui/mainScreens/SettingBloc/setting_state.dart';
 import 'package:maktabeh_app/ui/mainScreens/allReviewsPage.dart';
 import 'package:maktabeh_app/ui/mainScreens/drawer/custom_drawer_bloc/custom_drawer_state.dart';
 import 'package:maktabeh_app/ui/mainScreens/drawer/drawerPages/favPage.dart';
@@ -11,6 +17,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/drawer/drawerPages/rate_page.dart';
 import 'package:maktabeh_app/ui/start_screen/start_screen.dart';
 
+import '../../../injection.dart';
 import 'custom_drawer_bloc/custom_drawer_bloc.dart';
 import 'custom_drawer_bloc/custom_drawer_event.dart';
 import 'drawerPages/aboutUsPage.dart';
@@ -35,11 +42,30 @@ class CustomDrawer extends StatefulWidget {
 }
 
 class _CustomDrawerState extends State<CustomDrawer> {
+
+  final _bloc = sl<SettingBloc>();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _bloc.add(GetIsLogin());
+
+  }
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
-    return Drawer(
+    return BlocBuilder(
+        cubit: _bloc,
+        builder: (BuildContext context, SettingState state) {
+      if (state.success) {
+        WidgetsBinding.instance.addPostFrameCallback((_) =>
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => StartScreen())));
+        ChangeStatus();
+      }
+      return Drawer(
       child: Column(
         children: [
           Stack(
@@ -142,7 +168,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 ),
                 onTap: () {
                   Navigator.of(context).pop();
-                  push(context, FavPage());
+                  (widget.isLogin)?   push(context, FavPage()): showDialog(
+                      context: context,
+                      builder: (BuildContext ctx) {
+                        return alertDialog(ctx);
+                      });
                 },
                 title: AppLocalizations.of(context).translate('favorite'),
               ),
@@ -191,23 +221,71 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 title:
                     AppLocalizations.of(context).translate("about almashreq"),
               ),
-              (widget.isLogin)
-                  ? drawerListTile(
+           drawerListTile(
                       icon: buildLocalImage(
                         'assets/svg/logout.svg',
                       ),
                       onTap: () {
-                        widget.logoutCallback.call();
-                        Navigator.of(context).pop();
-                        print('Adding');
+                        state.isLogin
+                            ? _bloc.add(LogOut())
+                            : Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                                builder: (context) => StartScreen()));
+                        // widget.logoutCallback.call();
+                        // Navigator.of(context).pop();
+                        // print('Adding');
                       },
                       title: AppLocalizations.of(context).translate('sign out'),
-                    )
-                  : Container(),
+                    ),
             ],
           ))
         ],
       ),
-    );
+    );});
   }
+}
+Widget alertDialog(BuildContext context) {
+  return Dialog(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(top: SizeConfig.blockSizeVertical * 4),
+          child: buildLocalImage(
+            'assets/svg/dialog.svg',
+          ),
+        ),
+        Text(
+          AppLocalizations.of(context).translate(
+              'Sign in now...'),
+          style: regStyle.copyWith(color: Color(0xFF9C9C9C)),
+          textAlign: TextAlign.center,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(
+              vertical: SizeConfig.blockSizeVertical * 2,
+              horizontal: SizeConfig.blockSizeHorizontal * 6),
+          child: appButton(
+            text: AppLocalizations.of(context).translate('Register'),
+            context: context,
+            onTap: () {
+              Navigator.of(context)
+                  .pushReplacement(MaterialPageRoute(
+                  builder: (context) => SignupScreen()
+              ));
+            },
+          ),
+        ),
+        InkWell(
+          onTap: () {   Navigator.pop(context);},
+          child: Text(
+            AppLocalizations.of(context).translate('cancel'),
+            style: regStyle.copyWith(
+                color: Color(0xFF12416D), fontWeight: FontWeight.w500),
+          ),
+        ),
+        SizedBox(height: 20),
+      ],
+    ),
+  );
 }

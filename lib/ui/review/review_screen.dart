@@ -5,6 +5,7 @@ import 'package:maktabeh_app/core/app_localizations.dart';
 import 'package:maktabeh_app/core/loaderApp.dart';
 import 'package:maktabeh_app/core/size_config.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
+import 'package:maktabeh_app/ui/auth/SignUpScreen/sign_up_screen.dart';
 import 'package:maktabeh_app/ui/common_widget/app_bar.dart';
 import 'package:maktabeh_app/ui/common_widget/app_button.dart';
 import 'package:maktabeh_app/ui/common_widget/local_image.dart';
@@ -57,26 +58,29 @@ class _ReviewScreenState extends State<ReviewScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        (widget.isLogin)
-                            ? Padding(
+                        Padding(
                                 padding: EdgeInsets.symmetric(
                                     vertical: SizeConfig.blockSizeVertical * 2),
                                 child: appButton(
                                   context: context,
                                   onTap: () {
                                     // state.allReview=
-                                    Navigator.of(context)
+                                widget.isLogin?    Navigator.of(context)
                                         .push(MaterialPageRoute(
                                       builder: (context) => AddReviewScreen(
                                           bookid: widget.bookid,
                                           isLogin: widget.isLogin),
-                                    ));
+                                    )):
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext ctx) {
+                                        return alertDialog(ctx);
+                                      });
                                   },
                                   text: AppLocalizations.of(context)
                                       .translate('add review'),
                                 ),
-                              )
-                            : Container(),
+                              ),
                         Divider(
                           thickness: 1,
                           color: Color(0xFFE5E5E5),
@@ -211,6 +215,68 @@ Widget reviewCard(
           ),
         ],
       ),
+    ),
+  );
+}
+Widget alertDialog(BuildContext context) {
+  return Dialog(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(top: SizeConfig.blockSizeVertical * 4),
+          child: buildLocalImage(
+            'assets/svg/dialog.svg',
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: SizeConfig.blockSizeVertical),
+          child: Text(
+            AppLocalizations.of(context)
+                .translate('You cant add review'),
+            style: boldStyle.copyWith(fontSize: 18),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        Text(
+          AppLocalizations.of(context).translate(
+              'Sign in now...'),
+          style: regStyle.copyWith(color: Color(0xFF9C9C9C)),
+          textAlign: TextAlign.center,
+        ),
+        // SizedBox(height: 6),
+        // Text(
+        //   '.في تطبيق مكتبة المشرق الإلكترونية',
+        //   style: regStyle.copyWith(color: Color(0xFF9C9C9C)),
+        //   textAlign: TextAlign.center,
+        // ),
+        Padding(
+          padding: EdgeInsets.symmetric(
+              vertical: SizeConfig.blockSizeVertical * 2,
+              horizontal: SizeConfig.blockSizeHorizontal * 6),
+          child: appButton(
+            text: AppLocalizations.of(context).translate('Register'),
+            context: context,
+            onTap: () {
+              Navigator.of(context)
+                  .pushReplacement(MaterialPageRoute(
+                  builder: (context) => SignupScreen()
+              ));
+            },
+          ),
+        ),
+        InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Text(
+            AppLocalizations.of(context).translate('cancel'),
+            style: regStyle.copyWith(
+                color: Color(0xFF12416D), fontWeight: FontWeight.w500),
+          ),
+        ),
+        SizedBox(height: 20),
+      ],
     ),
   );
 }

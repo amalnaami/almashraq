@@ -14,6 +14,8 @@ import 'package:maktabeh_app/ui/mainScreens/drawer/rate_bloc/rate_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/drawer/rate_bloc/rate_event.dart';
 import 'package:maktabeh_app/ui/mainScreens/drawer/rate_bloc/rate_state.dart';
 
+import '../CustomDrawer.dart';
+
 class RateAppScreen extends StatefulWidget {
   @override
   _RateAppScreenState createState() => _RateAppScreenState();
@@ -49,22 +51,25 @@ class _RateAppScreenState extends State<RateAppScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        (state.isLogin)
-                            ? Padding(
+                       Padding(
                                 padding: EdgeInsets.symmetric(
                                     vertical: SizeConfig.blockSizeVertical * 2),
                                 child: appButton(
                                   context: context,
-                                  onTap: () async { await Navigator.of(context).push(MaterialPageRoute(
+                                  onTap: () async {
+                                    (state.isLogin)?await Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => AddRate(),
-                                  ));
+                                  )): showDialog(
+                                        context: context,
+                                        builder: (BuildContext ctx) {
+                                          return alertDialog(ctx);
+                                        });
                                   _bloc.add(GetRates());
                                   },
                                   text: AppLocalizations.of(context)
                                       .translate('add rate'),
                                 ),
-                              )
-                            : Container(),
+                              ),
                         Divider(
                           thickness: 1,
                           color: Color(0xFFE5E5E5),

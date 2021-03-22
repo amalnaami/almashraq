@@ -178,5 +178,8 @@
   "All rates": "كل التقيمات",
 "image can not be empty": "حمل صورة جديدة",
   "enter a valid email": "البريد الالكتروني غير صالح",
-  "Search result": "ناتئج البحث"
+  "Search result": "ناتئج البحث",
+  "You cant add review": "لا تستطيع اضافة مراجعة",
+  "You cant add quote": "لا تستطيع اضافة اقتباس",
+"Sign in now...": "سجل دخول الان"
 }

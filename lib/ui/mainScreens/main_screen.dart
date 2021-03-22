@@ -114,7 +114,7 @@ class _MainPageState extends State<MainPage>
                 ),
               ),
               actions: [
-                IconButton(
+              IconButton(
                     icon: ImageIcon(
                       AssetImage("assets/icons/Search.png"),
                       color: Colors.white,
@@ -123,15 +123,15 @@ class _MainPageState extends State<MainPage>
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => SearchScreen(),
                         ))),
-                IconButton(
+                (state.isLogin)?         IconButton(
                     icon: ImageIcon(
                       AssetImage("assets/icons/Notification.png"),
                       color: Colors.white,
                     ),
                     onPressed: () =>
-                        Navigator.of(context).push(MaterialPageRoute(
+         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => NotificationScreen(),
-                        ))),
+                        ))):Container(),
               ],
             ),
             extendBody: true,
