@@ -128,7 +128,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                                     .translate('Subscribe via'),
                                 style: boldStyle),
                             Text(
-                              "Promo Code",
+                              " Promo Code",
                               style: boldStyle.copyWith(
                                   fontWeight: FontWeight.w900),
                             ),
