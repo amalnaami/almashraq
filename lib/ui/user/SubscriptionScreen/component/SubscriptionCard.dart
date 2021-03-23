@@ -47,7 +47,7 @@ class SubscriptionCard extends StatelessWidget {
               ),
             ),
             Positioned(
-              bottom: 10,
+                bottom: 10,
               width: (MediaQuery.of(context).size.width / 2) - 30,
               child: Center(
                 child: Container(

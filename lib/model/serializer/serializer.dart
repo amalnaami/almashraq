@@ -13,8 +13,11 @@ import 'package:maktabeh_app/model/category/category.dart';
 import 'package:maktabeh_app/model/country_model/country_language.dart';
 import 'package:maktabeh_app/model/country_model/country_model.dart';
 import 'package:maktabeh_app/model/country_model/country_translations.dart';
+import 'package:maktabeh_app/model/invoice/invoice.dart';
 import 'package:maktabeh_app/model/language/language.dart';
 import 'package:maktabeh_app/model/login_model/login_model.dart';
+import 'package:maktabeh_app/model/notifications/notifications.dart';
+import 'package:maktabeh_app/model/packages/packages.dart';
 import 'package:maktabeh_app/model/paginator/paginator.dart';
 import 'package:maktabeh_app/model/quote/quote.dart';
 import 'package:maktabeh_app/model/rate/rate.dart';
@@ -67,7 +70,10 @@ part 'serializer.g.dart';
   AboutUsLanguage,
   AboutUsTranslation,
   AppRate,
-  Rate
+  Rate,
+  Notifications,
+  Invoice,
+  Packages
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..addPlugin(StandardJsonPlugin())
@@ -161,4 +167,20 @@ final Serializers serializers = (_$serializers.toBuilder()
         ],
       )),
           () => ListBuilder<Rate>())
+  ..addBuilderFactory(
+      (FullType(
+        BuiltList,
+        [
+          const FullType(Packages),
+        ],
+      )),
+          () => ListBuilder<Packages>())
+  ..addBuilderFactory(
+      (FullType(
+        BuiltList,
+        [
+          const FullType(Notifications),
+        ],
+      )),
+          () => ListBuilder<Notifications>())
     ).build();

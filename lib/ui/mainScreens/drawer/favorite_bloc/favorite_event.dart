@@ -18,3 +18,9 @@ abstract class ClearState extends FavoriteEvent
 
   factory ClearState([updates(ClearStateBuilder b)]) = _$ClearState;
 }
+abstract class RemoveFavorite extends FavoriteEvent
+    implements Built<RemoveFavorite, RemoveFavoriteBuilder> {
+  RemoveFavorite._();
+  int get id;
+  factory RemoveFavorite([updates(RemoveFavoriteBuilder b)]) = _$RemoveFavorite;
+}

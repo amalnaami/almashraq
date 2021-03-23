@@ -182,6 +182,8 @@
   "You cant add review": "لا تستطيع اضافة مراجعة",
   "You cant add quote": "لا تستطيع اضافة اقتباس",
 "Sign in now...": "سجل دخول الان",
-"success editing": "تم حفظ التغيرات"
+"success editing": "تم حفظ التغيرات",
+  "cost:": "الكلفة:",
+  "code can not be empty": "يجب كتابة الكود"
 
 }

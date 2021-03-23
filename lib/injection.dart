@@ -24,8 +24,10 @@ import 'package:maktabeh_app/ui/mainScreens/drawer/add_rate_bloc/add_rate_bloc.d
 import 'package:maktabeh_app/ui/mainScreens/drawer/custom_drawer_bloc/custom_drawer_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/drawer/favorite_bloc/favorite_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/drawer/rate_bloc/rate_bloc.dart';
+import 'package:maktabeh_app/ui/mainScreens/notifications_bloc/notifications_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/search_bloc/search_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/search_result_bloc/search_result_bloc.dart';
+import 'package:maktabeh_app/ui/user/SubscriptionScreen/bloc/subscribe_bloc.dart';
 import 'package:maktabeh_app/ui/user/editProfile.dart/edit_password_bloc/edit_password_bloc.dart';
 
 import 'app/bloc/app_bloc.dart';
@@ -68,19 +70,21 @@ Future iniGetIt() async {
   sl.registerFactory(() => AllBooksBloc(sl()));
   sl.registerFactory(() => BooksByCategoryBloc(sl()));
   sl.registerFactory(() => SignUpBloc(sl()));
-  sl.registerLazySingleton(() => AuthorBloc(sl()));
-  sl.registerLazySingleton(() => AuthorBooksBloc(sl()));
-  sl.registerLazySingleton(() => CategoriesBloc(sl()));
-  sl.registerLazySingleton(() => AllReviewBloc(sl()));
-  sl.registerLazySingleton(() => AllQuoteBloc(sl()));
-  sl.registerLazySingleton(() => FavoriteBloc(sl()));
-  sl.registerLazySingleton(() => ContactUsBloc(sl()));
-  sl.registerLazySingleton(() => AboutUsBloc(sl()));
-  sl.registerLazySingleton(() => BookScreenBloc(sl()));
-  sl.registerLazySingleton(() => RateBloc(sl()));
-  sl.registerLazySingleton(() => AddRateBloc(sl()));
-  sl.registerLazySingleton(() => FilterBloc(sl()));
-  sl.registerLazySingleton(() => CustomDrawerBloc(sl()));
-  sl.registerLazySingleton(() => SearchBloc(sl()));
-  sl.registerLazySingleton(() => SearchResultBloc(sl()));
+  sl.registerFactory(() => AuthorBloc(sl()));
+  sl.registerFactory(() => AuthorBooksBloc(sl()));
+  sl.registerFactory(() => CategoriesBloc(sl()));
+  sl.registerFactory(() => AllReviewBloc(sl()));
+  sl.registerFactory(() => AllQuoteBloc(sl()));
+  sl.registerFactory(() => FavoriteBloc(sl()));
+  sl.registerFactory(() => ContactUsBloc(sl()));
+  sl.registerFactory(() => AboutUsBloc(sl()));
+  sl.registerFactory(() => BookScreenBloc(sl()));
+  sl.registerFactory(() => RateBloc(sl()));
+  sl.registerFactory(() => AddRateBloc(sl()));
+  sl.registerFactory(() => FilterBloc(sl()));
+  sl.registerFactory(() => CustomDrawerBloc(sl()));
+  sl.registerFactory(() => SearchBloc(sl()));
+  sl.registerFactory(() => SearchResultBloc(sl()));
+  sl.registerFactory(() => SubscribeBloc(sl()));
+  sl.registerFactory(() => NotificationsBloc(sl()));
 }

@@ -20,13 +20,15 @@ import 'filter_textfield.dart';
 import 'local_image.dart';
 
 class CustomAlert {
-  submitChangeData(
-      {BuildContext context,
-      Function onSubmite,
-      Function onCancel,
-      String hintText,
-      String textBtn,
-      String title}) {
+  submitChangeData({
+    BuildContext context,
+    Function onSubmite,
+    Function onCancel,
+    String hintText,
+    String textBtn,
+    String title,
+    TextEditingController controller,
+  }) {
     showDialog(
       context: context,
       builder: (context) {
@@ -46,6 +48,7 @@ class CustomAlert {
                 height: 20,
               ),
               TextFormField(
+                controller: controller,
                 textAlign: TextAlign.center,
                 obscureText: true,
                 decoration: InputDecoration(
@@ -278,24 +281,31 @@ class FilterData extends Equatable {
       this.sectionName});
 
   factory FilterData.empty() => FilterData(
-        bookName: '',
-        authorId: -1,
-        sectionId: -1,
-        releaseDate: '',
-        ISIN: '',
-        authorName: '',
-        sectionName: ''
-      );
+      bookName: '',
+      authorId: -1,
+      sectionId: -1,
+      releaseDate: '',
+      ISIN: '',
+      authorName: '',
+      sectionName: '');
 
   @override
-  List<Object> get props =>
-      [bookName, authorId, sectionId, releaseDate, ISIN, authorName, sectionName];
+  List<Object> get props => [
+        bookName,
+        authorId,
+        sectionId,
+        releaseDate,
+        ISIN,
+        authorName,
+        sectionName
+      ];
 }
 
 class FilterDialog extends StatefulWidget {
   final FilterData data;
   final bool category;
   final bool author;
+
   const FilterDialog({this.data, this.category = true, this.author = true});
 
   @override
@@ -339,7 +349,9 @@ class _FilterDialogState extends State<FilterDialog> {
         return Dialog(
           insetPadding: EdgeInsets.all(10),
           child: Container(
-            height: (widget.category & widget.author) ? SizeConfig.screenHeight * 0.7 : SizeConfig.screenHeight * 0.6,
+            height: (widget.category & widget.author)
+                ? SizeConfig.screenHeight * 0.7
+                : SizeConfig.screenHeight * 0.6,
             width: SizeConfig.screenWidth * 0.9,
             child: Stack(
               children: [
@@ -367,7 +379,8 @@ class _FilterDialogState extends State<FilterDialog> {
                               Expanded(child: Container()),
                               //Spacer(),
                               InkWell(
-                                onTap: () => Navigator.of(context).pop(FilterData.empty()),
+                                onTap: () => Navigator.of(context)
+                                    .pop(FilterData.empty()),
                                 child: Text(
                                   AppLocalizations.of(context)
                                       .translate('cancel'),
@@ -434,58 +447,70 @@ class _FilterDialogState extends State<FilterDialog> {
                               ),
                             ],
                           ),
-                          widget.author ?Divider(
-                            color: Color(0xFFE5E5E5),
-                            thickness: 1.0,
-                          ) : Container(),
-                          widget.author ? Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                  AppLocalizations.of(context)
-                                      .translate('author name'),
-                                  style: regStyle),
-                              FilterDropDown(
-                                  value: getAuthorNameFromId(context,
-                                      widget.data.authorId, state.authors),
-                                  callBack: (String value) =>
-                                      _authorName = value,
-                                  values: state.authors
-                                      .map((author) => author.getName(
-                                          AppLocalizations.of(context)
-                                              .locale
-                                              .languageCode))
-                                      .toList(),
-                                  hint: AppLocalizations.of(context)
-                                      .translate('author name'))
-                            ],
-                          ) : Container(),
+                          widget.author
+                              ? Divider(
+                                  color: Color(0xFFE5E5E5),
+                                  thickness: 1.0,
+                                )
+                              : Container(),
+                          widget.author
+                              ? Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                        AppLocalizations.of(context)
+                                            .translate('author name'),
+                                        style: regStyle),
+                                    FilterDropDown(
+                                        value: getAuthorNameFromId(
+                                            context,
+                                            widget.data.authorId,
+                                            state.authors),
+                                        callBack: (String value) =>
+                                            _authorName = value,
+                                        values: state.authors
+                                            .map((author) => author.getName(
+                                                AppLocalizations.of(context)
+                                                    .locale
+                                                    .languageCode))
+                                            .toList(),
+                                        hint: AppLocalizations.of(context)
+                                            .translate('author name'))
+                                  ],
+                                )
+                              : Container(),
                           Divider(
                             color: Color(0xFFE5E5E5),
                             thickness: 1.0,
                           ),
-                          widget.category ? Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                  AppLocalizations.of(context)
-                                      .translate('section'),
-                                  style: regStyle),
-                              FilterDropDown(
-                                  value: getCategoryNameFromId(context,
-                                      widget.data.sectionId, state.categories),
-                                  callBack: (String value) =>
-                                      categoryName = value,
-                                  values: state.categories
-                                      .map((category) => category.getName(
-                                          AppLocalizations.of(context)
-                                              .locale
-                                              .languageCode))
-                                      .toList(),
-                                  hint: AppLocalizations.of(context)
-                                      .translate('section'))
-                            ],
-                          ) : Container(),
+                          widget.category
+                              ? Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                        AppLocalizations.of(context)
+                                            .translate('section'),
+                                        style: regStyle),
+                                    FilterDropDown(
+                                        value: getCategoryNameFromId(
+                                            context,
+                                            widget.data.sectionId,
+                                            state.categories),
+                                        callBack: (String value) =>
+                                            categoryName = value,
+                                        values: state.categories
+                                            .map((category) => category.getName(
+                                                AppLocalizations.of(context)
+                                                    .locale
+                                                    .languageCode))
+                                            .toList(),
+                                        hint: AppLocalizations.of(context)
+                                            .translate('section'))
+                                  ],
+                                )
+                              : Container(),
                           Padding(
                             padding: EdgeInsets.only(
                                 top: SizeConfig.blockSizeVertical * 4,
@@ -606,7 +631,7 @@ class _CategoriesFilterState extends State<CategoriesFilter> {
   void initState() {
     super.initState();
     controller = TextEditingController();
-    if(widget.data.sectionName != null && widget.data.sectionName.isNotEmpty)
+    if (widget.data.sectionName != null && widget.data.sectionName.isNotEmpty)
       controller.text = widget.data.sectionName;
     //_bloc.add(GetSections());
   }
@@ -649,7 +674,8 @@ class _CategoriesFilterState extends State<CategoriesFilter> {
                               Expanded(child: Container()),
                               //Spacer(),
                               InkWell(
-                                onTap: () => Navigator.of(context).pop(FilterData.empty()),
+                                onTap: () => Navigator.of(context)
+                                    .pop(FilterData.empty()),
                                 child: Text(
                                   AppLocalizations.of(context)
                                       .translate('cancel'),
@@ -701,9 +727,10 @@ class _CategoriesFilterState extends State<CategoriesFilter> {
                                 //     }
                                 //   }
                                 // }
-                                print(FilterData(sectionName: controller.value.text));
-                                Navigator.of(context)
-                                    .pop(FilterData(sectionName: controller.value.text));
+                                print(FilterData(
+                                    sectionName: controller.value.text));
+                                Navigator.of(context).pop(FilterData(
+                                    sectionName: controller.value.text));
                               },
                             ),
                           ),
@@ -807,7 +834,8 @@ class _AuthorFilterState extends State<AuthorFilter> {
                               Expanded(child: Container()),
                               //Spacer(),
                               InkWell(
-                                onTap: () => Navigator.of(context).pop(FilterData.empty()),
+                                onTap: () => Navigator.of(context)
+                                    .pop(FilterData.empty()),
                                 child: Text(
                                   AppLocalizations.of(context)
                                       .translate('cancel'),

@@ -14,6 +14,9 @@ import 'package:maktabeh_app/model/book_by_category/book_by_category.dart';
 
 import 'package:maktabeh_app/model/category/category.dart';
 import 'package:maktabeh_app/model/country_model/country_model.dart';
+import 'package:maktabeh_app/model/invoice/invoice.dart';
+import 'package:maktabeh_app/model/notifications/notifications.dart';
+import 'package:maktabeh_app/model/packages/packages.dart';
 
 import 'package:maktabeh_app/model/quote/quote.dart';
 import 'package:maktabeh_app/model/review/review.dart';
@@ -303,7 +306,6 @@ class HttpHelper implements IHttpHelper {
       throw NetworkException();
     }
   }
-
 
   @override
   Future<UserModel> register(
@@ -1086,7 +1088,8 @@ class HttpHelper implements IHttpHelper {
   }
 
   @override
-  Future<BuiltList<Category>> getCategoryByName({String sectionName, String language}) async {
+  Future<BuiltList<Category>> getCategoryByName(
+      {String sectionName, String language}) async {
     try {
       final response = await _dio.get('sections?with_books=1&name=$sectionName',
           options: Options(headers: {"Accept-Language": language}));
@@ -1107,13 +1110,15 @@ class HttpHelper implements IHttpHelper {
   }
 
   @override
-  Future<UserModel> socialMediaLogin(String accessToken, String firebaseToken, String typeSocial) async{
+  Future<UserModel> socialMediaLogin(
+      String accessToken, String firebaseToken, String typeSocial) async {
     try {
       final formData = {
         "accessToken": accessToken,
         "device_token": firebaseToken
       };
-      final response = await _dio.post('auth/social/$typeSocial', data: formData);
+      final response =
+          await _dio.post('auth/social/$typeSocial', data: formData);
       print('login Response StatusCode ${response.statusCode}');
 
       if (response.statusCode == 200) {
@@ -1128,15 +1133,15 @@ class HttpHelper implements IHttpHelper {
       throw NetworkException(error: e.toString());
     }
   }
+
   @override
-  Future<BaseBook> searchBooks({
-    String bookName,
-    List<int> sectionId,
-    String searchWords,
-    int authorId,
-    String language,
-    int page
-    }) async {
+  Future<BaseBook> searchBooks(
+      {String bookName,
+      List<int> sectionId,
+      String searchWords,
+      int authorId,
+      String language,
+      int page}) async {
     try {
       List<String> queries = [];
       if (authorId != null && authorId != -1) {
@@ -1144,17 +1149,16 @@ class HttpHelper implements IHttpHelper {
       }
       if (sectionId != null && sectionId.isNotEmpty) {
         String tmp = '';
-        for(int i = 0 ; i < sectionId.length ; i++) {
+        for (int i = 0; i < sectionId.length; i++) {
           tmp += sectionId[i].toString();
-          if(i < sectionId.length - 1)
-            tmp += ',';
+          if (i < sectionId.length - 1) tmp += ',';
         }
         queries.add('sections_ids=$tmp');
       }
       if (bookName != null && bookName.isNotEmpty) {
         queries.add('query=$bookName');
       }
-      if(searchWords != null && searchWords.isNotEmpty) {
+      if (searchWords != null && searchWords.isNotEmpty) {
         queries.add('brief=$searchWords');
       }
 
@@ -1183,4 +1187,89 @@ class HttpHelper implements IHttpHelper {
     }
   }
 
+  @override
+  Future<BuiltList<Notifications>> getNotifications(
+      String token, String language) async {
+    try {
+      final response = await _dio.get(
+        'user/notifications',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Accept-Language': '$language',
+          },
+        ),
+      );
+      print('getNotifications Response StatusCode ${response.statusCode}');
+
+      if (response.statusCode == 200) {
+        final ret = serializers.deserialize(json.decode(response.data)['data'],
+            specifiedType: FullType(BuiltList, [FullType(Notifications)]));
+        return ret;
+      } else {
+        throw NetworkException(code: response.statusCode);
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException(error: e.toString());
+    }
+  }
+
+  @override
+  Future<BuiltList<Packages>> getPackages(String language) async {
+    try {
+      final response = await _dio.get(
+        'packages',
+        options: Options(
+          headers: {
+            'Accept-Language': '$language',
+          },
+        ),
+      );
+      print('getPackages Response StatusCode ${response.statusCode}');
+
+      if (response.statusCode == 200) {
+        final ret = serializers.deserialize(json.decode(response.data)['data'],
+            specifiedType: FullType(BuiltList, [FullType(Packages)]));
+        return ret;
+      } else {
+        throw NetworkException(code: response.statusCode);
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException(error: e.toString());
+    }
+  }
+
+  @override
+  Future<Invoice> subscribe(
+      String token, String type, String id, String language) async {
+    try {
+      final data = {
+        "subscription_type": "$type",
+        "subscription_id": "$id"
+      };
+      final response = await _dio.post(
+        'user/subscribe', data: data,
+        options: Options(
+          headers: {
+            'Accept-Language': '$language',
+            'Authorization': 'Bearer $token'
+          },
+        ),
+      );
+      print('subscribe Response StatusCode ${response.statusCode}');
+
+      if (response.statusCode == 200) {
+        final ret = serializers.deserialize(json.decode(response.data)['data'],
+            specifiedType: FullType(Invoice));
+        return ret;
+      } else {
+        throw NetworkException(code: response.statusCode);
+      }
+    } catch (e) {
+      print(e.toString());
+      throw NetworkException(error: e.toString());
+    }
+  }
 }

@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:maktabeh_app/core/app_localizations.dart';
-import 'package:maktabeh_app/core/config/navigatorHelper.dart';
 import 'package:maktabeh_app/core/loaderApp.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
 import 'package:maktabeh_app/injection.dart';
@@ -73,15 +72,14 @@ class _FavPageState extends State<FavPage> {
                         state.books.length,
                         (index) {
                           return InkWell(
-                            onTap: () async {
-                              await Navigator.of(context)
+                            onTap: () {
+                              Navigator.of(context)
                                   .push(MaterialPageRoute(
                                       builder: (_) => BookScreen(
                                             singleBook: state.books[index],
                                             bookId: state.books[index].id,
                                           )));
-                              _bloc.add(ClearState());
-                              _bloc.add(GetFavorites());
+
                             },
                             child: Card(
                               shape: RoundedRectangleBorder(

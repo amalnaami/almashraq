@@ -13,6 +13,9 @@ import 'package:maktabeh_app/model/book_by_category/book_by_category.dart';
 import 'package:maktabeh_app/model/category/category.dart';
 import 'package:maktabeh_app/model/country_model/country_model.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:maktabeh_app/model/invoice/invoice.dart';
+import 'package:maktabeh_app/model/notifications/notifications.dart';
+import 'package:maktabeh_app/model/packages/packages.dart';
 import 'package:maktabeh_app/model/quote/quote.dart';
 import 'package:maktabeh_app/model/review/review.dart';
 import 'package:maktabeh_app/model/review_quote_user_model/review_quote_user_model.dart';
@@ -179,9 +182,25 @@ class Repository implements IRepository {
   }
 
   @override
-  Future<UserModel> register(String name, String username, String email,
-      String password, String tele, String gender, String countryCode, File image) async {
-    final user = await _ihttpHelper.register(name, username, email, password, tele, gender, countryCode, image, await PushNotificationsManager().getToken());
+  Future<UserModel> register(
+      String name,
+      String username,
+      String email,
+      String password,
+      String tele,
+      String gender,
+      String countryCode,
+      File image) async {
+    final user = await _ihttpHelper.register(
+        name,
+        username,
+        email,
+        password,
+        tele,
+        gender,
+        countryCode,
+        image,
+        await PushNotificationsManager().getToken());
     // final save = await _iprefHelper.saveUser(user.data, user.token,false);
     await _iprefHelper.saveUser(user.data, true);
     return user;
@@ -366,10 +385,20 @@ class Repository implements IRepository {
     print('LOGout repo');
     return data;
   }
+
   @override
-  Future<UserModel> editUser( String username, String email, String tele, String gender, String country_code, File image) async{
-    final data = await _ihttpHelper.editUser( username, email, tele, gender, country_code, image,  await _iprefHelper.getToken(), await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
- // final save = await _iprefHelper.saveUser(null, false);
+  Future<UserModel> editUser(String username, String email, String tele,
+      String gender, String country_code, File image) async {
+    final data = await _ihttpHelper.editUser(
+        username,
+        email,
+        tele,
+        gender,
+        country_code,
+        image,
+        await _iprefHelper.getToken(),
+        await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
+    // final save = await _iprefHelper.saveUser(null, false);
     final save = await _iprefHelper.saveUser(data.data, true);
     return data;
   }
@@ -431,6 +460,7 @@ class Repository implements IRepository {
   Future<String> getName() async {
     return await _iprefHelper.getName();
   }
+
   @override
   Future<bool> socialMediaLogin(String accessToken, String typeSocial) async {
     final res = await _ihttpHelper.socialMediaLogin(
@@ -438,22 +468,39 @@ class Repository implements IRepository {
     await _iprefHelper.saveUser(res.data, true);
     return true;
   }
+
   @override
-  Future<BaseBook> searchBooks({
-    String bookName,
-    List<int> sectionId,
-    String searchWords,
-    int authorId,
-    int page
-  }) async {
+  Future<BaseBook> searchBooks(
+      {String bookName,
+      List<int> sectionId,
+      String searchWords,
+      int authorId,
+      int page}) async {
     final res = await _ihttpHelper.searchBooks(
-         bookName: bookName,
+        bookName: bookName,
         sectionId: sectionId,
-         searchWords: searchWords,
-         authorId: authorId,
-         language:  await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar',
-         page:page
-        );
+        searchWords: searchWords,
+        authorId: authorId,
+        language: await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar',
+        page: page);
     return res;
+  }
+
+  @override
+  Future<BuiltList<Notifications>> getNotifications() async {
+    return await _ihttpHelper.getNotifications(await _iprefHelper.getToken(),
+        await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
+  }
+
+  @override
+  Future<BuiltList<Packages>> getPackages() async {
+    return await _ihttpHelper
+        .getPackages(await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
+  }
+
+  @override
+  Future<Invoice> subscribe(String type, String id) async {
+    return await _ihttpHelper.subscribe(await _iprefHelper.getToken(), type, id,
+        await _iprefHelper.getAppLanguage() == 1 ? 'en' : 'ar');
   }
 }

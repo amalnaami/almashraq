@@ -32,6 +32,21 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
       }
     } else if (event is ClearState) {
       yield state.rebuild((b) => b..error = '');
+    } else if(event is RemoveFavorite) {
+      try {
+        yield state.rebuild((b) => b
+          ..isLoading = true
+          ..error = '');
+          await _repository.removeFromFavorite(event.id);
+        final res =
+        await _repository.getFavorite();
+        yield state.rebuild((b) => b
+          ..isLoading = false..books.replace(res));
+      } catch (e) {
+        yield state.rebuild((b) => b
+          ..isLoading = false
+          ..error = 'Something went wrong');
+      }
     }
   }
 }

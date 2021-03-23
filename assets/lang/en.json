@@ -182,6 +182,8 @@
   "You cant add review": "You can't add review",
   "You cant add quote": "You cant add quote",
   "Sign in now...": "Sign in now...",
-  "success editing": "success editing"
+  "success editing": "success editing",
+  "cost:": "cost:",
+  "code can not be empty": "code can not be empty"
 
 }

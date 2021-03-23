@@ -9,6 +9,9 @@ import 'package:maktabeh_app/model/book_by_category/book_by_category.dart';
 import 'package:maktabeh_app/model/category/category.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:maktabeh_app/model/country_model/country_model.dart';
+import 'package:maktabeh_app/model/invoice/invoice.dart';
+import 'package:maktabeh_app/model/notifications/notifications.dart';
+import 'package:maktabeh_app/model/packages/packages.dart';
 import 'package:maktabeh_app/model/quote/quote.dart';
 import 'package:maktabeh_app/model/review/review.dart';
 import 'package:maktabeh_app/model/review_quote_user_model/review_quote_user_model.dart';
@@ -127,4 +130,7 @@ abstract class IRepository {
     int authorId,
     int page
   });
+  Future<BuiltList<Notifications>> getNotifications();
+  Future<BuiltList<Packages>> getPackages();
+  Future<Invoice> subscribe(String type, String id);
 }
