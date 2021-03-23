@@ -9,6 +9,7 @@ import 'package:maktabeh_app/ui/common_widget/CustomAlert.dart';
 import 'package:maktabeh_app/ui/common_widget/customAppBar.dart';
 import 'package:maktabeh_app/ui/user/SubscriptionScreen/bloc/subscribe_event.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import 'bloc/subscribe_bloc.dart';
 import 'bloc/subscribe_state.dart';
@@ -38,11 +39,20 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
         if (state.success) {
           WidgetsBinding.instance.addPostFrameCallback(
             (timeStamp) async {
-              if (await canLaunch(state.invoice.url)) {
-                await launch(state.invoice.url);
-              } else {
-                throw 'Could not launch ${state.invoice.url}';
-              }
+              await Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+                return Scaffold(
+                  appBar: customAppBar(context, AppLocalizations.of(context).translate('Invoice')),
+                  body: WebView(
+                    initialUrl: state.invoice.url,
+                    javascriptMode: JavascriptMode.unrestricted,
+                  ),
+                );
+              }));
+              // if (await canLaunch(state.invoice.url)) {
+              //   await launch(state.invoice.url);
+              // } else {
+              //   throw 'Could not launch ${state.invoice.url}';
+              // }
               _bloc.add(ClearSuccess());
             },
           );
@@ -142,7 +152,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                                 }
                                 Navigator.pop(context);
                                 _bloc.add(Subscribe((b) => b
-                                  ..type = ''
+                                  ..type = 'promo_codes'
                                   ..id = controller.value.text));
                                 // CustomAlert().successfulProcess(
                                 //   btnText: AppLocalizations.of(context)
