@@ -780,7 +780,7 @@ class _AuthorFilterState extends State<AuthorFilter> {
           insetPadding: EdgeInsets.all(10),
           child: Container(
             height: SizeConfig.screenHeight * 0.42,
-            width: SizeConfig.screenWidth * 0.9,
+            width: SizeConfig.screenWidth,
             child: Stack(
               children: [
                 ListView(
@@ -1161,7 +1161,10 @@ class _SortDialogState extends State<SortDialog> {
       child: Container(
         height: SizeConfig.screenHeight * 0.4,
         width: SizeConfig.screenWidth,
+        alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(horizontal: 5),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
               padding: EdgeInsets.symmetric(

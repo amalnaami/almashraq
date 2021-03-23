@@ -205,7 +205,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 ),
                 onTap: () {
                   Navigator.of(context).pop();
-                  push(context, ContactusPage());
+                  (widget.isLogin)?   push(context, ContactusPage()): showDialog(
+                      context: context,
+                      builder: (BuildContext ctx) {
+                        return alertDialog(ctx);
+                      });
                 },
                 title: AppLocalizations.of(context).translate('contact us'),
               ),

@@ -195,10 +195,10 @@ class _FavPageState extends State<FavPage> {
                                   Align(
                                     alignment: Alignment.topLeft,
                                     child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.all(0.0),
                                       child: SvgPicture.asset(
                                         "assets/svg/fav_on.svg",
-                                        width: 20,
+                                        width: 22,
                                       ),
                                     ),
                                   ),

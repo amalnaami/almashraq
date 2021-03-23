@@ -129,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             title: AppLocalizations.of(context)
                                 .translate('user name'),
                             hintText: AppLocalizations.of(context)
-                                .translate('example name'),
+                                .translate('user name'),
                             headIcon: "assets/icons/Profile.png",
                             // iconPath: "assets/svg/Profile.svg",
                           ),

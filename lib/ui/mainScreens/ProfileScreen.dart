@@ -66,7 +66,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ListView(
                 padding: EdgeInsets.all(10),
                 children: [
-                  Container(
+                  state.isLogin
+                      ?  Container(
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height * 0.15,
                     decoration: BoxDecoration(
@@ -154,11 +155,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             ],
                           )
                         : Container(),
-                  ),
+                  ):Container(),
                   SizedBox(
                     height: 10,
                   ),
-              Row(
+                  Row(
                           children: [
                             optionSetting(
                               onTap: () =>(state.isLogin)? push(context, SubscriptionScreen()):showDialog(
@@ -304,14 +305,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     width: double.infinity,
                     color: Colors.grey,
                   ),
-                  InkWell(
+                  state.isLogin
+                      ?InkWell(
                     onTap: () {
                       print('state.isLogin ${state.isLogin}');
-                      state.isLogin
-                          ? _bloc.add(LogOut())
-                          : Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (context) => StartScreen()));
+                       _bloc.add(LogOut());
                     },
                     child: ListTile(
                         title: Text(
@@ -345,12 +343,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   color: Color(0xFF28ABE3),
                                 ),
                               )),
-                  ),
-                  Container(
+                  ):Container(),
+                  state.isLogin
+                      ? Container(
                     height: 0.5,
                     width: double.infinity,
                     color: Colors.grey,
-                  ),
+                  ):Container(),
                 ],
               ),
               if (state.isLoading) loaderApp,

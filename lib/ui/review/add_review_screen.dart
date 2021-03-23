@@ -52,6 +52,9 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
         // });
         WidgetsBinding.instance.addPostFrameCallback((timeStamp){
           Navigator.of(context).pop();
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+            return ReviewScreen(bookid:widget.bookid ,isLogin: widget.isLogin,);
+          },));
 
         });
 

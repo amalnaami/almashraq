@@ -44,14 +44,18 @@ class _AddQuoteScreenState extends State<AddQuoteScreen> {
       if(state.success) {
         error(AppLocalizations.of(context).translate('adding successfully'));
         WidgetsBinding.instance.addPostFrameCallback((timeStamp){
+   //       Navigator.of(context).pop();
           Navigator.of(context).pop();
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+            return QuotesScreen(bookid:widget.bookid ,isLogin: widget.isLogin,);
+          },));
 
         });
     //    Timer(Duration(seconds: 1), () => Navigator.of(context).pop());
       }
       return SafeArea(
         child: Scaffold(
-      //: app_bar(AppLocalizations.of(context).translate('add quote'), context),
+    appBar: app_bar(AppLocalizations.of(context).translate('add quote'), context),
       body: Padding(
         padding: EdgeInsets.symmetric(
             vertical: SizeConfig.blockSizeVertical * 2,

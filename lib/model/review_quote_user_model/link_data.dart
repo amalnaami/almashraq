@@ -24,6 +24,8 @@ abstract class LinkData implements Built<LinkData, LinkDataBuilder> {
   String get name;
   @nullable
   String get name_en;
+  @nullable
+  String get image;
 
 
   LinkData._();
