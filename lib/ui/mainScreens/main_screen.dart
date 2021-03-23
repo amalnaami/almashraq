@@ -106,10 +106,11 @@ class _MainPageState extends State<MainPage>
               centerTitle: true,
               leading: Builder(
                 builder: (context) => IconButton(
-                  icon: ImageIcon(
-                    AssetImage("assets/icons/Icon_sorting.png"),
-                    color: Colors.white,
-                  ),
+                  icon: Icon( Icons.menu_sharp),
+                  // icon: ImageIcon(
+                  //   AssetImage("assets/icons/Icon_sorting.png"),
+                  //   color: Colors.white,
+                  // ),
                   onPressed: () => Scaffold.of(context).openDrawer(),
                 ),
               ),
@@ -128,10 +129,13 @@ class _MainPageState extends State<MainPage>
                       AssetImage("assets/icons/Notification.png"),
                       color: Colors.white,
                     ),
-                    onPressed: () =>
-         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => NotificationScreen(),
-                        ))):Container(),
+                    onPressed: () {}
+         // Navigator.of(context).push(MaterialPageRoute(
+         //                  builder: (context) => NotificationScreen(),
+         //                )
+         //
+         // )
+                ):Container(),
               ],
             ),
             extendBody: true,

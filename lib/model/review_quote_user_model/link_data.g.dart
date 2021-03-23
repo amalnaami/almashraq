@@ -48,6 +48,12 @@ class _$LinkDataSerializer implements StructuredSerializer<LinkData> {
         ..add(serializers.serialize(object.name_en,
             specifiedType: const FullType(String)));
     }
+    if (object.image != null) {
+      result
+        ..add('image')
+        ..add(serializers.serialize(object.image,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -82,6 +88,10 @@ class _$LinkDataSerializer implements StructuredSerializer<LinkData> {
           result.name_en = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'image':
+          result.image = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
       }
     }
 
@@ -100,11 +110,14 @@ class _$LinkData extends LinkData {
   final String name;
   @override
   final String name_en;
+  @override
+  final String image;
 
   factory _$LinkData([void Function(LinkDataBuilder) updates]) =>
       (new LinkDataBuilder()..update(updates)).build();
 
-  _$LinkData._({this.id, this.book_id, this.link1, this.name, this.name_en})
+  _$LinkData._(
+      {this.id, this.book_id, this.link1, this.name, this.name_en, this.image})
       : super._();
 
   @override
@@ -122,15 +135,18 @@ class _$LinkData extends LinkData {
         book_id == other.book_id &&
         link1 == other.link1 &&
         name == other.name &&
-        name_en == other.name_en;
+        name_en == other.name_en &&
+        image == other.image;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc($jc(0, id.hashCode), book_id.hashCode), link1.hashCode),
-            name.hashCode),
-        name_en.hashCode));
+        $jc(
+            $jc($jc($jc($jc(0, id.hashCode), book_id.hashCode), link1.hashCode),
+                name.hashCode),
+            name_en.hashCode),
+        image.hashCode));
   }
 
   @override
@@ -140,7 +156,8 @@ class _$LinkData extends LinkData {
           ..add('book_id', book_id)
           ..add('link1', link1)
           ..add('name', name)
-          ..add('name_en', name_en))
+          ..add('name_en', name_en)
+          ..add('image', image))
         .toString();
   }
 }
@@ -168,6 +185,10 @@ class LinkDataBuilder implements Builder<LinkData, LinkDataBuilder> {
   String get name_en => _$this._name_en;
   set name_en(String name_en) => _$this._name_en = name_en;
 
+  String _image;
+  String get image => _$this._image;
+  set image(String image) => _$this._image = image;
+
   LinkDataBuilder();
 
   LinkDataBuilder get _$this {
@@ -177,6 +198,7 @@ class LinkDataBuilder implements Builder<LinkData, LinkDataBuilder> {
       _link1 = _$v.link1;
       _name = _$v.name;
       _name_en = _$v.name_en;
+      _image = _$v.image;
       _$v = null;
     }
     return this;
@@ -203,7 +225,8 @@ class LinkDataBuilder implements Builder<LinkData, LinkDataBuilder> {
             book_id: book_id,
             link1: link1,
             name: name,
-            name_en: name_en);
+            name_en: name_en,
+            image: image);
     replace(_$result);
     return _$result;
   }

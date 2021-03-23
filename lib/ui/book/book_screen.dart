@@ -393,7 +393,7 @@ class _BookScreenState extends State<BookScreen> {
                                 widget: Container(), onTab: () {
                               if (state.isLogin == true)
                                 Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => BuyBooksScreen(),
+                                  builder: (context) => BuyBooksScreen(linkData: widget.singleBook.links,),
                                 ));
                             },
                                 text: AppLocalizations.of(context)

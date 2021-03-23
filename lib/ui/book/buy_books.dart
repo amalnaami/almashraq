@@ -2,9 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:maktabeh_app/core/app_localizations.dart';
 import 'package:maktabeh_app/core/size_config.dart';
+import 'package:maktabeh_app/model/review_quote_user_model/link_data.dart';
 import 'package:maktabeh_app/ui/common_widget/app_bar.dart';
+import 'package:built_collection/built_collection.dart';
 
 class BuyBooksScreen extends StatefulWidget {
+  BuiltList<LinkData> linkData;
+  BuyBooksScreen({this.linkData});
   @override
   _BuyBooksScreenState createState() => _BuyBooksScreenState();
 }
@@ -23,7 +27,7 @@ class _BuyBooksScreenState extends State<BuyBooksScreen> {
             GridView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 padding: EdgeInsets.all(SizeConfig.blockSizeHorizontal * 4),
-                itemCount: 24,
+                itemCount: widget.linkData.length,
                 shrinkWrap: true,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
@@ -46,8 +50,9 @@ class _BuyBooksScreenState extends State<BuyBooksScreen> {
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),
-                        child: Image.asset(
-                          'assets/image/2.jpg',
+                        child: Image.network(
+                          "${widget.linkData[index].image}",
+                          //'assets/image/2.jpg',
                           fit: BoxFit.cover,
                         ),
                       ),

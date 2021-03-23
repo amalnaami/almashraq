@@ -941,7 +941,7 @@ class HttpHelper implements IHttpHelper {
   }
 
   @override
-  Future<UserModel> editUser(
+  Future<bool> editUser(
       String username,
       String email,
       String tele,
@@ -976,11 +976,11 @@ class HttpHelper implements IHttpHelper {
       print('login Response StatusCode ${response.statusCode}');
 
       if (response.statusCode == 201) {
-        final baseResponse = serializers.deserialize(json.decode(response.data),
-            specifiedType: FullType(UserModel));
-        print("implement edit status : ${baseResponse}");
-        if (baseResponse != null) {
-          return baseResponse;
+        // final baseResponse = serializers.deserialize(json.decode(response.data)['status'],
+        //     specifiedType: FullType(UserModel));
+        // print("implement edit status : ${baseResponse}");
+        if (response.data['status'] == true) {
+          return true;
         } else {
           throw NetworkException();
         }

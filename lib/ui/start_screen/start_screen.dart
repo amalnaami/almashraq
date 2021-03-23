@@ -226,7 +226,8 @@ class _StartScreenState extends State<StartScreen> {
                                                       'https://graph.facebook.com/v2.12/me?fields=name,picture.width(800).height(800),first_name,last_name,email&access_token=${token}');
                                                   final profile = JSON.jsonDecode(graphResponse.body);
                                                   if (profile != null) {
-                                                    _bloc.add(SocialLogin((b) => b..acessToken = result.accessToken.token..typeSocial = 'facebook'));
+                                                    error('Success Register');
+                                                  //  _bloc.add(SocialLogin((b) => b..acessToken = result.accessToken.token..typeSocial = 'facebook'));
                                                   }
                                                 }
                                                 break;
@@ -279,8 +280,8 @@ class _StartScreenState extends State<StartScreen> {
                                                   final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
                                                   print(('gggooogle ${googleSignInAuthentication.accessToken}'));
                                                   print(('gggooogle ${googleSignInAuthentication.toString()}'));
-                                                  _bloc.add(SocialLogin((b) => b..acessToken = googleSignInAuthentication.accessToken ..typeSocial = 'google'));
-                                                }
+                                              //    _bloc.add(SocialLogin((b) => b..acessToken = googleSignInAuthentication.accessToken ..typeSocial = 'google'));
+                                                  error('Success Register'); }
                                                 return Future.error(
                                                     " Future.error");
                                               } on PlatformException catch (e) {
