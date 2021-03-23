@@ -106,7 +106,7 @@ class _MainPageState extends State<MainPage>
               centerTitle: true,
               leading: Builder(
                 builder: (context) => IconButton(
-                  icon: Icon( Icons.menu_sharp),
+                  icon: Icon(Icons.menu_sharp),
                   // icon: ImageIcon(
                   //   AssetImage("assets/icons/Icon_sorting.png"),
                   //   color: Colors.white,
@@ -115,7 +115,7 @@ class _MainPageState extends State<MainPage>
                 ),
               ),
               actions: [
-              IconButton(
+                IconButton(
                     icon: ImageIcon(
                       AssetImage("assets/icons/Search.png"),
                       color: Colors.white,
@@ -124,18 +124,24 @@ class _MainPageState extends State<MainPage>
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => SearchScreen(),
                         ))),
-                (state.isLogin)?         IconButton(
-                    icon: ImageIcon(
-                      AssetImage("assets/icons/Notification.png"),
-                      color: Colors.white,
-                    ),
-                    onPressed: () {}
-         // Navigator.of(context).push(MaterialPageRoute(
-         //                  builder: (context) => NotificationScreen(),
-         //                )
-         //
-         // )
-                ):Container(),
+                (state.isLogin)
+                    ? IconButton(
+                        icon: ImageIcon(
+                          AssetImage("assets/icons/Notification.png"),
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => NotificationScreen(),
+                          ));
+                        }
+                        // Navigator.of(context).push(MaterialPageRoute(
+                        //                  builder: (context) => NotificationScreen(),
+                        //                )
+                        //
+                        // )
+                        )
+                    : Container(),
               ],
             ),
             extendBody: true,

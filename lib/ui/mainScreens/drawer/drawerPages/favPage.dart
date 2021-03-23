@@ -190,13 +190,16 @@ class _FavPageState extends State<FavPage> {
                                       ],
                                     ),
                                   ),
-                                  Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(0.0),
-                                      child: SvgPicture.asset(
-                                        "assets/svg/fav_on.svg",
-                                        width: 22,
+                                  InkWell(
+                                    onTap: () => _bloc.add(RemoveFavorite((b) => b..id = state.books[index].id)),
+                                    child: Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(0.0),
+                                        child: SvgPicture.asset(
+                                          "assets/svg/fav_on.svg",
+                                          width: 22,
+                                        ),
                                       ),
                                     ),
                                   ),

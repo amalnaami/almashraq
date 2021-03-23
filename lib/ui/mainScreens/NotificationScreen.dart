@@ -36,11 +36,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
         return Scaffold(
           appBar: app_bar(
               AppLocalizations.of(context).translate('notifications'), context),
-          body: state.isLoading
-              ? Container()
-              : Stack(
-                children: [
-                  ListView.builder(
+          body: Stack(
+            children: [
+              state.isLoading
+                  ? Container()
+                  : ListView.builder(
                       itemCount: state.notifications.length,
                       padding: EdgeInsets.all(8.0),
                       itemBuilder: (context, index) {
@@ -52,19 +52,26 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           )),
                           child: Row(
                             children: [
-                              Container(
-                                margin:
-                                    EdgeInsets.all(SizeConfig.devicePixelRatio * 4),
-                                height: SizeConfig.screenWidth * 0.2,
-                                width: SizeConfig.screenWidth * 0.2,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image: NetworkImage(
-                                          state.notifications[index].image),
-                                    )),
-                              ),
+                              state.notifications[index].image == null
+                                  ? Container(
+                                margin: EdgeInsets.all(
+                                    SizeConfig.devicePixelRatio * 4),
+                                      height: SizeConfig.screenWidth * 0.2,
+                                      width: SizeConfig.screenWidth * 0.2,
+                                    )
+                                  : Container(
+                                      margin: EdgeInsets.all(
+                                          SizeConfig.devicePixelRatio * 4),
+                                      height: SizeConfig.screenWidth * 0.2,
+                                      width: SizeConfig.screenWidth * 0.2,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          image: DecorationImage(
+                                            fit: BoxFit.fill,
+                                            image: NetworkImage(state
+                                                .notifications[index].image),
+                                          )),
+                                    ),
                               Column(
                                 // mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,14 +109,14 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         );
                       },
                     ),
-                  if(state.isLoading)
-                    loaderApp
-                ],
-              ),
+              if (state.isLoading) loaderApp
+            ],
+          ),
         );
       },
     );
   }
+
   void error(String errorCode) {
     if (errorCode.isNotEmpty) {
       Fluttertoast.showToast(
