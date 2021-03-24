@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:maktabeh_app/ui/auth/SignUpScreen/sign_up_screen.dart';
 
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/foundation.dart';
@@ -125,12 +126,16 @@ class _BookScreenState extends State<BookScreen> {
                 ),
                 InkWell(
                     onTap: () {
-                      setState(() {
+                      (state.isLogin)?    setState(() {
                         if (!state.isLoading)
                           _bloc.add(ModifyFavorite((b) => b
                             ..isFavorite = state.isFavorite
                             ..id = widget.bookId));
-                      });
+                      }): showDialog(
+                          context: context,
+                          builder: (BuildContext ctx) {
+                            return alertDialogFav(ctx);
+                          });
                     },
                     child: Padding(
                       padding: EdgeInsets.all(14.0),
@@ -820,6 +825,51 @@ Widget aboutWriter(BuildContext context) {
           'قبل أيام من اندلاع حرب السادس من أكتوبر لعام 1973 ميلادية، يتم تكليف أربعة من جنود وضباط من الصاعقة المصرية بنسف محطة الرصد والتقصي الإسرائيلية (عاين) والتي تقع في أعماق سيناء المحتلة. كانت تلك العملية غاية في الخطورة وقد يتوقف عليها نجاح أو فشل الضربة الجوية الأولى',
           style: regStyle.copyWith(fontSize: 12, height: 1.8),
         ),
+      ],
+    ),
+  );
+}
+Widget alertDialogFav(BuildContext context) {
+  return Dialog(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(top: SizeConfig.blockSizeVertical * 4),
+          child: buildLocalImage(
+            'assets/svg/dialog.svg',
+          ),
+        ),
+        Text(
+          AppLocalizations.of(context).translate(
+              'Sign in now...'),
+          style: regStyle.copyWith(color: Color(0xFF9C9C9C)),
+          textAlign: TextAlign.center,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(
+              vertical: SizeConfig.blockSizeVertical * 2,
+              horizontal: SizeConfig.blockSizeHorizontal * 6),
+          child: appButton(
+            text: AppLocalizations.of(context).translate('Register'),
+            context: context,
+            onTap: () {
+              Navigator.of(context)
+                  .pushReplacement(MaterialPageRoute(
+                  builder: (context) => SignupScreen()
+              ));
+            },
+          ),
+        ),
+        InkWell(
+          onTap: () {   Navigator.pop(context);},
+          child: Text(
+            AppLocalizations.of(context).translate('cancel'),
+            style: regStyle.copyWith(
+                color: Color(0xFF12416D), fontWeight: FontWeight.w500),
+          ),
+        ),
+        SizedBox(height: 20),
       ],
     ),
   );

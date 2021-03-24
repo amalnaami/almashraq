@@ -3,20 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:maktabeh_app/core/app_localizations.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
+import 'package:maktabeh_app/model/book/book.dart';
 import 'package:maktabeh_app/model/quote/quote.dart';
 import 'package:maktabeh_app/ui/common_widget/soshialBar.dart';
 import 'package:maktabeh_app/ui/widgets/widgets.dart';
 
-class QuoteCard extends StatelessWidget {
+class QuoteCard extends StatefulWidget {
   final String title;
   final Quote quote;
+  final Book singleBook;
 
-  const QuoteCard({Key key, this.title, this.quote}) : super(key: key);
+  const QuoteCard({Key key, this.title, this.quote,this.singleBook}) : super(key: key);
 
   @override
+  _QuoteCardState createState() => _QuoteCardState();
+}
+
+class _QuoteCardState extends State<QuoteCard> {
+  @override
   Widget build(BuildContext context) {
-    print('quote is $quote');
-    return quote == null
+    print('quote is ${widget.quote}');
+    return widget.quote == null
         ? Container()
         : Card(
             shape: RoundedRectangleBorder(
@@ -31,9 +38,10 @@ class QuoteCard extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Image.network(
-                      quote == null || quote.book == null || quote.book.image == null
+                     // widget.singleBook.image,
+                     widget.quote.user_name== null
                           ? 'https://th.bing.com/th/id/OIP.xo-BCC1ZKFpLL65D93eHcgHaGe?pid=ImgDet&rs=1'
-                          : quote.book.image,
+                          : widget.quote.user_name,
                       height: MediaQuery.of(context).size.height * 0.15,
                       fit: BoxFit.fill,
                       width: MediaQuery.of(context).size.height * 0.15,
@@ -53,7 +61,7 @@ class QuoteCard extends StatelessWidget {
                             margin: const EdgeInsets.symmetric(horizontal: 10),
                             //width: MediaQuery.of(context).size.width * .45,
                             child: ReadMoreText(
-                              "\"${quote.quotation_text}\"",
+                              "\"${widget.quote.quotation_text}\"",
                               trimLines: 1,
                               textDirection: AppLocalizations.of(context)
                                           .locale
@@ -81,7 +89,7 @@ class QuoteCard extends StatelessWidget {
                             ),
                             Expanded(
                               child: Text(
-                                "${quote.getBookName(AppLocalizations.of(context).locale.languageCode)}",
+                                "${widget.quote.getBookName(AppLocalizations.of(context).locale.languageCode)}",
                                 style: regStyle.copyWith(fontSize: 12),
                               ),
                             ),
@@ -97,14 +105,14 @@ class QuoteCard extends StatelessWidget {
                             ),
                             Expanded(
                               child: Text(
-                                "${quote.getAuthorName(AppLocalizations.of(context).locale.languageCode)}",
+                                "${widget.quote.getAuthorName(AppLocalizations.of(context).locale.languageCode)}",
                                 style: regStyle.copyWith(fontSize: 12),
                               ),
                             ),
                           ],
                         ),
                         SizedBox(height: 8),
-                        SoshialBar(quote.quotation_text),
+                        SoshialBar(widget.quote.quotation_text),
                         // SizedBox(height: 4),
                         // if (title == "الاقتباسات" || title == 'quotes')
                         //   Text(

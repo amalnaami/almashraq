@@ -21,7 +21,7 @@ class _BuyBooksScreenState extends State<BuyBooksScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: app_bar(AppLocalizations.of(context).translate('buy the book'), context),
-        body: SingleChildScrollView(
+        body:(widget.linkData.length!=0)? SingleChildScrollView(
             child: Column(
           children: [
             GridView.builder(
@@ -60,7 +60,7 @@ class _BuyBooksScreenState extends State<BuyBooksScreen> {
                   );
                 }),
           ],
-        )),
+        )):Container(child: Text('No Data'),),
       ),
     );
   }

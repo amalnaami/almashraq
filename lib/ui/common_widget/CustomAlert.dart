@@ -1198,6 +1198,7 @@ class _SortDialogState extends State<SortDialog> {
               padding: EdgeInsets.symmetric(
                   horizontal: SizeConfig.blockSizeHorizontal * 3),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -1207,7 +1208,7 @@ class _SortDialogState extends State<SortDialog> {
                       Text(
                         AppLocalizations.of(context).translate('order'),
                         style: boldStyle.copyWith(
-                            color: Colors.black, fontSize: 18),
+                            color: Colors.black, fontSize: 22),
                       ),
                       Spacer(),
                       InkWell(
@@ -1223,7 +1224,8 @@ class _SortDialogState extends State<SortDialog> {
                       )
                     ],
                   ),
-                  Row(
+                  SizedBox(height:30),
+                  Column(children: [Row(
                     children: [
                       Radio(
                         onChanged: (_) {
@@ -1243,45 +1245,46 @@ class _SortDialogState extends State<SortDialog> {
                       ),
                     ],
                   ),
-                  Divider(
-                    color: Color(0xFFE5E5E5),
-                    thickness: 1.0,
-                  ),
-                  Row(
-                    children: [
-                      Radio(
-                        onChanged: (_) {
-                          setState(() {
-                            radioValue = _;
-                          });
-                        },
-                        value: 1,
-                        activeColor: primaryColor,
-                        groupValue: radioValue,
-                      ),
-                      Text(
-                        AppLocalizations.of(context)
-                            .translate('Ascending order'),
-                        style: regStyle.copyWith(
-                            fontSize: 12, fontWeight: FontWeight.w500),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: SizeConfig.blockSizeVertical * 3,
-                        right: SizeConfig.blockSizeHorizontal,
-                        left: SizeConfig.blockSizeHorizontal),
-                    child: appButton(
-                      buttonColor: primaryColor,
-                      context: context,
-                      text: AppLocalizations.of(context).translate('apply'),
-                      onTap: () {
-                        Navigator.of(context)
-                            .pop(radioValue == 0 ? 'desc' : 'asc');
-                      },
+                    Divider(
+                      color: Color(0xFFE5E5E5),
+                      thickness: 1.0,
                     ),
-                  ),
+                    Row(
+                      children: [
+                        Radio(
+                          onChanged: (_) {
+                            setState(() {
+                              radioValue = _;
+                            });
+                          },
+                          value: 1,
+                          activeColor: primaryColor,
+                          groupValue: radioValue,
+                        ),
+                        Text(
+                          AppLocalizations.of(context)
+                              .translate('Ascending order'),
+                          style: regStyle.copyWith(
+                              fontSize: 12, fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: SizeConfig.blockSizeVertical * 3,
+                          right: SizeConfig.blockSizeHorizontal,
+                          left: SizeConfig.blockSizeHorizontal),
+                      child: appButton(
+                        buttonColor: primaryColor,
+                        context: context,
+                        text: AppLocalizations.of(context).translate('apply'),
+                        onTap: () {
+                          Navigator.of(context)
+                              .pop(radioValue == 0 ? 'desc' : 'asc');
+                        },
+                      ),
+                    ),]),
+
                 ],
               ),
             )

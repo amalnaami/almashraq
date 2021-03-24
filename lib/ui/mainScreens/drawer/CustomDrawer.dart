@@ -48,8 +48,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
   @override
   void initState() {
     super.initState();
+    _bloc.add(GetAppLanguage());
+    _bloc.add(GetProfileData());
 
     _bloc.add(GetIsLogin());
+
 
   }
   @override
@@ -75,7 +78,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       // height: MediaQuery.of(context).size.height * 0.3,
                       width: double.infinity,
                       color: seconderyColor,
-                      child: Column(
+                      child:(state.profileUser != null &&
+                          state.profileUser.data != null)
+                          ?                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Container(
@@ -91,20 +96,24 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(1000),
                               child: Image.network(
-                                widget.image,
+                                state.profileUser.data.image != null
+                                    ? state.profileUser.data.image
+                                    : "https://th.bing.com/th/id/OIP.BJLPreahM4_L0rTTUQAasQAAAA?pid=ImgDet&w=350&h=350&rs=1",
                                 height: double.infinity,
-                                fit: BoxFit.fill,
+                                fit: BoxFit.cover,
                                 width: double.infinity,
                               ),
                             ),
                           ),
                           Text(
-                            widget.name,
-                            style: regStyle.copyWith(color: Colors.white),
+                            state.profileUser.data.username != null
+                                ? state.profileUser.data.username
+                                : "No Name",                            style: regStyle.copyWith(color: Colors.white),
                           ),
                           Text(
-                            widget.email,
-                            style: regStyle.copyWith(color: Colors.white),
+                            state.profileUser.data.email != null
+                                ? state.profileUser.data.email
+                                : "No Email",                            style: regStyle.copyWith(color: Colors.white),
                           ),
                           Row(
                             mainAxisSize: MainAxisSize.min,
@@ -114,13 +123,16 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                 color: Colors.white,
                               ),
                               Text(
-                                widget.country,
-                                style: regStyle.copyWith(color: Colors.white),
+                                state.profileUser.data.country != null
+                                    ? state.profileUser.data.country
+                                    : "No Country",                                style: regStyle.copyWith(color: Colors.white),
                               ),
                             ],
                           )
                         ],
-                      ),
+                      )
+
+          : Container(),
                     )
                   : Container(
                       padding: EdgeInsets.only(top: h * 0.06, bottom: 5),
@@ -226,22 +238,22 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 title:
                     AppLocalizations.of(context).translate("about almashreq"),
               ),
-           drawerListTile(
+              state.isLogin
+                  ? drawerListTile(
                       icon: buildLocalImage(
                         'assets/svg/logout.svg',
                       ),
                       onTap: () {
-                        state.isLogin
-                            ? _bloc.add(LogOut())
-                            : Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                                builder: (context) => StartScreen()));
+                        _bloc.add(LogOut());
+                            // : Navigator.of(context).pushReplacement(
+                            // MaterialPageRoute(
+                            //     builder: (context) => StartScreen()));
                         // widget.logoutCallback.call();
                         // Navigator.of(context).pop();
                         // print('Adding');
                       },
                       title: AppLocalizations.of(context).translate('sign out'),
-                    ),
+                    ):Container(),
             ],
           ))
         ],

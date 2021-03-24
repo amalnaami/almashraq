@@ -16,14 +16,16 @@ import 'package:maktabeh_app/ui/mainScreens/HomSereens/Compenant/QuoteCard.dart'
 import 'package:maktabeh_app/ui/mainScreens/HomSereens/home_bloc/home_bloc.dart';
 import 'package:maktabeh_app/ui/mainScreens/HomSereens/home_bloc/home_event.dart';
 import 'package:maktabeh_app/ui/mainScreens/HomSereens/home_bloc/home_state.dart';
+import 'package:maktabeh_app/model/book/book.dart';
 
 import '../../injection.dart';
 
 class QuotesScreen extends StatefulWidget {
   bool isLogin;
   int bookid;
+  final Book singleBook;
 
-  QuotesScreen({this.isLogin, this.bookid});
+  QuotesScreen({this.isLogin, this.bookid,this.singleBook});
 
   @override
   _QuotesScreenState createState() => _QuotesScreenState();

@@ -227,7 +227,7 @@ class _StartScreenState extends State<StartScreen> {
                                                   final profile = JSON.jsonDecode(graphResponse.body);
                                                   if (profile != null) {
                                                     error('Success Register');
-                                                  //  _bloc.add(SocialLogin((b) => b..acessToken = result.accessToken.token..typeSocial = 'facebook'));
+                                                 _bloc.add(SocialLogin((b) => b..acessToken = result.accessToken.token..typeSocial = 'facebook'));
                                                   }
                                                 }
                                                 break;
@@ -280,7 +280,7 @@ class _StartScreenState extends State<StartScreen> {
                                                   final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
                                                   print(('gggooogle ${googleSignInAuthentication.accessToken}'));
                                                   print(('gggooogle ${googleSignInAuthentication.toString()}'));
-                                              //    _bloc.add(SocialLogin((b) => b..acessToken = googleSignInAuthentication.accessToken ..typeSocial = 'google'));
+                                              _bloc.add(SocialLogin((b) => b..acessToken = googleSignInAuthentication.accessToken ..typeSocial = 'google'));
                                                   error('Success Register'); }
                                                 return Future.error(
                                                     " Future.error");
