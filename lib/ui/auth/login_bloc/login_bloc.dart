@@ -26,7 +26,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       } catch (e) {
         yield state.rebuild((b) => b
           ..isLoading = false
-          ..error = '${e.toString()}');
+          ..error = 'Something Error..');
       }
     }
 
