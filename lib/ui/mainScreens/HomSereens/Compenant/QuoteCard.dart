@@ -12,8 +12,9 @@ class QuoteCard extends StatefulWidget {
   final String title;
   final Quote quote;
   final Book singleBook;
+  final String image;
 
-  const QuoteCard({Key key, this.title, this.quote,this.singleBook}) : super(key: key);
+  const QuoteCard({Key key, this.title, this.quote,this.singleBook,this.image}) : super(key: key);
 
   @override
   _QuoteCardState createState() => _QuoteCardState();
@@ -38,10 +39,11 @@ class _QuoteCardState extends State<QuoteCard> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Image.network(
-                     // widget.singleBook.image,
-                     widget.quote.user_name== null
-                          ? 'https://th.bing.com/th/id/OIP.xo-BCC1ZKFpLL65D93eHcgHaGe?pid=ImgDet&rs=1'
-                          : widget.quote.user_name,
+                      widget.image,
+                    // widget.singleBook.image,
+                     // widget.quote.user_name== null
+                     //      ? 'https://th.bing.com/th/id/OIP.xo-BCC1ZKFpLL65D93eHcgHaGe?pid=ImgDet&rs=1'
+                     //      : widget.quote.user_name,
                       height: MediaQuery.of(context).size.height * 0.15,
                       fit: BoxFit.fill,
                       width: MediaQuery.of(context).size.height * 0.15,

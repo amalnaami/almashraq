@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:maktabeh_app/core/size_config.dart';
 import 'package:maktabeh_app/ui/language_page/language_screen.dart';
+import 'package:page_transition/page_transition.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -15,6 +16,15 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Timer(Duration(seconds: 3), () {
+
+      // Navigator.pushReplacement(
+      //   context,
+      //   PageTransition(
+      //       type: PageTransitionType.rotate,
+      //       child: LanguageScreen(),
+      //       inheritTheme: true,
+      //       ctx: context),
+      // );
       Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (BuildContext context) => LanguageScreen()));
     });

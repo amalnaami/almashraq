@@ -61,8 +61,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         print(' Error $e');
         yield state.rebuild((b) => b
           ..error = ""
-        )
-        ;
+        );
       }
     }
   }

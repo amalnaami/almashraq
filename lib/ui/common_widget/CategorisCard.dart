@@ -6,6 +6,7 @@ import 'package:maktabeh_app/core/config/navigatorHelper.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
 import 'package:maktabeh_app/model/category/category.dart';
 import 'package:maktabeh_app/ui/books_by_category/books_by_category.dart';
+import 'package:page_transition/page_transition.dart';
 
 class CategorisCard extends StatefulWidget {
   final Category category;
@@ -22,7 +23,17 @@ class _CategorisCardState extends State<CategorisCard> {
     return Padding(
       padding: const EdgeInsets.all(4),
       child: InkWell(
-        onTap: () => push(context, BooksByCategory(widget.category)),
+       // onTap: () => push(context, BooksByCategory(widget.category)),
+        onTap: (){
+          Navigator.push(
+            context,
+            PageTransition(
+                type: PageTransitionType.bottomToTop,
+                child:   BooksByCategory(widget.category),
+                inheritTheme: true,
+                ctx: context),
+          );
+        },
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10.0),
           child: Container(

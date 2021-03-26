@@ -6,6 +6,7 @@ import 'package:maktabeh_app/model/book/book.dart';
 import 'package:maktabeh_app/ui/book/all_books.dart';
 import 'package:maktabeh_app/ui/common_widget/BookCard.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:page_transition/page_transition.dart';
 
 
 class MainList extends StatefulWidget {
@@ -49,7 +50,17 @@ class _MainListState extends State<MainList> {
                   ],
                 ),
                 InkWell(
-                  onTap: () => push(context, widget.goto),
+                //  onTap: () => push(context, widget.goto),
+                  onTap: (){
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                          type: PageTransitionType.bottomToTop,
+                          child:  widget.goto,
+                          inheritTheme: true,
+                          ctx: context),
+                    );
+                  },
                   child: Text(
                     AppLocalizations.of(context).translate('see more'),
                     style: lightStyle.copyWith(fontSize: 10),

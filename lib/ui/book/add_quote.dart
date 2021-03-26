@@ -19,7 +19,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 class AddQuoteScreen extends StatefulWidget {
   int bookid;
   bool isLogin;
-  AddQuoteScreen({this.bookid,this.isLogin});
+  String image;
+  AddQuoteScreen({this.bookid,this.isLogin,this.image});
   @override
   _AddQuoteScreenState createState() => _AddQuoteScreenState();
 }

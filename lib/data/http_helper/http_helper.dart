@@ -1121,7 +1121,7 @@ class HttpHelper implements IHttpHelper {
           await _dio.post('auth/social/$typeSocial', data: formData);
       print('login Response StatusCode ${response.statusCode}');
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         final ret = serializers.deserialize(json.decode(response.data),
             specifiedType: FullType(UserModel));
         return ret;

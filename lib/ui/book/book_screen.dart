@@ -25,6 +25,7 @@ import 'package:maktabeh_app/ui/common_widget/rate_stars.dart';
 import 'package:maktabeh_app/ui/mainScreens/moreBooksPage.dart';
 import 'package:maktabeh_app/ui/review/review_screen.dart';
 import 'package:maktabeh_app/injection.dart';
+import 'package:page_transition/page_transition.dart';
 
 import 'book_screen_bloc/book_screen_bloc.dart';
 import 'book_screen_bloc/book_screen_event.dart';
@@ -156,9 +157,12 @@ class _BookScreenState extends State<BookScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Image.network(
-                          widget.singleBook.image,
-                          //  'assets/image/book_image.png',
+                        Hero(
+                          tag: 'book-${widget.singleBook.image}',
+                          child: Image.network(
+                            widget.singleBook.image,
+                            //  'assets/image/book_image.png',
+                          ),
                         ),
                         SizedBox(height: SizeConfig.blockSizeVertical),
                         Column(
@@ -377,14 +381,25 @@ class _BookScreenState extends State<BookScreen> {
                                 show: showAnswer3,
                                 icon: 'assets/svg/star.svg',
                                 widget: Container(), onTab: () {
-                              print(
-                                  'widget.bookIdwidget.bookIdwidget.bookId ${widget.bookId}');
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => ReviewScreen(
-                                  isLogin: state.isLogin,
-                                  bookid: widget.bookId,
-                                ),
-                              ));
+                                  Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        type: PageTransitionType.scale,
+                                        child:  ReviewScreen(
+                                          isLogin: state.isLogin,
+                                          bookid: widget.bookId,
+                                        ),
+                                        inheritTheme: true,
+                                        ctx: context),
+                                  );
+                            //  print(
+                              //     'widget.bookIdwidget.bookIdwidget.bookId ${widget.bookId}');
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //   builder: (context) => ReviewScreen(
+                              //     isLogin: state.isLogin,
+                              //     bookid: widget.bookId,
+                              //   ),
+                              // ));
                             },
                                 text: AppLocalizations.of(context)
                                     .translate('reviews')),
@@ -411,13 +426,28 @@ class _BookScreenState extends State<BookScreen> {
                                 show: showAnswer3,
                                 icon: 'assets/svg/quote.svg',
                                 widget: Container(),
-                                onTab: () => Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                      builder: (context) => QuotesScreen(
-                                        isLogin: state.isLogin,
-                                        bookid: widget.bookId,
-                                      ),
-                                    )),
+                                // onTab: () => Navigator.of(context)
+                                //         .push(MaterialPageRoute(
+                                //       builder: (context) => QuotesScreen(
+                                //         isLogin: state.isLogin,
+                                //         bookid: widget.bookId,
+                                //         image: widget.singleBook.image,
+                                //       ),
+                                //     )),
+                                onTab: (){
+                                  Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        type: PageTransitionType.scale,
+                                        child: QuotesScreen(
+                                              isLogin: state.isLogin,
+                                              bookid: widget.bookId,
+                                              image: widget.singleBook.image,
+                                            ),
+                                        inheritTheme: true,
+                                        ctx: context),
+                                  );
+                                },
                                 text: AppLocalizations.of(context)
                                     .translate('quotes')),
                             Divider(

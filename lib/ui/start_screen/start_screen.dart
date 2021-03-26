@@ -22,6 +22,8 @@ import 'package:maktabeh_app/ui/mainScreens/main_screen.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as JSON;
 
+import 'package:page_transition/page_transition.dart';
+
 class StartScreen extends StatefulWidget {
   @override
   _StartScreenState createState() => _StartScreenState();
@@ -49,7 +51,16 @@ class _StartScreenState extends State<StartScreen> {
         error(state.error);
         if (state.successSocail) {
           WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-            push(context, MainPage());
+           // push(context, MainPage());
+            Navigator.push(
+              context,
+              PageTransition(
+                  type: PageTransitionType.scale,
+                  child: MainPage(),
+                  inheritTheme: true,
+                  ctx: context),
+            );
+
           });
           _bloc.add(ClearState());
         }
@@ -157,10 +168,20 @@ class _StartScreenState extends State<StartScreen> {
                                         text: AppLocalizations.of(context)
                                             .translate('sign in'),
                                         textColor: Colors.white,
-                                        onTap: () => Navigator.of(context)
-                                            .push(MaterialPageRoute(
-                                          builder: (context) => LoginScreen(),
-                                        )),
+                                          onTap: (){
+                                            Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                  type: PageTransitionType.scale,
+                                                  child:  LoginScreen(),
+                                                  inheritTheme: true,
+                                                  ctx: context),
+                                            );
+                                          }
+                                        // onTap: () => Navigator.of(context)
+                                        //     .push(MaterialPageRoute(
+                                        //   builder: (context) => LoginScreen(),
+                                        // )),
                                       ),
                                     ),
                                     Container(
@@ -168,11 +189,21 @@ class _StartScreenState extends State<StartScreen> {
                                       height: SizeConfig.screenHeight * 0.06,
                                       child: FlatButton(
                                           color: Colors.white,
-                                          onPressed: () => Navigator.of(context)
-                                              .push(MaterialPageRoute(
-                                            builder: (context) =>
-                                                SignupScreen(),
-                                          )),
+                                          onPressed: (){
+                                            Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                  type: PageTransitionType.scale,
+                                                  child: SignupScreen(),
+                                                  inheritTheme: true,
+                                                  ctx: context),
+                                            );
+                                          },
+                                          // onPressed: () => Navigator.of(context)
+                                          //     .push(MaterialPageRoute(
+                                          //   builder: (context) =>
+                                          //       SignupScreen(),
+                                          // )),
                                           shape: RoundedRectangleBorder(
                                             side: BorderSide(
                                                 width: 1, color: primaryColor),
@@ -227,7 +258,8 @@ class _StartScreenState extends State<StartScreen> {
                                                   final profile = JSON.jsonDecode(graphResponse.body);
                                                   if (profile != null) {
                                                     error('Success Register');
-                                                 _bloc.add(SocialLogin((b) => b..acessToken = result.accessToken.token..typeSocial = 'facebook'));
+                                                    print('tooken ${result.accessToken.token}');
+                                                _bloc.add(SocialLogin((b) => b..acessToken = result.accessToken.token..typeSocial = 'facebook'));
                                                   }
                                                 }
                                                 break;

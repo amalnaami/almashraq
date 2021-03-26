@@ -24,8 +24,9 @@ class QuotesScreen extends StatefulWidget {
   bool isLogin;
   int bookid;
   final Book singleBook;
+  String image;
 
-  QuotesScreen({this.isLogin, this.bookid,this.singleBook});
+  QuotesScreen({this.isLogin, this.bookid,this.singleBook,this.image});
 
   @override
   _QuotesScreenState createState() => _QuotesScreenState();
@@ -71,7 +72,8 @@ class _QuotesScreenState extends State<QuotesScreen> {
                                         .push(MaterialPageRoute(
                                       builder: (context) => AddQuoteScreen(
                                           bookid: widget.bookid,
-                                          isLogin: widget.isLogin),
+                                          isLogin: widget.isLogin,
+                                      image: widget.image,),
                                     )):
                                     showDialog(
                                     context: context,
@@ -106,7 +108,7 @@ class _QuotesScreenState extends State<QuotesScreen> {
                                 shrinkWrap: true,
                                 itemCount: state.allQuote.length,
                                 itemBuilder: (context, index) {
-                                  return QuoteCard(quote: state.allQuote[index],);
+                                  return QuoteCard(quote: state.allQuote[index],image:widget.image);
                                 })
                             : Center(
                                 child: Text('No Quote'),

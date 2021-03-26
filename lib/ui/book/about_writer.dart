@@ -139,12 +139,15 @@ class _AboutWriterScreenState extends State<AboutWriterScreen> {
                               border:
                                   Border.all(color: Colors.white, width: 2)),
                           child: Center(
-                              child: Image.network(
+                              child: Hero(
+                                tag: 'book-${widget.author.image}',
+                                child: Image.network(
                             widget.author.image,
                             height: SizeConfig.screenHeight * 0.25,
                             width: SizeConfig.screenWidth * 0.35,
                             fit: BoxFit.fill,
-                          )),
+                          ),
+                              )),
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(

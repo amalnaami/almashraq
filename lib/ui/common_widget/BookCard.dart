@@ -5,6 +5,7 @@ import 'package:maktabeh_app/core/style/baseColors.dart';
 import 'package:maktabeh_app/model/book/book.dart';
 import 'package:maktabeh_app/ui/book/book_screen.dart';
 import 'package:maktabeh_app/ui/common_widget/rate_stars.dart';
+import 'package:page_transition/page_transition.dart';
 
 class BookCard extends StatefulWidget {
   final Book book;
@@ -19,7 +20,17 @@ class _BookCardState extends State<BookCard> {
   Widget build(BuildContext context) {
     return InkWell(
       ///TO DO
-      onTap: () => push(context, BookScreen(singleBook: widget.book,bookId: widget.book.id,author: widget.book.author,)),
+      // onTap: () => push(context, BookScreen(singleBook: widget.book,bookId: widget.book.id,author: widget.book.author,)),
+   onTap: (){
+     Navigator.push(
+       context,
+       PageTransition(
+           type: PageTransitionType.bottomToTop,
+           child:  BookScreen(singleBook: widget.book,bookId: widget.book.id,author: widget.book.author,),
+           inheritTheme: true,
+           ctx: context),
+     );
+   },
       child: Container(
         margin: EdgeInsets.all(5),
         width: MediaQuery.of(context).size.width / 3.2,
@@ -28,10 +39,13 @@ class _BookCardState extends State<BookCard> {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                widget.book.image,
-                fit: BoxFit.fill,
-                height: MediaQuery.of(context).size.height * 0.18,
+              child: Hero(
+                tag: 'book-${widget.book.image}',
+                child: Image.network(
+                  widget.book.image,
+                  fit: BoxFit.fill,
+                  height: MediaQuery.of(context).size.height * 0.18,
+                ),
               ),
             ),
             // Expanded(

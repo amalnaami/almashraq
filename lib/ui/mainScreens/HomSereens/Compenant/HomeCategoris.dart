@@ -7,6 +7,7 @@ import 'package:maktabeh_app/core/style/baseColors.dart';
 import 'package:maktabeh_app/model/category/category.dart';
 import 'package:maktabeh_app/ui/all_categories/all_categories.dart';
 import 'package:maktabeh_app/ui/common_widget/CategorisCard.dart';
+import 'package:page_transition/page_transition.dart';
 
 
 class HomeCategoris extends StatefulWidget {
@@ -45,7 +46,15 @@ class _HomeCategorisState extends State<HomeCategoris> {
                 ),
                 InkWell(
                     onTap: () {
-                      widget.callback.call(1);
+                      // Navigator.push(
+                      //   context,
+                      //   PageTransition(
+                      //       type: PageTransitionType.rotate,
+                      //       child:  widget.callback.call(1),
+                      //       inheritTheme: true,
+                      //       ctx: context),
+                      // );
+                     widget.callback.call(1);
                       //push(context, AllCategories(categories: widget.categories,));
                     },
                   child: Text(

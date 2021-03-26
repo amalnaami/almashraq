@@ -21,7 +21,7 @@ import 'package:maktabeh_app/ui/mainScreens/main_screen.dart';
 import 'package:maktabeh_app/ui/start_screen/start_screen.dart';
 
 import 'package:maktabeh_app/ui/mainScreens/main_screen.dart';
-
+import 'package:page_transition/page_transition.dart';
 
 class GuideScreen extends StatefulWidget {
   @override
@@ -65,8 +65,9 @@ class _GuideScreenState extends State<GuideScreen> {
         error(state.error);
         if (state.successAdding) {
           WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-                MainPageProvider()), (Route<dynamic> route) => false);
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => MainPageProvider()),
+                (Route<dynamic> route) => false);
           });
           _bloc.add(ClearState());
         }
@@ -106,37 +107,32 @@ class _GuideScreenState extends State<GuideScreen> {
                                 onPageChanged: (int index) {
                                   setState(() {
                                     pageIndex++;
-
                                   });
                                 },
                                 children: [
                                   thirdScreen(context),
                                   secondScreen(context),
                                   firstScreen(context),
-
                                 ],
                               ),
                             ),
-                           Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      DotsIndicator(
-                                        dotsCount: 3,
-                                        position: pageIndex,
-                                        decorator: DotsDecorator(
-                                          shape: CircleBorder(
-                                              side: BorderSide(
-                                                  color: seconderyColor,
-                                                  width: 1)),
-                                          color: Colors.white, // Inactive color
-                                          activeColor: seconderyColor,
-                                        ),
-                                      ),
-                                    ],
-                                  )
-
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                DotsIndicator(
+                                  dotsCount: 3,
+                                  position: pageIndex,
+                                  decorator: DotsDecorator(
+                                    shape: CircleBorder(
+                                        side: BorderSide(
+                                            color: seconderyColor, width: 1)),
+                                    color: Colors.white, // Inactive color
+                                    activeColor: seconderyColor,
+                                  ),
+                                ),
+                              ],
+                            )
                           ],
                         ),
                         Positioned(
@@ -154,7 +150,7 @@ class _GuideScreenState extends State<GuideScreen> {
                                       context: context,
                                       buttonColor: Colors.white,
                                       textColor: seconderyColor,
-                                      text: pageIndex==2
+                                      text: pageIndex == 2
                                           ? AppLocalizations.of(context)
                                               .translate('start')
                                           : AppLocalizations.of(context)
@@ -165,8 +161,16 @@ class _GuideScreenState extends State<GuideScreen> {
                                                 Duration(microseconds: 2000),
                                             curve: Curves.easeInCirc);
                                         print(pageIndex);
-                                        if (pageIndex == 2){
-                                          push(context, StartScreen());
+                                        if (pageIndex == 2) {
+                                          Navigator.push(
+                                            context,
+                                            PageTransition(
+                                                type: PageTransitionType.scale,
+                                                child: StartScreen(),
+                                                inheritTheme: true,
+                                                ctx: context),
+                                          );
+                                          // push(context, StartScreen());
                                         }
                                         //   if (pageIndex == 3) {
                                         //   if (selectedCategories.isEmpty) {
@@ -188,17 +192,20 @@ class _GuideScreenState extends State<GuideScreen> {
                                       }),
                                 ),
                                 InkWell(
-                                onTap:() {
-                                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-                                      MainPageProvider()), (Route<dynamic> route) => false);
-                                }                    ,
+                                  onTap: () {
+                                    Navigator.of(context).pushAndRemoveUntil(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                MainPageProvider()),
+                                        (Route<dynamic> route) => false);
+                                  },
                                   child: Text(
-                                          AppLocalizations.of(context)
-                                              .translate('skip'),
-                                          style: boldStyle.copyWith(
-                                              color: Colors.white),
-                                        ),
-                                      )
+                                    AppLocalizations.of(context)
+                                        .translate('skip'),
+                                    style:
+                                        boldStyle.copyWith(color: Colors.white),
+                                  ),
+                                )
                               ],
                             ),
                           ),
@@ -241,8 +248,6 @@ class _GuideScreenState extends State<GuideScreen> {
     }
   }
 }
-
-
 
 Widget firstScreen(BuildContext context) {
   return Padding(
@@ -477,17 +482,12 @@ class _ItemState extends State<Item> {
   }
 }
 
-
-
-
 class SectionGuideScreen extends StatefulWidget {
-
   @override
   _SectionGuideScreenState createState() => _SectionGuideScreenState();
 }
 
 class _SectionGuideScreenState extends State<SectionGuideScreen> {
-
   final _bloc = sl<CategoryBloc>();
   List<int> selectedCategories = [];
 
@@ -520,8 +520,9 @@ class _SectionGuideScreenState extends State<SectionGuideScreen> {
         error(state.error);
         if (state.successAdding) {
           WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-                MainPageProvider()), (Route<dynamic> route) => false);
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => MainPageProvider()),
+                (Route<dynamic> route) => false);
           });
           _bloc.add(ClearState());
         }
@@ -552,10 +553,9 @@ class _SectionGuideScreenState extends State<SectionGuideScreen> {
                             ),
                             Container(
                               height: SizeConfig.screenHeight * 0.5,
-                              child:  optionScreen(context, state.categories,
+                              child: optionScreen(context, state.categories,
                                   addOrRemove, canAdd),
                             ),
-
                           ],
                         ),
                         Positioned(
@@ -573,30 +573,27 @@ class _SectionGuideScreenState extends State<SectionGuideScreen> {
                                       context: context,
                                       buttonColor: Colors.white,
                                       textColor: seconderyColor,
-                                      text:  AppLocalizations.of(context)
+                                      text: AppLocalizations.of(context)
                                           .translate('Continue'),
                                       onTap: () {
-                                          if (selectedCategories.isEmpty) {
-                                            Fluttertoast.showToast(
-                                                msg: AppLocalizations.of(
-                                                    context)
-                                                    .translate(
-                                                    'choose at least one category'),
-                                                toastLength: Toast.LENGTH_SHORT,
-                                                gravity: ToastGravity.BOTTOM,
-                                                // timeInSecForIosWeb: 1,
-                                                backgroundColor: primaryColor,
-                                                textColor: Colors.white,
-                                                fontSize: 16.0);
-                                            return;
-
-
+                                        if (selectedCategories.isEmpty) {
+                                          Fluttertoast.showToast(
+                                              msg: AppLocalizations.of(context)
+                                                  .translate(
+                                                      'choose at least one category'),
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.BOTTOM,
+                                              // timeInSecForIosWeb: 1,
+                                              backgroundColor: primaryColor,
+                                              textColor: Colors.white,
+                                              fontSize: 16.0);
+                                          return;
                                         }
-                                          _bloc.add(InsertCategories((b) => b..selectedCategories = selectedCategories));
-
+                                        _bloc.add(InsertCategories((b) => b
+                                          ..selectedCategories =
+                                              selectedCategories));
                                       }),
                                 ),
-
                               ],
                             ),
                           ),
@@ -639,4 +636,3 @@ class _SectionGuideScreenState extends State<SectionGuideScreen> {
     }
   }
 }
-

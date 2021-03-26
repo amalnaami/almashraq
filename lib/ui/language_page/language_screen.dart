@@ -12,6 +12,7 @@ import 'package:maktabeh_app/ui/language_page/bloc/language_event.dart';
 import 'package:maktabeh_app/ui/language_page/bloc/language_event.dart';
 import 'package:maktabeh_app/ui/start_screen/start_screen.dart';
 import 'package:maktabeh_app/ui/widgets/widgets.dart';
+import 'package:page_transition/page_transition.dart';
 
 import 'bloc/language_state.dart';
 
@@ -184,10 +185,20 @@ class _LanguageScreenState extends State<LanguageScreen> {
                                     text: AppLocalizations.of(context)
                                         .translate('Continue'),
                                     textColor: Colors.white,
-                                    onTap: () => Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                      builder: (context) => GuideScreen(),
-                                    )),
+                                      onTap: (){
+                                        Navigator.push(
+                                          context,
+                                          PageTransition(
+                                              type: PageTransitionType.scale,
+                                              child: GuideScreen(),
+                                              inheritTheme: true,
+                                              ctx: context),
+                                        );
+                                      }
+                                    // onTap: () => Navigator.of(context)
+                                    //     .push(MaterialPageRoute(
+                                    //   builder: (context) => GuideScreen(),
+                                    // )),
                                   ),
                                 ],
                               ),
