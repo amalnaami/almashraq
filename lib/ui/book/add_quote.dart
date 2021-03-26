@@ -16,11 +16,15 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../common_widget/local_image.dart';
+
 class AddQuoteScreen extends StatefulWidget {
   int bookid;
   bool isLogin;
   String image;
-  AddQuoteScreen({this.bookid,this.isLogin,this.image});
+
+  AddQuoteScreen({this.bookid, this.isLogin, this.image});
+
   @override
   _AddQuoteScreenState createState() => _AddQuoteScreenState();
 }
@@ -28,99 +32,122 @@ class AddQuoteScreen extends StatefulWidget {
 class _AddQuoteScreenState extends State<AddQuoteScreen> {
   final _bloc = sl<HomeBloc>();
   TextEditingController textController;
+
   @override
   void initState() {
     super.initState();
     textController = TextEditingController();
   }
+
+  backMethod() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Navigator.of(context).pop();
+      Navigator.pushReplacement(context, MaterialPageRoute(
+        builder: (context) {
+          return QuotesScreen(
+            bookid: widget.bookid,
+            isLogin: widget.isLogin,
+            image: widget.image,
+          );
+        },
+      ));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-
     SizeConfig.init(context);
 
-    return BlocBuilder(
+    return WillPopScope(
+      onWillPop: () async {
+        return await backMethod();
+      },
+      child: BlocBuilder(
         cubit: _bloc,
         builder: (BuildContext context, HomeState state) {
-      error(state.error);
-      if(state.success) {
-        error(AppLocalizations.of(context).translate('adding successfully'));
-        WidgetsBinding.instance.addPostFrameCallback((timeStamp){
-   //       Navigator.of(context).pop();
-          Navigator.of(context).pop();
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-            return QuotesScreen(bookid:widget.bookid ,isLogin: widget.isLogin,);
-          },));
-
-        });
-    //    Timer(Duration(seconds: 1), () => Navigator.of(context).pop());
-      }
-      return SafeArea(
-        child: Scaffold(
-    appBar: app_bar(AppLocalizations.of(context).translate('add quote'), context),
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-            vertical: SizeConfig.blockSizeVertical * 2,
-            horizontal: SizeConfig.blockSizeHorizontal * 4),
-        child: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          error(state.error);
+          if (state.success) {
+            textController.text = '';
+            error(
+                AppLocalizations.of(context).translate('adding successfully'));
+          }
+          return SafeArea(
+              child: Scaffold(
+            appBar: AppBar(
+              title: Text(
+                AppLocalizations.of(context).translate('add quote'),
+                style: regStyle.copyWith(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500),
+              ),
+              centerTitle: true,
+              elevation: 0,
+              leading: InkWell(
+                onTap: () {
+                  backMethod();
+                },
+                child: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: buildLocalImage(
+                    AppLocalizations.of(context).locale.toLanguageTag() == 'ar'
+                        ? 'assets/svg/arrow_back_white.svg'
+                        : 'assets/svg/arrow_forward.svg',
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            body: Padding(
+              padding: EdgeInsets.symmetric(
+                  vertical: SizeConfig.blockSizeVertical * 2,
+                  horizontal: SizeConfig.blockSizeHorizontal * 4),
+              child: Stack(
                 children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: SizeConfig.blockSizeVertical * 2),
-                    child: Text(
-                      AppLocalizations.of(context).translate('add quote'),
-                      style: boldStyle.copyWith(color: Colors.black),
+                  SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: SizeConfig.blockSizeVertical * 2),
+                          child: Text(
+                            AppLocalizations.of(context).translate('add quote'),
+                            style: boldStyle.copyWith(color: Colors.black),
+                          ),
+                        ),
+                        CustomFeild2(
+                          lines: 8,
+                          controller: textController,
+                          hintText:
+                              AppLocalizations.of(context).translate('quote'),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: SizeConfig.blockSizeVertical * 6),
+                          child: appButton(
+                            context: context,
+                            onTap: () {
+                              _bloc.add(AddQuote((b) => b
+                                ..text = textController.value.text
+                                ..bookId = widget.bookid));
+                            },
+                            text: AppLocalizations.of(context).translate('add'),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  CustomFeild2(
-                    lines: 8,
-                    controller: textController,
-                    hintText: AppLocalizations.of(context).translate('quote'),
-                  ),
-                  // Container(
-                  //   width: SizeConfig.screenWidth,
-                  //   height: SizeConfig.screenHeight * 0.25,
-                  //   color: Color(0xFFF5F5F5),
-                  //   child: TextField(
-                  //     textAlignVertical: TextAlignVertical.top,
-                  //     expands: true,
-                  //     maxLines: null,
-                  //     decoration: InputDecoration(
-                  //         border: OutlineInputBorder(
-                  //           borderSide: BorderSide.none,
-                  //           borderRadius: BorderRadius.circular(16),
-                  //         ),
-                  //         hintText: 'الإقتباس',
-                  //         hintStyle: regStyle.copyWith(color: Color(0xFFC4C4C4))),
-                  //   ),
-                  // ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: SizeConfig.blockSizeVertical * 6),
-                    child: appButton(
-                      context: context,
-                      onTap: () {
-                        _bloc.add(AddQuote((b) => b..text = textController.value.text
-                          ..bookId=widget.bookid));
-                      },
-                      text: AppLocalizations.of(context).translate('add'),
-                    ),
-                  ),
+                  if (state.isLoading) loaderApp,
                 ],
               ),
             ),
-            if(state.isLoading)
-              loaderApp,
-          ],
-        ),
-      ),
-    ));
+          ));
         },
+      ),
     );
   }
+
   void error(String errorCode) {
     if (errorCode.isNotEmpty) {
       Fluttertoast.showToast(

@@ -127,16 +127,18 @@ class _BookScreenState extends State<BookScreen> {
                 ),
                 InkWell(
                     onTap: () {
-                      (state.isLogin)?    setState(() {
-                        if (!state.isLoading)
-                          _bloc.add(ModifyFavorite((b) => b
-                            ..isFavorite = state.isFavorite
-                            ..id = widget.bookId));
-                      }): showDialog(
-                          context: context,
-                          builder: (BuildContext ctx) {
-                            return alertDialogFav(ctx);
-                          });
+                      (state.isLogin)
+                          ? setState(() {
+                              if (!state.isLoading)
+                                _bloc.add(ModifyFavorite((b) => b
+                                  ..isFavorite = state.isFavorite
+                                  ..id = widget.bookId));
+                            })
+                          : showDialog(
+                              context: context,
+                              builder: (BuildContext ctx) {
+                                return alertDialogFav(ctx);
+                              });
                     },
                     child: Padding(
                       padding: EdgeInsets.all(14.0),
@@ -366,7 +368,7 @@ class _BookScreenState extends State<BookScreen> {
                                       ),
                                     ),
                                   ],
-                                ), onTab: () {
+                                ), onTap: () {
                               setState(() {
                                 showAnswer1 = !showAnswer1;
                               });
@@ -380,26 +382,15 @@ class _BookScreenState extends State<BookScreen> {
                             bookRow(context,
                                 show: showAnswer3,
                                 icon: 'assets/svg/star.svg',
-                                widget: Container(), onTab: () {
-                                  Navigator.push(
-                                    context,
-                                    PageTransition(
-                                        type: PageTransitionType.scale,
-                                        child:  ReviewScreen(
-                                          isLogin: state.isLogin,
-                                          bookid: widget.bookId,
-                                        ),
-                                        inheritTheme: true,
-                                        ctx: context),
-                                  );
-                            //  print(
-                              //     'widget.bookIdwidget.bookIdwidget.bookId ${widget.bookId}');
-                              // Navigator.of(context).push(MaterialPageRoute(
-                              //   builder: (context) => ReviewScreen(
-                              //     isLogin: state.isLogin,
-                              //     bookid: widget.bookId,
-                              //   ),
-                              // ));
+                                widget: Container(), onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => ReviewScreen(
+                                    isLogin: state.isLogin,
+                                    bookid: widget.bookId,
+                                  ),
+                                ),
+                              );
                             },
                                 text: AppLocalizations.of(context)
                                     .translate('reviews')),
@@ -410,10 +401,12 @@ class _BookScreenState extends State<BookScreen> {
                             bookRow(context,
                                 show: showAnswer3,
                                 icon: 'assets/svg/buy.svg',
-                                widget: Container(), onTab: () {
+                                widget: Container(), onTap: () {
                               if (state.isLogin == true)
                                 Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => BuyBooksScreen(linkData: widget.singleBook.links,),
+                                  builder: (context) => BuyBooksScreen(
+                                    linkData: widget.singleBook.links,
+                                  ),
                                 ));
                             },
                                 text: AppLocalizations.of(context)
@@ -434,20 +427,27 @@ class _BookScreenState extends State<BookScreen> {
                                 //         image: widget.singleBook.image,
                                 //       ),
                                 //     )),
-                                onTab: (){
-                                  Navigator.push(
-                                    context,
-                                    PageTransition(
-                                        type: PageTransitionType.scale,
-                                        child: QuotesScreen(
-                                              isLogin: state.isLogin,
-                                              bookid: widget.bookId,
-                                              image: widget.singleBook.image,
-                                            ),
-                                        inheritTheme: true,
-                                        ctx: context),
-                                  );
-                                },
+                                onTap: () {
+                              // Navigator.push(
+                              //   context,
+                              //   PageTransition(
+                              //       type: PageTransitionType.scale,
+                              //       child: QuotesScreen(
+                              //             isLogin: state.isLogin,
+                              //             bookid: widget.bookId,
+                              //             image: widget.singleBook.image,
+                              //           ),
+                              //       inheritTheme: true,
+                              //       ctx: context),
+                              // );
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (_) => QuotesScreen(
+                                  isLogin: state.isLogin,
+                                  bookid: widget.bookId,
+                                  image: widget.singleBook.image,
+                                ),
+                              ));
+                            },
                                 text: AppLocalizations.of(context)
                                     .translate('quotes')),
                             Divider(
@@ -515,7 +515,7 @@ class _BookScreenState extends State<BookScreen> {
                                       //  ),
                                     ],
                                   ),
-                                ), onTab: () {
+                                ), onTap: () {
                               setState(() {
                                 showAnswer2 = !showAnswer2;
                               });
@@ -529,7 +529,7 @@ class _BookScreenState extends State<BookScreen> {
                             bookRow(context,
                                 show: showAnswer3,
                                 icon: 'assets/svg/book.svg',
-                                widget: Container(), onTab: () async {
+                                widget: Container(), onTap: () async {
                               await Navigator.of(context)
                                   .push(MaterialPageRoute(
                                 builder: (_) => MoreBookPage(
@@ -540,7 +540,8 @@ class _BookScreenState extends State<BookScreen> {
                                   bookNum: true,
                                 ),
                               ));
-                              _bloc.add(GetFavorite((b) => b..id = widget.bookId));
+                              _bloc.add(
+                                  GetFavorite((b) => b..id = widget.bookId));
                             },
                                 text: AppLocalizations.of(context)
                                     .translate('books for the same author')),
@@ -551,7 +552,7 @@ class _BookScreenState extends State<BookScreen> {
                             bookRow(context,
                                 show: showAnswer3,
                                 icon: 'assets/svg/book.svg',
-                                widget: Container(), onTab: () async {
+                                widget: Container(), onTap: () async {
                               await Navigator.of(context)
                                   .push(MaterialPageRoute(
                                 builder: (context) =>
@@ -559,9 +560,9 @@ class _BookScreenState extends State<BookScreen> {
                                 //     Navigator.of(context).push(MaterialPageRoute(
                                 //   builder: (context) => AboutWriterScreen(widget.author),
                               ));
-                              _bloc.add(GetFavorite((b) => b..id = widget.bookId));
-
-                                },
+                              _bloc.add(
+                                  GetFavorite((b) => b..id = widget.bookId));
+                            },
                                 text: AppLocalizations.of(context)
                                     .translate('books for the same section')),
                             Divider(
@@ -599,7 +600,7 @@ class _BookScreenState extends State<BookScreen> {
 
 Widget bookRow(context,
     {bool show,
-    Function onTab,
+    Function onTap,
     String text,
     String icon,
     String arrow,
@@ -619,7 +620,7 @@ Widget bookRow(context,
   }
   print('WIDGET IS $arr');
   return InkWell(
-    onTap: onTab,
+    onTap: onTap,
     child: Column(
       children: [
         Container(
@@ -647,7 +648,7 @@ Widget bookRow(context,
                     replacement: arr,
                   ),
                 ),
-                onTap: onTab,
+                onTap: onTap,
               )
             ],
           ),
@@ -859,6 +860,7 @@ Widget aboutWriter(BuildContext context) {
     ),
   );
 }
+
 Widget alertDialogFav(BuildContext context) {
   return Dialog(
     child: Column(
@@ -871,8 +873,7 @@ Widget alertDialogFav(BuildContext context) {
           ),
         ),
         Text(
-          AppLocalizations.of(context).translate(
-              'Sign in now...'),
+          AppLocalizations.of(context).translate('Sign in now...'),
           style: regStyle.copyWith(color: Color(0xFF9C9C9C)),
           textAlign: TextAlign.center,
         ),
@@ -884,15 +885,15 @@ Widget alertDialogFav(BuildContext context) {
             text: AppLocalizations.of(context).translate('Register'),
             context: context,
             onTap: () {
-              Navigator.of(context)
-                  .pushReplacement(MaterialPageRoute(
-                  builder: (context) => SignupScreen()
-              ));
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => SignupScreen()));
             },
           ),
         ),
         InkWell(
-          onTap: () {   Navigator.pop(context);},
+          onTap: () {
+            Navigator.pop(context);
+          },
           child: Text(
             AppLocalizations.of(context).translate('cancel'),
             style: regStyle.copyWith(

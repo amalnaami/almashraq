@@ -14,14 +14,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "279819755331-9pnpsia824isvkkbji4i2e7al62b49uq.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.maktabeh_app",
-            "certificate_hash": "b7b74d20de89e9a009555c5b87f965abc15a5f7f"
-          }
-        },
-        {
           "client_id": "279819755331-tgnbqj8f7l6b1fgc96es2529p6lv4q1f.apps.googleusercontent.com",
           "client_type": 3
         }

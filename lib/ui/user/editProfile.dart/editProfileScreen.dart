@@ -45,12 +45,16 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
 
   File _image;
   String dropdownCountry;
-  String genderType = '0';
+  String genderType = '';
   String genderValueType = null;
+
+  bool isChange = false;
 
   @override
   void initState() {
     super.initState();
+    genderType = widget.profileModel.data.gender;
+    // dropdownCountry = widget.profileModel.data.gender;
     _bloc.add(GetAppLanguage());
     _bloc.add(GetProfileData());
     _bloc.add(GetCountry());
@@ -71,18 +75,6 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => MainPage())));
         }
-        // if (state.success) {
-        //   WidgetsBinding.instance.addPostFrameCallback((_) =>
-        //       Navigator.of(context).pop());
-        // }
-//           if (state.success) {
-// print('successeditsuccesseditsuccessedit${state.successedit}');
-//             WidgetsBinding.instance.addPostFrameCallback((_) => Navigator.of(context).pop());
-//                 Navigator.of(context).pushReplacement(
-//                     MaterialPageRoute(builder: (context) => MainPage()));
-//           error(AppLocalizations.of(context).translate('adding successfully'));
-//
-//           }
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: customAppBar(
@@ -101,21 +93,6 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
                             width: 130,
                             child: Stack(
                               children: [
-                                // ClipRRect(
-                                //   borderRadius: BorderRadius.circular(1000),
-                                //   child:  _image!=null?
-                                //   FileImage(_image)
-                                //       :
-                                //   Image.network(
-                                //     widget.userData.image, fit: BoxFit.cover),
-                                //      // 'https://th.bing.com/th/id/OIP.BJLPreahM4_L0rTTUQAasQAAAA?pid=ImgDet&w=350&h=350&rs=1'),
-                                //   // Image.asset(
-                                //   //   "assets/image/3.jpg",
-                                //   //   fit: BoxFit.fill,
-                                //   //   height: double.infinity,
-                                //   //   width: double.infinity,
-                                //   // ),
-                                // ),
                                 Container(
                                   width: sizeAware.width * 0.3,
                                   height: sizeAware.width * 0.3,
@@ -173,7 +150,15 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
                           padding: EdgeInsets.symmetric(vertical: 10),
                           child: TextFormField(
                             onChanged: (v) {
-                        ( v!=null||v.isNotEmpty)?     _bloc.add(ChangeUserName((b) => b..value = v)): _bloc.add(ChangeUserName((b) => b..value = widget.profileModel.data.username));
+                              setState(() {
+                                isChange = true;
+                              });
+                              (v != null || v.isNotEmpty)
+                                  ? _bloc
+                                      .add(ChangeUserName((b) => b..value = v))
+                                  : _bloc.add(ChangeUserName((b) => b
+                                    ..value =
+                                        widget.profileModel.data.username));
                             },
                             // controller: _nameuserController,
                             maxLines: 1,
@@ -201,24 +186,21 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
                             ),
                           ),
                         ),
-
                         Container(
                           padding: EdgeInsets.symmetric(vertical: 10),
                           child: TextFormField(
                             onChanged: (v) {
-                              ( v!=null||v.isNotEmpty)?     _bloc.add(ChangeTele((b) => b..value = v)): _bloc.add(ChangeTele((b) => b..value = widget.profileModel.data.username));
+                              setState(() {
+                                isChange = true;
+                              });
+                              (v != null || v.isNotEmpty)
+                                  ? _bloc.add(ChangeTele((b) => b..value = v))
+                                  : _bloc.add(ChangeTele((b) => b
+                                    ..value =
+                                        widget.profileModel.data.username));
 
-                          //    _bloc.add(ChangeTele((b) => b..value = v));
+                              //    _bloc.add(ChangeTele((b) => b..value = v));
                             },
-
-                            // validator: (v) {
-                            //   if (v.isEmpty) {
-                            //     return AppLocalizations.of(context)
-                            //         .translate("name can not be empty");
-                            //   }
-                            //   return null;
-                            // }    ,
-                            // controller: _teleController,
                             maxLines: 1,
                             initialValue:
                                 widget.profileModel.data.mobile ?? 'No Mobile',
@@ -249,18 +231,15 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
                           padding: EdgeInsets.symmetric(vertical: 10),
                           child: TextFormField(
                             onChanged: (v) {
-                              ( v!=null||v.isNotEmpty)?     _bloc.add(ChangeEmail((b) => b..value = v)): _bloc.add(ChangeEmail((b) => b..value = widget.profileModel.data.username));
-
-                          //    _bloc.add(ChangeEmail((b) => b..value = v));
+                              setState(() {
+                                isChange = true;
+                              });
+                              (v != null || v.isNotEmpty)
+                                  ? _bloc.add(ChangeEmail((b) => b..value = v))
+                                  : _bloc.add(ChangeEmail((b) => b
+                                    ..value =
+                                        widget.profileModel.data.username));
                             },
-                            // validator: (v) {
-                            //   if (v.isEmpty) {
-                            //     return AppLocalizations.of(context)
-                            //         .translate("email can not be empty");
-                            //   }
-                            //   return null;
-                            // }    ,
-                            //   controller: _emailController,
                             maxLines: 1,
                             initialValue:
                                 widget.profileModel.data.email ?? 'No email',
@@ -287,23 +266,6 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
                             ),
                           ),
                         ),
-                        // CustomFeild2(
-                        //   controller: _nameController,
-                        //   hintText: AppLocalizations.of(context).translate('user name'),
-                        //   iconPath: "assets/svg/Profile.svg",
-                        // ),
-                        // CustomFeild2(
-                        //   controller: _emailController,
-                        //   hintText: AppLocalizations.of(context).translate('email'),
-                        //   iconPath: "assets/svg/email.svg",
-                        // ),
-
-                        // CustomFeild2(
-                        //   controller: _teleController,
-                        //   hintText: AppLocalizations.of(context).translate('phone number (optional)'),
-                        //   iconPath: "assets/svg/mobile.svg",
-                        // ),
-
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
@@ -346,6 +308,8 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
                                         (b) => b..value = newValue));
 
                                     setState(() {
+                                      isChange = true;
+
                                       if (newValue == 'Male') {
                                         genderValueType = newValue;
                                         genderType = 'male';
@@ -419,9 +383,9 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
                                           _bloc.add(ChangeCountry(
                                               (b) => b..value = newValue));
 
-                                          print('selectedValue  $newValue');
                                           setState(() {
                                             dropdownCountry = newValue;
+                                            isChange = true;
                                           });
                                         },
                                         items: state.country
@@ -449,114 +413,44 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
                                   ],
                                 ),
                               ),
-                        // OptionalFeild(
-                        //   title: AppLocalizations.of(context).translate('gender'),
-                        //   onTap: () {},
-                        //   iconPath: "assets/icons/Iconly-Broken-2 User.png",
-                        // ),
-                        // OptionalFeild(
-                        //   title: AppLocalizations.of(context).translate('country'),
-                        //   onTap: () {},
-                        //   iconPath: "assets/icons/Iconly-Broken-Location.png",
-                        // ),
                         SizedBox(
                           height: 20,
                         ),
-                        appButton(
-                            buttonColor: primaryColor,
-                            context: context,
-                            text: AppLocalizations.of(context)
-                                .translate('save changes'),
-                            textColor: Colors.white,
-                            onTap: () {
-                              // if (state.user == null ||
-                              //     state.user.user==null) {
-                              //   error('plz all check data');
-                              //   return;
-                              // }else if (state.user.user.mobile == null ||
-                              //     state.user.user.mobile.isEmpty) {
-                              //   error('mobile can not be empty');
-                              //   return;
-                              // }else
-                              // if (state.user.user.username == null ||
-                              //     state.user.user.username.isEmpty) {
-                              //   error(AppLocalizations.of(context)
-                              //       .translate('username can not be empty'));
-                              //   return;
-                              // } else if (state.user.user.country == null ||
-                              //     state.user.user.country.isEmpty) {
-                              //   error(AppLocalizations.of(context)
-                              //       .translate('country can not be empty'));
-                              //   return;
-                              // } else if (genderType == null ||
-                              //     genderType == '0' ||
-                              //     genderType.isEmpty) {
-                              //   print('genderTypegenderType $genderType');
-                              //   error(AppLocalizations.of(context)
-                              //       .translate('gender can not be empty'));
-                              //   return;
-                              // }
-                              // if (state.user.user.email == null ||
-                              //     state.user.user.email.isEmpty) {
-                              //   error(AppLocalizations.of(context)
-                              //       .translate('email can not be empty'));
-                              //   return;
-                              // }
-                              // else
-                              //  {
-                              //    _bloc.add(TryEdit((b) => b
-                              //      ..username = _nameuserController.value.text!=null?_nameuserController.value.text:widget.profileModel.data.username
-                              //      ..email = _emailController.value.text!=null?_emailController.value.text:widget.profileModel.data.email
-                              //      ..tele = _teleController.value.text!=null?_teleController.value.text:widget.profileModel.data.mobile
-                              //      ..gender = genderType.toString()!=null?genderType.toString():widget.profileModel.data.gender
-                              //      ..country_code = dropdownCountry.toString()!=null?dropdownCountry.toString():widget.profileModel.data.country
-                              //      ..image =_image));
-                              _bloc.add(TryEdit((b) => b
-                                ..username = state.user.user.username
-                                ..email = state.user.user.email
-                                ..image = _image
-                                ..tele = state.user.user.mobile
-                                ..gender = genderType.toString()
-                                ..country_code = state.user.user.country));
-                             // ..gender = state.user.user.gender!=null?'${state.user.user.gender.toLowerCase()}':'${widget.profileModel.data.gender.toLowerCase()}'
-
-                              print('state.user.user.usernamestate.user.user.username${state.user.user.username}');
-                              print('state.user.user.usernamestate.user.user.username${state.user.user.mobile}');
-                              print('state.user.user.usernamestate.user.user.username${state.user.user.gender.toLowerCase()}');
-                              print('state.user.user.usernamestate.user.user.username${widget.profileModel.data.gender}');
-                              print('state.user.user.usernamestate.user.user.username${state.user.user.country}');
-                              print('state.user.user.usernamestate.user.user.username${state.profileUser.data.country}');
-                              print('state.user.user.usernamestate.user.user.username${widget.profileModel.data.country}');
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (context) => MainPage()));
-
-                              error(AppLocalizations.of(context)
-                                  .translate('adding successfully'));
-
-                              // Navigator.of(context).pushReplacement(
-                              //          MaterialPageRoute(builder: (context) => MainPage()));
-                              //error(AppLocalizations.of(context).translate('adding successfully'));
-
-                              // Navigator.of(context).pushReplacement(
-                              //   MaterialPageRoute(builder: (context) => MainPage()));
-                              // CustomAlert().submitChangeData(
-                              //   context: context,
-                              //   onSubmite: () {
-                              //     _bloc.add(TryEdit((b) => b
-                              //     ..name=widget.userData.name
-                              //       ..username = _nameController.value.text
-                              //       ..email = _emailController.value.text
-                              //       ..tele = _teleController.value.text
-                              //       ..gender = genderType.toString()
-                              //       ..country_code = dropdownCountry.toString()
-                              //       ..image =_image));
-                              //   },
-                              //   title: AppLocalizations.of(context).translate('To save the changes, please type the password'),
-                              //   textBtn: AppLocalizations.of(context).translate('save changes'),
-                              //   hintText: AppLocalizations.of(context).translate('password'),
-                              // );
-                            }),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          child: FlatButton(
+                              color: !isChange ? Colors.grey : primaryColor,
+                              onPressed: () {
+                                isChange
+                                    ? _bloc.add(TryEdit((b) => b
+                                      ..username = state.user.user.username
+                                      ..email = state.user.user.email
+                                      ..image = _image
+                                      ..tele = state.user.user.mobile
+                                      ..gender = genderType.toString()
+                                      ..country_code = dropdownCountry))
+                                    : print('No Changes');
+                                if (isChange)
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (context) => MainPage()));
+                                if (isChange)
+                                  error(AppLocalizations.of(context)
+                                      .translate('adding successfully'));
+                                if (!isChange)
+                                  error(AppLocalizations.of(context)
+                                      .translate('noChange'));
+                              },
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Text(
+                                  AppLocalizations.of(context)
+                                      .translate('save changes'),
+                                  style: regStyle.copyWith(
+                                      fontSize: 14, color: Colors.white))),
+                        ),
                         SizedBox(
                           height: 35,
                         ),
@@ -606,10 +500,7 @@ class _EfitProfileScreenState extends State<EfitProfileScreen> {
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
-        // _bloc.add(ChangeFname((b) =>
-        // b
-        //   ..value=v
-        // ));
+        isChange = true;
       }
     });
   }

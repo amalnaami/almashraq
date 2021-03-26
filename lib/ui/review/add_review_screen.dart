@@ -18,6 +18,7 @@ import 'package:maktabeh_app/ui/review/review_screen.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 import '../../injection.dart';
+import '../common_widget/local_image.dart';
 
 class AddReviewScreen extends StatefulWidget {
   int bookid;
@@ -36,106 +37,134 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
     super.initState();
     textController = TextEditingController();
   }
+
+  backMethod(){
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp){
+      Navigator.of(context).pop();
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+        return ReviewScreen(bookid:widget.bookid ,isLogin: widget.isLogin,);
+      },));
+
+    });
+  }
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
 
-    return BlocBuilder(
-        cubit: _bloc,
-        builder: (BuildContext context, HomeState state) {
-      error(state.error);
-      if(state.success) {
-        error(AppLocalizations.of(context).translate('adding successfully'));
-        // Timer(Duration(seconds: 1), () => Navigator.of(context).pop());
-        // WidgetsBinding.instance.addPostFrameCallback((timeStamp){
-        //   Navigator.of(context).pop();
-        // });
-        WidgetsBinding.instance.addPostFrameCallback((timeStamp){
-          Navigator.of(context).pop();
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-            return ReviewScreen(bookid:widget.bookid ,isLogin: widget.isLogin,);
-          },));
-
-        });
-
-      }
-      return SafeArea(
-        child: Scaffold(
-      appBar: app_bar(AppLocalizations.of(context).translate('reviews'), context),
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-            vertical: SizeConfig.blockSizeVertical * 2,
-            horizontal: SizeConfig.blockSizeHorizontal * 4),
-        child: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: SizeConfig.blockSizeVertical * 2),
-                    child: Text(
-                      AppLocalizations.of(context).translate('add review'),
-                      style: boldStyle.copyWith(color: Colors.black),
-                    ),
+    return WillPopScope(
+      onWillPop: () async {
+        return await backMethod();
+      },
+      child: BlocBuilder(
+          cubit: _bloc,
+          builder: (BuildContext context, HomeState state) {
+        error(state.error);
+        if(state.success) {
+          textController.text='';
+          error(AppLocalizations.of(context).translate('adding successfully'));
+        }
+        return SafeArea(
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text(
+                  AppLocalizations.of(context).translate('reviews'),
+                style: regStyle.copyWith(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500),
+              ),
+              centerTitle: true,
+              elevation: 0,
+              leading: InkWell(
+                onTap: () {
+                  backMethod();
+                },
+                child: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: buildLocalImage(
+                    AppLocalizations.of(context).locale.toLanguageTag() == 'ar'
+                        ? 'assets/svg/arrow_back_white.svg'
+                        : 'assets/svg/arrow_forward.svg',
+                    color: Colors.white,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context).translate('rate'),
-                        style: regStyle.copyWith(
-                            color: Colors.black, fontWeight: FontWeight.w500),
-                      ),
-                      SmoothStarRating(
-                          allowHalfRating: false,
-                          onRated: (v) {
-                            setState(() {
-                              rate = v.toInt();
-                            });
-                            print('SADS $v');
-                          },
-                          starCount: 5,
-                          rating: double.parse('$rate'),
-                          size: SizeConfig.screenWidth * 0.08,
-                          defaultIconData: Icons.star_outline_rounded,
-                          filledIconData: Icons.star_rounded,
-                          isReadOnly: false,
-                          color: Color(0xFFFFE32A),
-                          borderColor: Color(0xFFD4D4D4),
-                          spacing: -3),
-                     // rateStars(SizeConfig.screenWidth * 0.08, rate),
-                    ],
-                  ),
-                  CustomFeild2(
-                    lines: 8,
-                    controller: textController,
-                    hintText: AppLocalizations.of(context).translate('comment'),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: SizeConfig.blockSizeVertical * 6),
-                    child: appButton(
-                      context: context,
-                      onTap: () {
-                        _bloc.add(AddNewReview((b) => b..text = textController.value.text
-                        ..rating=rate
-                        ..bookId=widget.bookid));
-                      },
-                      text: AppLocalizations.of(context).translate('add'),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
-            if(state.isLoading)
-              loaderApp,
-          ],
+        body: Padding(
+          padding: EdgeInsets.symmetric(
+              vertical: SizeConfig.blockSizeVertical * 2,
+              horizontal: SizeConfig.blockSizeHorizontal * 4),
+          child: Stack(
+            children: [
+              SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: SizeConfig.blockSizeVertical * 2),
+                      child: Text(
+                        AppLocalizations.of(context).translate('add review'),
+                        style: boldStyle.copyWith(color: Colors.black),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context).translate('rate'),
+                          style: regStyle.copyWith(
+                              color: Colors.black, fontWeight: FontWeight.w500),
+                        ),
+                        SmoothStarRating(
+                            allowHalfRating: false,
+                            onRated: (v) {
+                              setState(() {
+                                rate = v.toInt();
+                              });
+                              print('SADS $v');
+                            },
+                            starCount: 5,
+                            rating: double.parse('$rate'),
+                            size: SizeConfig.screenWidth * 0.08,
+                            defaultIconData: Icons.star_outline_rounded,
+                            filledIconData: Icons.star_rounded,
+                            isReadOnly: false,
+                            color: Color(0xFFFFE32A),
+                            borderColor: Color(0xFFD4D4D4),
+                            spacing: -3),
+                       // rateStars(SizeConfig.screenWidth * 0.08, rate),
+                      ],
+                    ),
+                    CustomFeild2(
+                      lines: 8,
+                      controller: textController,
+                      hintText: AppLocalizations.of(context).translate('comment'),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: SizeConfig.blockSizeVertical * 6),
+                      child: appButton(
+                        context: context,
+                        onTap: () {
+                          _bloc.add(AddNewReview((b) => b..text = textController.value.text
+                          ..rating=rate
+                          ..bookId=widget.bookid));
+                        },
+                        text: AppLocalizations.of(context).translate('add'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              if(state.isLoading)
+                loaderApp,
+            ],
+          ),
         ),
+      ));
+          },
       ),
-    ));
-        },
     );
   }
   void error(String errorCode) {

@@ -69,7 +69,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   state.isLogin
                       ?  Container(
                     width: double.infinity,
-                    height: MediaQuery.of(context).size.height * 0.15,
+                    height: MediaQuery.of(context).size.height * 0.2,
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
                       borderRadius: BorderRadius.circular(15),
