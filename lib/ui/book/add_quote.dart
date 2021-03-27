@@ -60,12 +60,12 @@ class _AddQuoteScreenState extends State<AddQuoteScreen> {
 
     return WillPopScope(
       onWillPop: () async {
-        return false;
+        return await backMethod();
       },
       child: BlocBuilder(
         cubit: _bloc,
         builder: (BuildContext context, HomeState state) {
-          error(state.error);
+         // error(state.error);
           if (state.success) {
             textController.text = '';
             error(

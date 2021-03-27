@@ -8,6 +8,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   IRepository _repository;
   int currentPage = 1;
   int lastPage = 2;
+
   HomeBloc(this._repository) : super(HomeState.init());
 
   @override
@@ -127,7 +128,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           ..isLoading = false
           ..authors.replace([]));
       }
-    } else if (event is GetFeaturedBook){
+    } else if (event is GetFeaturedBook) {
       try {
         yield state.rebuild((b) => b
           ..isLoading = true
@@ -142,7 +143,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           ..isLoading = false
           ..featuredBooks.replace([]));
       }
-    } else if(event is GetCategories) {
+    } else if (event is GetCategories) {
       try {
         yield state.rebuild((b) => b
           ..isLoading = true
@@ -168,8 +169,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         print(' Error $e');
         yield state.rebuild((b) => b..error = "");
       }
-    }
-    else if (event is GetReviewByBookId) {
+    } else if (event is GetReviewByBookId) {
       try {
         yield state.rebuild((b) => b
           ..isLoading = true
@@ -185,7 +185,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           ..isLoading = false
           ..allReview.replace([]));
       }
-    }else if (event is GetQuotesByBookId) {
+    } else if (event is GetQuotesByBookId) {
       try {
         yield state.rebuild((b) => b
           ..isLoading = true
@@ -201,13 +201,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           ..isLoading = false
           ..allQuote.replace([]));
       }
-    }
-    else if (event is GetSectionByBook) {
+    } else if (event is GetSectionByBook) {
       try {
         yield state.rebuild((b) => b
           ..isLoading = true
           ..sectionBook = null);
-        final res = await _repository.getSectionByBook( event.bookId,event.sectionId,);
+        final res = await _repository.getSectionByBook(
+          event.bookId,
+          event.sectionId,
+        );
 
         yield state.rebuild((b) => b
           ..isLoading = false
@@ -226,9 +228,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           ..error = ''
           ..success = false);
         final res =
-        await _repository.addReview(event.text, event.rating,event.bookId);
+            await _repository.addReview(event.text, event.rating, event.bookId);
         yield state.rebuild((b) => b
-          ..isLoading = false..success = res);
+          ..isLoading = false
+          ..success = res);
       } catch (e) {
         yield state.rebuild((b) => b
           ..error = 'something went wrong'
@@ -242,10 +245,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           ..isLoading = true
           ..error = ''
           ..success = false);
-        final res =
-        await _repository.addQuote(event.text,event.bookId);
+        final res = await _repository.addQuote(event.text, event.bookId);
         yield state.rebuild((b) => b
-          ..isLoading = false..success = res);
+          ..isLoading = false
+          ..success = res);
       } catch (e) {
         yield state.rebuild((b) => b
           ..error = 'something went wrong'

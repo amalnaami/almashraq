@@ -58,7 +58,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
       child: BlocBuilder(
           cubit: _bloc,
           builder: (BuildContext context, HomeState state) {
-        error(state.error);
+     //   error(state.error);
         if(state.success) {
           textController.text='';
           error(AppLocalizations.of(context).translate('adding successfully'));
