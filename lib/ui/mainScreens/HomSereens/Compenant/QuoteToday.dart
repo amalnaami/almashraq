@@ -50,7 +50,7 @@ class _QuoteTodayState extends State<QuoteToday> {
           ),
         ),
         if(widget.quote != null)
-        QuoteCard(quote: widget.quote,),
+        QuoteCard(quote: widget.quote),
       ],
     );
   }

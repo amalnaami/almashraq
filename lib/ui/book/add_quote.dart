@@ -60,7 +60,7 @@ class _AddQuoteScreenState extends State<AddQuoteScreen> {
 
     return WillPopScope(
       onWillPop: () async {
-        return await backMethod();
+        return false;
       },
       child: BlocBuilder(
         cubit: _bloc,

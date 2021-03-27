@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:maktabeh_app/core/app_localizations.dart';
 import 'package:maktabeh_app/core/loaderApp.dart';
 import 'package:maktabeh_app/core/style/baseColors.dart';
@@ -10,9 +13,12 @@ import 'package:maktabeh_app/ui/auth/login_bloc/login_bloc.dart';
 import 'package:maktabeh_app/ui/auth/login_bloc/login_state.dart';
 import 'package:maktabeh_app/ui/common_widget/app_button.dart';
 import 'package:maktabeh_app/ui/mainScreens/main_screen.dart';
+import 'package:page_transition/page_transition.dart';
 import 'login_bloc/login_event.dart';
 import 'resetPass/confairmEmailScreen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as JSON;
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -39,6 +45,9 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
+  final facebookLogin = FacebookLogin();
+  GoogleSignIn _googleSignIn;
+
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
@@ -48,9 +57,26 @@ class _LoginScreenState extends State<LoginScreen> {
       cubit: _bloc,
       builder: (BuildContext context, LoginState state) {
         error(state.error);
-        if(state.successLogin) {
-          WidgetsBinding.instance.addPostFrameCallback((timeStamp) { Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-              MainPageProvider()), (Route<dynamic> route) => false);});
+        if (state.successLogin) {
+          WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => MainPageProvider()),
+                (Route<dynamic> route) => false);
+          });
+          _bloc.add(ClearState());
+        }
+        if (state.successSocail) {
+          WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+            Navigator.push(
+              context,
+              PageTransition(
+                  type: PageTransitionType.scale,
+                  child: MainPage(),
+                  inheritTheme: true,
+                  ctx: context),
+            );
+
+          });
           _bloc.add(ClearState());
         }
         return Scaffold(
@@ -138,7 +164,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               Row(
                                 children: [
                                   ImageIcon(
-                                    AssetImage("assets/icons/Lock.png",),
+                                    AssetImage(
+                                      "assets/icons/Lock.png",
+                                    ),
                                     size: 20,
                                     color: primaryColor,
                                   ),
@@ -146,9 +174,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                     width: 5,
                                   ),
                                   Text(
-                                      AppLocalizations.of(context)
-                                          .translate('password'),
-                                    style: regStyle.copyWith(color: Colors.black),
+                                    AppLocalizations.of(context)
+                                        .translate('password'),
+                                    style:
+                                        regStyle.copyWith(color: Colors.black),
                                   ),
                                 ],
                               ),
@@ -162,11 +191,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: TextFormField(
                               obscureText: !_showPassword,
                               controller: passwordController,
-                              maxLines:1,
+                              maxLines: 1,
                               decoration: InputDecoration(
                                 fillColor: Color(0xFFFBFBFB),
                                 filled: true,
-                                hintStyle: regStyle.copyWith(color: Color(0xFFC4C4C4)),
+                                hintStyle:
+                                    regStyle.copyWith(color: Color(0xFFC4C4C4)),
                                 hintText: '*********',
                                 suffixIcon: InkWell(
                                   onTap: () {
@@ -181,9 +211,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                   ),
                                 ),
-
-                                contentPadding:
-                                EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: 20.0, horizontal: 10),
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide.none,
                                   borderRadius: BorderRadius.circular(15.0),
@@ -242,9 +271,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 return;
                               } else {
                                 _bloc.add(
-                                  Login((b) => b
-                                    ..password = passwordController.value.text
-                                    ..userName = userNameController.value.text,),
+                                  Login(
+                                    (b) => b
+                                      ..password = passwordController.value.text
+                                      ..userName =
+                                          userNameController.value.text,
+                                  ),
                                 );
                               }
                             },
@@ -264,26 +296,104 @@ class _LoginScreenState extends State<LoginScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Container(
-                                width: 50,
-                                height: 50,
-                                child:
-                                    Image.asset('assets/image/google_icon.png'),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: seconderyColor,
-                                ),
-                              ),
+                              InkWell(
+                                  child: Container(
+                                    width: 50,
+                                    height: 50,
+                                    child: Image.asset(
+                                        'assets/image/google_icon.png'),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: seconderyColor,
+                                    ),
+                                  ),
+                                  onTap: () async {
+                                    try {
+                                      _googleSignIn = GoogleSignIn(
+                                          scopes: <String>['email']);
+                                      print('_googleSignIn $_googleSignIn');
+                                      GoogleSignInAccount googleSignInAccount;
+                                      if (googleSignInAccount == null) {
+                                        googleSignInAccount =
+                                            await _googleSignIn
+                                                .signIn()
+                                                .catchError((onError) {
+                                          return Future.error(
+                                              onError.toString());
+                                        });
+                                        print(googleSignInAccount ??
+                                            "error in google");
+                                      }
+                                      if (googleSignInAccount != null) {
+                                        //process success
+                                        final GoogleSignInAuthentication
+                                            googleSignInAuthentication =
+                                            await googleSignInAccount
+                                                .authentication;
+                                        print(
+                                            ('gggooogle ${googleSignInAuthentication.accessToken}'));
+                                        print(
+                                            ('gggooogle ${googleSignInAuthentication.toString()}'));
+                                        _bloc.add(SocialLogin((b) => b
+                                          ..acessToken =
+                                              googleSignInAuthentication
+                                                  .accessToken
+                                          ..typeSocial = 'google'));
+                                        error('Success Register');
+                                      }
+                                      return Future.error(" Future.error");
+                                    } on PlatformException catch (e) {
+                                      print(e.toString());
+                                      Future.error("ePlatformExceptionin");
+                                    } catch (e) {
+                                      print('catch Error' + e.toString());
+                                      Future.error("error in google sin in");
+                                    }
+                                  }),
                               SizedBox(width: 10),
-                              Container(
-                                width: 50,
-                                height: 50,
-                                child: Image.asset(
-                                    'assets/image/facebook_icon.png'),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: seconderyColor,
+                              InkWell(
+                                child: Container(
+                                  width: 50,
+                                  height: 50,
+                                  child: Image.asset(
+                                      'assets/image/facebook_icon.png'),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: seconderyColor,
+                                  ),
                                 ),
+                                onTap: () async {
+                                  print('facebookClick');
+                                  final result =
+                                      await facebookLogin.logIn(['email']);
+                                  switch (result.status) {
+                                    case FacebookLoginStatus.loggedIn:
+                                      {
+                                        final token = result.accessToken.token;
+                                        final graphResponse = await http.get(
+                                            'https://graph.facebook.com/v2.12/me?fields=name,picture.width(800).height(800),first_name,last_name,email&access_token=${token}');
+                                        final profile =
+                                            JSON.jsonDecode(graphResponse.body);
+                                        if (profile != null) {
+                                          error('Success Register');
+                                          print(
+                                              'tooken ${result.accessToken.token}');
+                                          _bloc.add(SocialLogin((b) => b
+                                            ..acessToken =
+                                                result.accessToken.token
+                                            ..typeSocial = 'facebook'));
+                                        }
+                                      }
+                                      break;
+                                    case FacebookLoginStatus.cancelledByUser:
+                                      //_showCancelledMessage();
+                                      break;
+                                    case FacebookLoginStatus.error:
+                                      print(
+                                          'FacebookLoginStatus Error : ${result.errorMessage}');
+                                      break;
+                                  }
+                                },
                               ),
                             ],
                           ),
