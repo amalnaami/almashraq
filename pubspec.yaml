@@ -52,7 +52,7 @@ dependencies:
   equatable: ^1.2.6
   flutter_facebook_login: ^3.0.0
   google_sign_in: any
-  admob_flutter: ^1.0.1
+#  admob_flutter: ^1.0.1
   webview_flutter: ^1.0.7
   page_transition: ^1.1.7+6
   flutter_staggered_animations: 0.1.2
